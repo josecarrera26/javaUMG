@@ -18,8 +18,12 @@ Sincronizar repositorio, paso a paso
   13. git remote -v
 
 Publicar nueva version del software
-Luego de sincronizar el repositorio remoto y hacer cambios en el codigo del programa, se deben ejecutar los siguientes comandos:
+Luego de sincronizar el repositorio remoto y hacer cambios en el codigo del programa, se deben ejecutar los siguientes comandos en la consola de git bash:
   1. git satus
   2. git add .
   3. git commit -m "comentario con detalles de lo que se implemento"
   4. git push 
+
+Solicitar ultima version del software
+antes de empezar algun cambio en el codigo, devemos ejecutar el comando en la consola de git bash:
+  1. git pull
