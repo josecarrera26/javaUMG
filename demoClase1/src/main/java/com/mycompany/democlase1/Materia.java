@@ -12,6 +12,20 @@ package com.mycompany.democlase1;
 public class Materia {
 
     /**
+     * @return the ciclo
+     */
+    public Integer getCiclo() {
+        return ciclo;
+    }
+
+    /**
+     * @param ciclo the ciclo to set
+     */
+    public void setCiclo(Integer ciclo) {
+        this.ciclo = ciclo;
+    }
+
+    /**
      * @return the idProfesor
      */
     public Integer getIdProfesor() {
@@ -55,6 +69,7 @@ public class Materia {
     private Integer idProfesor;
     private String nameClass;
     private Integer idMateria;
+    private Integer ciclo;
 
     public Materia(Integer idProfesor, String nameClass, Integer idMateria) {
         this.idProfesor = idProfesor;
