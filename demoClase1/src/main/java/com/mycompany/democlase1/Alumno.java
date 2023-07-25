@@ -37,28 +37,13 @@ public class Alumno {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    /**
-     * @return the ciclo
-     */
-    public Integer getCiclo() {
-        return ciclo;
-    }
-
-    /**
-     * @param ciclo the ciclo to set
-     */
-    public void setCiclo(Integer ciclo) {
-        this.ciclo = ciclo;
-    }
     
     private String nombre;
     private Integer id;
-    private Integer ciclo;
 
-    public Alumno(String nombre, Integer id, Integer ciclo) {
+
+    public Alumno(Integer id, String nombre ) {
         this.nombre = nombre;
         this.id = id;
-        this.ciclo = ciclo;
     }
 }
