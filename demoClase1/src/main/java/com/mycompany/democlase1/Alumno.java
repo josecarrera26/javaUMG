@@ -4,11 +4,26 @@
  */
 package com.mycompany.democlase1;
 
+
 /**
  *
  * @author josel
  */
 public class Alumno {
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     /**
      * @return the nombre
@@ -25,25 +40,31 @@ public class Alumno {
     }
 
     /**
-     * @return the id
+     * @return the estado
      */
-    public Integer getId() {
-        return id;
+    public Boolean getEstado() {
+        return estado;
     }
 
     /**
-     * @param id the id to set
+     * @param estado the estado to set
      */
-    public void setId(Integer id) {
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public Alumno(Integer id, String nombre, Boolean estado) {
         this.id = id;
+        this.nombre = nombre;
+        this.estado = estado;
     }
     
-    private String nombre;
+    
+    //Carnet
     private Integer id;
-
-
-    public Alumno(Integer id, String nombre ) {
-        this.nombre = nombre;
-        this.id = id;
-    }
+    //nombre del estudiante
+    private String nombre;
+    //1 activo 0 inactivo
+    private Boolean estado;
 }
+
