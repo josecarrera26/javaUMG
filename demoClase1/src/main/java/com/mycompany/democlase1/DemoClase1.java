@@ -35,13 +35,6 @@ public class DemoClase1 {
         
        ArrayList <Profesor> maestros = Profesor.listadoProfesores();
        
-        System.out.println("Catedraticos");
-        System.out.println("ID Profesor\tNombre del Catedratico");
-       for (Profesor profe : maestros){
-           System.out.println(profe.getIdProfesor()+"\t\t"+profe.getName());
-       }
-       
-        System.out.println(maestros.get(1).getIdProfesor());
        
     //Creacion de Materias
         //Array de Materias         
