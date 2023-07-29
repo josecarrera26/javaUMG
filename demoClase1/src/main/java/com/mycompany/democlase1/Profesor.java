@@ -4,6 +4,8 @@
  */
 package com.mycompany.democlase1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author josel
@@ -45,4 +47,16 @@ public class Profesor {
     private Integer idProfesor;
     private String name;
     
+    
+    
+    public static ArrayList listadoProfesores(){
+        
+        ArrayList<Profesor> listaProfesores = new ArrayList();
+        listaProfesores.add(new Profesor(1, "Carlos L."));
+        listaProfesores.add(new Profesor(2, "Daniel A."));
+        listaProfesores.add(new Profesor(3, "Miguel M."));  
+        
+        return listaProfesores;
+        
+    }
 }

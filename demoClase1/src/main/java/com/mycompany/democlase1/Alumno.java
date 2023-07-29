@@ -4,13 +4,15 @@
  */
 package com.mycompany.democlase1;
 
+import java.util.ArrayList;
+
 
 /**
  *
  * @author josel
  */
 public class Alumno {
-
+    
     /**
      * @return the id
      */
@@ -66,5 +68,18 @@ public class Alumno {
     private String nombre;
     //1 activo 0 inactivo
     private Boolean estado;
+    
+    
+    
+    public static ArrayList rosterAlumnos(){
+        
+        ArrayList<Alumno> listadoAlumnos = new ArrayList();
+        listadoAlumnos.add(new Alumno(1, "Jose Luis Carrera M." , true));
+        listadoAlumnos.add(new Alumno(2, "Stephany Maricee M.", true));
+        listadoAlumnos.add(new Alumno(3, "Francisco Duran C.", false));  
+        
+        return listadoAlumnos;
+        
+    }
 }
 

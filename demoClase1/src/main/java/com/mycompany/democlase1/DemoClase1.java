@@ -4,6 +4,8 @@
 
 package com.mycompany.democlase1;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -13,13 +15,11 @@ import java.util.Scanner;
  * @author josel
  */
 public class DemoClase1 {
+    private Map <Alumno, Materia> asignacion;    
     
-    private Map<Integer, Materia> map;
-
-    public DemoClase1() {
-         map =new HashMap<>();
+    public DemoClase1(){
+    asignacion = new HashMap<>();
     }
-
     
     public static void main(String[] args) {
         
@@ -28,75 +28,47 @@ public class DemoClase1 {
         
     //Creacion de Alumnos
         //Array de Alumnos
-        Alumno[] rosterAlumnos = new Alumno [10];
+        ArrayList <Alumno> roster = Alumno.rosterAlumnos();
         
-        Alumno alumno1 = new Alumno(1, "Jose Luis Carrera Moreno" , true);
-        Alumno alumno2 = new Alumno(2, "Stephany Maricee Martinez Cojulun", true);
-        Alumno alumno3 = new Alumno(3, "Stephany Maricee Martinez Cojulun", false);
-        
-        rosterAlumnos [1] = alumno1;
-        rosterAlumnos [2] = alumno2;
-        rosterAlumnos [3] = alumno3;    
+        System.out.println("Alumnos");
+        System.out.println("Carnet\t\t\tNombre\t\t\t\tEstado");
+        String estado;
+        for (Alumno alumno : roster){
+            if (alumno.getEstado()){
+                estado = "Activo";
+            }
+            else{
+                estado = "Inactivo";
+            }
+            
+            System.out.println(alumno.getId()+"\t\t\t"+alumno.getNombre()+"\t\t"+ estado);
+        }
     
     //Creacion de Profesores
         //Array de Profesores  
         
-       Profesor[] rosterProfes = new Profesor [10];
+       ArrayList <Profesor> maestros = Profesor.listadoProfesores();
        
-       Profesor prMatematica = new Profesor(1, "Carlos Lopez");
-       Profesor prCiencias = new Profesor(2, "Daniel Alavarado");
-       Profesor prMusica = new Profesor(3, "Chapo");
+        System.out.println("Catedraticos");
+        System.out.println("ID Profesor\tNombre del Catedratico");
+       for (Profesor profe : maestros){
+           System.out.println(profe.getIdProfesor()+"\t\t"+profe.getName());
+       }
        
-       rosterProfes[1] = prMatematica;
-       rosterProfes[2] = prCiencias;
-       rosterProfes [3] = prMusica;
+        System.out.println(maestros.get(1).getIdProfesor());
        
     //Creacion de Materias
         //Array de Materias         
-        Materia[] listadoMaterias = new Materia [10];
-        Materia matematicas = new Materia(rosterProfes[1].getIdProfesor(), "Matematicas", 1);
-        Materia ciencias = new Materia(rosterProfes[2].getIdProfesor(), "Matematicas", 2);
-        Materia musica = new Materia(rosterProfes[3].getIdProfesor(), "Matematicas", 3);
         
-        listadoMaterias[1] = matematicas;
-        listadoMaterias[2] = ciencias;
-        listadoMaterias[3] = musica;
- //creacion de MAP
+    ArrayList <Materia> cursos = Materia.listadoMaterias(maestros);
+    
+        System.out.println("Materias");
+        System.out.println("ID Profesor\tNombre Profesor\t\tID Curso\tNombre Materia");
         
-        
-        String strTest = "2";
-        
-        System.out.println(rosterAlumnos[Integer.parseInt(strTest)].getNombre());
-        System.out.println(rosterAlumnos[Integer.parseInt(strTest)].getId());
-        System.out.println(rosterAlumnos[Integer.parseInt(strTest)].getEstado());
-        while (option < 3 ){
-            
-            
-            //INPUT DEL USUSUARIO
-            System.out.println("Ingrese el numero de carnet ");
-            Scanner nvoAlumno = new Scanner(System.in);
-            String numCarnet = nvoAlumno.nextLine();
-            
-            
-            if (!rosterAlumnos[Integer.parseInt(numCarnet)].getEstado()){
-                System.out.println("El estudiante no esta activo.");
-                System.exit(0);
-            }
-            //PUT PARA EL MAP
-            //nuevoAlumno.put(nuevoAlumno.size() + 1, nvAlmnNombre);
-            
-            //CREACION DEL OBJETO USANDO MAP
-            // Alumno alum = new Alumno(nuevoAlumno.size(), nuevoAlumno.get(nuevoAlumno.size()));
-            // System.out.println("El alumno con la sigiente informacion ");
-            // System.out.println("Carnet: " + alum.getId() );
-            // System.out.println("Nombre: " + alum.getNombre());
-            
-//            System.out.println("Would you like to add another student?");
-//            Scanner optionIn = new Scanner(System.in);
-//            option = optionIn.nextInt();
-            
-            // System.out.println("Hello World!");*/
+        for (Materia curso :cursos){
+            System.out.println(curso.getCatedratico().getIdProfesor()+"\t\t"+curso.getCatedratico().getName()+"\t\t"+curso.getIdMateria()+"\t\t"+curso.getNombreCurso());
         }
+        
 
         /*Revisando cambios*/
             //CALCULOS
