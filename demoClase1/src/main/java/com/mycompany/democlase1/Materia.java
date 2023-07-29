@@ -69,18 +69,18 @@ public class Materia {
     
     public static ArrayList listadoMaterias(ArrayList<Profesor> listadoProfes){
         
-        Integer i = 0;
+        Integer i = 1;
         ArrayList<Materia> listaMaterias = new ArrayList();
         
         for (Profesor profe : listadoProfes){
             switch (i) {
-                case 0:    
+                case 1:    
                     listaMaterias.add(new Materia(i++, "Matematicas", profe));
                     break;
-                case 1:
+                case 2:
                     listaMaterias.add(new Materia(i++, "Ciencias", profe));
                     break;
-                case 2:
+                case 3:
                     listaMaterias.add(new Materia(i++, "Musica", profe));
                     break;
                 default:
