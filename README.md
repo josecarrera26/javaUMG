@@ -27,3 +27,9 @@ Luego de sincronizar el repositorio remoto y hacer cambios en el codigo del prog
 Solicitar ultima version del software
 antes de empezar algun cambio en el codigo, devemos ejecutar el comando en la consola de git bash:
   1. git pull
+Clonar repositorio para integrantes del equipo
+  1. git clone
+  2. realizar un cambio comentado en el archivo que contiene el metodo main y guardarlo.
+  3. git add .
+  4. git commit -m "mensaje"
+  5. git push
