@@ -39,6 +39,8 @@ public class DemoClase1 {
     //Creacion de Materias
         //Array de Materias         
         //mi primer commit
+        //Jose Luis Carrera
+        
     ArrayList <Materia> cursos = Materia.listadoMaterias(maestros);
         
         //Menu Principal
