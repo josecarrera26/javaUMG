@@ -33,4 +33,5 @@ Clonar repositorio para integrantes del equipo
   2. realizar un cambio comentado en el archivo que contiene el metodo main y guardarlo.
   3. git add .
   4. git commit -m "mensaje"
-  5. git push
+  5. si solicita configurar correo y usuario: git config --global user.email "escribaaquisucorreo@correo.com" git config --global user.name "escribir nombre" escribir nuevamente el comando 4
+  6. git push
