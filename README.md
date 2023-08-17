@@ -29,7 +29,7 @@ antes de empezar algun cambio en el codigo, devemos ejecutar el comando en la co
   1. git pull
 
 Clonar repositorio para integrantes del equipo
-  1. git clone
+  1. git clone https://github.com/josecarrera26/javaUMG
   2. realizar un cambio comentado en el archivo que contiene el metodo main y guardarlo.
   3. git add .
   4. git commit -m "mensaje"
