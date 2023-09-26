@@ -54,7 +54,7 @@ public class Profesor {
         ArrayList<Profesor> listaProfesores = new ArrayList();
         listaProfesores.add(new Profesor(1, "Carlos L."));
         listaProfesores.add(new Profesor(2, "Daniel A."));
-        listaProfesores.add(new Profesor(3, "Miguel M."));  
+        listaProfesores.add(new Profesor(3, "Miguel M."));
         
         return listaProfesores;
         
