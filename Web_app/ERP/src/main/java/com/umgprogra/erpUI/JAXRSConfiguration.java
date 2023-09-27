@@ -1,4 +1,4 @@
-package com.umgprogra.erp;
+package com.umgprogra.erpUI;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
