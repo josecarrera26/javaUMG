@@ -16,16 +16,16 @@
                             <p:panelGrid id="pnlGridp" layout="grid" columns="2" style="width: 100%">
 
                                 <h:outputLabel id="lblIdProducto" value="Cod. Producto" />
-                                <p:inputText id="codigo" value="" required="true" requiredMessage="Codigo requerido" />
+                                <p:inputText id="codigo" value="#{inventarioUI.codProducto}" required="true" requiredMessage="Codigo requerido" />
 
                                 <h:outputLabel id="lblIdDes" value="Nombre" />
-                                <p:inputText id="descripcion" value="" required="true" requiredMessage="Descripcion requerida" />
+                                <p:inputText id="descripcion" value="#{inventarioUI.nombre}" required="true" requiredMessage="Descripcion requerida" />
 
                                 <h:outputLabel id="idLabelCantidad" value="Cantidad:" />
-                                <p:inputNumber id="input1" value="" modifyValueOnWheel="false" />
-
+                                <p:inputNumber id="input1" value="#{inventarioUI.cantidad}" modifyValueOnWheel="false" />
+                                
                                 <h:outputLabel id="idLabelModelo" value="Modelo:" />
-                                <p:inputText id="idModelo" value="" required="true" requiredMessage="Modelo requerido"/>
+                                <p:inputText id="idModelo" value="#{inventarioUI.modelo}" required="true" requiredMessage="Modelo requerido"/>
                             </p:panelGrid>
 
                             <p:panelGrid id="pnlGridunidad" layout="grid" columns="2" style="width: 100%">
@@ -37,28 +37,35 @@
                                     </p:selectOneMenu>
                              
                             </p:panelGrid>
+                            
                             <p:panelGrid id="pnlGridMarca" layout="grid" columns="2" style="width: 100%">
                                 <p:outputLabel id="idLabelMarca" value="Marca"  for="@next"/>
-                                <p:panelGrid id="pnlGridmarca2" layout="grid" columns="2" style="width: 100%">
-
-                                    <p:selectOneMenu id="marca" class="combo" value="#{selectOneMenuView.option}" dynamic="true" >
-                                        <f:selectItem itemLabel="Select One" itemValue=""/>
-                                        <f:selectItems value="#{selectOneMenuView.options}"/>
+                                <p:panelGrid id="pnlGridMarca2" layout="grid" columns="2" style="width: 100%">
+                                    <p:selectOneMenu id="marca" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
+                                                     style="width: 14rem; height: 2rem;" panelStyle="width: 15rem" 
+                                                     value="#{marcaUI.option}">
+                                        <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                        <f:selectItems value="#{marcaUI.options}"/>
                                     </p:selectOneMenu>
-                                    <p:commandButton value="Responsive" icon="pi pi-search" action="#{dfView.viewResponsive}" styleClass="rounded-button ui-button-success"/>
-                                   
+                                   <p:commandButton icon="pi pi-search" action="#{dFView.viewResponsive()}" styleClass="rounded-button ui-button-success" />
                                 </p:panelGrid>
                             </p:panelGrid>
+                            
                             <p:panelGrid id="pnlGridLinea" layout="grid" columns="2" style="width: 100%">
                                 <p:outputLabel id="idLabelLinea" value="Linea"  for="@next"/>
                                 <p:panelGrid id="pnlGridlinea2" layout="grid" columns="2" style="width: 100%">
-                                    <p:selectOneMenu id="linea" class="combo" value="#{selectOneMenuView.option}" dynamic="true" >
-                                        <f:selectItem itemLabel="Select One" itemValue=""/>
-                                        <f:selectItems value="#{selectOneMenuView.options}"/>
+                                    <p:selectOneMenu id="linea" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
+                                                     style="width: 14rem; height: 2rem;" panelStyle="width: 15rem" 
+                                                     value="#{lineaUI.option}">
+                                        <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                        <f:selectItems value="#{lineaUI.options}"/>
                                     </p:selectOneMenu>
-                                    <p:button icon="pi pi-search" styleClass="rounded-button ui-button-success" />
+                                    <p:commandButton icon="pi pi-search" action="#{dFView.viewResponsive()}" styleClass="rounded-button ui-button-success" />
                                 </p:panelGrid>
                             </p:panelGrid>
+                            
+                           
+                            
                             <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
                                 <p:commandButton id="btnRegistro" value="Registar" style="width: 50%"
                                                  update="pnlInventario"/>
