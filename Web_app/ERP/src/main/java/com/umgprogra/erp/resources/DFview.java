@@ -18,7 +18,7 @@ import org.primefaces.model.DialogFrameworkOptions;
 
 @ManagedBean
 @RequestScoped
-public class DFView {
+public class DFview {
       public void viewResponsive() {
         DialogFrameworkOptions options = DialogFrameworkOptions.builder()
                 .modal(true)
