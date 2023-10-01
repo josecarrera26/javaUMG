@@ -8,21 +8,23 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-        <title>Pagina de Inicio</title>
+        <title>Pagina de Registro</title>
         <link type="text/css"
               href="${facesContext.externalContext.requestContextPath}/resources/css/style.css"
               rel="stylesheet" />
         <link type="image/x-icon"
               href="${facesContext.externalContext.requestContextPath}/images/login-logo.png"
               rel="shortcut icon" />
-               
+
+        <link rel="icon" href=".\imagenes/login/login-logo.png"/>
+
     </h:head>
 
     <h:body>
         <div id="message">
-            <p:ajaxStatus style="display:inline-block ;  margin-top:.10em;">
+            <p:ajaxStatus style="display:inline-block ;  margin-top:.15em;">
                 <f:facet name="default">
-                    <h:outputText value="Bienvenidos a nuestro ERP, Gracias por elegirnos!." />
+                    <h:outputText value="Registro de Usuario!" />
                 </f:facet>
                 <f:facet name="start">
                     <h:outputText value="Please wait #{loginBean.uname}, Connecting database..." />
@@ -36,36 +38,32 @@
 
         </div>	
 
-        <h:form id="loginForm">
+        <h:form id="RegisterForm">
             <p:growl id="msg" showDetail="true" life="5000" />
 
-            <p:panel id="loginPnl" header="Inicio de Sesion"
+            <p:panel id="RegisterPnl" header="Registro de Usuario"
                      style= "width: 500px; height: 600px; margin: auto">
-                <h:panelGrid id="loginPanel" columns="2" cellpadding="10">
+                <h:panelGrid id="RegisterPanel" columns="2" cellpadding="10">
                     <h:outputText value="Username" />
-                    <p:inputText id="username" value="Usuario"></p:inputText>
+                    <p:inputText id="usernameR" value="Usuario"></p:inputText>
                     <p:spacer/>
                     <p:spacer/>
                     <h:outputText value="Password" />
-                    <p:password id="password" value="password"
+                    <p:password id="passwordR" value="password"
                                 feedback="false"></p:password>
-                    <p:message for="password"></p:message>   
+                    <p:message for="passwordR"></p:message>   
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="10" width="100%">
-                    <p:commandButton id="loginButton" action="bean"
-                                     value="Iniciar Sesion" update="loginForm" ajax="true" style="float: left; margin-left: 40px" icon="pi pi-user">
-                    </p:commandButton>
-                    
-                    <p:commandButton id="RegisterButton" action="bean"
-                                     value="Registrarse" update="loginForm" ajax="true"  style="float: right; margin-right: 40px" icon="pi pi-user">
-                    </p:commandButton>
-                    
+                    <div class="contenedor">
+                        <p:commandButton id="RegisterButtonR" action="bean"
+                                         value="Registrarse" update="RegisterForm" ajax="true" style=" margin-left: 80px" icon="pi pi-user">
+                        </p:commandButton>
+                    </div>
                     <p:spacer/>
                     <p:spacer/>
-                    
-                    <center>
-                        <div class="contenedor" style="margin-left: 150px">
+                   <center>
+                        <div class="contenedor" style="margin-left: 10px">
                             <a href="imagenes/login/login-logo.png" title="Logo">
                                 <img src="imagenes/login/login-logo.png" width="100" height="100" alt="Imagen Logo" />
                             </a>
@@ -75,8 +73,8 @@
 
             </p:panel>
 
-            <p:blockUI block="loginPnl" trigger="loginButton" >
-                <p:graphicImage value="imagenes/login-logo.png" />
+            <p:blockUI block="RegisterPnl" trigger="RegisterButtonR" >
+                <p:graphicImage value="Hola" />
             </p:blockUI>
 
         </h:form>
