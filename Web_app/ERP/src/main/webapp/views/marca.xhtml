@@ -5,26 +5,33 @@
 
     <h:head>
         <title>Ingreso Marca</title>
-        <h:outputStylesheet library="css" name="inventario.css"/>
+        <h:outputStylesheet name="css/primeflex3.css" library="showcase"/>
     </h:head>
     <h:body id="inventario">
         <h:form>
+            <p:messages>
+                <p:autoUpdate />
+            </p:messages>
             <p:tabView dynamic="false">
                 <p:tab title="Agregar Marca">
-                    <p:outputPanel deferred="true" class="mt-2">
-                        <p:panel id="pnlMarca" header="Registro de Marca" style="width: 100%">
-                            <p:panelGrid id="pnlGridp" layout="grid" columns="2" style="width: 100%">
-
-                                <h:outputLabel id="lblIdMarca" value="Descripcion" />
-                                <p:inputText id="codigo" value="" required="true" requiredMessage="Codigo requerido" />
-
-                            </p:panelGrid>
-
-                        </p:panel>
-
-                    </p:outputPanel>
+                    <div class="formgrid grid">
+                        <div class="field col-12 md:col-6">
+                            <p:outputLabel for="@next">Descripcion</p:outputLabel>
+                            <p:inputText id="firstname" value="#{marcaUI.descripcion}" styleClass="w-full" />
+                        </div>
+                        <div>
+                            <p:commandButton value="Guardar" action="hola" styleClass="mr-2" />
+                            <p:commandButton value="Cancelar" action="cerrarDialogo();" />
+                        </div>
+                    </div>
                 </p:tab>
             </p:tabView>
         </h:form>
     </h:body>
+    <script type="text/javascript">
+    function cerrarDialogo() {
+        // Cierra el diálogo con un resultado opcional
+        PrimeFaces.current().dialog().closeDynamic();
+    }
+</script>
 </html>
