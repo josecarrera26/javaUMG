@@ -81,15 +81,17 @@
                 </p:tab>
                 <p:tab  title ="Eliminar">
                     <!-- seccion de eliminacion-->
-                    <p:panel id="pnlElimProveedor" header="" style="width: 70%" >
-                        <h:outputLabel id="lblElimProv" value="ID del proveedor" />
+                    <p:panel id="pnlElimProveedor" header="Eliminar proveedor de los registros" style="width: 70%" >
+                        
+                        <h:outputLabel id="lblElimProv" value="Ingrese el ID" />
                         <span class="ui-input-icon-left">
                             <i class="pi pi-search" />
                             <p:inputText id="eliminacionProv" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
                         </span>
 
-                        <p:panelGrid id ="pnlGridElim" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnElimProv" value="Eliminar" update="pnlElimProveedor, msg" style="width: 30%" icon="pi pi-times" styleClass="rounded-button ui-button-danger" />
+                        <p:panelGrid id ="pnlGridElim" layout="grid" columns="1" style="width: 100%">
+                           
+                            <p:commandButton id="btnElimProv" value="Eliminar" update="pnlElimProveedor, msg" style="width: 30%; margin-left: 05px; margin-top: 50px;" icon="pi pi-times" styleClass="rounded-button ui-button-danger" />
                         </p:panelGrid>
 
                     </p:panel>
@@ -97,7 +99,7 @@
 
                 <!-- Seccion de modificacion-->
                 <p:tab title="Modificar" >
-                    <p:panel id="pnlModificar" header="Buscar el Proveedor para realizar cambios" style="width: 70%">
+                    <p:panel id="pnlModificar" header="Buscar el Proveedor para realizar cambios" style="width: 70%;">
 
                         <h:outputLabel id="lblModProv" value="Ingrese el ID" />
                         <span class="ui-input-icon-left">
@@ -107,7 +109,7 @@
 
                         <p:panelGrid id="pnlBtnMod" layout="grid" columns="1" style="width: 100%">
                             <!-- Botón para ejecutar la acción para actualización -->
-                            <p:commandButton id="btnActualizarProv" value="Buscar" actionListener="#{cPacientes.cargarPacienteParaModificar(idPaciente)}" style="width: 20%"
+                            <p:commandButton id="btnActualizarProv" value="Buscar" actionListener="#{cPacientes.cargarPacienteParaModificar(idPaciente)}" style="width: 20%; margin-left: 05px; margin-top: 30px;"
                                              update="pnlModificar,msg"  icon="pi pi-search" styleClass="rounded-button ui-button-success"  />
                         </p:panelGrid>
                     </p:panel>
