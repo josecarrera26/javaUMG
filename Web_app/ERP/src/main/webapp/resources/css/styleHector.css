@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<!-- Template by html.am -->
-<html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 1 oct. 2023, 21:36:49
+    Author     : hector
+*/
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Encabezado</title>
-        <h:outputStylesheet library="css" name="styleHector.css"/>
-        
-        <style type="text/css">
-            /* Layout */
+/* Layout */
             body {
                 min-width: 630px;
             }
@@ -123,60 +117,3 @@
             #container .column {
                 padding-top: 1em;
             }
-
-        </style>
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
-    </head>
-
-    <body>
-
-        <header id="header"><p>Bienvenidos a nuestro ERP, Gracias por elegirnos!.</p></header>
-
-        <div id="container">
-
-            <main id="center" class="column">
-                <article>
-
-                    <h1> ERP </h1>
-
-                </article>
-            </main>
-
-            <nav id="left" class="column">
-                <h3>Cinta de Opciones</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <p:spacer></p:spacer>
-                    <p:spacer></p:spacer>
-                    <li><a href="./login.xhtml">Inicio de Sesion</a></li>
-                    <p:spacer></p:spacer>
-                    <p:spacer></p:spacer>
-                    <li><a href="./registrarUsuario.xhtml">Registrar Usuario</a></li>
-                    <p:spacer></p:spacer>
-                    <p:spacer></p:spacer>
-                    <li><a href="#">Contactenos</a></li>
-                </ul>
-
-                <!--<h3>Left heading</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Contactenos</a></li>
-                </ul>
-                -->
-
-            </nav>
-
-            <div id="right" class="column"> 
-            </div>
-        </div>
-
-        <div id="footer-wrapper">
-            <footer id="footer"><p>Pie de Pagina</p></footer>
-        </div>
-
-    </body>
-
-</html>
-
