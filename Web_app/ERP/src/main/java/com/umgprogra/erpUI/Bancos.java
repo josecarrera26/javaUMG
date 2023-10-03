@@ -63,8 +63,5 @@ public class Bancos {
     public void setIdProveedor(Integer idProveedor) {
         this.idProveedor = idProveedor;
     }
-    
-    
-    
 
 }
