@@ -47,13 +47,13 @@
                         </p:panelGrid >
 
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnRegProv" value="Registrar Proveedor" update="pnlRegistroProveedor, msg" icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnRegProv" value="Registrar Proveedor" actionListener="#{proveedores.prueba()}" update="pnlRegistroProveedor, msg" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
 
                     </p:panel > 
 
                 </p:tab>   
-                <!-- seccion de consulta de registros -->
+                <!-- seccion de consulta de registros 
                 <p:tab  title="Consultar registros">
                     <p:dataTable id="proveedores" var="product" value="#{proveedores.idProveedor}" rowKey="#{proveedores.idProveedor}"
                                  selection="" selectionMode="single">
@@ -79,7 +79,9 @@
                     </p:dataTable>
 
                 </p:tab>
+                  -->
                 <p:tab  title ="Eliminar">
+              
                     <!-- seccion de eliminacion-->
                     <p:panel id="pnlElimProveedor" header="Eliminar proveedor de los registros" style="width: 70%" >
                         
