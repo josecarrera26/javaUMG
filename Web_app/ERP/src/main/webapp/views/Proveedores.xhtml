@@ -6,16 +6,20 @@
     <h:head>
         <title>Registro de proveedores</title>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+
+        <link type="text/css"
+              href="${facesContext.externalContext.requestContextPath}/resources/css/styleFernando.css"
+              rel="stylesheet" />
     </h:head>
 
     <h:body>
         <h:form id="formRegistroProveedor">
-            
+
             <p:tabView dynamic="true">
                 <p:growl id="msg"/>
                 <!-- seccion de registro de proveedor -->
                 <p:tab  title="Ingresar registros">
-                    <p:panel id="pnlRegistroProveedor" header="Registro de proveedores" style="width: 70%" >
+                    <p:panel id="pnlRegistroProveedor" header="Registro de proveedores" class="centerPnl" >
                         <p:panelGrid id="pnlGridProvId" layout="grid" columns="2" style="width: 100%" >
 
                             <h:outputLabel id= "lblIdProv" value=" Id proveedor" />
@@ -46,8 +50,9 @@
 
                         </p:panelGrid >
 
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnRegProv" value="Registrar Proveedor" update="pnlRegistroProveedor, msg" icon="pi pi-check" styleClass="rounded-button" />
+
+                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
+                            <p:commandButton id="btnRegProv" value="Registrar" update="pnlRegistroProveedor, msg" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
 
                     </p:panel > 
@@ -82,7 +87,7 @@
                 <p:tab  title ="Eliminar">
                     <!-- seccion de eliminacion-->
                     <p:panel id="pnlElimProveedor" header="Eliminar proveedor de los registros" style="width: 70%" >
-                        
+
                         <h:outputLabel id="lblElimProv" value="Ingrese el ID" />
                         <span class="ui-input-icon-left">
                             <i class="pi pi-search" />
@@ -90,7 +95,7 @@
                         </span>
 
                         <p:panelGrid id ="pnlGridElim" layout="grid" columns="1" style="width: 100%">
-                           
+
                             <p:commandButton id="btnElimProv" value="Eliminar" update="pnlElimProveedor, msg" style="width: 30%; margin-left: 05px; margin-top: 50px;" icon="pi pi-times" styleClass="rounded-button ui-button-danger" />
                         </p:panelGrid>
 

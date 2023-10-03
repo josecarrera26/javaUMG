@@ -6,6 +6,11 @@
     <h:head>
         <title>Modulo de Bancos</title>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        
+       <link type="text/css"
+              href="${facesContext.externalContext.requestContextPath}/resources/css/styleFernando.css"
+              rel="stylesheet" />
+
     </h:head>
 
     <h:body>
@@ -15,7 +20,7 @@
                 <p:growl id="msg"/>
                 <!-- seccion de registro de proveedor -->
                 <p:tab  title="Ingresar registros">
-                    <p:panel id="pnlRegistroBancos" header="Registro de bancos" style="width: 70%" >
+                    <p:panel id="pnlRegistroBancos" header="Registro de bancos" class="centerPnl"  >
                         <p:panelGrid id="pnlGridId" layout="grid" columns="2" style="width: 100%" >
 
                             <h:outputLabel id= "lblIBanco" value=" ID del Banco" />
@@ -32,9 +37,14 @@
                        
                         </p:panelGrid >
                         <br/>
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnRegBanco" value="Registrar Banco" update="pnlRegistroBancos, msg" icon="pi pi-check" styleClass="rounded-button" />
-                        </p:panelGrid>
+
+                        
+                            <!-- Contenido centrado horizontalmente -->
+                            <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2"  class="centerPnlGrid">
+                                <p:commandButton id="btnRegBanco" value="Registrar" update="pnlRegistroBancos, msg" icon="pi pi-check" styleClass="rounded-button" />
+                            </p:panelGrid>
+                        
+
 
                     </p:panel > 
 
@@ -62,7 +72,8 @@
                 </p:tab>
                  <!-- seccion de eliminacion-->
                 <p:tab  title ="Eliminar">                   
-                    <p:panel id="pnlElimBancos" header="Eliminar banco de los registros" style="width: 70%" >
+                    <p:panel id="pnlElimBancos" header="Eliminar banco de los registros"  style="width: 70%">
+                        
                         <h:outputLabel id="lblElimProv" value="Ingrese el ID" />
                         <span class="ui-input-icon-left">
                             <i class="pi pi-search" />
