@@ -1,0 +1,28 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2 oct. 2023, 21:53:32
+    Author     : ferna
+*/
+
+.centerPnl{
+    width: 70%;
+    margin: 0 auto;  
+}
+
+.centerDiv{
+    width: 30%; /* Ajusta el ancho según tus preferencias */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.centerPnlGrid{
+    width: 100%;
+    margin: 0 auto; /*autocentrado*/
+    text-align: center; /*centrar*/
+    margin-top: 25px;   /*arriba o abajo*/
+    margin-left: 185px; /*mover a los lados*/
+}
+
