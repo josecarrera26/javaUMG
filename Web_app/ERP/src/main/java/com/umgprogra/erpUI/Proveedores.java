@@ -3,15 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.umgprogra.erpUI;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author ferna
  */
-@ManagedBean
-@SessionScoped
+@Named
+@RequestScoped
+
 public class Proveedores {
     private Integer idProveedor;
     private String nombreProveedor;
@@ -91,5 +93,8 @@ public class Proveedores {
         this.emailProveedor = emailProveedor;
     }
       
+    public void prueba(){
+        System.out.println("hollaaa");
+    }
    
 }
