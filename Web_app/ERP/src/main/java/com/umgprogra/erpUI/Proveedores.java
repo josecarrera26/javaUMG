@@ -5,13 +5,14 @@
 package com.umgprogra.erpUI;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+
 
 /**
  *
  * @author ferna
  */
-@Named
+@ManagedBean
 @RequestScoped
 
 public class Proveedores {

@@ -22,10 +22,10 @@
                             <p:inputText id="idProveedor" value="#{proveedores.idProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id="lblNomProv" value=" Nombre " />
-                            <p:inputText id="nomProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="nomProveedor" value="#{proveedores.nombreProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id="lblRefProv" value=" Referecia del Proveedor" />
-                            <p:inputText id="refProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="refProveedor" value="#{proveedores.referenciaProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <p:outputLabel for="lblRegProv" value="Regimen de proveedor"/>
                             <p:selectOneMenu id="lblRegProv">
@@ -36,13 +36,13 @@
                             </p:selectOneMenu>
 
                             <h:outputLabel id="lblDirecProv" value=" Direccion " />
-                            <p:inputText id="direcProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+                            <p:inputText id="direcProveedor" value="#{proveedores.direccionProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
 
                             <h:outputLabel id="lblTelProv" value=" Telefono" />
-                            <p:inputText id="telProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="telProveedor" value="#{proveedores.telefonoProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id="lblEmailProv" value="Correo Electronico" />
-                            <p:inputText id="emainProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="emailProveedor" value="#{proveedores.emailProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                         </p:panelGrid >
 
