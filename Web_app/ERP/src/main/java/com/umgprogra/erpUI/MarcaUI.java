@@ -6,9 +6,6 @@
 package com.umgprogra.erpUI;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -18,34 +15,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class MarcaUI implements Serializable {
-
-    private String descripcion = "";
-    private String option;
-    private List<String> options;
-    private int idMarca = 0;
-
-    @PostConstruct
-    public void init() {
-        options = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            options.add("Option " + i);
-        }
-    }
-
-    /**
-     * @return the descripcion
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    /**
-     * @param descripcion the descripcion to set
-     */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+public class MarcaUI implements Serializable{
 
     /**
      * @return the idMarca
@@ -61,20 +31,21 @@ public class MarcaUI implements Serializable {
         this.idMarca = idMarca;
     }
 
-    public String getOption() {
-        return option;
+    /**
+     * @return the descripcionM
+     */
+    public String getDescripcionM() {
+        return descripcionM;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    /**
+     * @param descripcionM the descripcionM to set
+     */
+    public void setDescripcionM(String descripcionM) {
+        this.descripcionM = descripcionM;
     }
 
-    public List<String> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<String> options) {
-        this.options = options;
-    }
-
+    private int idMarca;
+    private String descripcionM;
+    
 }

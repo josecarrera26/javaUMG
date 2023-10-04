@@ -5,33 +5,28 @@
 
     <h:head>
         <title>Ingreso Marca</title>
-        <h:outputStylesheet name="css/primeflex3.css" library="showcase"/>
+         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
     </h:head>
-    <h:body id="inventario">
-        <h:form>
-            <p:messages>
-                <p:autoUpdate />
-            </p:messages>
-            <p:tabView dynamic="false">
-                <p:tab title="Agregar Marca">
-                    <div class="formgrid grid">
-                        <div class="field col-12 md:col-6">
-                            <p:outputLabel for="@next">Descripcion</p:outputLabel>
-                            <p:inputText id="firstname" value="#{marcaUI.descripcion}" styleClass="w-full" />
-                        </div>
-                        <div>
-                            <p:commandButton value="Guardar" action="hola" styleClass="mr-2" />
-                            <p:commandButton value="Cancelar" action="cerrarDialogo();" />
-                        </div>
-                    </div>
-                </p:tab>
-            </p:tabView>
-        </h:form>
-    </h:body>
-    <script type="text/javascript">
-    function cerrarDialogo() {
-        // Cierra el diálogo con un resultado opcional
-        PrimeFaces.current().dialog().closeDynamic();
-    }
-</script>
+      
+<h:body>
+    <h:form>
+<p:messages>
+    <p:autoUpdate />
+</p:messages>
+
+<div class="formgrid grid">
+    <div class="field col-12 md:col-6">
+        <p:outputLabel for="@next">Descripcion</p:outputLabel>
+        <p:inputText id="firstname" value="#{marcaUI.descripcion}" styleClass="w-full" />
+    </div>
+   
+</div>
+
+<div>
+    <p:commandButton value="show message" action="#{dfResponsiveView.showMessage()}" styleClass="mr-2" />
+    <p:commandButton value="close" action="#{dfResponsiveView.closeDialog()}" />
+</div>
+    </h:form>
+</h:body>
+
 </html>

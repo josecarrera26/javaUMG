@@ -34,5 +34,12 @@ public class DFview {
                 .build();
 
         PrimeFaces.current().dialog().openDynamic("marca", options, null);
+       
     }
+      
+      public void prueba(){
+          System.out.println("prueba");
+      }
+      
+      
 }

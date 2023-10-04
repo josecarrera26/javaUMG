@@ -6,76 +6,193 @@
     <h:head>
         <title>Inventario</title>
         <h:outputStylesheet library="css" name="inventario.css"/>
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
     </h:head>
     <h:body id="inventario">
-        <h:form>
+        <h:form id="idFormInventario">
             <p:tabView dynamic="false">
                 <p:tab title="New Producto">
-                    <p:outputPanel deferred="true" class="mt-2">
-                        <p:panel id="pnlInventario" header="Registro de productos" style="width: 100%">
-                            <p:panelGrid id="pnlGridp" layout="grid" columns="2" style="width: 100%">
+                    <p:panel id="pnlInventario" header="Registro de productos" style="width: 100%">
+                        <div class="card">
 
-                                <h:outputLabel id="lblIdProducto" value="Cod. Producto" />
-                                <p:inputText id="codigo" value="#{inventarioUI.codProducto}" required="true" requiredMessage="Codigo requerido" />
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <h:outputLabel id="lblIdProducto" value="Cod. Producto" />
+                                    <div style="display: flex; flex-direction: column;">
+                                        <p:inputText id="idProducto" style="width: 250px;" value="#{inventarioUI.codProducto}"   required="true" requiredMessage="Codigo requerido" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                <h:outputLabel id="lblIdDes" value="Nombre" />
-                                <p:inputText id="descripcion" value="#{inventarioUI.nombre}" required="true" requiredMessage="Descripcion requerida" />
+                        <div class="card">
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <h:outputLabel id="lblIdDes" value="Nombre" />
+                                            <p:inputText id="descripcion" value="#{inventarioUI.nombre}" required="true" requiredMessage="Descripcion requerida" />
 
-                                <h:outputLabel id="idLabelCantidad" value="Cantidad:" />
-                                <p:inputNumber id="input1" value="#{inventarioUI.cantidad}" modifyValueOnWheel="false" />
-                                
-                                <h:outputLabel id="idLabelModelo" value="Modelo:" />
-                                <p:inputText id="idModelo" value="#{inventarioUI.modelo}" required="true" requiredMessage="Modelo requerido"/>
-                            </p:panelGrid>
+                                        </div>
 
-                            <p:panelGrid id="pnlGridunidad" layout="grid" columns="2" style="width: 100%">
-                                <p:outputLabel id="idLabelUnidadMed" value="Unidad de Medida"  for="@next"/>
-                                
-                                    <p:selectOneMenu id="unidadMed" class="combo" value="#{selectOneMenuView.option}" dynamic="true" >
-                                        <f:selectItem itemLabel="Select One" itemValue=""/>
-                                        <f:selectItems value="#{selectOneMenuView.options}"/>
-                                    </p:selectOneMenu>
-                             
-                            </p:panelGrid>
-                            
-                            <p:panelGrid id="pnlGridMarca" layout="grid" columns="2" style="width: 100%">
-                                <p:outputLabel id="idLabelMarca" value="Marca"  for="@next"/>
-                                <p:panelGrid id="pnlGridMarca2" layout="grid" columns="2" style="width: 100%">
-                                    <p:selectOneMenu id="marca" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
-                                                     style="width: 14rem; height: 2rem;" panelStyle="width: 15rem" 
-                                                     value="#{marcaUI.option}">
-                                        <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                        <f:selectItems value="#{marcaUI.options}"/>
-                                    </p:selectOneMenu>
-                                   <p:commandButton icon="pi pi-search" action="#{DFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
-                                </p:panelGrid>
-                            </p:panelGrid>
-                            
-                            <p:panelGrid id="pnlGridLinea" layout="grid" columns="2" style="width: 100%">
-                                <p:outputLabel id="idLabelLinea" value="Linea"  for="@next"/>
-                                <p:panelGrid id="pnlGridlinea2" layout="grid" columns="2" style="width: 100%">
-                                    <p:selectOneMenu id="linea" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
-                                                     style="width: 14rem; height: 2rem;" panelStyle="width: 15rem" 
-                                                     value="#{lineaUI.option}">
-                                        <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                        <f:selectItems value="#{lineaUI.options}"/>
-                                    </p:selectOneMenu>
-                                    <p:commandButton icon="pi pi-search" action="#{DFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
-                                </p:panelGrid>
-                            </p:panelGrid>
-                            
-                           
-                            
-                            <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
-                                <p:commandButton id="btnRegistro" value="Registar" style="width: 50%"
-                                                 update="pnlInventario"/>
-                            </p:panelGrid>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
 
-                        </p:panel>
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <p:outputLabel id="idLabelProveedor" value="Proveedor"  for="@next"/>
+                                        <p:selectOneMenu id="proveedor" class="combo" value="#{selectOneMenuView.option}" dynamic="true" >
+                                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                                            <f:selectItems value="#{selectOneMenuView.options}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    </p:outputPanel>
+                        <p:divider align="left" >
+                            <b>Precio Venta</b>
+                        </p:divider>
+                        <div class="card">
+
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <h:outputLabel id="idLabelCoste" value="Costo:" />
+                                            <p:inputNumber id="idCoste" value="#{inventarioUI.coste}" modifyValueOnWheel="false" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <h:outputLabel id="idLabelMargen" value="Margen Ganancia:" />
+                                        <p:inputNumber id="idCoste3" value="#{inventarioUI.margen_Ganancia}" modifyValueOnWheel="false" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p:divider align="left" >
+                            <b>Caracteristicas</b>
+                        </p:divider>
+
+
+                        <div class="card">
+
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <h:outputLabel id="idLabelModelo" value="Modelo:" />
+                                            <p:inputText id="idModelo" value="#{inventarioUI.modelo}" required="true" requiredMessage="Modelo requerido"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <p:outputLabel id="idLabelUnidadMed" value="Unidad de Medida"  for="@next"/>
+
+                                        <p:selectOneMenu id="unidadMed"  class="combo" value="#{lineaUI.option}" dynamic="true" >
+                                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                                            <f:selectItems value="#{lineaUI.options}"/>
+                                        </p:selectOneMenu>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <p:outputLabel id="idLabelMarca" value="Marca"  for="@next"/>
+                                             <br/>
+                                            <p:selectOneMenu id="marca" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
+                                                             style="width: 14rem;" panelStyle="width: 15rem" 
+                                                             value="#{lineaUI.option}">
+                                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                <f:selectItems value="#{lineaUI.options}"/>
+                                            </p:selectOneMenu>
+                                            <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <p:outputLabel id="idLabelLinea" value="Linea"  for="@next"/>
+                                         <br/>
+                                            <p:selectOneMenu id="linea" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
+                                                             style="width: 14rem;" panelStyle="width: 15rem" 
+                                                             value="#{lineaUI.option}">
+                                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                <f:selectItems value="#{lineaUI.options}"/>
+                                            </p:selectOneMenu>
+                                            <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <p:outputLabel id="idLabelGrupo" value="Grupo"  for="@next"/>
+                                   
+                                    <div style="display: flex; flex-direction: column;">
+                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{lineaUI.option}" dynamic="true" >
+                                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                                            <f:selectItems value="#{lineaUI.options}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
+                            <p:commandButton id="btnRegistro" value="Registar" action="#{dFview.prueba()}" style="width: 50%"
+                                             update="pnlInventario"  />
+                        </p:panelGrid>
+
+                    </p:panel>
+
+
                 </p:tab>
+               
                 <p:tab title="Consulta">
+                  <p:panelGrid id="pnlBtn2" layout="grid" columns="2" style="width: 100%">
+                            <p:commandButton id="btnRegistr2o" value="Registar" action="#{dFview.prueba()}" style="width: 50%"
+                                              />
+                        </p:panelGrid>
+                      <!--
+                
                     <p:outputPanel deferred="true"  class="mt-2">
                         <p:dataTable id="products" var="product" value="#{productoRegistroUI.mostrarProd()}" rowKey="#{product.cod}"
                                      selection="" selectionMode="single">
@@ -98,7 +215,9 @@
                         </p:dataTable>
 
                     </p:outputPanel>
+                        -->
                 </p:tab>
+              
             </p:tabView>
 
 
