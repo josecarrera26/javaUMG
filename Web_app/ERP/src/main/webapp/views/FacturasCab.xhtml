@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Facturas Cab</title>
@@ -12,6 +12,31 @@
 
 
     <h:body>
-        <p:spinner />
+        <h:form id="frmFacturaCab">
+            <p:tabView dynamic="true">
+                <p:growl id="msg"/>
+                <p:tab title="Ingresar nueva Factura">
+                    <p:panel id="pnlNuevaFactura">
+                        <p:panelGrid id="pnlGridNuevFactura" columns="2">
+                            <p:outputLabel id="lblFechaRegistro" value ="Fecha de registro"/>
+                            <p:datePicker value="#{autoUpdateView.time}"/>
+                            <p:commandButton value="Current Date" actionListener="#{autoUpdateView.test()}" update="@none" process="@this" styleClass="mr-2" />
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab title="Actualizar Factura">
+
+                </p:tab>
+
+                <p:tab title="Borrar Factura">
+
+                </p:tab>
+
+                <p:tab title="Listado de Facturas">
+
+                </p:tab>
+            </p:tabView>
+        </h:form>
     </h:body>
 </html>
