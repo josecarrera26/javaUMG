@@ -199,5 +199,5 @@ public class FacturaCabUI {
     
     public FacturaCabUI(){}
     
-    
+    public void CrearFactura(){}
 }
