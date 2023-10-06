@@ -7,176 +7,60 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <head>
+    <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Encabezado</title>
-        <h:outputStylesheet library="css" name="styleHector.css"/>
-        
-        <style type="text/css">
-            /* Layout */
-            body {
-                min-width: 630px;
-            }
+        <title>Header</title>
 
-            #container {
-                padding-left: 200px;
-                padding-right: 190px;
-            }
+        <link type="text/css"
+              href="${facesContext.externalContext.requestContextPath}/resources/css/style.css"
+              rel="stylesheet" />
 
-            #container .column {
-                position: relative;
-                float: left;
-            }
+        <h:outputStylesheet library="css" name="default.css"/>
+        <link rel="stylesheet" href="css/default.css" type="text/css" />
+        <h:outputStylesheet library="css" name="cssLayout.css" />
 
-            #center {
-                padding: 10px 20px;
-                width: 100%;
-            }
+        <link rel="stylesheet" media="screen" href="../resources/css/styleHeader.css" type="text/css" />
 
-            #left {
-                width: 180px;
-                padding: 0 10px;
-                right: 240px;
-                margin-left: -100%;
-            }
-
-            #right {
-                width: 130px;
-                padding: 0 10px;
-                margin-right: -100%;
-            }
-
-            #footer {
-                clear: both;
-            }
-
-            /* IE hack */
-            * html #left {
-                left: 150px;
-            }
-
-            /* Make the columns the same height as each other */
-            #container {
-                overflow: hidden;
-            }
-
-            #container .column {
-                padding-bottom: 1001em;
-                margin-bottom: -1000em;
-            }
-
-            /* Fix for the footer */
-            * html body {
-                overflow: hidden;
-            }
-
-            * html #footer-wrapper {
-                float: left;
-                position: relative;
-                width: 100%;
-                padding-bottom: 10010px;
-                margin-bottom: -10000px;
-                background: #515BAF;
-            }
-
-            /* Aesthetics */
-            body {
-                margin: 0;
-                padding: 0;
-                font-family:Sans-serif;
-                line-height: 1.5em;
-            }
-
-            p {
-                color: #000000;
-            }
-
-            nav ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            nav ul a {
-                color: black;
-                text-decoration: none;
-            }
-
-            #header, #footer {
-                font-size: large;
-                padding: 0.3em;
-                background: #000080;
-            }
-
-            #left {
-                background: #3F81DA;
-            }
-
-            #right {
-                background: #3F81DA;
-            }
-
-            #center {
-                background: #FDFEFE;
-            }
-
-            #container .column {
-                padding-top: 1em;
-            }
-
-        </style>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
-    </head>
 
-    <body>
+    </h:head>
 
-        <header id="header"><p>Bienvenidos a nuestro ERP, Gracias por elegirnos!.</p></header>
+    <h:body>
 
-        <div id="container">
+        <p:menubar>
+            <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="views/MenuPrincipal.xhtml"/>
+            </p:submenu>
 
-            <main id="center" class="column">
-                <article>
+            <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
+                <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
+                <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="./login.xhtml"/>
+            </p:submenu>
 
-                    <h1> ERP </h1>
+            <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
+                <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./Contabilidad.xhtml"/>
+            </p:submenu>
 
-                </article>
-            </main>
+            <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
+                <p:menuitem value="Cliente" icon="pi pi-fw pi-user" url="./Cliente.xhtml"/>
+                <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" url="./Facturas.xhtml"/>
+                <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" url="./Proveedores.xhtml"/>
+            </p:submenu>
 
-            <nav id="left" class="column">
-                <h3>Cinta de Opciones</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <p:spacer></p:spacer>
-                    <p:spacer></p:spacer>
-                    <li><a href="./login.xhtml">Inicio de Sesion</a></li>
-                    <p:spacer></p:spacer>
-                    <p:spacer></p:spacer>
-                    <li><a href="./registrarUsuario.xhtml">Registrar Usuario</a></li>
-                    <p:spacer></p:spacer>
-                    <p:spacer></p:spacer>
-                    <li><a href="#">Contactenos</a></li>
-                </ul>
-
-                <!--<h3>Left heading</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Contactenos</a></li>
-                </ul>
-                -->
-
-            </nav>
-
-            <div id="right" class="column"> 
-            </div>
-        </div>
-
-        <div id="footer-wrapper">
-            <footer id="footer"><p>Pie de Pagina</p></footer>
-        </div>
-
-    </body>
-
+            <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
+                <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" url="./Pedidos.xhtml"/>
+                <p:menuitem value="Producto" icon="pi pi-fw pi-box" url="./Inventario.xhtml"/>
+                <p:submenu label="Tags" icon="pi pi-fw pi-tags">
+                    <p:menuitem value="Marca" icon="pi pi-fw pi-tag"/>
+                    <p:menuitem value="Linea" icon="pi pi-fw pi-tag"/>
+                    <p:menuitem value="Grupo" icon="pi pi-fw pi-tag"/>
+                </p:submenu>
+                <!-- pi-tags -->
+                <p:menuitem value="Cardex" icon="pi pi-fw pi-box" url="./Cargo.xhtml"/>
+            </p:submenu>
+            
+        </p:menubar>
+    </h:body>
 </html>
 
