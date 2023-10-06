@@ -6,10 +6,7 @@
     <h:head>
         <title>Clientes</title>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
-
-        <link type="text/css"
-              href="${facesContext.externalContext.requestContextPath}/resources/css/styleCliente.css"
-              rel="stylesheet" />
+        <h:outputStylesheet library="css" name="styleCliente.css"/>
     </h:head>
 
     <h:body>
@@ -19,15 +16,16 @@
                 <p:growl id="msg"/>
                 <!-- seccion de registro de Cliente -->
                 <p:tab  title="Nuevo Cliente">
-                    <p:panel id="pnlRegistroCliente" header="Registro de Clientes" class="centerPnl" >
-                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 65%" >
+                    <p:panel id="pnlRegistroCliente" >
+                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4">
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />                                
-                            
+
                             <h:outputLabel id= "lblIdCliente" value=" ID Cliente:" />
-                            <p:inputText id="idCliente" value="#{cliente.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />  
-                            
+                            <p:inputText id="idCliente" value="#{cliente.idCliente}
+                                         " required="true" requiredMessage ="El campo no puede estar vacio" />  
+
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />                               
 
@@ -36,102 +34,73 @@
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
-                            
+
                             <h:outputLabel id="lblTelCliente" value=" Teléfono:" />
                             <p:inputText id="TelCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
-                            
+
                             <h:outputLabel id="lblEmailCliente" value=" Email:" />
                             <p:inputText id="EmailCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />                               
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
-                            
+
                             <h:outputLabel id="lblnitCliente" value=" Nit:" />
                             <p:inputText id="nitCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
-                            
+
                             <h:outputLabel id="lbldireCliente" value=" Dirección:" />
                             <p:inputText id="direCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
-                            
+
                             <h:outputLabel id="lbldpiCLiente" value="DPI:" />
                             <p:inputText id="dpiCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
                         </p:panelGrid >
-
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
-                            <p:commandButton id="btnRegProv" value="Registrar" update="pnlRegistroProveedor, msg" icon="pi pi-check" styleClass="rounded-button" />
-                        </p:panelGrid>
-
                     </p:panel > 
 
                 </p:tab>   
-                <!-- seccion de consulta de Cliente -->
                 <p:tab  title="Consultar Clientes">
-                    <p:dataTable id="cliente" var="product" value="#{cliente.idCliente}" rowKey="#{cliente.idCliente}"
-                                 selection="" selectionMode="single">
+                    <p:panel id="pnlListadoClientes">
+                        <p:panelGrid id="pnlListadoClientes" layout="grid" columns="1">
+                            <p:dataTable id="cliente" var="product" value="#{cliente.idCliente}" rowKey="#{cliente.idCliente}"
+                                         selection="" selectionMode="single">
 
-                        <p:column headerText="ID Cliente">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Nombre">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Referencia Proveedor">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Regimen Proveedor">
-                            <h:outputText value="Direccion" />
-                        </p:column>
-                        <p:column headerText="Telefono">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Correo Electronico">
-                            <h:outputText value="" />
-                        </p:column>
-                    </p:dataTable>
-
+                                <p:column headerText="ID Cliente">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Referencia Proveedor">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Regimen Proveedor">
+                                    <h:outputText value="Direccion" />
+                                </p:column>
+                                <p:column headerText="Telefono">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Correo Electronico">
+                                    <h:outputText value="" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </p:panel>
                 </p:tab>
                 <p:tab  title ="Eliminar">
                     <!-- seccion de eliminacion de Cliente-->
-                    <p:panel id="pnlElimCliente" header="Eliminar cliente" style="width: 70%" >
-
+                    <p:panel id="pnlElimCliente" header="Eliminar cliente">
                         <h:outputLabel id="lblElimCliente" value="Ingrese el ID" />
                         <span class="ui-input-icon-left">
                             <i class="pi pi-search" />
                             <p:inputText id="eliminacionCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
                         </span>
-
-                        <p:panelGrid id ="pnlGridElimination" layout="grid" columns="1" style="width: 100%">
-
-                            <p:commandButton id="btnElimClient" value="Eliminar" update="pnlElimProveedor, msg" style="width: 30%; margin-left: 05px; margin-top: 50px;" icon="pi pi-times" styleClass="rounded-button ui-button-danger" />
-                        </p:panelGrid>
-
-                    </p:panel>
-                </p:tab>
-
-                <!-- Seccion de modificacion-->
-                <p:tab title="Modificar" >
-                    <p:panel id="pnlModificarCliente" header="Buscar Cliente para realizar cambios" style="width: 70%;">
-
-                        <h:outputLabel id="lblModCliente" value="Ingrese el ID" />
-                        <span class="ui-input-icon-left">
-                            <i class="pi pi-search" />
-                            <p:inputText id="modficiacionCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                        </span>
-
-                        <p:panelGrid id="pnlBtnModif" layout="grid" columns="1" style="width: 100%">
-                            <!-- Botón para ejecutar la acción para actualización -->
-                            <p:commandButton id="btnActualizarCliente" value="Buscar" actionListener="#{cPacientes.cargarPacienteParaModificar(idPaciente)}" style="width: 20%; margin-left: 05px; margin-top: 30px;"
-                                             update="pnlModificarCliente,msg"  icon="pi pi-search" styleClass="rounded-button ui-button-success"  />
-                        </p:panelGrid>
                     </p:panel>
                 </p:tab>
             </p:tabView>

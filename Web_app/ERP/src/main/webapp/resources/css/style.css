@@ -12,5 +12,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .derecha{
-    text-align: right;
+    align-items: center;
+    color: blue;
+    border: 1px;
+    border-bottom-color: red;
 }
