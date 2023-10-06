@@ -8,14 +8,6 @@ package com.umgprogra.erpUI;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-/*<<<<<<< HEAD
-/**
- *
- * @author Mike
- */
-/*=======*/
-
-
 /**
  *
  * @author Miguel
