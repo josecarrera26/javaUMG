@@ -5,15 +5,16 @@
  */
 package com.umgprogra.erpUI;
 
-<<<<<<< HEAD
-/**
- *
- * @author Chepe.Chino
- */
-public class ClienteUI {
-=======
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+/*<<<<<<< HEAD
+/**
+ *
+ * @author Mike
+ */
+/*=======*/
+
 
 /**
  *
@@ -97,6 +98,5 @@ public class ClienteUI {
     public void setDpiCliente(String dpiCliente) {
         this.dpiCliente = dpiCliente;
     }
->>>>>>> f2e778026101559e20e40ede3c5e5ba0e33ee93e
     
 }
