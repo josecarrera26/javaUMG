@@ -19,13 +19,13 @@
 <div class="formgrid grid">
     <div class="field col-12 md:col-6">
         <p:outputLabel for="@next">Descripcion</p:outputLabel>
-        <p:inputText id="firstname" value="#{marcaUI.descripcionM}" styleClass="w-full" />
+        <p:inputText id="firstname" value="#{lineaUI.descripcion}" styleClass="w-full" />
     </div>
    
 </div>
 
 <div>
-    <p:commandButton value="show message" action="#{dfResponsiveView.showMessage()}" styleClass="mr-2" />
+    <p:commandButton value="show message" action="#{dFview.prueba()}" styleClass="mr-2" />
     <p:commandButton value="close" action="#{dfResponsiveView.closeDialog()}" />
 </div>
     </h:form>

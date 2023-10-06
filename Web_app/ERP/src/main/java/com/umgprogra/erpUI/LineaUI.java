@@ -10,16 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author madis
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class LineaUI implements Serializable {
-        private String descripcion = "";
+
+    private String descripcion;
     private String option;
     private List<String> options;
     private int idLinea = 0;
@@ -32,6 +33,8 @@ public class LineaUI implements Serializable {
         }
     }
 
+   
+   
     /**
      * @return the descripcion
      */
@@ -46,12 +49,10 @@ public class LineaUI implements Serializable {
         this.descripcion = descripcion;
     }
 
-   
     public int getIdLinea() {
         return idLinea;
     }
 
-   
     public void setIdLinea(int idLinea) {
         this.idLinea = idLinea;
     }

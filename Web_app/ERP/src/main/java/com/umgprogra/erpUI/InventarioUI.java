@@ -228,5 +228,9 @@ public class InventarioUI implements Serializable {
     private int proveedor;
     
     
+  public void pruebaInventario(){
+      System.out.println("ESTOY EN ");
+  }
+ 
 }
 

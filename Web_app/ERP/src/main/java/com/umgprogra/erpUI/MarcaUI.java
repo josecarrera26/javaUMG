@@ -5,7 +5,6 @@
  */
 package com.umgprogra.erpUI;
 
-import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -15,7 +14,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class MarcaUI implements Serializable{
+public class MarcaUI {
 
     /**
      * @return the idMarca

@@ -1,17 +1,80 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Facturas Cab</title>
+        <link rel="icon" href="${facesContext.externalContext.requestContextPath}/resources/Logo.png.xhtml?ln=images"/>
         <h:outputStylesheet library="css" name="styleCargo.css"/>
         <h:outputStylesheet library="css" name="style.css"/>
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
 
 
     <h:body>
-        <p:spinner />
+        <h:form id="frmFacturaCab">
+            <p:tabView dynamic="true">
+                <p:growl id="msg"/>
+                <p:tab title="Ingresar nueva Factura">
+                    <p:panel id="pnlNuevaFactura">
+                        <p:panelGrid id="pnlGridNuevFactura" columns="2" layout="grid">
+                            <p:outputLabel id="lblFechaRegistro" value ="Fecha de registro" for="dtPkFechaRegistro"/>
+                            <p:datePicker value="#{facturaCabUI.fecha_registro}" id="dtPkFechaRegistro"/>
+                            <p:outputLabel id="lblPlazoPagos" value ="Plazo pagos" for="slctPlazoPagos"/>
+                            <p:selectOneMenu id="slctPlazoPagos" value="#{facturaCabUI.plazos_pago}">
+                                <f:selectItem itemLabel="" itemValue=""/>
+                                <f:selectItem itemLabel="Pago unico" itemValue="1"/>
+                                <f:selectItem itemLabel="2 Pagos" itemValue="2"/>
+                                <f:selectItem itemLabel="3 Pagos" itemValue="3"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel id="lblReferenciaFactura" value ="Referencia Factura" for="nmbReferenciaFactura"/>
+                            <p:inputNumber id="nmbReferenciaFactura" value="#{facturaCabUI.referenciaFactura}"/>
+                            <p:outputLabel id="lblIdEmpleado" value="ID del empleado" for="nmbIdEmpelado"/>
+                            <p:inputNumber id="nmbIdEmpelado" value="#{facturaCabUI.idEmpleado}"/>
+                            <p:outputLabel id="lblTipoCliente" value="Tipo cliente" for="slctTipoCliente"/>
+                            <p:selectOneMenu id="slctTipoCliente" value="#{facturaCabUI.idTipoCliente}">
+                                <f:selectItem itemLabel="" itemValue=""/>
+                                <f:selectItem itemLabel="Interno" itemValue="1"/>
+                                <f:selectItem itemLabel="Externo" itemValue="2"/>
+                            </p:selectOneMenu> 
+                            <p:outputLabel id="lblEstadoFactura" value="Estado factura" for="slctEstadoFactura"/>
+                            <p:selectOneMenu id="slctEstadoFactura" value="#{facturaCabUI.estado_factura}">
+                                <f:selectItem itemLabel="" itemValue=""/>
+                                <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="2"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel id="lblTotal" value="ID del empleado" for="nmbTotal"/>
+                            <p:inputNumber id="nmbTotal" value="#{facturaCabUI.total}" decimalPlaces="2"/>
+                            <p:outputLabel id="lblTipoPago" value="Estado factura" for="slctEstadoFactura"/>
+                            <p:selectOneMenu id="slctTipoPago" value="#{facturaCabUI.tipo_pago} ">
+                                <f:selectItem itemLabel="" itemValue=""/>
+                                <f:selectItem itemLabel="Tarjeta" itemValue="1"/>
+                                <f:selectItem itemLabel="Efectivo" itemValue="2"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel id="lblNit" value="Nit" for="txtNit"/>
+                            <p:inputText id="txtNit" value="#{facturaCabUI.nit}"/>
+                            <p:outputLabel id="lblTipoFactura" value="Tipo factura" for="slctTipoFactura"/>
+                            <p:selectOneMenu id="slctTipoFactura" value="#{facturaCabUI.tipoFactura}">
+                                <f:selectItem itemLabel="" itemValue=""/>
+                                <f:selectItem itemLabel="Venta" itemValue="1"/>
+                                <f:selectItem itemLabel="Compra" itemValue="2"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab title="Actualizar Factura">
+
+                </p:tab>
+
+                <p:tab title="Borrar Factura">
+
+                </p:tab>
+
+                <p:tab title="Listado de Facturas">
+
+                </p:tab>
+            </p:tabView>
+        </h:form>
     </h:body>
 </html>
