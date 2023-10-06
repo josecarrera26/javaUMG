@@ -7,6 +7,7 @@
         <title>Inventario</title>
         <h:outputStylesheet library="css" name="inventario.css"/>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
     <h:body id="inventario">
         <h:form id="idFormInventario">
@@ -44,9 +45,9 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <p:outputLabel id="idLabelProveedor" value="Proveedor"  for="@next"/>
-                                        <p:selectOneMenu id="proveedor" class="combo" value="#{selectOneMenuView.option}" dynamic="true" >
+                                        <p:selectOneMenu id="proveedor" class="combo" value="#{lineaUI.option}" dynamic="true" >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
-                                            <f:selectItems value="#{selectOneMenuView.options}"/>
+                                            <f:selectItems value="#{lineaUI.options}"/>
                                         </p:selectOneMenu>
                                     </div>
                                 </div>
@@ -124,7 +125,7 @@
                                     <div class="ui-fluid">
                                         <div class="field">
                                             <p:outputLabel id="idLabelMarca" value="Marca"  for="@next"/>
-                                             <br/>
+                                            <br/>
                                             <p:selectOneMenu id="marca" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
                                                              style="width: 14rem;" panelStyle="width: 15rem" 
                                                              value="#{lineaUI.option}">
@@ -143,14 +144,14 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <p:outputLabel id="idLabelLinea" value="Linea"  for="@next"/>
-                                         <br/>
-                                            <p:selectOneMenu id="linea" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
-                                                             style="width: 14rem;" panelStyle="width: 15rem" 
-                                                             value="#{lineaUI.option}">
-                                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                                <f:selectItems value="#{lineaUI.options}"/>
-                                            </p:selectOneMenu>
-                                            <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                                        <br/>
+                                        <p:selectOneMenu id="linea" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
+                                                         style="width: 14rem;" panelStyle="width: 15rem" 
+                                                         value="#{lineaUI.option}">
+                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                            <f:selectItems value="#{lineaUI.options}"/>
+                                        </p:selectOneMenu>
+                                        <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
 
                                     </div>
                                 </div>
@@ -164,11 +165,11 @@
                             <div class="ui-fluid">
                                 <div class="field">
                                     <p:outputLabel id="idLabelGrupo" value="Grupo"  for="@next"/>
-                                   
+
                                     <div style="display: flex; flex-direction: column;">
-                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{lineaUI.option}" dynamic="true" >
+                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{grupoProducto.grupo}" dynamic="true" >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
-                                            <f:selectItems value="#{lineaUI.options}"/>
+                                            <f:selectItems value="#{grupoProducto.grupos}"/>
                                         </p:selectOneMenu>
                                     </div>
                                 </div>
@@ -177,7 +178,7 @@
                         </div>
 
                         <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnRegistro" value="Registar" action="#{dFview.prueba()}" style="width: 50%"
+                            <p:commandButton id="btnRegistro" value="Registar" action="#{inventarioUI.pruebaInventario()}" style="width: 50%"
                                              update="pnlInventario"  />
                         </p:panelGrid>
 
@@ -185,39 +186,53 @@
 
 
                 </p:tab>
-               
+                <!-- 
                 <p:tab title="Consulta">
-                  <p:panelGrid id="pnlBtn2" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnRegistr2o" value="Registar" action="#{dFview.prueba()}" style="width: 50%"
-                                              />
-                        </p:panelGrid>
-                      <!--
-                
-                    <p:outputPanel deferred="true"  class="mt-2">
-                        <p:dataTable id="products" var="product" value="#{productoRegistroUI.mostrarProd()}" rowKey="#{product.cod}"
-                                     selection="" selectionMode="single">
+                   
+                    <p:dataTable id="products" var="product" value="#{dtContextMenuView.products}" rowKey="#{product.id}"
+                                 selection="#{dtContextMenuView.selectedProduct}" selectionMode="single">
+                        <f:facet name="header">
+                            RightClick to View Options
+                        </f:facet>
 
-                            <p:column headerText="Codigo">
-                                <h:outputText value="#{product.cod}" />
-                            </p:column>
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{product.name}" />
-                            </p:column>
-                            <p:column headerText="Cantidad">
-                                <h:outputText value="#{product.cant}" />
-                            </p:column>
-                            <p:column headerText="Precio">
-                                <h:outputText value="#{product.precio}" />
-                            </p:column>
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{product.fecha}" />
-                            </p:column>
-                        </p:dataTable>
+                        <p:column headerText="Code">
+                            <h:outputText value="#{product.code}" />
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{product.name}" />
+                        </p:column>
+                        <p:column headerText="Precio Venta">
+                            <h:outputText value="#{product.category}" />
+                        </p:column>
+                        <p:column headerText="Modelo">
+                            <h:outputText value="#{product.quantity}" />
+                        </p:column>
+                        
+                        <p:column headerText="Unidad de Medida">
+                            <h:outputText value="#{product.quantity}" />
+                        </p:column>
+                        
+                        <p:column headerText="Marca">
+                            <h:outputText value="#{product.quantity}" />
+                        </p:column>
+                        
+                        <p:column headerText="Linea">
+                            <h:outputText value="#{product.quantity}" />
+                        </p:column>
+                        
+                        <p:column headerText="Grupo">
+                            <h:outputText value="#{product.quantity}" />
+                        </p:column>
+                    </p:dataTable>
 
-                    </p:outputPanel>
-                        -->
+                    <p:contextMenu for="products">
+                        <p:menuitem value="Edit"  icon="pi pi-search"/>
+                        <p:menuitem value="Delete" update="products" icon="pi pi-times"
+                                    action="#{dtContextMenuView.deleteProduct}"/>
+                    </p:contextMenu>
+
                 </p:tab>
-              
+comment -->
             </p:tabView>
 
 

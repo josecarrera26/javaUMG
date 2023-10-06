@@ -5,8 +5,9 @@
  */
 package com.umgprogra.erp.resources;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
 
@@ -17,14 +18,14 @@ import org.primefaces.model.DialogFrameworkOptions;
 
 
 @ManagedBean
-@RequestScoped
-public class DFview {
+@SessionScoped
+public class DFview implements Serializable{
       public void viewResponsive() {
         DialogFrameworkOptions options = DialogFrameworkOptions.builder()
                 .modal(true)
                 .fitViewport(true)
                 .responsive(true)
-                .width("900px")
+                .width("400px")
                 .contentWidth("100%")
                 .resizeObserver(true)
                 .resizeObserverCenter(true)
@@ -33,7 +34,8 @@ public class DFview {
                 .iframeStyleClass("max-w-screen")
                 .build();
 
-        PrimeFaces.current().dialog().openDynamic("marca", options, null);
+        PrimeFaces.current().dialog().openDynamic("views/marca.xhtml", options, null);
+         System.out.println("prueba");
        
     }
       
