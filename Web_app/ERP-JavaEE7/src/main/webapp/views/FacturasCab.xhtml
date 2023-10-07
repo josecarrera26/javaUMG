@@ -1,0 +1,156 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Facturas Cab</title>
+        <link rel="icon" library="images" href="/Logo.png.xhtml?ln=images" />
+        <h:outputStylesheet library="css" name="styleCargo.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+
+
+    <h:body>
+        <h:form id="frmFacturaCab">
+            <p:tabView dynamic="true">
+                <p:growl id="msg"/>
+                <p:tab title="Ingresar nueva Factura">
+                    <div class="flex align-items-center justify-content-between">
+                        <h5>Facturas</h5>
+                        <p:panel id="pnlNuevaFactura">
+                            <p:panelGrid id="pnlGridNuevFactura" columns="2" layout="grid">
+                                <p:outputLabel id="lblFechaRegistro" value ="Fecha de registro" for="dtPkFechaRegistro" class="justify-content-between"/>
+                                <p:datePicker value="#{facturaCabUI.fecha_registro}" id="dtPkFechaRegistro"/>
+                                <p:outputLabel id="lblPlazoPagos" value ="Plazo pagos" for="slctPlazoPagos"/>
+                                <p:selectOneMenu id="slctPlazoPagos" value="#{facturaCabUI.plazos_pago}">
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItem itemLabel="Pago unico" itemValue="1"/>
+                                    <f:selectItem itemLabel="2 Pagos" itemValue="2"/>
+                                    <f:selectItem itemLabel="3 Pagos" itemValue="3"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel id="lblReferenciaFactura" value ="Referencia Factura" for="nmbReferenciaFactura"/>
+                                <p:inputNumber id="nmbReferenciaFactura" value="#{facturaCabUI.referenciaFactura}"/>
+                                <p:outputLabel id="lblIdEmpleado" value="ID del empleado" for="nmbIdEmpelado"/>
+                                <p:inputNumber id="nmbIdEmpelado" value="#{facturaCabUI.idEmpleado}"/>
+                                <p:outputLabel id="lblTipoCliente" value="Tipo cliente" for="slctTipoCliente"/>
+                                <p:selectOneMenu id="slctTipoCliente" value="#{facturaCabUI.idTipoCliente}">
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItem itemLabel="Interno" itemValue="1"/>
+                                    <f:selectItem itemLabel="Externo" itemValue="2"/>
+                                </p:selectOneMenu> 
+                                <p:outputLabel id="lblEstadoFactura" value="Estado factura" for="slctEstadoFactura"/>
+                                <p:selectOneMenu id="slctEstadoFactura" value="#{facturaCabUI.estado_factura}">
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                    <f:selectItem itemLabel="Inactivo" itemValue="2"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel id="lblTotal" value="ID del empleado" for="nmbTotal"/>
+                                <p:inputNumber id="nmbTotal" value="#{facturaCabUI.total}" decimalPlaces="2"/>
+                                <p:outputLabel id="lblTipoPago" value="Estado factura" for="slctEstadoFactura"/>
+                                <p:selectOneMenu id="slctTipoPago" value="#{facturaCabUI.tipo_pago} ">
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItem itemLabel="Tarjeta" itemValue="1"/>
+                                    <f:selectItem itemLabel="Efectivo" itemValue="2"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel id="lblNit" value="Nit" for="txtNit"/>
+                                <p:inputText id="txtNit" value="#{facturaCabUI.nit}"/>
+                                <p:outputLabel id="lblTipoFactura" value="Tipo factura" for="slctTipoFactura"/>
+                                <p:selectOneMenu id="slctTipoFactura" value="#{facturaCabUI.tipoFactura}">
+                                    <f:selectItem itemLabel="" itemValue=""/>
+                                    <f:selectItem itemLabel="Venta" itemValue="1"/>
+                                    <f:selectItem itemLabel="Compra" itemValue="2"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:commandButton value="Insertar" actionListener="#{facturaCabUI.crearFactura()}"/>
+                        </p:panel>
+                    </div>
+                </p:tab>
+
+                <p:tab title="Actualizar Factura">
+                    <p:panel>
+                        <p:panelGrid columns="2" layout="grid">
+                            <p:outputLabel id="lblIDFactura" value="ID Factura" for="nmbIDFactura"/>
+                            <p:inputNumber id="nmbIDFactura" value="#{facturaCabUI.idFacturaCab}"/>
+                            <p:commandButton value="Buscar"/>
+                        </p:panelGrid>
+                    </p:panel>    
+                </p:tab>
+
+                <p:tab title="Borrar Factura">
+
+                </p:tab>
+
+                <p:tab title="Listado de Facturas">
+                    <div class="card">
+                        <h5>Facturas</h5>
+                        <h:form>
+                            <p:dataTable var="customer" value="#{dtFilterView.customers1}" widgetVar="customersTable"
+                                         emptyMessage="No customers found with given criteria"
+                                         filteredValue="#{dtFilterView.filteredCustomers1}"
+                                         globalFilterOnly="#{dtFilterView.globalFilterOnly}">
+
+                                <f:facet name="header">
+                                    <div class="flex align-items-center justify-content-between">
+                                        <span>Id Factura</span>
+                                        <div>
+                                            <p:inputText id="globalFilter" onkeyup="PF('customersTable').filter()" style="width:10rem"
+                                                         placeholder="Codigo de factura" />
+                                            <p:commandButton value="Global Filter Only" update="@form" styleClass="ml-2"
+                                                             action="#{dtFilterView.toggleGlobalFilter()}"/>
+                                        </div>
+                                    </div>
+                                </f:facet>
+                                <p:column headerText="Name" sortBy="#{customer.name}" filterBy="#{customer.name}" filterMatchMode="contains">
+                                    <h:outputText value="#{customer.name}" />
+                                </p:column>
+
+                                <p:column headerText="Country" sortBy="#{customer.country.name}" filterBy="#{customer.country.name}">
+                                    <span class="flag flag-#{customer.country.code}" style="width: 30px; height: 20px" />
+                                    <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.country.name}" />
+                                </p:column>
+
+                                <p:column field="representative" headerText="Representative" filterMatchMode="exact"
+                                          sortBy="#{customer.representative.name}">
+                                    <f:facet name="filter">
+                                        <p:selectOneMenu onchange="PF('customersTable').filter()" styleClass="ui-custom-filter">
+                                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItems value="#{dtFilterView.representatives}" />
+                                        </p:selectOneMenu>
+                                    </f:facet>
+
+                                    <p:graphicImage name="images/avatar/#{customer.representative.image}" library="demo" width="32"
+                                                    style="vertical-align: middle" />
+                                    <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.representative.name}" />
+                                </p:column>
+
+                                <p:column field="date" headerText="Join Date" filterMatchMode="between">
+                                    <f:facet name="filter">
+                                        <p:datePicker selectionMode="range" onchange="PF('customersTable').filter()" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column field="status" headerText="Status" filterMatchMode="exact">
+                                    <f:facet name="filter">
+                                        <p:selectOneMenu onchange="PF('customersTable').filter()" styleClass="ui-custom-filter">
+                                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItems value="#{dtFilterView.customerStatus}" />
+                                        </p:selectOneMenu>
+                                    </f:facet>
+
+                                    <span class="customer-badge status-#{customer.status.name().toLowerCase()}">#{customer.status.toString()}</span>
+                                </p:column>
+
+                                <p:column field="activity" headerText="Activity" sortBy="#{customer.activity}" filterMatchMode="gt"
+                                          converter="javax.faces.Integer">
+                                    <p:progressBar value="#{customer.activity}" displayOnly="true" style="height: .5rem" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:form>
+                    </div>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>
