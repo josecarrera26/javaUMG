@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Clientes</title>
+        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <h:outputStylesheet library="css" name="styleCliente.css"/>
+    </h:head>
+
+    <h:body>
+        <h:form id="formCliente">
+
+            <p:tabView dynamic="true">
+                <p:growl id="msg"/>
+                <!-- seccion de registro de Cliente -->
+                <p:tab  title="Nuevo Cliente">
+                    <p:panel id="pnlRegistroCliente" >
+                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4">
+
+                            <h:outputLabel id= "lblbank" value=" " />
+                            <h:outputLabel id= "lblbank" value=" " />                                
+
+                            <h:outputLabel id= "lblIdCliente" value=" ID Cliente:" />
+                            <p:inputText id="idCliente" value="#{cliente.idCliente}
+                                         " required="true" requiredMessage ="El campo no puede estar vacio" />  
+
+                            <h:outputLabel id= "lblbank" value=" " />
+                            <h:outputLabel id= "lblbank" value=" " />                               
+
+                            <h:outputLabel id="lblNomCliente" value=" Nombre del Cliente:" />
+                            <p:inputText id="nomCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+
+                            <h:outputLabel id= "lblbank" value=" " />
+                            <h:outputLabel id= "lblbank" value=" " />
+
+                            <h:outputLabel id="lblTelCliente" value=" Teléfono:" />
+                            <p:inputText id="TelCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+
+                            <h:outputLabel id= "lblbank" value=" " />
+                            <h:outputLabel id= "lblbank" value=" " />
+
+                            <h:outputLabel id="lblEmailCliente" value=" Email:" />
+                            <p:inputText id="EmailCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />                               
+
+                            <h:outputLabel id= "lblbank" value=" " />
+                            <h:outputLabel id= "lblbank" value=" " />
+
+                            <h:outputLabel id="lblnitCliente" value=" Nit:" />
+                            <p:inputText id="nitCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+
+                            <h:outputLabel id= "lblbank" value=" " />
+                            <h:outputLabel id= "lblbank" value=" " />
+
+                            <h:outputLabel id="lbldireCliente" value=" Dirección:" />
+                            <p:inputText id="direCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+
+                            <h:outputLabel id= "lblbank" value=" " />
+                            <h:outputLabel id= "lblbank" value=" " />
+
+                            <h:outputLabel id="lbldpiCLiente" value="DPI:" />
+                            <p:inputText id="dpiCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                        </p:panelGrid >
+                    </p:panel > 
+
+                </p:tab>   
+                <p:tab  title="Consultar Clientes">
+                    <p:panel id="pnlListadoClientes">
+                        <p:panelGrid id="pnlListadoClientes" layout="grid" columns="1">
+                            <p:dataTable id="cliente" var="product" value="#{cliente.idCliente}" rowKey="#{cliente.idCliente}"
+                                         selection="" selectionMode="single">
+
+                                <p:column headerText="ID Cliente">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Referencia Proveedor">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Regimen Proveedor">
+                                    <h:outputText value="Direccion" />
+                                </p:column>
+                                <p:column headerText="Telefono">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Correo Electronico">
+                                    <h:outputText value="" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab  title ="Eliminar">
+                    <!-- seccion de eliminacion de Cliente-->
+                    <p:panel id="pnlElimCliente" header="Eliminar cliente">
+                        <h:outputLabel id="lblElimCliente" value="Ingrese el ID" />
+                        <span class="ui-input-icon-left">
+                            <i class="pi pi-search" />
+                            <p:inputText id="eliminacionCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                        </span>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>
