@@ -1,5 +1,5 @@
 CREATE TABLE "cliente" (
-  "idCliente" integer PRIMARY KEY,
+  "idCliente" Serial PRIMARY KEY,
   "nombre_Cliente" varchar,
   "telefono_Cliente" varchar,
   "email_Cliente" varchar,
@@ -9,7 +9,7 @@ CREATE TABLE "cliente" (
 );
 
 CREATE TABLE "proveedor" (
-  "idProveedor" integer PRIMARY KEY,
+  "idProveedor" Serial PRIMARY KEY,
   "nombre_Proveedor" varchar,
   "direccion" varchar,
   "telefono" varchar,
@@ -18,24 +18,24 @@ CREATE TABLE "proveedor" (
 );
 
 CREATE TABLE "cuentaContable" (
-  "idCuenta" integer PRIMARY KEY,
+  "idCuenta" Serial PRIMARY KEY,
   "nombreCuenta" varchar,
   "idCliente" integer,
   "idProveedor" integer,
-  "impuesto_inventario" double,
-  "coste" double,
+  "impuesto_inventario" float,
+  "coste" float,
   "margenGanancia" integer,
   "idproducto" integer
 );
 
 CREATE TABLE "cargo_empleado" (
-  "idCargo" integer PRIMARY KEY,
+  "idCargo" Serial PRIMARY KEY,
   "nombre_Cargo" varchar,
-  "salario" double
+  "salario" float
 );
 
 CREATE TABLE "empleado" (
-  "idEmpleado" integer PRIMARY KEY,
+  "idEmpleado" Serial PRIMARY KEY,
   "nombre_Empleado" varchar,
   "apellido_Empleado" varchar,
   "telefono_Empleado" varchar,
@@ -46,31 +46,31 @@ CREATE TABLE "empleado" (
 );
 
 CREATE TABLE "role" (
-  "idRole" integer PRIMARY KEY,
+  "idRole" Serial PRIMARY KEY,
   "nombre_Role" varchar,
   "descripcion" varchar
 );
 
 CREATE TABLE "marca" (
-  "idMarca" integer PRIMARY KEY,
+  "idMarca" Serial PRIMARY KEY,
   "descripcion" varchar,
   "estado" integer
 );
 
 CREATE TABLE "linea" (
-  "idLinea" integer PRIMARY KEY,
+  "idLinea" Serial PRIMARY KEY,
   "descripcion" varchar,
   "estado" integer
 );
 
 CREATE TABLE "inventario" (
-  "idProducto" integer PRIMARY KEY,
+  "idProducto" Serial PRIMARY KEY,
   "nombre" varchar,
   "cantidad" varchar,
   "tipo_comercializacion" varchar,
   "modelo" varchar,
   "unidades" VARCHAR,
-  "precio" double,
+  "precio" float,
   "idMarca" integer,
   "idLinea" integer,
   "grupo_producto" varchar,
@@ -78,14 +78,14 @@ CREATE TABLE "inventario" (
 );
 
 CREATE TABLE "facturaCab" (
-  "idFactura" integer,
+  "idFactura" Serial,
   "fecha_registro" date,
   "plazos_pago" integer,
   "referencia_Factura" varchar,
   "idEmpleado" integer,
   "idTipoCliente" integer,
   "estadoFac" integer,
-  "total" double,
+  "total" float,
   "idTipoPago" integer,
   "nit" varchar,
   "idTipoFactura" integer,
@@ -93,31 +93,31 @@ CREATE TABLE "facturaCab" (
 );
 
 CREATE TABLE "facturaDet" (
-  "idFactura" integer,
+  "idFactura" serial PRIMARY KEY,
   "cantidad" integer,
-  "precio_Unitario" double,
-  "iva" double,
+  "precio_Unitario" float,
+  "iva" float,
   "idProducto" integer
 );
 
 CREATE TABLE "pedido" (
-  "idPedido" integer PRIMARY KEY,
+  "idPedido" Serial PRIMARY KEY,
   "fecha_pedido" date,
   "nit" varchar,
   "idEmpleado" integer,
   "idProducto" integer,
   "idCliente" integer,
-  "estado" varachar
+  "estado" varchar
 );
 
 CREATE TABLE "banco" (
-  "idBanco" integer PRIMARY KEY,
+  "idBanco" Serial PRIMARY KEY,
   "nombreBanco" varchar,
   "idProveedor" integer
 );
 
 CREATE TABLE "kardex" (
-  "id" integer PRIMARY KEY,
+  "id" Serial PRIMARY KEY,
   "venta_compra" integer,
   "fecha" date,
   "idProducto" integer,
@@ -130,7 +130,7 @@ ALTER TABLE "cuentaContable" ADD FOREIGN KEY ("idCliente") REFERENCES "cliente" 
 
 ALTER TABLE "cuentaContable" ADD FOREIGN KEY ("idProveedor") REFERENCES "proveedor" ("idProveedor");
 
-ALTER TABLE "cargo_empleado" ADD FOREIGN KEY ("idCargo") REFERENCES "empleado" ("idCargo_empleado");
+ALTER TABLE "empleado" ADD FOREIGN KEY ("idCargo_empleado") REFERENCES  "cargo_empleado" ("idCargo");
 
 ALTER TABLE "inventario" ADD FOREIGN KEY ("idProveedor") REFERENCES "proveedor" ("idProveedor");
 
@@ -140,7 +140,7 @@ ALTER TABLE "inventario" ADD FOREIGN KEY ("idLinea") REFERENCES "linea" ("idLine
 
 ALTER TABLE "facturaCab" ADD FOREIGN KEY ("idEmpleado") REFERENCES "empleado" ("idEmpleado");
 
-ALTER TABLE "facturaDet" ADD FOREIGN KEY ("idFactura") REFERENCES "facturaCab" ("idFactura");
+ALTER TABLE "facturaCab" ADD FOREIGN KEY  ("idFactura") REFERENCES  "facturaDet" ("idFactura");
 
 ALTER TABLE "facturaDet" ADD FOREIGN KEY ("idProducto") REFERENCES "inventario" ("idProducto");
 
@@ -150,7 +150,7 @@ ALTER TABLE "pedido" ADD FOREIGN KEY ("idProducto") REFERENCES "inventario" ("id
 
 ALTER TABLE "pedido" ADD FOREIGN KEY ("idCliente") REFERENCES "cliente" ("idCliente");
 
-ALTER TABLE "proveedor" ADD FOREIGN KEY ("idProveedor") REFERENCES "banco" ("idProveedor");
+ALTER TABLE  "banco" ADD FOREIGN KEY  ("idProveedor") REFERENCES  "proveedor" ("idProveedor");
 
 ALTER TABLE "empleado" ADD FOREIGN KEY ("idrole") REFERENCES "role" ("idRole");
 

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.umgprogra.erp.javaee7UI;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 

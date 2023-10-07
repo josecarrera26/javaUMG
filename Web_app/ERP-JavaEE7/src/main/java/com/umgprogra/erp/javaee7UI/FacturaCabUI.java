@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.umgprogra.erp.javaee7UI;
+package com.umgprogra.erpUI;
 
 import java.util.Date;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -13,8 +13,8 @@ import javax.faces.bean.SessionScoped;
  * @author josel
  */
 
-@ManagedBean
 @SessionScoped
+@Named
 public class FacturaCabUI {
 
     /**
@@ -32,87 +32,73 @@ public class FacturaCabUI {
     }
 
     /**
-     * @return the fecha_factura
+     * @return the fecha_registro
      */
-    public Date getFecha_factura() {
-        return fecha_factura;
+    public Date getFecha_registro() {
+        return fecha_registro;
     }
 
     /**
-     * @param fecha_factura the fecha_factura to set
+     * @param fecha_registro the fecha_registro to set
      */
-    public void setFecha_factura(Date fecha_factura) {
-        this.fecha_factura = fecha_factura;
+    public void setFecha_registro(Date fecha_registro) {
+        this.fecha_registro = fecha_registro;
     }
 
     /**
-     * @return the fecha_contable
+     * @return the plazos_pago
      */
-    public Date getFecha_contable() {
-        return fecha_contable;
+    public Integer getPlazos_pago() {
+        return plazos_pago;
     }
 
     /**
-     * @param fecha_contable the fecha_contable to set
+     * @param plazos_pago the plazos_pago to set
      */
-    public void setFecha_contable(Date fecha_contable) {
-        this.fecha_contable = fecha_contable;
+    public void setPlazos_pago(Integer plazos_pago) {
+        this.plazos_pago = plazos_pago;
     }
 
     /**
-     * @return the fecha_vencimiento
+     * @return the referenciaFactura
      */
-    public Date getFecha_vencimiento() {
-        return fecha_vencimiento;
+    public String getReferenciaFactura() {
+        return referenciaFactura;
     }
 
     /**
-     * @param fecha_vencimiento the fecha_vencimiento to set
+     * @param referenciaFactura the referenciaFactura to set
      */
-    public void setFecha_vencimiento(Date fecha_vencimiento) {
-        this.fecha_vencimiento = fecha_vencimiento;
+    public void setReferenciaFactura(String referenciaFactura) {
+        this.referenciaFactura = referenciaFactura;
     }
 
     /**
-     * @return the nit
+     * @return the idEmpleado
      */
-    public String getNit() {
-        return nit;
+    public Integer getIdEmpleado() {
+        return idEmpleado;
     }
 
     /**
-     * @param nit the nit to set
+     * @param idEmpleado the idEmpleado to set
      */
-    public void setNit(String nit) {
-        this.nit = nit;
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
     /**
-     * @return the nombre
+     * @return the idTipoCliente
      */
-    public String getNombre() {
-        return nombre;
+    public Integer getIdTipoCliente() {
+        return idTipoCliente;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param idTipoCliente the idTipoCliente to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the idProveedor
-     */
-    public Integer getIdProveedor() {
-        return idProveedor;
-    }
-
-    /**
-     * @param idProveedor the idProveedor to set
-     */
-    public void setIdProveedor(Integer idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setIdTipoCliente(Integer idTipoCliente) {
+        this.idTipoCliente = idTipoCliente;
     }
 
     /**
@@ -144,6 +130,34 @@ public class FacturaCabUI {
     }
 
     /**
+     * @return the tipo_pago
+     */
+    public Integer getTipo_pago() {
+        return tipo_pago;
+    }
+
+    /**
+     * @param tipo_pago the tipo_pago to set
+     */
+    public void setTipo_pago(Integer tipo_pago) {
+        this.tipo_pago = tipo_pago;
+    }
+
+    /**
+     * @return the nit
+     */
+    public String getNit() {
+        return nit;
+    }
+
+    /**
+     * @param nit the nit to set
+     */
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    /**
      * @return the tipoFactura
      */
     public Integer getTipoFactura() {
@@ -157,92 +171,33 @@ public class FacturaCabUI {
         this.tipoFactura = tipoFactura;
     }
 
-    /**
-     * @return the referenciaFactura
-     */
-    public String getReferenciaFactura() {
-        return referenciaFactura;
-    }
-
-    /**
-     * @param referenciaFactura the referenciaFactura to set
-     */
-    public void setReferenciaFactura(String referenciaFactura) {
-        this.referenciaFactura = referenciaFactura;
-    }
-
-    /**
-     * @return the idCliente
-     */
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    /**
-     * @param idCliente the idCliente to set
-     */
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    /**
-     * @return the idEmpleado
-     */
-    public Integer getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    /**
-     * @param idEmpleado the idEmpleado to set
-     */
-    public void setIdEmpleado(Integer idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
-    /**
-     * @return the plazos_pago
-     */
-    public Integer getPlazos_pago() {
-        return plazos_pago;
-    }
-
-    /**
-     * @param plazos_pago the plazos_pago to set
-     */
-    public void setPlazos_pago(Integer plazos_pago) {
-        this.plazos_pago = plazos_pago;
-    }
-
-    public FacturaCabUI(Integer idFacturaCab, Date fecha_factura, Date fecha_contable, Date fecha_vencimiento, String nit, String nombre, Integer idProveedor, String estado_factura, Double total, Integer tipoFactura, String referenciaFactura, Integer idCliente, Integer idEmpleado, Integer plazos_pago) {
-        this.idFacturaCab = idFacturaCab;
-        this.fecha_factura = fecha_factura;
-        this.fecha_contable = fecha_contable;
-        this.fecha_vencimiento = fecha_vencimiento;
-        this.nit = nit;
-        this.nombre = nombre;
-        this.idProveedor = idProveedor;
-        this.estado_factura = estado_factura;
-        this.total = total;
-        this.tipoFactura = tipoFactura;
-        this.referenciaFactura = referenciaFactura;
-        this.idCliente = idCliente;
-        this.idEmpleado = idEmpleado;
-        this.plazos_pago = plazos_pago;
-    }
-
     private Integer idFacturaCab;
-    private Date fecha_factura;
-    private Date fecha_contable;
-    private Date fecha_vencimiento;
-    private String nit;
-    private String nombre;
-    private Integer idProveedor;
+    private Date fecha_registro;
+    private Integer plazos_pago;
+    private String referenciaFactura;
+    private Integer idEmpleado;
+    private Integer idTipoCliente;
     private String estado_factura;
     private Double total;
+    private Integer tipo_pago;
+    private String nit;
     private Integer tipoFactura;
-    private String referenciaFactura;
-    private Integer idCliente;
-    private Integer idEmpleado;
-    private Integer plazos_pago;
-}
 
+    public FacturaCabUI(Integer idFacturaCab, Date fecha_registro, Integer plazos_pago, String referenciaFactura, Integer idEmpleado, Integer idTipoCliente, String estado_factura, Double total, Integer tipo_pago, String nit, Integer tipoFactura) {
+        this.idFacturaCab = idFacturaCab;
+        this.fecha_registro = fecha_registro;
+        this.plazos_pago = plazos_pago;
+        this.referenciaFactura = referenciaFactura;
+        this.idEmpleado = idEmpleado;
+        this.idTipoCliente = idTipoCliente;
+        this.estado_factura = estado_factura;
+        this.total = total;
+        this.tipo_pago = tipo_pago;
+        this.nit = nit;
+        this.tipoFactura = tipoFactura;
+    }
+    
+    public FacturaCabUI(){}
+    
+    public void CrearFactura(){}
+}
