@@ -64,7 +64,7 @@
                             <h:outputLabel id= "lblbank" value=" " />                                
 
                             <h:outputLabel id= "lblIdCliente" value=" ID Cliente:" />
-                            <p:inputText id="idCliente" value="#{cliente.idCliente}
+                            <p:inputText id="idCliente" value="#{clienteUI.idCliente}
                                          " required="true" requiredMessage ="El campo no puede estar vacio" />  
 
                             <h:outputLabel id= "lblbank" value=" " />
@@ -109,7 +109,7 @@
                 <p:tab  title="Consultar Clientes">
                     <p:panel id="pnlListadoClientes">
                         <p:panelGrid id="pnlListadoClientes" layout="grid" columns="1">
-                            <p:dataTable id="cliente" var="product" value="#{cliente.idCliente}" rowKey="#{cliente.idCliente}"
+                            <p:dataTable id="cliente" var="product" value="#{clienteUI.idCliente}" rowKey="#{clienteUI.idCliente}"
                                          selection="" selectionMode="single">
 
                                 <p:column headerText="ID Cliente">
@@ -146,6 +146,7 @@
                 </p:tab>
             </p:tabView>
         </h:form>
+        
         <div class="layout-footer">
             <div class="card">
                 <p:accordionPanel widgetVar="basic">
@@ -197,5 +198,6 @@
                 </p:accordionPanel>
             </div>
         </div>
+        
     </h:body>
 </html>
