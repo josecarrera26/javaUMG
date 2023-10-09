@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro de Pacientes CRUD</title>
+    </h:head>
+    <h:body>
+         <h:form id="idform" >
+        <p:growl id="msgp"/>
+        <p:panel id="pnlRegistro" header="Registro de pacientes" style="width: 70%">
+
+            <p:panelGrid id="pnlGrid" layout="grid" columns="2" style="width: 100%">
+
+                <p:outputLabel id="lblnombre" value="Nombre paciente"/>
+                <p:inputText id="idNom" value="#{cPacientes.nombrePaciente}" required= "true" requiredMessage="nombre requerida"/>
+
+                <h:outputLabel id="idLabelDirec" value="Direccion:" />
+                <p:inputText id="idDirec" value="#{cPacientes.direccionPaciente}" required= "true" requiredMessage="Direccion requerida"/>
+
+                <h:outputLabel id="idLabelTelefono" value="Telefono:" />
+                <p:inputText id="idTelefono" value="#{cPacientes.telefonoPaciente}" required="true" requiredMessage="No. Telefono requerido"/>
+
+                <h:outputLabel id="idLabelEnfermedad" value="Enfermedad:" />
+                <p:inputText id="idEnfermedad" value="#{cPacientes.enfermedad}" required="true" requiredMessage="campo obligatorio"/>
+
+                <h:outputLabel id="idLabelEstadopaciente" value="Estado:" />
+                <p:inputText id="idEstado" value="#{cPacientes.estado}" required="true" requiredMessage="estado requerido"/>                                     <h:outputLabel id="idLabelEstado" value="estado:" />
+
+                <h:outputLabel id="idLabelFecha" value="Fecha Alta:" />
+                <p:inputText id="idFecha" value="#{cPacientes.fecha}" required="false" requiredMessage="fecha requeriada"/>
+
+            </p:panelGrid>
+
+            <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
+                <p:commandButton id="btnRegistro" value="Registar" actionListener="#{cPacientes.insertarPersona()}"  style="width: 50%"
+                                 update="pnlRegistro, msgp"/>
+
+                <p:button id="btnCancel" value="Cerrar Sesion"  style="width: 50%"/>
+
+            </p:panelGrid>
+
+        </p:panel>
+
+
+
+        <p:dataTable id="pacientes" var="paciente" value="#{cPacientes.listarPacientes()}" rowKey="#{paciente.idpaciente}" selection="" selectionMode="single"> 
+
+
+            <p:column headerText="Id Paciente ">
+                <h:outputText value="#{paciente.idpaciente}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{paciente.nombrepaciente}" />
+            </p:column>
+            <p:column headerText="Direccion">
+                <h:outputText value="#{paciente.direccion}" />
+            </p:column>
+            <p:column headerText="Estado">
+                <h:outputText value="#{paciente.estado}" />
+            </p:column>
+            <p:column headerText="Enfermedad">
+                <h:outputText value="#{paciente.enfermedad}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{paciente.telefono}" />
+            </p:column>
+
+            <p:column headerText="Fecha Alta">
+                <h:outputText value="#{paciente.fechaalta}" />
+            </p:column>
+
+
+        </p:dataTable>
+
+
+        </h:form>
+    </h:body>
+</html> 

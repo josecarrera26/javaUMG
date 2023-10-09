@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro de Pacientes CRUD</title>
+    </h:head>
+    <h:body>
+        <h:form id="formRegPaciente">
+            <p:growl id="msgp"/>
+            <p:panel id="pnlRegistro" header="ELIMINAR PACIENTE" style="width: 70%">
+
+                <p:panelGrid id="pnlGrid" layout="grid" columns="2" style="width: 100%">
+
+                    <h:outputLabel id="idLabelcod" value="ID Paciente:" />
+                    <p:inputText id="codigo" value="#{cPacientes.idPaciente}" required="false" requiredMessage="ido" />
+
+                </p:panelGrid>
+
+                <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
+                    <p:commandButton id="btnRegistro" value="Eliminar" actionListener="#{cPacientes.eliminarPaciente()}"  style="width: 50%"
+                                     update="pnlRegistro, msgp"/>
+                </p:panelGrid>
+
+            </p:panel>
+                <p:dataTable id="pacientes" var="paciente" value="#{cPacientes.listarPacientes()}" rowKey="#{paciente.idpaciente}" selection="" selectionMode="single"> 
+
+
+            <p:column headerText="Id Paciente ">
+                <h:outputText value="#{paciente.idpaciente}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{paciente.nombrepaciente}" />
+            </p:column>
+            <p:column headerText="Direccion">
+                <h:outputText value="#{paciente.direccion}" />
+            </p:column>
+            <p:column headerText="Estado">
+                <h:outputText value="#{paciente.estado}" />
+            </p:column>
+            <p:column headerText="Enfermedad">
+                <h:outputText value="#{paciente.enfermedad}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{paciente.telefono}" />
+            </p:column>
+
+            <p:column headerText="Fecha Alta">
+                <h:outputText value="#{paciente.fechaalta}" />
+            </p:column>
+
+
+        </p:dataTable>
+
+
+
+        </h:form>
+    </h:body>
+</html> 
