@@ -3,13 +3,13 @@ create database pruebaConexion
 create schema erp
 
 create table registropaciente(
-    idPaciente serial primary key,
-	nombrePaciente varchar not null,
+    idpaciente serial primary key,
+	nombrepaciente varchar not null,
 	direccion varchar, 
 	telefono integer,
 	enfermedad varchar,
 	estado varchar,
-	fechaAlta date
+	fechaalta date
 
 )
 
