@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "cliente")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
@@ -42,25 +42,25 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idCliente")
     private Integer idCliente;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Cliente", length = 2147483647)
+    @Column(name = "nombre_Cliente")
     private String nombreCliente;
     @Size(max = 2147483647)
-    @Column(name = "telefono_Cliente", length = 2147483647)
+    @Column(name = "telefono_Cliente")
     private String telefonoCliente;
     @Size(max = 2147483647)
-    @Column(name = "email_Cliente", length = 2147483647)
+    @Column(name = "email_Cliente")
     private String emailCliente;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "nit")
     private String nit;
     @Size(max = 2147483647)
-    @Column(name = "direccion_Cliente", length = 2147483647)
+    @Column(name = "direccion_Cliente")
     private String direccionCliente;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "dpi")
     private String dpi;
     @OneToMany(mappedBy = "idCliente")
     private Collection<CuentaContable> cuentaContableCollection;

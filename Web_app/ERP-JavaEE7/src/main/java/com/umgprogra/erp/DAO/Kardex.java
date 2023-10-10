@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "kardex")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Kardex.findAll", query = "SELECT k FROM Kardex k"),
@@ -43,10 +43,11 @@ public class Kardex implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Column(name = "venta_compra")
     private Integer ventaCompra;
+    @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Column(name = "unidades_originales")
@@ -54,7 +55,7 @@ public class Kardex implements Serializable {
     @Column(name = "unidades_vendidas")
     private Integer unidadesVendidas;
     @Size(max = 2147483647)
-    @Column(name = "int_out", length = 2147483647)
+    @Column(name = "int_out")
     private String intOut;
     @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
     @ManyToOne

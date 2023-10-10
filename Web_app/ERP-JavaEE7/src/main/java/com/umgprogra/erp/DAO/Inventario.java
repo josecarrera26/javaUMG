@@ -5,6 +5,7 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "inventario")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
@@ -37,43 +38,47 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Inventario.findByTipoComercializacion", query = "SELECT i FROM Inventario i WHERE i.tipoComercializacion = :tipoComercializacion"),
     @NamedQuery(name = "Inventario.findByModelo", query = "SELECT i FROM Inventario i WHERE i.modelo = :modelo"),
     @NamedQuery(name = "Inventario.findByUnidades", query = "SELECT i FROM Inventario i WHERE i.unidades = :unidades"),
-    @NamedQuery(name = "Inventario.findByPrecio", query = "SELECT i FROM Inventario i WHERE i.precio = :precio"),
-    @NamedQuery(name = "Inventario.findByGrupoProducto", query = "SELECT i FROM Inventario i WHERE i.grupoProducto = :grupoProducto")})
+    @NamedQuery(name = "Inventario.findByPrecioVenta", query = "SELECT i FROM Inventario i WHERE i.precioVenta = :precioVenta"),
+    @NamedQuery(name = "Inventario.findByCoste", query = "SELECT i FROM Inventario i WHERE i.coste = :coste"),
+    @NamedQuery(name = "Inventario.findByMargenGanancia", query = "SELECT i FROM Inventario i WHERE i.margenGanancia = :margenGanancia")})
 public class Inventario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idProducto")
     private Integer idProducto;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "nombre")
     private String nombre;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "cantidad")
     private String cantidad;
     @Size(max = 2147483647)
-    @Column(name = "tipo_comercializacion", length = 2147483647)
+    @Column(name = "tipo_comercializacion")
     private String tipoComercializacion;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "modelo")
     private String modelo;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "unidades")
     private String unidades;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(precision = 17, scale = 17)
-    private Double precio;
-    @Size(max = 2147483647)
-    @Column(name = "grupo_producto", length = 2147483647)
-    private String grupoProducto;
-    @OneToMany(mappedBy = "idproducto")
-    private Collection<CuentaContable> cuentaContableCollection;
+    @Column(name = "precioVenta")
+    private BigInteger precioVenta;
+    @Column(name = "coste")
+    private BigInteger coste;
+    @Column(name = "margenGanancia")
+    private Integer margenGanancia;
+    @OneToMany(mappedBy = "idProducto")
+    private Collection<FacturaDet> facturaDetCollection;
     @OneToMany(mappedBy = "idProducto")
     private Collection<Pedido> pedidoCollection;
     @OneToMany(mappedBy = "idProducto")
     private Collection<Kardex> kardexCollection;
+    @JoinColumn(name = "idgrupoproducto", referencedColumnName = "idgrupoproducto")
+    @ManyToOne
+    private GrupoProducto idgrupoproducto;
     @JoinColumn(name = "idLinea", referencedColumnName = "idLinea")
     @ManyToOne
     private Linea idLinea;
@@ -139,29 +144,37 @@ public class Inventario implements Serializable {
         this.unidades = unidades;
     }
 
-    public Double getPrecio() {
-        return precio;
+    public BigInteger getPrecioVenta() {
+        return precioVenta;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setPrecioVenta(BigInteger precioVenta) {
+        this.precioVenta = precioVenta;
     }
 
-    public String getGrupoProducto() {
-        return grupoProducto;
+    public BigInteger getCoste() {
+        return coste;
     }
 
-    public void setGrupoProducto(String grupoProducto) {
-        this.grupoProducto = grupoProducto;
+    public void setCoste(BigInteger coste) {
+        this.coste = coste;
+    }
+
+    public Integer getMargenGanancia() {
+        return margenGanancia;
+    }
+
+    public void setMargenGanancia(Integer margenGanancia) {
+        this.margenGanancia = margenGanancia;
     }
 
     @XmlTransient
-    public Collection<CuentaContable> getCuentaContableCollection() {
-        return cuentaContableCollection;
+    public Collection<FacturaDet> getFacturaDetCollection() {
+        return facturaDetCollection;
     }
 
-    public void setCuentaContableCollection(Collection<CuentaContable> cuentaContableCollection) {
-        this.cuentaContableCollection = cuentaContableCollection;
+    public void setFacturaDetCollection(Collection<FacturaDet> facturaDetCollection) {
+        this.facturaDetCollection = facturaDetCollection;
     }
 
     @XmlTransient
@@ -180,6 +193,14 @@ public class Inventario implements Serializable {
 
     public void setKardexCollection(Collection<Kardex> kardexCollection) {
         this.kardexCollection = kardexCollection;
+    }
+
+    public GrupoProducto getIdgrupoproducto() {
+        return idgrupoproducto;
+    }
+
+    public void setIdgrupoproducto(GrupoProducto idgrupoproducto) {
+        this.idgrupoproducto = idgrupoproducto;
     }
 
     public Linea getIdLinea() {

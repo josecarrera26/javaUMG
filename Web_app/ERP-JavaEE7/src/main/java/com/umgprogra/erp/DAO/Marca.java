@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "marca")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
@@ -38,11 +38,12 @@ public class Marca implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idMarca")
     private Integer idMarca;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "estado")
     private Integer estado;
     @OneToMany(mappedBy = "idMarca")
     private Collection<Inventario> inventarioCollection;

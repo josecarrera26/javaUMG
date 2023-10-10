@@ -5,6 +5,7 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,38 +25,29 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "cuentaContable")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CuentaContable.findAll", query = "SELECT c FROM CuentaContable c"),
     @NamedQuery(name = "CuentaContable.findByIdCuenta", query = "SELECT c FROM CuentaContable c WHERE c.idCuenta = :idCuenta"),
     @NamedQuery(name = "CuentaContable.findByNombreCuenta", query = "SELECT c FROM CuentaContable c WHERE c.nombreCuenta = :nombreCuenta"),
-    @NamedQuery(name = "CuentaContable.findByImpuestoInventario", query = "SELECT c FROM CuentaContable c WHERE c.impuestoInventario = :impuestoInventario"),
-    @NamedQuery(name = "CuentaContable.findByCoste", query = "SELECT c FROM CuentaContable c WHERE c.coste = :coste"),
-    @NamedQuery(name = "CuentaContable.findByMargenGanancia", query = "SELECT c FROM CuentaContable c WHERE c.margenGanancia = :margenGanancia")})
+    @NamedQuery(name = "CuentaContable.findByImpuestoInventario", query = "SELECT c FROM CuentaContable c WHERE c.impuestoInventario = :impuestoInventario")})
 public class CuentaContable implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idCuenta")
     private Integer idCuenta;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "nombreCuenta")
     private String nombreCuenta;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "impuesto_inventario", precision = 17, scale = 17)
-    private Double impuestoInventario;
-    @Column(precision = 17, scale = 17)
-    private Double coste;
-    private Integer margenGanancia;
+    @Column(name = "impuesto_inventario")
+    private BigInteger impuestoInventario;
     @JoinColumn(name = "idCliente", referencedColumnName = "idCliente")
     @ManyToOne
     private Cliente idCliente;
-    @JoinColumn(name = "idproducto", referencedColumnName = "idProducto")
-    @ManyToOne
-    private Inventario idproducto;
     @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
     @ManyToOne
     private Proveedor idProveedor;
@@ -83,28 +75,12 @@ public class CuentaContable implements Serializable {
         this.nombreCuenta = nombreCuenta;
     }
 
-    public Double getImpuestoInventario() {
+    public BigInteger getImpuestoInventario() {
         return impuestoInventario;
     }
 
-    public void setImpuestoInventario(Double impuestoInventario) {
+    public void setImpuestoInventario(BigInteger impuestoInventario) {
         this.impuestoInventario = impuestoInventario;
-    }
-
-    public Double getCoste() {
-        return coste;
-    }
-
-    public void setCoste(Double coste) {
-        this.coste = coste;
-    }
-
-    public Integer getMargenGanancia() {
-        return margenGanancia;
-    }
-
-    public void setMargenGanancia(Integer margenGanancia) {
-        this.margenGanancia = margenGanancia;
     }
 
     public Cliente getIdCliente() {
@@ -113,14 +89,6 @@ public class CuentaContable implements Serializable {
 
     public void setIdCliente(Cliente idCliente) {
         this.idCliente = idCliente;
-    }
-
-    public Inventario getIdproducto() {
-        return idproducto;
-    }
-
-    public void setIdproducto(Inventario idproducto) {
-        this.idproducto = idproducto;
     }
 
     public Proveedor getIdProveedor() {

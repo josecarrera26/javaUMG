@@ -8,8 +8,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -19,18 +17,16 @@ import javax.validation.constraints.Size;
 public class FacturaCabPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idFactura")
     private int idFactura;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "referencia_Factura", nullable = false, length = 2147483647)
-    private String referenciaFactura;
+    @Column(name = "referencia_Factura")
+    private int referenciaFactura;
 
     public FacturaCabPK() {
     }
 
-    public FacturaCabPK(int idFactura, String referenciaFactura) {
+    public FacturaCabPK(int idFactura, int referenciaFactura) {
         this.idFactura = idFactura;
         this.referenciaFactura = referenciaFactura;
     }
@@ -43,11 +39,11 @@ public class FacturaCabPK implements Serializable {
         this.idFactura = idFactura;
     }
 
-    public String getReferenciaFactura() {
+    public int getReferenciaFactura() {
         return referenciaFactura;
     }
 
-    public void setReferenciaFactura(String referenciaFactura) {
+    public void setReferenciaFactura(int referenciaFactura) {
         this.referenciaFactura = referenciaFactura;
     }
 
@@ -55,7 +51,7 @@ public class FacturaCabPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) idFactura;
-        hash += (referenciaFactura != null ? referenciaFactura.hashCode() : 0);
+        hash += (int) referenciaFactura;
         return hash;
     }
 
@@ -69,7 +65,7 @@ public class FacturaCabPK implements Serializable {
         if (this.idFactura != other.idFactura) {
             return false;
         }
-        if ((this.referenciaFactura == null && other.referenciaFactura != null) || (this.referenciaFactura != null && !this.referenciaFactura.equals(other.referenciaFactura))) {
+        if (this.referenciaFactura != other.referenciaFactura) {
             return false;
         }
         return true;

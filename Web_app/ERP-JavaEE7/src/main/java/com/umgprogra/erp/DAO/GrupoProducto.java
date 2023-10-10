@@ -25,42 +25,42 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(name = "linea")
+@Table(name = "grupoProducto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Linea.findAll", query = "SELECT l FROM Linea l"),
-    @NamedQuery(name = "Linea.findByIdLinea", query = "SELECT l FROM Linea l WHERE l.idLinea = :idLinea"),
-    @NamedQuery(name = "Linea.findByDescripcion", query = "SELECT l FROM Linea l WHERE l.descripcion = :descripcion"),
-    @NamedQuery(name = "Linea.findByEstado", query = "SELECT l FROM Linea l WHERE l.estado = :estado")})
-public class Linea implements Serializable {
+    @NamedQuery(name = "GrupoProducto.findAll", query = "SELECT g FROM GrupoProducto g"),
+    @NamedQuery(name = "GrupoProducto.findByIdgrupoproducto", query = "SELECT g FROM GrupoProducto g WHERE g.idgrupoproducto = :idgrupoproducto"),
+    @NamedQuery(name = "GrupoProducto.findByDescripcion", query = "SELECT g FROM GrupoProducto g WHERE g.descripcion = :descripcion"),
+    @NamedQuery(name = "GrupoProducto.findByEstado", query = "SELECT g FROM GrupoProducto g WHERE g.estado = :estado")})
+public class GrupoProducto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idLinea")
-    private Integer idLinea;
+    @Column(name = "idgrupoproducto")
+    private Integer idgrupoproducto;
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
     @Column(name = "estado")
     private Integer estado;
-    @OneToMany(mappedBy = "idLinea")
+    @OneToMany(mappedBy = "idgrupoproducto")
     private Collection<Inventario> inventarioCollection;
 
-    public Linea() {
+    public GrupoProducto() {
     }
 
-    public Linea(Integer idLinea) {
-        this.idLinea = idLinea;
+    public GrupoProducto(Integer idgrupoproducto) {
+        this.idgrupoproducto = idgrupoproducto;
     }
 
-    public Integer getIdLinea() {
-        return idLinea;
+    public Integer getIdgrupoproducto() {
+        return idgrupoproducto;
     }
 
-    public void setIdLinea(Integer idLinea) {
-        this.idLinea = idLinea;
+    public void setIdgrupoproducto(Integer idgrupoproducto) {
+        this.idgrupoproducto = idgrupoproducto;
     }
 
     public String getDescripcion() {
@@ -91,18 +91,18 @@ public class Linea implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idLinea != null ? idLinea.hashCode() : 0);
+        hash += (idgrupoproducto != null ? idgrupoproducto.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Linea)) {
+        if (!(object instanceof GrupoProducto)) {
             return false;
         }
-        Linea other = (Linea) object;
-        if ((this.idLinea == null && other.idLinea != null) || (this.idLinea != null && !this.idLinea.equals(other.idLinea))) {
+        GrupoProducto other = (GrupoProducto) object;
+        if ((this.idgrupoproducto == null && other.idgrupoproducto != null) || (this.idgrupoproducto != null && !this.idgrupoproducto.equals(other.idgrupoproducto))) {
             return false;
         }
         return true;
@@ -110,7 +110,7 @@ public class Linea implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Linea[ idLinea=" + idLinea + " ]";
+        return "com.umgprogra.erp.DAO.GrupoProducto[ idgrupoproducto=" + idgrupoproducto + " ]";
     }
     
 }

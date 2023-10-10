@@ -5,6 +5,7 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "facturaCab")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FacturaCab.findAll", query = "SELECT f FROM FacturaCab f"),
@@ -48,20 +49,23 @@ public class FacturaCab implements Serializable {
     private Date fechaRegistro;
     @Column(name = "plazos_pago")
     private Integer plazosPago;
+    @Column(name = "idTipoCliente")
     private Integer idTipoCliente;
+    @Column(name = "estadoFac")
     private Integer estadoFac;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(precision = 17, scale = 17)
-    private Double total;
+    @Column(name = "total")
+    private BigInteger total;
+    @Column(name = "idTipoPago")
     private Integer idTipoPago;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "nit")
     private String nit;
+    @Column(name = "idTipoFactura")
     private Integer idTipoFactura;
     @JoinColumn(name = "idEmpleado", referencedColumnName = "idEmpleado")
     @ManyToOne
     private Empleado idEmpleado;
-    @JoinColumn(name = "idFactura", referencedColumnName = "idFactura", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idFactura", referencedColumnName = "idFactura", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private FacturaDet facturaDet;
 
@@ -72,7 +76,7 @@ public class FacturaCab implements Serializable {
         this.facturaCabPK = facturaCabPK;
     }
 
-    public FacturaCab(int idFactura, String referenciaFactura) {
+    public FacturaCab(int idFactura, int referenciaFactura) {
         this.facturaCabPK = new FacturaCabPK(idFactura, referenciaFactura);
     }
 
@@ -116,11 +120,11 @@ public class FacturaCab implements Serializable {
         this.estadoFac = estadoFac;
     }
 
-    public Double getTotal() {
+    public BigInteger getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigInteger total) {
         this.total = total;
     }
 

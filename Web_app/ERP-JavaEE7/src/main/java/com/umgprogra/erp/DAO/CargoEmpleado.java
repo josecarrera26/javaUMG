@@ -5,6 +5,7 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(name = "cargo_empleado", catalog = "prograproyecto", schema = "erp")
+@Table(name = "cargo_empleado")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CargoEmpleado.findAll", query = "SELECT c FROM CargoEmpleado c"),
@@ -38,14 +39,13 @@ public class CargoEmpleado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idCargo")
     private Integer idCargo;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Cargo", length = 2147483647)
+    @Column(name = "nombre_Cargo")
     private String nombreCargo;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(precision = 17, scale = 17)
-    private Double salario;
+    @Column(name = "salario")
+    private BigInteger salario;
     @OneToMany(mappedBy = "idCargoempleado")
     private Collection<Empleado> empleadoCollection;
 
@@ -72,11 +72,11 @@ public class CargoEmpleado implements Serializable {
         this.nombreCargo = nombreCargo;
     }
 
-    public Double getSalario() {
+    public BigInteger getSalario() {
         return salario;
     }
 
-    public void setSalario(Double salario) {
+    public void setSalario(BigInteger salario) {
         this.salario = salario;
     }
 

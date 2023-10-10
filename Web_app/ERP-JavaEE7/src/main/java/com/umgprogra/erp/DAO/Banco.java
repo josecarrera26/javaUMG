@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "banco")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
@@ -36,10 +36,10 @@ public class Banco implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idBanco")
     private Integer idBanco;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "nombreBanco")
     private String nombreBanco;
     @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
     @ManyToOne

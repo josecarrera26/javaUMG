@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(catalog = "prograproyecto", schema = "erp")
+@Table(name = "empleado")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),
@@ -43,22 +43,22 @@ public class Empleado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idEmpleado")
     private Integer idEmpleado;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Empleado", length = 2147483647)
+    @Column(name = "nombre_Empleado")
     private String nombreEmpleado;
     @Size(max = 2147483647)
-    @Column(name = "apellido_Empleado", length = 2147483647)
+    @Column(name = "apellido_Empleado")
     private String apellidoEmpleado;
     @Size(max = 2147483647)
-    @Column(name = "telefono_Empleado", length = 2147483647)
+    @Column(name = "telefono_Empleado")
     private String telefonoEmpleado;
     @Size(max = 2147483647)
-    @Column(name = "email_empleado", length = 2147483647)
+    @Column(name = "email_empleado")
     private String emailEmpleado;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "password")
     private String password;
     @JoinColumn(name = "idCargo_empleado", referencedColumnName = "idCargo")
     @ManyToOne
