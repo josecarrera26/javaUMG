@@ -5,32 +5,32 @@
  */
 package com.umgprogra.erpUI;
 
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Miguel
  */
-@ManagedBean
 @SessionScoped
+@Named
 public class ClienteUI {
     private Integer idCliente;
     private String nombreCliente;
     private String telefonoCliente;
     private String emailCliente;
     private String nitCliente;
-    private String direccioncliente;
+    private String direccionCliente;
     private String dpiCliente;
     
 //Constructor de Cliente
-    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccioncliente, String dpiCliente) {
+    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente) {
         this.idCliente = idCliente;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
         this.emailCliente = emailCliente;
         this.nitCliente = nitCliente;
-        this.direccioncliente = direccioncliente;
+        this.direccionCliente = direccionCliente;
         this.dpiCliente = dpiCliente;
     }
     
@@ -75,12 +75,12 @@ public class ClienteUI {
         this.nitCliente = nitCliente;
     }
 
-    public String getDireccioncliente() {
-        return direccioncliente;
+    public String getDireccionCliente() {
+        return direccionCliente;
     }
 
-    public void setDireccioncliente(String direccioncliente) {
-        this.direccioncliente = direccioncliente;
+    public void setDireccionCliente(String direccionCliente) {
+        this.direccionCliente = direccionCliente;
     }
 
     public String getDpiCliente() {
