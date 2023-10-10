@@ -7,10 +7,73 @@
         <title>Cuentas Contables</title>
         <h:outputStylesheet library="css" name="styleCargo.css"/>
         <h:outputStylesheet library="css" name="style.css"/>
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>       
     </h:head>
 
     <h:body>
-        <p:spinner />
+        <p:tabView dynamic="true">
+            <p:growl id="msg"/>
+                <!-- seccion de registro de Cuentas Contables -->
+                <p:tab  title="Cuentas Contables">
+                    <div class="card" style="width: 100%">
+                        <h:form>
+                            <div class="grid ui-fluid mt-3 floatlabel-demo">
+                               <p:splitter style="height: 300px" styleClass="mb-5">
+                                   <p:splitterPanel styleClass="flex align-items-center justify-content-center">                               
+                                <h5></h5>
+                                <div class="col-12 md:col-6">                                   
+                                    <div class="field">
+                                        <span class="ui-float-label">
+                                            <p:inputText id="idCuentaContable" value="#{clienteUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />
+                                            <p:outputLabel for="@previous" value="ID Cuenta" />
+                                        </span>
+                                    </div>
+                                    <h5></h5>
+                                    <div class="field">
+                                        <span class="ui-float-label ui-input-icon-left">                                            
+                                            <p:inputText />
+                                            <p:outputLabel for="@previous" value="Nombre Cuenta" styleClass="ml-4" />
+                                        </span>
+                                    </div>
+                                    <h5></h5>
+                                    <div class="field">
+                                        <span class="ui-float-label ui-input-icon-right">
+                                           <p:inputText />
+                                           <p:outputLabel for="@previous" value="Tipo Cuenta" />
+                                        </span>
+                                    </div>
+                                </div>   
+                                </p:splitterPanel>
+                                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
+                                <h5></h5>
+                                <div class="col-12 md:col-6">    
+                                    <div class="field">
+                                        <span class="ui-float-label">
+                                           <p:inputText />
+                                           <p:outputLabel for="@previous" value="Código Cuenta" />
+                                        </span>
+                                    </div>
+                                    <h5></h5>
+                                    <div class="field">
+                                        <span class="ui-float-label">
+                                           <p:inputText />
+                                           <p:outputLabel for="@previous" value="ID Cliente" />
+                                        </span>
+                                    </div>
+                                    <h5></h5>
+                                    <div class="field">
+                                        <span class="ui-float-label">
+                                              <p:inputText />
+                                              <p:outputLabel for="@previous" value="ID Proveedores" />
+                                        </span>
+                                    </div>                                    
+                                </div>
+                                </p:splitterPanel>
+                                  </p:splitter>
+                            </div>
+                        </h:form> 
+                    </div>
+            </p:tab>
+        </p:tabView>
     </h:body>
 </html>
