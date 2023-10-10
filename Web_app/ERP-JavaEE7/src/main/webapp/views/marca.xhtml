@@ -12,9 +12,7 @@
       
 <h:body id="inventario">
     <h:form>
-<p:messages>
-    <p:autoUpdate />
-</p:messages>
+  <p:growl id="messages" showDetail="true" life="3000" />
 
 <div class="formgrid grid">
     <div class="field col-12 md:col-6">
@@ -25,8 +23,8 @@
 </div>
 
 <div>
-    <p:commandButton value="show message" action="#{dfResponsiveView.showMessage()}" styleClass="mr-2" />
-    <p:commandButton value="close" action="#{dfResponsiveView.closeDialog()}" />
+    <p:commandButton value="Registrar" action="#{marcaUI.SaveMarca}" styleClass="mr-2"/>
+   
 </div>
     </h:form>
 </h:body>
