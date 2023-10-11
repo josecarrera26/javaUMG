@@ -9,15 +9,16 @@ import com.umgprogra.erp.ui.services.MarcaServicio;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 
 /**
  *
  * @author madis
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class MarcaUI implements Serializable {
 
     /**
@@ -55,21 +56,23 @@ public class MarcaUI implements Serializable {
     public void SaveMarca() {
         try{
              MarcaServicio marcaServ = new MarcaServicio();
-        if (marcaServ.saveMarca(descripcionM)) {
+        //if (
+                marcaServ.saveMarca(this.descripcionM);
+                //) {
             System.err.println( "Estoy en MarcaUITRUE");
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
+          //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
             // Agrega el mensaje al componente <p:growl>
-            FacesContext.getCurrentInstance().addMessage("messages", mensaje);
-        }else {
-            System.err.println( "Estoy en MarcaUIFALSE");
-             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error","Registro no guardado");
+         //   FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+       // }else {
+       //     System.err.println( "Estoy en MarcaUIFALSE");
+       //      FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error","Registro no guardado");
             // Agrega el mensaje al componente <p:growl>
-           FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+      //     FacesContext.getCurrentInstance().addMessage("messages", mensaje);
         
-    }
+   // }
 
     }catch(Exception e){
-                e.printStackTrace();
+               System.out.println(e + "Error en save MarcaUI");
     }
 }
 
