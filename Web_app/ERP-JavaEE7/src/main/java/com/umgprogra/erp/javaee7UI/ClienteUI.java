@@ -7,6 +7,7 @@ package com.umgprogra.erp.javaee7UI;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 
 /**
  *
@@ -14,7 +15,8 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class ClienteUI {
+public class ClienteUI  implements  Serializable {
+    
     private Integer idCliente;
     private String nombreCliente;
     private String telefonoCliente;
@@ -32,6 +34,10 @@ public class ClienteUI {
         this.nitCliente = nitCliente;
         this.direccioncliente = direccioncliente;
         this.dpiCliente = dpiCliente;
+    }
+    
+    public ClienteUI(){
+        
     }
     
 //Getters y Setters de Cliente
