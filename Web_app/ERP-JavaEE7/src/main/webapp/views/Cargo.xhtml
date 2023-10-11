@@ -53,21 +53,32 @@
 
         <div>
             <p:graphicImage name="Logo.png" library="images" styleClass="logo"/>
-            <h:form>
-                <p:panel header="Cargo de empleados" id="pnlFormulario">
-                    <p:menubar>
-                        <p:submenu label="Form" icon="pi pi-fw pi-file">
-                            <p:menuitem value="add" icon="pi pi-fw pi-plus" actionListener="#{cargoUI.setIdCargo(idCargo)}"/>
-                            <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
-                            <p:divider />
-                            <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
-                        </p:submenu>
-                    </p:menubar> 
-                    <p:panelGrid columns="1" styleClass="centrar " layout="grid">
-                        <h:outputLabel value="prueba"/>
-                    </p:panelGrid>
-                </p:panel>
-            </h:form>
+
+            <p:panel>
+                <h:form>
+                    <div class="card">
+                        <h5>Cargo</h5>
+                        
+                        <div class="grid ui-fluid">
+                            <div class="col-12 md:col-4">
+                                <div class="ui-inputgroup">
+                                    <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
+                                    <p:inputText placeholder="Nombre del Cargo" value="#{cargoUI.nombre_cargo}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 md:col-4">
+                                <div class="ui-inputgroup">
+                                    <div class="ui-inputgroup-addon">$</div>
+                                    <p:inputNumber placeholder="Sueldo del cargo" value="#{cargoUI.salario}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <p:commandButton actionListener="#{cargoUI.crearCargo()}" value="Guardar"/>
+                    </div>
+                </h:form>
+            </p:panel>
+
         </div>
 
         <div class="layout-footer">
@@ -115,7 +126,7 @@
                             <span id="slot1"> | </span>
                             <span id="slot2"> 2424-2424 </span>
                             <span id="slot3"> | </span>
-                             <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                            <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
                         </div>
                     </p:tab>
                 </p:accordionPanel>

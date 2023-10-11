@@ -4,6 +4,7 @@
  */
 package com.umgprogra.erpUI;
 
+import com.umgprogra.erp.ui.services.Facturas;
 import java.util.Date;
 import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
@@ -200,4 +201,10 @@ public class FacturaCabUI {
     public FacturaCabUI(){}
     
     public void CrearFactura(){}
+    
+//    public Integer lastFactura(){
+//    Facturas ultimaFactura = new Facturas();
+//    
+//    return ultimaFactura.lastFactura();
+//    }
 }
