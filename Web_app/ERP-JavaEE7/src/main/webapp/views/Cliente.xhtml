@@ -98,9 +98,16 @@
                             <h:outputLabel id="lbldpiCLiente" value="DPI:" />
                             <p:inputText id="dpiCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
                         </p:panelGrid >
+
+                        <p:commandButton id="RegisterCliente" action="#{clienteUI.registrarCliente}"
+                                         value="Registrar Cliente" update="pnlRegistroCliente, msg" ajax="true"  style=" margin-left: 600px" >
+                        </p:commandButton>
+
                     </p:panel > 
 
-                </p:tab>   
+                </p:tab>
+
+                <!--
                 <p:tab  title="Consultar Clientes">
                     <p:panel id="pnlListadoClientes">
                         <p:panelGrid id="pnlListadoClientes" layout="grid" columns="1">
@@ -133,7 +140,9 @@
                     </p:panel>
                 </p:tab>
                 <p:tab  title ="Eliminar">
-                    <!-- seccion de eliminacion de Cliente-->
+                
+                     seccion de eliminacion de Cliente
+                
                     <p:panel id="pnlElimCliente" header="Eliminar cliente">
                         <h:outputLabel id="lblElimCliente" value="Ingrese el ID" />
                         <span class="ui-input-icon-left">
@@ -142,6 +151,7 @@
                         </span>
                     </p:panel>
                 </p:tab>
+                -->
             </p:tabView>
 
             <div class="layout-footer">
@@ -189,7 +199,7 @@
                                 <span id="slot1"> | </span>
                                 <span id="slot2"> 2424-2424 </span>
                                 <span id="slot3"> | </span>
-                                 <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                                <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
                             </div>
                         </p:tab>
                     </p:accordionPanel>

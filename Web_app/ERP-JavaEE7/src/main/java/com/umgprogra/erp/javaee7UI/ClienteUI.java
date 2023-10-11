@@ -97,4 +97,8 @@ public class ClienteUI  implements  Serializable {
         this.dpiCliente = dpiCliente;
     }
     
+    public void RegistrarCliente(){
+        System.out.println("Hola aca esta");
+    }
+    
 }
