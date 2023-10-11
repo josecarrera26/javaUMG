@@ -24,12 +24,6 @@
             </p:menubar>
 
         </h:form>
-
-         
-         <!-- <div id="message">
-         
-          </div>
-         -->
         
         <p:spacer> </p:spacer>
 
@@ -50,7 +44,8 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="10" width="100%">
-                    <p:commandButton id="loginButton" action="bean"
+                    
+                    <p:commandButton id="loginButton" action="#{empleadoUI.getEmpleados}"
                                      value="Iniciar Sesion" update="loginForm" ajax="true" style="float: left; margin-left: 40px" icon="pi pi-user">
                     </p:commandButton>
                     
@@ -71,11 +66,6 @@
                 </h:panelGrid>
 
             </p:panel>
-
-            <!--<p:blockUI block="loginPnl" trigger="loginButton" >
-                <p:graphicImage value="imagenes/login-logo.png" />
-            </p:blockUI>
-            -->
 
             <div class="layout-footer">
                 <div class="card">

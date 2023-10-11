@@ -5,7 +5,6 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
-import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.util.JpaUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,12 +17,12 @@ public class EmpleadoServicio {
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
     
      public void getEmpleado(String nombreEmpleado, String passwordEmpleado ){
-        Empleado marca = new Empleado();
+        Empleado empleado = new Empleado();
     Query query2 = entity.createNamedQuery("Empleado.findByEmpeadoPassword", Empleado.class)
                             .setParameter("nombreEmpleado", nombreEmpleado)
                             .setParameter("password", passwordEmpleado);
     
-        Empleado empleado = (Empleado) query2.getSingleResult();
+         empleado = (Empleado) query2.getSingleResult();
     
         System.out.println(empleado.getNombreEmpleado()+ empleado.getPassword());
     }
