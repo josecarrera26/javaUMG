@@ -7,7 +7,7 @@ package com.umgprogra.erp.ui.services;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.util.JpaUtil;
 import javax.persistence.EntityManager;
-import org.hibernate.HibernateException;
+import javax.persistence.Query;
 
 
 
@@ -42,5 +42,15 @@ public class MarcaServicio {
             System.out.println("Error en Hibernate: " + e.getMessage());
         }
         return g;
+    }
+    
+    public void getMarca(Integer pIDmarca){
+        Marca marca = new Marca();
+    Query query2 = entity.createNamedQuery("Marca.findByIdmarca", Marca.class)
+                            .setParameter("idmarca", pIDmarca);
+    
+    marca = (Marca) query2.getSingleResult();
+    
+        System.out.println(marca.getDescripcion() + marca.getEstado());
     }
 }

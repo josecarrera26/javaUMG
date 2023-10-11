@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
-    @NamedQuery(name = "Cliente.findByIdCliente", query = "SELECT c FROM Cliente c WHERE c.idCliente = :idCliente"),
+    @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente"),
     @NamedQuery(name = "Cliente.findByNombreCliente", query = "SELECT c FROM Cliente c WHERE c.nombreCliente = :nombreCliente"),
     @NamedQuery(name = "Cliente.findByTelefonoCliente", query = "SELECT c FROM Cliente c WHERE c.telefonoCliente = :telefonoCliente"),
     @NamedQuery(name = "Cliente.findByEmailCliente", query = "SELECT c FROM Cliente c WHERE c.emailCliente = :emailCliente"),
@@ -42,44 +42,44 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idCliente")
-    private Integer idCliente;
+    @Column(name = "idcliente")
+    private Integer idcliente;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Cliente")
+    @Column(name = "nombre_cliente")
     private String nombreCliente;
     @Size(max = 2147483647)
-    @Column(name = "telefono_Cliente")
+    @Column(name = "telefono_cliente")
     private String telefonoCliente;
     @Size(max = 2147483647)
-    @Column(name = "email_Cliente")
+    @Column(name = "email_cliente")
     private String emailCliente;
     @Size(max = 2147483647)
     @Column(name = "nit")
     private String nit;
     @Size(max = 2147483647)
-    @Column(name = "direccion_Cliente")
+    @Column(name = "direccion_cliente")
     private String direccionCliente;
     @Size(max = 2147483647)
     @Column(name = "dpi")
     private String dpi;
-    @OneToMany(mappedBy = "idCliente")
-    private Collection<CuentaContable> cuentaContableCollection;
-    @OneToMany(mappedBy = "idCliente")
+    @OneToMany(mappedBy = "idcliente")
+    private Collection<Cuentacontable> cuentacontableCollection;
+    @OneToMany(mappedBy = "idcliente")
     private Collection<Pedido> pedidoCollection;
 
     public Cliente() {
     }
 
-    public Cliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public Cliente(Integer idcliente) {
+        this.idcliente = idcliente;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public Integer getIdcliente() {
+        return idcliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setIdcliente(Integer idcliente) {
+        this.idcliente = idcliente;
     }
 
     public String getNombreCliente() {
@@ -131,12 +131,12 @@ public class Cliente implements Serializable {
     }
 
     @XmlTransient
-    public Collection<CuentaContable> getCuentaContableCollection() {
-        return cuentaContableCollection;
+    public Collection<Cuentacontable> getCuentacontableCollection() {
+        return cuentacontableCollection;
     }
 
-    public void setCuentaContableCollection(Collection<CuentaContable> cuentaContableCollection) {
-        this.cuentaContableCollection = cuentaContableCollection;
+    public void setCuentacontableCollection(Collection<Cuentacontable> cuentacontableCollection) {
+        this.cuentacontableCollection = cuentacontableCollection;
     }
 
     @XmlTransient
@@ -151,7 +151,7 @@ public class Cliente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCliente != null ? idCliente.hashCode() : 0);
+        hash += (idcliente != null ? idcliente.hashCode() : 0);
         return hash;
     }
 
@@ -162,7 +162,7 @@ public class Cliente implements Serializable {
             return false;
         }
         Cliente other = (Cliente) object;
-        if ((this.idCliente == null && other.idCliente != null) || (this.idCliente != null && !this.idCliente.equals(other.idCliente))) {
+        if ((this.idcliente == null && other.idcliente != null) || (this.idcliente != null && !this.idcliente.equals(other.idcliente))) {
             return false;
         }
         return true;
@@ -170,7 +170,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Cliente[ idCliente=" + idCliente + " ]";
+        return "com.umgprogra.erp.DAO.Cliente[ idcliente=" + idcliente + " ]";
     }
     
 }

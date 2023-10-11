@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Linea.findAll", query = "SELECT l FROM Linea l"),
-    @NamedQuery(name = "Linea.findByIdLinea", query = "SELECT l FROM Linea l WHERE l.idLinea = :idLinea"),
+    @NamedQuery(name = "Linea.findByIdlinea", query = "SELECT l FROM Linea l WHERE l.idlinea = :idlinea"),
     @NamedQuery(name = "Linea.findByDescripcion", query = "SELECT l FROM Linea l WHERE l.descripcion = :descripcion"),
     @NamedQuery(name = "Linea.findByEstado", query = "SELECT l FROM Linea l WHERE l.estado = :estado")})
 public class Linea implements Serializable {
@@ -38,29 +38,29 @@ public class Linea implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idLinea")
-    private Integer idLinea;
+    @Column(name = "idlinea")
+    private Integer idlinea;
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
     @Column(name = "estado")
     private Integer estado;
-    @OneToMany(mappedBy = "idLinea")
+    @OneToMany(mappedBy = "idlinea")
     private Collection<Inventario> inventarioCollection;
 
     public Linea() {
     }
 
-    public Linea(Integer idLinea) {
-        this.idLinea = idLinea;
+    public Linea(Integer idlinea) {
+        this.idlinea = idlinea;
     }
 
-    public Integer getIdLinea() {
-        return idLinea;
+    public Integer getIdlinea() {
+        return idlinea;
     }
 
-    public void setIdLinea(Integer idLinea) {
-        this.idLinea = idLinea;
+    public void setIdlinea(Integer idlinea) {
+        this.idlinea = idlinea;
     }
 
     public String getDescripcion() {
@@ -91,7 +91,7 @@ public class Linea implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idLinea != null ? idLinea.hashCode() : 0);
+        hash += (idlinea != null ? idlinea.hashCode() : 0);
         return hash;
     }
 
@@ -102,7 +102,7 @@ public class Linea implements Serializable {
             return false;
         }
         Linea other = (Linea) object;
-        if ((this.idLinea == null && other.idLinea != null) || (this.idLinea != null && !this.idLinea.equals(other.idLinea))) {
+        if ((this.idlinea == null && other.idlinea != null) || (this.idlinea != null && !this.idlinea.equals(other.idlinea))) {
             return false;
         }
         return true;
@@ -110,7 +110,7 @@ public class Linea implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Linea[ idLinea=" + idLinea + " ]";
+        return "com.umgprogra.erp.DAO.Linea[ idlinea=" + idlinea + " ]";
     }
     
 }

@@ -32,23 +32,23 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
-    @NamedQuery(name = "Inventario.findByIdProducto", query = "SELECT i FROM Inventario i WHERE i.idProducto = :idProducto"),
+    @NamedQuery(name = "Inventario.findByIdproducto", query = "SELECT i FROM Inventario i WHERE i.idproducto = :idproducto"),
     @NamedQuery(name = "Inventario.findByNombre", query = "SELECT i FROM Inventario i WHERE i.nombre = :nombre"),
     @NamedQuery(name = "Inventario.findByCantidad", query = "SELECT i FROM Inventario i WHERE i.cantidad = :cantidad"),
     @NamedQuery(name = "Inventario.findByTipoComercializacion", query = "SELECT i FROM Inventario i WHERE i.tipoComercializacion = :tipoComercializacion"),
     @NamedQuery(name = "Inventario.findByModelo", query = "SELECT i FROM Inventario i WHERE i.modelo = :modelo"),
     @NamedQuery(name = "Inventario.findByUnidades", query = "SELECT i FROM Inventario i WHERE i.unidades = :unidades"),
-    @NamedQuery(name = "Inventario.findByPrecioVenta", query = "SELECT i FROM Inventario i WHERE i.precioVenta = :precioVenta"),
+    @NamedQuery(name = "Inventario.findByPrecioventa", query = "SELECT i FROM Inventario i WHERE i.precioventa = :precioventa"),
     @NamedQuery(name = "Inventario.findByCoste", query = "SELECT i FROM Inventario i WHERE i.coste = :coste"),
-    @NamedQuery(name = "Inventario.findByMargenGanancia", query = "SELECT i FROM Inventario i WHERE i.margenGanancia = :margenGanancia")})
+    @NamedQuery(name = "Inventario.findByMargenganancia", query = "SELECT i FROM Inventario i WHERE i.margenganancia = :margenganancia")})
 public class Inventario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idProducto")
-    private Integer idProducto;
+    @Column(name = "idproducto")
+    private Integer idproducto;
     @Size(max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
@@ -64,44 +64,44 @@ public class Inventario implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "unidades")
     private String unidades;
-    @Column(name = "precioVenta")
-    private BigInteger precioVenta;
+    @Column(name = "precioventa")
+    private BigInteger precioventa;
     @Column(name = "coste")
     private BigInteger coste;
-    @Column(name = "margenGanancia")
-    private Integer margenGanancia;
-    @OneToMany(mappedBy = "idProducto")
-    private Collection<FacturaDet> facturaDetCollection;
-    @OneToMany(mappedBy = "idProducto")
+    @Column(name = "margenganancia")
+    private Integer margenganancia;
+    @OneToMany(mappedBy = "idproducto")
+    private Collection<Facturadet> facturadetCollection;
+    @OneToMany(mappedBy = "idproducto")
     private Collection<Pedido> pedidoCollection;
-    @OneToMany(mappedBy = "idProducto")
+    @OneToMany(mappedBy = "idproducto")
     private Collection<Kardex> kardexCollection;
     @JoinColumn(name = "idgrupoproducto", referencedColumnName = "idgrupoproducto")
     @ManyToOne
-    private GrupoProducto idgrupoproducto;
-    @JoinColumn(name = "idLinea", referencedColumnName = "idLinea")
+    private Grupoproducto idgrupoproducto;
+    @JoinColumn(name = "idlinea", referencedColumnName = "idlinea")
     @ManyToOne
-    private Linea idLinea;
-    @JoinColumn(name = "idMarca", referencedColumnName = "idMarca")
+    private Linea idlinea;
+    @JoinColumn(name = "idmarca", referencedColumnName = "idmarca")
     @ManyToOne
-    private Marca idMarca;
-    @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
+    private Marca idmarca;
+    @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor")
     @ManyToOne
-    private Proveedor idProveedor;
+    private Proveedor idproveedor;
 
     public Inventario() {
     }
 
-    public Inventario(Integer idProducto) {
-        this.idProducto = idProducto;
+    public Inventario(Integer idproducto) {
+        this.idproducto = idproducto;
     }
 
-    public Integer getIdProducto() {
-        return idProducto;
+    public Integer getIdproducto() {
+        return idproducto;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public void setIdproducto(Integer idproducto) {
+        this.idproducto = idproducto;
     }
 
     public String getNombre() {
@@ -144,12 +144,12 @@ public class Inventario implements Serializable {
         this.unidades = unidades;
     }
 
-    public BigInteger getPrecioVenta() {
-        return precioVenta;
+    public BigInteger getPrecioventa() {
+        return precioventa;
     }
 
-    public void setPrecioVenta(BigInteger precioVenta) {
-        this.precioVenta = precioVenta;
+    public void setPrecioventa(BigInteger precioventa) {
+        this.precioventa = precioventa;
     }
 
     public BigInteger getCoste() {
@@ -160,21 +160,21 @@ public class Inventario implements Serializable {
         this.coste = coste;
     }
 
-    public Integer getMargenGanancia() {
-        return margenGanancia;
+    public Integer getMargenganancia() {
+        return margenganancia;
     }
 
-    public void setMargenGanancia(Integer margenGanancia) {
-        this.margenGanancia = margenGanancia;
+    public void setMargenganancia(Integer margenganancia) {
+        this.margenganancia = margenganancia;
     }
 
     @XmlTransient
-    public Collection<FacturaDet> getFacturaDetCollection() {
-        return facturaDetCollection;
+    public Collection<Facturadet> getFacturadetCollection() {
+        return facturadetCollection;
     }
 
-    public void setFacturaDetCollection(Collection<FacturaDet> facturaDetCollection) {
-        this.facturaDetCollection = facturaDetCollection;
+    public void setFacturadetCollection(Collection<Facturadet> facturadetCollection) {
+        this.facturadetCollection = facturadetCollection;
     }
 
     @XmlTransient
@@ -195,42 +195,42 @@ public class Inventario implements Serializable {
         this.kardexCollection = kardexCollection;
     }
 
-    public GrupoProducto getIdgrupoproducto() {
+    public Grupoproducto getIdgrupoproducto() {
         return idgrupoproducto;
     }
 
-    public void setIdgrupoproducto(GrupoProducto idgrupoproducto) {
+    public void setIdgrupoproducto(Grupoproducto idgrupoproducto) {
         this.idgrupoproducto = idgrupoproducto;
     }
 
-    public Linea getIdLinea() {
-        return idLinea;
+    public Linea getIdlinea() {
+        return idlinea;
     }
 
-    public void setIdLinea(Linea idLinea) {
-        this.idLinea = idLinea;
+    public void setIdlinea(Linea idlinea) {
+        this.idlinea = idlinea;
     }
 
-    public Marca getIdMarca() {
-        return idMarca;
+    public Marca getIdmarca() {
+        return idmarca;
     }
 
-    public void setIdMarca(Marca idMarca) {
-        this.idMarca = idMarca;
+    public void setIdmarca(Marca idmarca) {
+        this.idmarca = idmarca;
     }
 
-    public Proveedor getIdProveedor() {
-        return idProveedor;
+    public Proveedor getIdproveedor() {
+        return idproveedor;
     }
 
-    public void setIdProveedor(Proveedor idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setIdproveedor(Proveedor idproveedor) {
+        this.idproveedor = idproveedor;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idProducto != null ? idProducto.hashCode() : 0);
+        hash += (idproducto != null ? idproducto.hashCode() : 0);
         return hash;
     }
 
@@ -241,7 +241,7 @@ public class Inventario implements Serializable {
             return false;
         }
         Inventario other = (Inventario) object;
-        if ((this.idProducto == null && other.idProducto != null) || (this.idProducto != null && !this.idProducto.equals(other.idProducto))) {
+        if ((this.idproducto == null && other.idproducto != null) || (this.idproducto != null && !this.idproducto.equals(other.idproducto))) {
             return false;
         }
         return true;
@@ -249,7 +249,7 @@ public class Inventario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Inventario[ idProducto=" + idProducto + " ]";
+        return "com.umgprogra.erp.DAO.Inventario[ idproducto=" + idproducto + " ]";
     }
     
 }

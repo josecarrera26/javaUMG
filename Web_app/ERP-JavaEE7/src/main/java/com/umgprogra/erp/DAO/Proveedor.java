@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
-    @NamedQuery(name = "Proveedor.findByIdProveedor", query = "SELECT p FROM Proveedor p WHERE p.idProveedor = :idProveedor"),
+    @NamedQuery(name = "Proveedor.findByIdproveedor", query = "SELECT p FROM Proveedor p WHERE p.idproveedor = :idproveedor"),
     @NamedQuery(name = "Proveedor.findByNombreProveedor", query = "SELECT p FROM Proveedor p WHERE p.nombreProveedor = :nombreProveedor"),
     @NamedQuery(name = "Proveedor.findByDireccion", query = "SELECT p FROM Proveedor p WHERE p.direccion = :direccion"),
     @NamedQuery(name = "Proveedor.findByTelefono", query = "SELECT p FROM Proveedor p WHERE p.telefono = :telefono"),
@@ -41,10 +41,10 @@ public class Proveedor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idProveedor")
-    private Integer idProveedor;
+    @Column(name = "idproveedor")
+    private Integer idproveedor;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Proveedor")
+    @Column(name = "nombre_proveedor")
     private String nombreProveedor;
     @Size(max = 2147483647)
     @Column(name = "direccion")
@@ -53,31 +53,31 @@ public class Proveedor implements Serializable {
     @Column(name = "telefono")
     private String telefono;
     @Size(max = 2147483647)
-    @Column(name = "regimen_Proveedor")
+    @Column(name = "regimen_proveedor")
     private String regimenProveedor;
     @Size(max = 2147483647)
-    @Column(name = "email_Proveedor")
+    @Column(name = "email_proveedor")
     private String emailProveedor;
-    @OneToMany(mappedBy = "idProveedor")
+    @OneToMany(mappedBy = "idproveedor")
     private Collection<Banco> bancoCollection;
-    @OneToMany(mappedBy = "idProveedor")
-    private Collection<CuentaContable> cuentaContableCollection;
-    @OneToMany(mappedBy = "idProveedor")
+    @OneToMany(mappedBy = "idproveedor")
+    private Collection<Cuentacontable> cuentacontableCollection;
+    @OneToMany(mappedBy = "idproveedor")
     private Collection<Inventario> inventarioCollection;
 
     public Proveedor() {
     }
 
-    public Proveedor(Integer idProveedor) {
-        this.idProveedor = idProveedor;
+    public Proveedor(Integer idproveedor) {
+        this.idproveedor = idproveedor;
     }
 
-    public Integer getIdProveedor() {
-        return idProveedor;
+    public Integer getIdproveedor() {
+        return idproveedor;
     }
 
-    public void setIdProveedor(Integer idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setIdproveedor(Integer idproveedor) {
+        this.idproveedor = idproveedor;
     }
 
     public String getNombreProveedor() {
@@ -130,12 +130,12 @@ public class Proveedor implements Serializable {
     }
 
     @XmlTransient
-    public Collection<CuentaContable> getCuentaContableCollection() {
-        return cuentaContableCollection;
+    public Collection<Cuentacontable> getCuentacontableCollection() {
+        return cuentacontableCollection;
     }
 
-    public void setCuentaContableCollection(Collection<CuentaContable> cuentaContableCollection) {
-        this.cuentaContableCollection = cuentaContableCollection;
+    public void setCuentacontableCollection(Collection<Cuentacontable> cuentacontableCollection) {
+        this.cuentacontableCollection = cuentacontableCollection;
     }
 
     @XmlTransient
@@ -150,7 +150,7 @@ public class Proveedor implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idProveedor != null ? idProveedor.hashCode() : 0);
+        hash += (idproveedor != null ? idproveedor.hashCode() : 0);
         return hash;
     }
 
@@ -161,7 +161,7 @@ public class Proveedor implements Serializable {
             return false;
         }
         Proveedor other = (Proveedor) object;
-        if ((this.idProveedor == null && other.idProveedor != null) || (this.idProveedor != null && !this.idProveedor.equals(other.idProveedor))) {
+        if ((this.idproveedor == null && other.idproveedor != null) || (this.idproveedor != null && !this.idproveedor.equals(other.idproveedor))) {
             return false;
         }
         return true;
@@ -169,7 +169,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Proveedor[ idProveedor=" + idProveedor + " ]";
+        return "com.umgprogra.erp.DAO.Proveedor[ idproveedor=" + idproveedor + " ]";
     }
     
 }

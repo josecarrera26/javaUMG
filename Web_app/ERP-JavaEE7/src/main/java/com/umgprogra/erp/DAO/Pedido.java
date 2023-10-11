@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p"),
-    @NamedQuery(name = "Pedido.findByIdPedido", query = "SELECT p FROM Pedido p WHERE p.idPedido = :idPedido"),
+    @NamedQuery(name = "Pedido.findByIdpedido", query = "SELECT p FROM Pedido p WHERE p.idpedido = :idpedido"),
     @NamedQuery(name = "Pedido.findByFechaPedido", query = "SELECT p FROM Pedido p WHERE p.fechaPedido = :fechaPedido"),
     @NamedQuery(name = "Pedido.findByNit", query = "SELECT p FROM Pedido p WHERE p.nit = :nit"),
     @NamedQuery(name = "Pedido.findByEstado", query = "SELECT p FROM Pedido p WHERE p.estado = :estado")})
@@ -41,8 +41,8 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idPedido")
-    private Integer idPedido;
+    @Column(name = "idpedido")
+    private Integer idpedido;
     @Column(name = "fecha_pedido")
     @Temporal(TemporalType.DATE)
     private Date fechaPedido;
@@ -52,29 +52,29 @@ public class Pedido implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "estado")
     private String estado;
-    @JoinColumn(name = "idCliente", referencedColumnName = "idCliente")
+    @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne
-    private Cliente idCliente;
-    @JoinColumn(name = "idEmpleado", referencedColumnName = "idEmpleado")
+    private Cliente idcliente;
+    @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
     @ManyToOne
-    private Empleado idEmpleado;
-    @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
+    private Empleado idempleado;
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
-    private Inventario idProducto;
+    private Inventario idproducto;
 
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido) {
-        this.idPedido = idPedido;
+    public Pedido(Integer idpedido) {
+        this.idpedido = idpedido;
     }
 
-    public Integer getIdPedido() {
-        return idPedido;
+    public Integer getIdpedido() {
+        return idpedido;
     }
 
-    public void setIdPedido(Integer idPedido) {
-        this.idPedido = idPedido;
+    public void setIdpedido(Integer idpedido) {
+        this.idpedido = idpedido;
     }
 
     public Date getFechaPedido() {
@@ -101,34 +101,34 @@ public class Pedido implements Serializable {
         this.estado = estado;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
+    public Cliente getIdcliente() {
+        return idcliente;
     }
 
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+    public void setIdcliente(Cliente idcliente) {
+        this.idcliente = idcliente;
     }
 
-    public Empleado getIdEmpleado() {
-        return idEmpleado;
+    public Empleado getIdempleado() {
+        return idempleado;
     }
 
-    public void setIdEmpleado(Empleado idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setIdempleado(Empleado idempleado) {
+        this.idempleado = idempleado;
     }
 
-    public Inventario getIdProducto() {
-        return idProducto;
+    public Inventario getIdproducto() {
+        return idproducto;
     }
 
-    public void setIdProducto(Inventario idProducto) {
-        this.idProducto = idProducto;
+    public void setIdproducto(Inventario idproducto) {
+        this.idproducto = idproducto;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idPedido != null ? idPedido.hashCode() : 0);
+        hash += (idpedido != null ? idpedido.hashCode() : 0);
         return hash;
     }
 
@@ -139,7 +139,7 @@ public class Pedido implements Serializable {
             return false;
         }
         Pedido other = (Pedido) object;
-        if ((this.idPedido == null && other.idPedido != null) || (this.idPedido != null && !this.idPedido.equals(other.idPedido))) {
+        if ((this.idpedido == null && other.idpedido != null) || (this.idpedido != null && !this.idpedido.equals(other.idpedido))) {
             return false;
         }
         return true;
@@ -147,7 +147,7 @@ public class Pedido implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Pedido[ idPedido=" + idPedido + " ]";
+        return "com.umgprogra.erp.DAO.Pedido[ idpedido=" + idpedido + " ]";
     }
     
 }

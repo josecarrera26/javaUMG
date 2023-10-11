@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),
-    @NamedQuery(name = "Empleado.findByIdEmpleado", query = "SELECT e FROM Empleado e WHERE e.idEmpleado = :idEmpleado"),
+    @NamedQuery(name = "Empleado.findByIdempleado", query = "SELECT e FROM Empleado e WHERE e.idempleado = :idempleado"),
     @NamedQuery(name = "Empleado.findByNombreEmpleado", query = "SELECT e FROM Empleado e WHERE e.nombreEmpleado = :nombreEmpleado"),
     @NamedQuery(name = "Empleado.findByApellidoEmpleado", query = "SELECT e FROM Empleado e WHERE e.apellidoEmpleado = :apellidoEmpleado"),
     @NamedQuery(name = "Empleado.findByTelefonoEmpleado", query = "SELECT e FROM Empleado e WHERE e.telefonoEmpleado = :telefonoEmpleado"),
@@ -43,16 +43,16 @@ public class Empleado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idEmpleado")
-    private Integer idEmpleado;
+    @Column(name = "idempleado")
+    private Integer idempleado;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Empleado")
+    @Column(name = "nombre_empleado")
     private String nombreEmpleado;
     @Size(max = 2147483647)
-    @Column(name = "apellido_Empleado")
+    @Column(name = "apellido_empleado")
     private String apellidoEmpleado;
     @Size(max = 2147483647)
-    @Column(name = "telefono_Empleado")
+    @Column(name = "telefono_empleado")
     private String telefonoEmpleado;
     @Size(max = 2147483647)
     @Column(name = "email_empleado")
@@ -60,30 +60,30 @@ public class Empleado implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "password")
     private String password;
-    @JoinColumn(name = "idCargo_empleado", referencedColumnName = "idCargo")
+    @JoinColumn(name = "idcargo_empleado", referencedColumnName = "idcargo")
     @ManyToOne
-    private CargoEmpleado idCargoempleado;
-    @JoinColumn(name = "idrole", referencedColumnName = "idRole")
+    private CargoEmpleado idcargoEmpleado;
+    @JoinColumn(name = "idrole", referencedColumnName = "idrole")
     @ManyToOne
-    private Role idrole;
-    @OneToMany(mappedBy = "idEmpleado")
+    private Roles idrole;
+    @OneToMany(mappedBy = "idempleado")
     private Collection<Pedido> pedidoCollection;
-    @OneToMany(mappedBy = "idEmpleado")
-    private Collection<FacturaCab> facturaCabCollection;
+    @OneToMany(mappedBy = "idempleado")
+    private Collection<Facturacab> facturacabCollection;
 
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public Empleado(Integer idempleado) {
+        this.idempleado = idempleado;
     }
 
-    public Integer getIdEmpleado() {
-        return idEmpleado;
+    public Integer getIdempleado() {
+        return idempleado;
     }
 
-    public void setIdEmpleado(Integer idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setIdempleado(Integer idempleado) {
+        this.idempleado = idempleado;
     }
 
     public String getNombreEmpleado() {
@@ -126,19 +126,19 @@ public class Empleado implements Serializable {
         this.password = password;
     }
 
-    public CargoEmpleado getIdCargoempleado() {
-        return idCargoempleado;
+    public CargoEmpleado getIdcargoEmpleado() {
+        return idcargoEmpleado;
     }
 
-    public void setIdCargoempleado(CargoEmpleado idCargoempleado) {
-        this.idCargoempleado = idCargoempleado;
+    public void setIdcargoEmpleado(CargoEmpleado idcargoEmpleado) {
+        this.idcargoEmpleado = idcargoEmpleado;
     }
 
-    public Role getIdrole() {
+    public Roles getIdrole() {
         return idrole;
     }
 
-    public void setIdrole(Role idrole) {
+    public void setIdrole(Roles idrole) {
         this.idrole = idrole;
     }
 
@@ -152,18 +152,18 @@ public class Empleado implements Serializable {
     }
 
     @XmlTransient
-    public Collection<FacturaCab> getFacturaCabCollection() {
-        return facturaCabCollection;
+    public Collection<Facturacab> getFacturacabCollection() {
+        return facturacabCollection;
     }
 
-    public void setFacturaCabCollection(Collection<FacturaCab> facturaCabCollection) {
-        this.facturaCabCollection = facturaCabCollection;
+    public void setFacturacabCollection(Collection<Facturacab> facturacabCollection) {
+        this.facturacabCollection = facturacabCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEmpleado != null ? idEmpleado.hashCode() : 0);
+        hash += (idempleado != null ? idempleado.hashCode() : 0);
         return hash;
     }
 
@@ -174,7 +174,7 @@ public class Empleado implements Serializable {
             return false;
         }
         Empleado other = (Empleado) object;
-        if ((this.idEmpleado == null && other.idEmpleado != null) || (this.idEmpleado != null && !this.idEmpleado.equals(other.idEmpleado))) {
+        if ((this.idempleado == null && other.idempleado != null) || (this.idempleado != null && !this.idempleado.equals(other.idempleado))) {
             return false;
         }
         return true;
@@ -182,7 +182,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Empleado[ idEmpleado=" + idEmpleado + " ]";
+        return "com.umgprogra.erp.DAO.Empleado[ idempleado=" + idempleado + " ]";
     }
     
 }

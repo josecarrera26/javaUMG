@@ -25,23 +25,23 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
-    @NamedQuery(name = "Role.findByIdRole", query = "SELECT r FROM Role r WHERE r.idRole = :idRole"),
-    @NamedQuery(name = "Role.findByNombreRole", query = "SELECT r FROM Role r WHERE r.nombreRole = :nombreRole"),
-    @NamedQuery(name = "Role.findByDescripcion", query = "SELECT r FROM Role r WHERE r.descripcion = :descripcion")})
-public class Role implements Serializable {
+    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
+    @NamedQuery(name = "Roles.findByIdrole", query = "SELECT r FROM Roles r WHERE r.idrole = :idrole"),
+    @NamedQuery(name = "Roles.findByNombreRole", query = "SELECT r FROM Roles r WHERE r.nombreRole = :nombreRole"),
+    @NamedQuery(name = "Roles.findByDescripcion", query = "SELECT r FROM Roles r WHERE r.descripcion = :descripcion")})
+public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idRole")
-    private Integer idRole;
+    @Column(name = "idrole")
+    private Integer idrole;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Role")
+    @Column(name = "nombre_role")
     private String nombreRole;
     @Size(max = 2147483647)
     @Column(name = "descripcion")
@@ -49,19 +49,19 @@ public class Role implements Serializable {
     @OneToMany(mappedBy = "idrole")
     private Collection<Empleado> empleadoCollection;
 
-    public Role() {
+    public Roles() {
     }
 
-    public Role(Integer idRole) {
-        this.idRole = idRole;
+    public Roles(Integer idrole) {
+        this.idrole = idrole;
     }
 
-    public Integer getIdRole() {
-        return idRole;
+    public Integer getIdrole() {
+        return idrole;
     }
 
-    public void setIdRole(Integer idRole) {
-        this.idRole = idRole;
+    public void setIdrole(Integer idrole) {
+        this.idrole = idrole;
     }
 
     public String getNombreRole() {
@@ -92,18 +92,18 @@ public class Role implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idRole != null ? idRole.hashCode() : 0);
+        hash += (idrole != null ? idrole.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+        if (!(object instanceof Roles)) {
             return false;
         }
-        Role other = (Role) object;
-        if ((this.idRole == null && other.idRole != null) || (this.idRole != null && !this.idRole.equals(other.idRole))) {
+        Roles other = (Roles) object;
+        if ((this.idrole == null && other.idrole != null) || (this.idrole != null && !this.idrole.equals(other.idrole))) {
             return false;
         }
         return true;
@@ -111,7 +111,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Role[ idRole=" + idRole + " ]";
+        return "com.umgprogra.erp.DAO.Roles[ idrole=" + idrole + " ]";
     }
     
 }

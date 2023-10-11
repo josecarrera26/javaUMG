@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CargoEmpleado.findAll", query = "SELECT c FROM CargoEmpleado c"),
-    @NamedQuery(name = "CargoEmpleado.findByIdCargo", query = "SELECT c FROM CargoEmpleado c WHERE c.idCargo = :idCargo"),
+    @NamedQuery(name = "CargoEmpleado.findByIdcargo", query = "SELECT c FROM CargoEmpleado c WHERE c.idcargo = :idcargo"),
     @NamedQuery(name = "CargoEmpleado.findByNombreCargo", query = "SELECT c FROM CargoEmpleado c WHERE c.nombreCargo = :nombreCargo"),
     @NamedQuery(name = "CargoEmpleado.findBySalario", query = "SELECT c FROM CargoEmpleado c WHERE c.salario = :salario")})
 public class CargoEmpleado implements Serializable {
@@ -39,29 +39,29 @@ public class CargoEmpleado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idCargo")
-    private Integer idCargo;
+    @Column(name = "idcargo")
+    private Integer idcargo;
     @Size(max = 2147483647)
-    @Column(name = "nombre_Cargo")
+    @Column(name = "nombre_cargo")
     private String nombreCargo;
     @Column(name = "salario")
     private BigInteger salario;
-    @OneToMany(mappedBy = "idCargoempleado")
+    @OneToMany(mappedBy = "idcargoEmpleado")
     private Collection<Empleado> empleadoCollection;
 
     public CargoEmpleado() {
     }
 
-    public CargoEmpleado(Integer idCargo) {
-        this.idCargo = idCargo;
+    public CargoEmpleado(Integer idcargo) {
+        this.idcargo = idcargo;
     }
 
-    public Integer getIdCargo() {
-        return idCargo;
+    public Integer getIdcargo() {
+        return idcargo;
     }
 
-    public void setIdCargo(Integer idCargo) {
-        this.idCargo = idCargo;
+    public void setIdcargo(Integer idcargo) {
+        this.idcargo = idcargo;
     }
 
     public String getNombreCargo() {
@@ -92,7 +92,7 @@ public class CargoEmpleado implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCargo != null ? idCargo.hashCode() : 0);
+        hash += (idcargo != null ? idcargo.hashCode() : 0);
         return hash;
     }
 
@@ -103,7 +103,7 @@ public class CargoEmpleado implements Serializable {
             return false;
         }
         CargoEmpleado other = (CargoEmpleado) object;
-        if ((this.idCargo == null && other.idCargo != null) || (this.idCargo != null && !this.idCargo.equals(other.idCargo))) {
+        if ((this.idcargo == null && other.idcargo != null) || (this.idcargo != null && !this.idcargo.equals(other.idcargo))) {
             return false;
         }
         return true;
@@ -111,7 +111,7 @@ public class CargoEmpleado implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.CargoEmpleado[ idCargo=" + idCargo + " ]";
+        return "com.umgprogra.erp.DAO.CargoEmpleado[ idcargo=" + idcargo + " ]";
     }
     
 }

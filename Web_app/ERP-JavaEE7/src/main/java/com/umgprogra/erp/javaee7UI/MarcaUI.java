@@ -80,5 +80,15 @@ public class MarcaUI implements Serializable {
                System.out.println(e + "Error en save MarcaUI");
     }
 }
+    public void GetMarcas(){
+    try {
+     MarcaServicio marcaServ = new MarcaServicio();
+     marcaServ.getMarca(this.idMarca);
+        
+    }
+        catch(Exception e){
+               System.out.println(e + "Error en save MarcaUI");
+    }
+    }
 
 }

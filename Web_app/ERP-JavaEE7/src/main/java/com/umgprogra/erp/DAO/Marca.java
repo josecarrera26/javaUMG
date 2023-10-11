@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
-    @NamedQuery(name = "Marca.findByIdMarca", query = "SELECT m FROM Marca m WHERE m.idMarca = :idMarca"),
+    @NamedQuery(name = "Marca.findByIdmarca", query = "SELECT m FROM Marca m WHERE m.idmarca = :idmarca"),
     @NamedQuery(name = "Marca.findByDescripcion", query = "SELECT m FROM Marca m WHERE m.descripcion = :descripcion"),
     @NamedQuery(name = "Marca.findByEstado", query = "SELECT m FROM Marca m WHERE m.estado = :estado")})
 public class Marca implements Serializable {
@@ -38,29 +38,29 @@ public class Marca implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idMarca")
-    private Integer idMarca;
+    @Column(name = "idmarca")
+    private Integer idmarca;
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
     @Column(name = "estado")
     private Integer estado;
-    @OneToMany(mappedBy = "idMarca")
+    @OneToMany(mappedBy = "idmarca")
     private Collection<Inventario> inventarioCollection;
 
     public Marca() {
     }
 
-    public Marca(Integer idMarca) {
-        this.idMarca = idMarca;
+    public Marca(Integer idmarca) {
+        this.idmarca = idmarca;
     }
 
-    public Integer getIdMarca() {
-        return idMarca;
+    public Integer getIdmarca() {
+        return idmarca;
     }
 
-    public void setIdMarca(Integer idMarca) {
-        this.idMarca = idMarca;
+    public void setIdmarca(Integer idmarca) {
+        this.idmarca = idmarca;
     }
 
     public String getDescripcion() {
@@ -91,7 +91,7 @@ public class Marca implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idMarca != null ? idMarca.hashCode() : 0);
+        hash += (idmarca != null ? idmarca.hashCode() : 0);
         return hash;
     }
 
@@ -102,7 +102,7 @@ public class Marca implements Serializable {
             return false;
         }
         Marca other = (Marca) object;
-        if ((this.idMarca == null && other.idMarca != null) || (this.idMarca != null && !this.idMarca.equals(other.idMarca))) {
+        if ((this.idmarca == null && other.idmarca != null) || (this.idmarca != null && !this.idmarca.equals(other.idmarca))) {
             return false;
         }
         return true;
@@ -110,7 +110,7 @@ public class Marca implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Marca[ idMarca=" + idMarca + " ]";
+        return "com.umgprogra.erp.DAO.Marca[ idmarca=" + idmarca + " ]";
     }
     
 }

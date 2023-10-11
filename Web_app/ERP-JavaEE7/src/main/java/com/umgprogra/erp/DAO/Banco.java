@@ -28,58 +28,58 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
-    @NamedQuery(name = "Banco.findByIdBanco", query = "SELECT b FROM Banco b WHERE b.idBanco = :idBanco"),
-    @NamedQuery(name = "Banco.findByNombreBanco", query = "SELECT b FROM Banco b WHERE b.nombreBanco = :nombreBanco")})
+    @NamedQuery(name = "Banco.findByIdbanco", query = "SELECT b FROM Banco b WHERE b.idbanco = :idbanco"),
+    @NamedQuery(name = "Banco.findByNombrebanco", query = "SELECT b FROM Banco b WHERE b.nombrebanco = :nombrebanco")})
 public class Banco implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idBanco")
-    private Integer idBanco;
+    @Column(name = "idbanco")
+    private Integer idbanco;
     @Size(max = 2147483647)
-    @Column(name = "nombreBanco")
-    private String nombreBanco;
-    @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
+    @Column(name = "nombrebanco")
+    private String nombrebanco;
+    @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor")
     @ManyToOne
-    private Proveedor idProveedor;
+    private Proveedor idproveedor;
 
     public Banco() {
     }
 
-    public Banco(Integer idBanco) {
-        this.idBanco = idBanco;
+    public Banco(Integer idbanco) {
+        this.idbanco = idbanco;
     }
 
-    public Integer getIdBanco() {
-        return idBanco;
+    public Integer getIdbanco() {
+        return idbanco;
     }
 
-    public void setIdBanco(Integer idBanco) {
-        this.idBanco = idBanco;
+    public void setIdbanco(Integer idbanco) {
+        this.idbanco = idbanco;
     }
 
-    public String getNombreBanco() {
-        return nombreBanco;
+    public String getNombrebanco() {
+        return nombrebanco;
     }
 
-    public void setNombreBanco(String nombreBanco) {
-        this.nombreBanco = nombreBanco;
+    public void setNombrebanco(String nombrebanco) {
+        this.nombrebanco = nombrebanco;
     }
 
-    public Proveedor getIdProveedor() {
-        return idProveedor;
+    public Proveedor getIdproveedor() {
+        return idproveedor;
     }
 
-    public void setIdProveedor(Proveedor idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setIdproveedor(Proveedor idproveedor) {
+        this.idproveedor = idproveedor;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idBanco != null ? idBanco.hashCode() : 0);
+        hash += (idbanco != null ? idbanco.hashCode() : 0);
         return hash;
     }
 
@@ -90,7 +90,7 @@ public class Banco implements Serializable {
             return false;
         }
         Banco other = (Banco) object;
-        if ((this.idBanco == null && other.idBanco != null) || (this.idBanco != null && !this.idBanco.equals(other.idBanco))) {
+        if ((this.idbanco == null && other.idbanco != null) || (this.idbanco != null && !this.idbanco.equals(other.idbanco))) {
             return false;
         }
         return true;
@@ -98,7 +98,7 @@ public class Banco implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Banco[ idBanco=" + idBanco + " ]";
+        return "com.umgprogra.erp.DAO.Banco[ idbanco=" + idbanco + " ]";
     }
     
 }

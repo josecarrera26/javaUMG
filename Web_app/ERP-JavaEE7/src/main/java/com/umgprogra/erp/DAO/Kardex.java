@@ -57,9 +57,9 @@ public class Kardex implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "int_out")
     private String intOut;
-    @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
-    private Inventario idProducto;
+    private Inventario idproducto;
 
     public Kardex() {
     }
@@ -116,12 +116,12 @@ public class Kardex implements Serializable {
         this.intOut = intOut;
     }
 
-    public Inventario getIdProducto() {
-        return idProducto;
+    public Inventario getIdproducto() {
+        return idproducto;
     }
 
-    public void setIdProducto(Inventario idProducto) {
-        this.idProducto = idProducto;
+    public void setIdproducto(Inventario idproducto) {
+        this.idproducto = idproducto;
     }
 
     @Override
