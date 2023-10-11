@@ -56,43 +56,39 @@
         <h:form id="formRegistroProveedor">
 
             <p:tabView dynamic="true">
-                <p:growl id="msg"/>
+                <p:growl id="msg"   />
+                />
                 <!-- seccion de registro de proveedor -->
                 <p:tab  title="Ingresar registros">
                     <p:panel id="pnlRegistroProveedor" header="Registro de proveedores" class="centerPnl" >
                         <p:panelGrid id="pnlGridProvId" layout="grid" columns="2" style="width: 100%" >
 
-                            <h:outputLabel id= "lblIdProv" value=" Id proveedor" />
-                            <p:inputText id="idProveedor" value="#{proveedores.idProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
                             <h:outputLabel id="lblNomProv" value=" Nombre " />
-                            <p:inputText id="nomProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
-                            <h:outputLabel id="lblRefProv" value=" Referecia del Proveedor" />
-                            <p:inputText id="refProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="nomProveedor" value="#{proveedores.nombreProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
 
                             <p:outputLabel for="lblRegProv" value="Regimen de proveedor"/>
-                            <p:selectOneMenu id="lblRegProv" value="">
+                            <p:selectOneMenu id="lblRegProv" value="#{proveedores.regimenProvedor}" style="width: 312px;" >
                                 <f:selectItem itemLabel="" itemValue=""/>
-                                <f:selectItem itemLabel="Pequeño contribuyente" itemValue="Pequeño contribuyente"/>
+                                <f:selectItem itemLabel="Pequeño contribuyente" itemValue="Pequeño contribuyente" />
                                 <f:selectItem itemLabel="Regimen opcional simplificado" itemValue="Regimen opcional simplificado"/>
                                 <f:selectItem itemLabel="Regimen actividades lucrativas" itemValue="Regimen actividades lucrativas"/>
                             </p:selectOneMenu>
 
                             <h:outputLabel id="lblDirecProv" value=" Direccion " />
-                            <p:inputText id="direcProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+                            <p:inputText id="direcProveedor" value="#{proveedores.direccionProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
 
                             <h:outputLabel id="lblTelProv" value=" Telefono" />
-                            <p:inputText id="telProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="telProveedor" value="#{proveedores.telefonoProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/>     
 
                             <h:outputLabel id="lblEmailProv" value="Correo Electronico" />
-                            <p:inputText id="emainProveedor" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="emainProveedor" value="#{proveedores.emailProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
 
                         </p:panelGrid >
 
 
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
-                            <p:commandButton id="btnRegProv" value="Registrar" update="pnlRegistroProveedor, msg" icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnRegProv" value="Registrar" actionListener ="#{proveedores.registroProveedor()}"
+                                             update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
 
                     </p:panel > 
@@ -207,7 +203,7 @@
                             <span id="slot1"> | </span>
                             <span id="slot2"> 2424-2424 </span>
                             <span id="slot3"> | </span>
-                             <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                            <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
                         </div>
                     </p:tab>
                 </p:accordionPanel>

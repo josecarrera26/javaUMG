@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(name = "proveedor")
+@Table(name = "proveedor", schema ="erp")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
@@ -171,5 +171,7 @@ public class Proveedor implements Serializable {
     public String toString() {
         return "com.umgprogra.erp.DAO.Proveedor[ idproveedor=" + idproveedor + " ]";
     }
-    
+
+
+
 }
