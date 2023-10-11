@@ -54,44 +54,43 @@
                 <!-- seccion de registro de Cliente -->
                 <p:tab  title="Nuevo Cliente">
                     <p:panel id="pnlRegistroCliente" >
-                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4">
+                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 65%">
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />                                
 
                             <h:outputLabel id= "lblIdCliente" value=" ID Cliente:" />
-                            <p:inputText id="idCliente" value="#{cliente.idCliente}
-                                         " required="true" requiredMessage ="El campo no puede estar vacio" />  
+                            <p:inputText id="idCliente" value="#{clienteUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />  
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />                               
 
                             <h:outputLabel id="lblNomCliente" value=" Nombre del Cliente:" />
-                            <p:inputText id="nomCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="nomCliente" value="#{clienteUI.nombreCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
 
                             <h:outputLabel id="lblTelCliente" value=" Teléfono:" />
-                            <p:inputText id="TelCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="TelCliente" value="#{clienteUI.telefonoCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
 
                             <h:outputLabel id="lblEmailCliente" value=" Email:" />
-                            <p:inputText id="EmailCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />                               
+                            <p:inputText id="EmailCliente" value="#{clienteUI.emailCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />                               
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
 
                             <h:outputLabel id="lblnitCliente" value=" Nit:" />
-                            <p:inputText id="nitCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+                            <p:inputText id="nitCliente" value="#{clienteUI.nitCliente}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
 
                             <h:outputLabel id="lbldireCliente" value=" Dirección:" />
-                            <p:inputText id="direCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="direCliente" value="#{clienteUI.direccioncliente}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />
@@ -105,25 +104,28 @@
                 <p:tab  title="Consultar Clientes">
                     <p:panel id="pnlListadoClientes">
                         <p:panelGrid id="pnlListadoClientes" layout="grid" columns="1">
-                            <p:dataTable id="cliente" var="product" value="#{cliente.idCliente}" rowKey="#{cliente.idCliente}"
+                            <p:dataTable id="cliente" var="product" value="#{clienteUI.idCliente}" rowKey="#{clienteUI.idCliente}"
                                          selection="" selectionMode="single">
 
-                                <p:column headerText="ID Cliente">
+                                    <p:column headerText="ID Cliente">
                                     <h:outputText value="" />
                                 </p:column>
                                 <p:column headerText="Nombre">
                                     <h:outputText value="" />
                                 </p:column>
-                                <p:column headerText="Referencia Proveedor">
+                                <p:column headerText="Teléfono">
                                     <h:outputText value="" />
                                 </p:column>
-                                <p:column headerText="Regimen Proveedor">
-                                    <h:outputText value="Direccion" />
-                                </p:column>
-                                <p:column headerText="Telefono">
+                                <p:column headerText="Email">
                                     <h:outputText value="" />
                                 </p:column>
-                                <p:column headerText="Correo Electronico">
+                                <p:column headerText="Nit">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="Dirección">
+                                    <h:outputText value="" />
+                                </p:column>
+                                <p:column headerText="DPI">
                                     <h:outputText value="" />
                                 </p:column>
                             </p:dataTable>

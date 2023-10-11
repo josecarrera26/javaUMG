@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Miguel
+ * @author Miguel Coloma
  */
 @ManagedBean
 @SessionScoped
