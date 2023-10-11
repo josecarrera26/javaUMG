@@ -1,159 +1,182 @@
 CREATE TABLE "cliente" (
-  "idCliente" Serial PRIMARY KEY,
-  "nombre_Cliente" varchar,
-  "telefono_Cliente" varchar,
-  "email_Cliente" varchar,
+  "idcliente" Serial PRIMARY KEY,
+  "nombre_cliente" varchar,
+  "telefono_cliente" varchar,
+  "email_cliente" varchar,
   "nit" varchar,
-  "direccion_Cliente" varchar,
+  "direccion_cliente" varchar,
   "dpi" varchar
 );
 
 CREATE TABLE "proveedor" (
-  "idProveedor" Serial PRIMARY KEY,
-  "nombre_Proveedor" varchar,
+  "idproveedor" Serial PRIMARY KEY,
+  "nombre_proveedor" varchar,
   "direccion" varchar,
   "telefono" varchar,
-  "regimen_Proveedor" varchar,
-  "email_Proveedor" varchar
+  "regimen_proveedor" varchar,
+  "email_proveedor" varchar
 );
 
-CREATE TABLE "cuentaContable" (
-  "idCuenta" Serial PRIMARY KEY,
-  "nombreCuenta" varchar,
-  "idCliente" integer,
-  "idProveedor" integer,
-  "impuesto_inventario" float,
-  "coste" float,
-  "margenGanancia" integer,
-  "idproducto" integer
+CREATE TABLE "cuentacontable" (
+  "idcuenta" Serial PRIMARY KEY,
+  "nombrecuenta" varchar,
+  "idcliente" integer,
+  "idproveedor" integer,
+  "impuesto_inventario" decimal
 );
 
 CREATE TABLE "cargo_empleado" (
-  "idCargo" Serial PRIMARY KEY,
-  "nombre_Cargo" varchar,
-  "salario" float
+  "idcargo" Serial PRIMARY KEY,
+  "nombre_cargo" varchar,
+  "salario" decimal
 );
 
 CREATE TABLE "empleado" (
-  "idEmpleado" Serial PRIMARY KEY,
-  "nombre_Empleado" varchar,
-  "apellido_Empleado" varchar,
-  "telefono_Empleado" varchar,
+  "idempleado" Serial PRIMARY KEY,
+  "nombre_empleado" varchar,
+  "apellido_empleado" varchar,
+  "telefono_empleado" varchar,
   "email_empleado" varchar,
   "password" varchar,
   "idrole" integer,
-  "idCargo_empleado" integer
+  "idcargo_empleado" integer
 );
 
-CREATE TABLE "role" (
-  "idRole" Serial PRIMARY KEY,
-  "nombre_Role" varchar,
+CREATE TABLE "roles" (
+  "idrole" Serial PRIMARY KEY,
+  "nombre_role" varchar,
   "descripcion" varchar
 );
 
 CREATE TABLE "marca" (
-  "idMarca" Serial PRIMARY KEY,
+  "idmarca" Serial PRIMARY KEY,
   "descripcion" varchar,
   "estado" integer
 );
 
 CREATE TABLE "linea" (
-  "idLinea" Serial PRIMARY KEY,
+  "idlinea" Serial PRIMARY KEY,
+  "descripcion" varchar,
+  "estado" integer
+);
+
+CREATE TABLE "grupoproducto" (
+  "idgrupoproducto" Serial PRIMARY KEY,
   "descripcion" varchar,
   "estado" integer
 );
 
 CREATE TABLE "inventario" (
-  "idProducto" Serial PRIMARY KEY,
+  "idproducto" Serial PRIMARY KEY,
   "nombre" varchar,
   "cantidad" varchar,
   "tipo_comercializacion" varchar,
   "modelo" varchar,
   "unidades" VARCHAR,
-  "precio" float,
-  "idMarca" integer,
-  "idLinea" integer,
-  "grupo_producto" varchar,
-  "idProveedor" integer
+  "precioventa" decimal,
+  "coste" decimal,
+  "margenganancia" integer,
+  "idmarca" integer,
+  "idlinea" integer,
+  "idgrupoproducto" integer,
+  "idproveedor" integer
 );
 
-CREATE TABLE "facturaCab" (
-  "idFactura" Serial,
+CREATE TABLE "facturacab" (
+  "idfactura" Serial,
   "fecha_registro" date,
   "plazos_pago" integer,
-  "referencia_Factura" varchar,
-  "idEmpleado" integer,
-  "idTipoCliente" integer,
-  "estadoFac" integer,
-  "total" float,
-  "idTipoPago" integer,
+  "referencia_factura" serial,
+  "idempleado" integer,
+  "idtipocliente" integer,
+  "estadofac" integer,
+  "total" decimal,
+  "idtipopago" integer,
   "nit" varchar,
-  "idTipoFactura" integer,
-  PRIMARY KEY ("idFactura", "referencia_Factura")
+  "idtipofactura" integer,
+  PRIMARY KEY ("idfactura", "referencia_factura")
 );
 
-CREATE TABLE "facturaDet" (
-  "idFactura" serial PRIMARY KEY,
+CREATE TABLE "facturadet" (
+  "idfactura" Serial PRIMARY KEY,
   "cantidad" integer,
-  "precio_Unitario" float,
-  "iva" float,
-  "idProducto" integer
+  "preciounitario" decimal,
+  "iva" decimal,
+  "idproducto" integer
 );
 
 CREATE TABLE "pedido" (
-  "idPedido" Serial PRIMARY KEY,
+  "idpedido" Serial PRIMARY KEY,
   "fecha_pedido" date,
   "nit" varchar,
-  "idEmpleado" integer,
-  "idProducto" integer,
-  "idCliente" integer,
+  "idempleado" integer,
+  "idproducto" integer,
+  "idcliente" integer,
   "estado" varchar
 );
 
 CREATE TABLE "banco" (
-  "idBanco" Serial PRIMARY KEY,
-  "nombreBanco" varchar,
-  "idProveedor" integer
+  "idbanco" Serial PRIMARY KEY,
+  "nombrebanco" varchar,
+  "idproveedor" integer
 );
 
 CREATE TABLE "kardex" (
   "id" Serial PRIMARY KEY,
   "venta_compra" integer,
   "fecha" date,
-  "idProducto" integer,
+  "idproducto" integer,
   "unidades_originales" integer,
   "unidades_vendidas" integer,
   "int_out" varchar
 );
 
-ALTER TABLE "cuentaContable" ADD FOREIGN KEY ("idCliente") REFERENCES "cliente" ("idCliente");
+ALTER TABLE "cuentacontable" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
 
-ALTER TABLE "cuentaContable" ADD FOREIGN KEY ("idProveedor") REFERENCES "proveedor" ("idProveedor");
+ALTER TABLE "cuentacontable" ADD FOREIGN KEY ("idproveedor") REFERENCES "proveedor" ("idproveedor");
 
-ALTER TABLE "empleado" ADD FOREIGN KEY ("idCargo_empleado") REFERENCES  "cargo_empleado" ("idCargo");
+ALTER TABLE  "empleado" ADD FOREIGN KEY ("idcargo_empleado") REFERENCES "cargo_empleado" ("idcargo");
 
-ALTER TABLE "inventario" ADD FOREIGN KEY ("idProveedor") REFERENCES "proveedor" ("idProveedor");
+ALTER TABLE "inventario" ADD FOREIGN KEY ("idproveedor") REFERENCES "proveedor" ("idproveedor");
 
-ALTER TABLE "inventario" ADD FOREIGN KEY ("idMarca") REFERENCES "marca" ("idMarca");
+ALTER TABLE "inventario" ADD FOREIGN KEY ("idmarca") REFERENCES "marca" ("idmarca");
 
-ALTER TABLE "inventario" ADD FOREIGN KEY ("idLinea") REFERENCES "linea" ("idLinea");
+ALTER TABLE "inventario" ADD FOREIGN KEY ("idlinea") REFERENCES "linea" ("idlinea");
 
-ALTER TABLE "facturaCab" ADD FOREIGN KEY ("idEmpleado") REFERENCES "empleado" ("idEmpleado");
+ALTER TABLE "inventario" ADD FOREIGN KEY ("idgrupoproducto") REFERENCES "grupoproducto" ("idgrupoproducto");
 
-ALTER TABLE "facturaCab" ADD FOREIGN KEY  ("idFactura") REFERENCES  "facturaDet" ("idFactura");
+ALTER TABLE "facturacab" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("idempleado");
 
-ALTER TABLE "facturaDet" ADD FOREIGN KEY ("idProducto") REFERENCES "inventario" ("idProducto");
+ALTER TABLE "facturacab" ADD FOREIGN KEY ("idfactura") REFERENCES "facturadet" ("idfactura");
 
-ALTER TABLE "pedido" ADD FOREIGN KEY ("idEmpleado") REFERENCES "empleado" ("idEmpleado");
+ALTER TABLE "facturadet" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 
-ALTER TABLE "pedido" ADD FOREIGN KEY ("idProducto") REFERENCES "inventario" ("idProducto");
+ALTER TABLE "pedido" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("idempleado");
 
-ALTER TABLE "pedido" ADD FOREIGN KEY ("idCliente") REFERENCES "cliente" ("idCliente");
+ALTER TABLE "pedido" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 
-ALTER TABLE  "banco" ADD FOREIGN KEY  ("idProveedor") REFERENCES  "proveedor" ("idProveedor");
+ALTER TABLE "pedido" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
 
-ALTER TABLE "empleado" ADD FOREIGN KEY ("idrole") REFERENCES "role" ("idRole");
+ALTER TABLE "banco" ADD FOREIGN KEY ("idproveedor") REFERENCES  "proveedor" ("idproveedor");
 
-ALTER TABLE "kardex" ADD FOREIGN KEY ("idProducto") REFERENCES "inventario" ("idProducto");
+ALTER TABLE "empleado" ADD FOREIGN KEY ("idrole") REFERENCES "roles" ("idrole");
 
-ALTER TABLE "cuentaContable" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idProducto");
+ALTER TABLE "kardex" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
+
+
+
+--drop table banco cascade;
+--drop table cargo_empleado  cascade;
+--drop table cliente cascade;
+--drop table cuentacontable  cascade;
+--drop table empleado  cascade;
+--drop table facturacab  cascade;
+--drop table facturadet  cascade;
+--drop table grupoproducto  cascade;
+--drop table inventario  cascade;
+--drop table kardex  cascade;
+--drop table linea  cascade;
+--drop table marca  cascade;
+--drop table pedido cascade;
+--drop table proveedor  cascade;
+--drop table roles  cascade;
