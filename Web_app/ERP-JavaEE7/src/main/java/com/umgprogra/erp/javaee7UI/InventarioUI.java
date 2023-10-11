@@ -5,6 +5,8 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Proveedor;
+import com.umgprogra.erp.ui.services.InventarioServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -20,6 +23,34 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class InventarioUI implements Serializable {
+
+    /**
+     * @return the proveedores
+     */
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    /**
+     * @param proveedores the proveedores to set
+     */
+    public void setProveedores(List<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    /**
+     * @return the proveedorItems
+     */
+    public List<SelectItem> getProveedorItems() {
+        return proveedorItems;
+    }
+
+    /**
+     * @param proveedorItems the proveedorItems to set
+     */
+    public void setProveedorItems(List<SelectItem> proveedorItems) {
+        this.proveedorItems = proveedorItems;
+    }
 
     /**
      * @return the unidades
@@ -245,12 +276,28 @@ public class InventarioUI implements Serializable {
     private String grupo;
     private int proveedor;
     private List<String> unidades;
+     private List<Proveedor> proveedores;
+    private List<SelectItem> proveedorItems;
     
    @PostConstruct
     public void init() {
         unidades = new ArrayList();
         unidades.add("Caja");
         unidades.add("Unidad");
+        findIdAndNameUi();
+    }
+    
+    public void findIdAndNameUi() {
+        try {
+            InventarioServicio provServ = new InventarioServicio();
+            proveedores = provServ.findIdAndName();
+            proveedorItems = new ArrayList<>();
+            for (Proveedor prov : proveedores) {
+                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta proveedor en clase InventarioUI");
+        }
     }
     
 }

@@ -86,9 +86,10 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <p:outputLabel id="idLabelProveedor" value="Proveedor"  for="@next"/>
-                                        <p:selectOneMenu id="proveedor" class="combo" value="#{lineaUI.option}" dynamic="true" >
+                                        <p:selectOneMenu id="proveedor" class="combo" value="#{inventarioUI.proveedor}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
+                                                             >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
-                                            <f:selectItems value="#{lineaUI.options}"/>
+                                            <f:selectItems value="#{inventarioUI.proveedorItems}"/>
                                         </p:selectOneMenu>
                                     </div>
                                 </div>
@@ -149,7 +150,7 @@
 
                                         <p:selectOneMenu id="unidadMed"  class="combo" value="#{inventarioUI.unidadMed}" dynamic="true" >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
-                                            <f:selectItems value="#{inventarioUI.unidades}"/>
+                                            <f:selectItems value="#{inventarioUI.unidades}" />
                                         </p:selectOneMenu>
 
                                     </div>
@@ -208,7 +209,7 @@
                                     <p:outputLabel id="idLabelGrupo" value="Grupo"  for="@next"/>
 
                                     <div style="display: flex; flex-direction: column;">
-                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{inventarioUI.grupo}" dynamic="true" >
+                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{inventarioUI.grupo}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
                                             <f:selectItems value="#{grupoProductoUI.grupoItems}"/>
                                         </p:selectOneMenu>
@@ -334,4 +335,5 @@ comment -->
         </div>
 
     </h:body>
+    
 </html>

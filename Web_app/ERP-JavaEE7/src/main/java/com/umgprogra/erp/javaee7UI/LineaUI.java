@@ -128,7 +128,7 @@ public class LineaUI implements Serializable {
             lineas =lineaServ.findAllLinea();
             lineaItems=new ArrayList<>();
             for (Linea linea : lineas) {
-                lineaItems.add(new SelectItem(linea, linea.getDescripcion()));
+                lineaItems.add(new SelectItem(linea.getIdlinea(), linea.getDescripcion()));
             }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta linea clase LineaUI");

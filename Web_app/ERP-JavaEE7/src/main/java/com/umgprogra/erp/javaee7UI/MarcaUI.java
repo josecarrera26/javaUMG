@@ -119,7 +119,7 @@ public class MarcaUI implements Serializable {
             marcas = marcaServ.findAllMarca();
             marcaItems = new ArrayList<>();
             for (Marca marca : marcas) {
-                marcaItems.add(new SelectItem(marca, marca.getDescripcion()));
+                marcaItems.add(new SelectItem(marca.getIdmarca(), marca.getDescripcion()));
             }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase MarcaUI");

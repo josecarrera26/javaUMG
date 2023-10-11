@@ -118,10 +118,10 @@ public class GrupoProductoUI implements Serializable {
             grupos = grupoServ.findAllGrupo();
             grupoItems = new ArrayList<>();
             for (Grupoproducto grupo : grupos) {
-                grupoItems.add(new SelectItem(grupo, grupo.getDescripcion()));
+                grupoItems.add(new SelectItem(grupo.getIdgrupoproducto(), grupo.getDescripcion()));
             }
         } catch (Exception e) {
-            System.out.println(e + "Error en consulta marcas clase GrupoUI");
+            System.out.println(e + "Error en consulta grupo clase GrupoUI");
         }
     }
 

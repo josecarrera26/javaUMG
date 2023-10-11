@@ -25,10 +25,11 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author josel
  */
 @Entity
-@Table(name = "proveedor", schema ="erp")
+@Table(name = "proveedor")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
+    @NamedQuery(name = "Proveedor.findIdAndName", query = "SELECT p.idproveedor, p.nombreProveedor  FROM Proveedor p"),
     @NamedQuery(name = "Proveedor.findByIdproveedor", query = "SELECT p FROM Proveedor p WHERE p.idproveedor = :idproveedor"),
     @NamedQuery(name = "Proveedor.findByNombreProveedor", query = "SELECT p FROM Proveedor p WHERE p.nombreProveedor = :nombreProveedor"),
     @NamedQuery(name = "Proveedor.findByDireccion", query = "SELECT p FROM Proveedor p WHERE p.direccion = :direccion"),
@@ -67,6 +68,11 @@ public class Proveedor implements Serializable {
 
     public Proveedor() {
     }
+    
+    public Proveedor(int idproveedor, String nombreProveedor) {
+    this.idproveedor = idproveedor;
+    this.nombreProveedor = nombreProveedor;
+}
 
     public Proveedor(Integer idproveedor) {
         this.idproveedor = idproveedor;
