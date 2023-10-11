@@ -27,14 +27,7 @@
 
          
          <!-- <div id="message">
-              <p:ajaxStatus style="display:inline-block ;  margin-top:.10em;">
-                  <f:facet name="start">
-                      <h:outputText value="Please wait #{empleadoUI.getEmpleados}, Connecting database..." />
-                  </f:facet>
-                  <f:facet name="complete">
-                      <h:outputText value="Please try again #{empleadoUI.getEmpleados}, Database/Login error!!" />
-                  </f:facet>
-              </p:ajaxStatus>
+         
           </div>
          -->
         
@@ -60,6 +53,7 @@
                     <p:commandButton id="loginButton" action="bean"
                                      value="Iniciar Sesion" update="loginForm" ajax="true" style="float: left; margin-left: 40px" icon="pi pi-user">
                     </p:commandButton>
+                    
 
                     <p:commandButton id="RegisterButton" action="bean"
                                      value="Registrarse" update="loginForm" ajax="true"  style="float: right; margin-right: 40px" icon="pi pi-user">
