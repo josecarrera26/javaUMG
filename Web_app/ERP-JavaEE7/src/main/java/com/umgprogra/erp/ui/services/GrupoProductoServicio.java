@@ -44,9 +44,6 @@ public class GrupoProductoServicio {
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
                 System.out.println("Log#: Resultado de la consulta:");
-                for (Grupoproducto grup : resultList) {
-                    System.out.println(grup.toString());
-                }
             } else {
                 System.out.println("No se encontraron Grupos");
             }

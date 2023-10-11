@@ -45,9 +45,6 @@ public class LineaServicio {
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
                 System.out.println("Log#: Resultado de la consulta:");
-                for (Linea emp : resultList) {
-                    System.out.println(emp.toString());
-                }
             } else {
                 System.out.println("No se encontraron Lineas");
             }
