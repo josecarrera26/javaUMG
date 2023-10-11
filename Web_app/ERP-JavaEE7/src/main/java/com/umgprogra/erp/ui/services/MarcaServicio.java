@@ -7,6 +7,9 @@ package com.umgprogra.erp.ui.services;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.util.JpaUtil;
 import javax.persistence.EntityManager;
+import org.hibernate.HibernateException;
+
+
 
 /**
  *
@@ -18,17 +21,25 @@ public class MarcaServicio {
 
     public Boolean saveMarca(String descrip) {
         boolean g = false;
+         
+        System.out.println( "Estoy en MarcaServicioA");
+         
         try {
-            Marca marca = new Marca();
+           Marca marca = new Marca();
             System.out.println("descripcion" + descrip);
             marca.setDescripcion(descrip);
+            marca.setEstado(1);
+            System.out.println("Antes de persistir " + marca.toString());
+            System.out.println("conexion Inicial base de datos " + entity.getEntityManagerFactory().toString());
             entity.getTransaction().begin();
             entity.persist(marca);
             entity.getTransaction().commit();
-            System.err.println( "Estoy en MarcaServicio");
+            
+            System.out.println( "Estoy en MarcaServicio");
             g = true;
         } catch (Exception e){
-            System.err.println(e + "Error en save Marca");
+            System.out.println(e + "Error en save Marca");
+            System.out.println("Error en Hibernate: " + e.getMessage());
         }
         return g;
     }
