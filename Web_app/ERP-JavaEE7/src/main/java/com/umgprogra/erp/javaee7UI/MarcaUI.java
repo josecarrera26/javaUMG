@@ -55,9 +55,14 @@ public class MarcaUI implements Serializable {
 
     public void SaveMarca() {
         try{
+            MarcaUI marca = new MarcaUI();
+            marca.setDescripcionM(this.descripcionM);
+            System.out.println("error aqui");
+            System.out.println(marca.getDescripcionM());
              MarcaServicio marcaServ = new MarcaServicio();
         //if (
-                marcaServ.saveMarca(this.descripcionM);
+            System.out.println("error aqui2");
+                marcaServ.saveMarca(marca.getDescripcionM());
                 //) {
             System.err.println( "Estoy en MarcaUITRUE");
           //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");

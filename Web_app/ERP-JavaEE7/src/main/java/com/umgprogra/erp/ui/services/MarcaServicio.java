@@ -16,7 +16,7 @@ import org.hibernate.HibernateException;
  * @author madis
  */
 public class MarcaServicio {
-
+    
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
     public Boolean saveMarca(String descrip) {
