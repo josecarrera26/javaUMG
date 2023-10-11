@@ -5,6 +5,7 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.ui.services.ClienteServicio;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -97,8 +98,23 @@ public class ClienteUI  implements  Serializable {
         this.dpiCliente = dpiCliente;
     }
     
-    public void RegistrarCliente(){
-        System.out.println("Hola aca esta");
+        public void saveCliente(){
+        try{
+            ClienteUI cliente = new ClienteUI();
+            cliente.setNombreCliente(this.nombreCliente);
+            System.out.println("error aqui");
+            System.out.println(cliente.getNombreCliente());
+            ClienteServicio clienteServ = new ClienteServicio();
+        //if (
+            System.out.println("error aqui2");
+                clienteServ.saveCliente(cliente.getNombreCliente());
+                //) {
+            System.err.println( "Estoy en MarcaUITRUE");            
+            
+        }
+        catch(Exception e){
+            System.out.println(e + "Error en save MarcaUI");
+        }
     }
     
 }

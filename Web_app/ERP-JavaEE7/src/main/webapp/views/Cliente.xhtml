@@ -54,13 +54,7 @@
                 <!-- seccion de registro de Cliente -->
                 <p:tab  title="Nuevo Cliente">
                     <p:panel id="pnlRegistroCliente" >
-                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 65%">
-
-                            <h:outputLabel id= "lblbank" value=" " />
-                            <h:outputLabel id= "lblbank" value=" " />                                
-
-                            <h:outputLabel id= "lblIdCliente" value=" ID Cliente:" />
-                            <p:inputText id="idCliente" value="#{clienteUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />  
+                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 65%">                           
 
                             <h:outputLabel id= "lblbank" value=" " />
                             <h:outputLabel id= "lblbank" value=" " />                               
@@ -96,10 +90,10 @@
                             <h:outputLabel id= "lblbank" value=" " />
 
                             <h:outputLabel id="lbldpiCLiente" value="DPI:" />
-                            <p:inputText id="dpiCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="dpiCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio" />
                         </p:panelGrid >
 
-                        <p:commandButton id="RegisterCliente" action="#{clienteUI.registrarCliente}"
+                        <p:commandButton id="RegisterCliente" action="#{clienteUI.saveCliente}"
                                          value="Registrar Cliente" update="pnlRegistroCliente, msg" ajax="true"  style=" margin-left: 600px" >
                         </p:commandButton>
 
