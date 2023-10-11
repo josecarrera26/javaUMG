@@ -4,6 +4,9 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.ui.services.CargosServicio;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -65,4 +68,13 @@ public class CargoUI {
     private Integer idCargo;
     private String nombre_cargo;
     private Double salario;  
+    
+    public CargoUI(){}
+    
+    public String crearCargo(){
+    
+        CargosServicio nuevoCargo = new CargosServicio();
+        
+       return nuevoCargo.InsertarCargo(this.nombre_cargo, BigDecimal.valueOf(this.salario).toBigInteger());
+    }
 }
