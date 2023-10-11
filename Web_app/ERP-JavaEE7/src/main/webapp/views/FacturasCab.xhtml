@@ -55,9 +55,10 @@
         <div class="card ui-fluid">
             <h:form id="frmFacturaCab">
                 <p:growl id="msg" showDetail="true" skipDetailIfEqualsSummary="true"/>
-                <h5 class="mt-0">Facturas</h5>
+                <h5 class="mt-0" >Numero de Factura</h5>
+<!--                <h5>#{facturaCabUI.lastFactura()}</h5>-->
                 <div class="formgrid grid"> 
-            <div class="field col-12 md:col-4">
+                    <div class="field col-12 md:col-4">
                         <p:outputLabel id="lblFechaRegistro" value ="Fecha de registro" for="@next" class="justify-content-between"/>
                         <p:datePicker value="#{facturaCabUI.fecha_registro}" id="dtPkFechaRegistro" />
                     </div>
