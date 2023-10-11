@@ -5,12 +5,17 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Linea;
+import com.umgprogra.erp.ui.services.LineaServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -24,17 +29,42 @@ public class LineaUI implements Serializable {
     private String option;
     private List<String> options;
     private int idLinea = 0;
+    private List<Linea> lineas;
+    private List<SelectItem> lineaItems;
 
-    @PostConstruct
-    public void init() {
-        options = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            options.add("Option " + i);
-        }
+    /**
+     * @return the marcas
+     */
+    public List<Linea> getLineas() {
+        return lineas;
     }
 
-   
-   
+    /**
+     * @param lineas the marcas to set
+     */
+    public void setLineas(List<Linea> lineas) {
+        this.lineas = lineas;
+    }
+
+    /**
+     * @return the lineaItems
+     */
+    public List<SelectItem> getLineaItems() {
+        return lineaItems;
+    }
+
+    /**
+     * @param lineaItems the marcaItems to set
+     */
+    public void setMarcaItems(List<SelectItem> lineaItems) {
+        this.lineaItems = lineaItems;
+    }
+
+      @PostConstruct
+    public void init() {
+        findAllLineaUi();
+    }
+
     /**
      * @return the descripcion
      */
@@ -71,5 +101,37 @@ public class LineaUI implements Serializable {
 
     public void setOptions(List<String> options) {
         this.options = options;
+    }
+
+    public void saveLinea() {
+        try {
+
+            LineaServicio lineaServ = new LineaServicio();
+            if (lineaServ.saveLinea(descripcion)) {
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
+                //Agrega el mensaje al componente <p:growl>
+                FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+            } else {
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Registro no guardado");
+                // Agrega el mensaje al componente <p:growl>
+                FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e + "Error en save LineaUI");
+        }
+    }
+
+    public void findAllLineaUi() {
+        try {
+            LineaServicio lineaServ = new LineaServicio();
+            lineas =lineaServ.findAllLinea();
+            lineaItems=new ArrayList<>();
+            for (Linea linea : lineas) {
+                lineaItems.add(new SelectItem(linea, linea.getDescripcion()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta linea clase LineaUI");
+        }
     }
 }

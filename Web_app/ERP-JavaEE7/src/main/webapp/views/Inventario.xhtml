@@ -147,9 +147,9 @@
                                     <div class="field">
                                         <p:outputLabel id="idLabelUnidadMed" value="Unidad de Medida"  for="@next"/>
 
-                                        <p:selectOneMenu id="unidadMed"  class="combo" value="#{lineaUI.option}" dynamic="true" >
+                                        <p:selectOneMenu id="unidadMed"  class="combo" value="#{inventarioUI.unidadMed}" dynamic="true" >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
-                                            <f:selectItems value="#{lineaUI.options}"/>
+                                            <f:selectItems value="#{inventarioUI.unidades}"/>
                                         </p:selectOneMenu>
 
                                     </div>
@@ -169,9 +169,9 @@
                                             <br/>
                                             <p:selectOneMenu id="marca" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
                                                              style="width: 14rem;" panelStyle="width: 15rem" 
-                                                             value="#{lineaUI.option}">
+                                                             value="#{inventarioUI.marca}">
                                                 <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                                <f:selectItems value="#{lineaUI.options}"/>
+                                                <f:selectItems value="#{marcaUI.marcaItems}"/>
                                             </p:selectOneMenu>
                                             <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
                                         </div>
@@ -188,9 +188,9 @@
                                         <br/>
                                         <p:selectOneMenu id="linea" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
                                                          style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{lineaUI.option}">
+                                                         value="#{inventarioUI.linea}">
                                             <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{lineaUI.options}"/>
+                                            <f:selectItems value="#{lineaUI.lineaItems}"/>
                                         </p:selectOneMenu>
                                         <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
 
@@ -208,15 +208,17 @@
                                     <p:outputLabel id="idLabelGrupo" value="Grupo"  for="@next"/>
 
                                     <div style="display: flex; flex-direction: column;">
-                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{grupoProducto.grupo}" dynamic="true" >
+                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{inventarioUI.grupo}" dynamic="true" >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
-                                            <f:selectItems value="#{grupoProducto.grupos}"/>
+                                            <f:selectItems value="#{grupoProductoUI.grupoItems}"/>
                                         </p:selectOneMenu>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
+                        
+                        
 
                         <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
                             <p:commandButton id="btnRegistro" value="Registar" action="#{inventarioUI.pruebaInventario()}" style="width: 50%"

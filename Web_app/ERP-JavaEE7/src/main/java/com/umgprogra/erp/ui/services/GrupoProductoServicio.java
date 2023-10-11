@@ -4,7 +4,7 @@
  */
 package com.umgprogra.erp.ui.services;
 
-import com.umgprogra.erp.DAO.Linea;
+import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,44 +15,43 @@ import javax.persistence.Query;
  *
  * @author madis
  */
-public class LineaServicio {
-      EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
+public class GrupoProductoServicio {
+        EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public Boolean saveLinea(String descrip) {
+    public Boolean saveGrupoProducto(String descrip) {
         boolean g = false;
         try {
-           Linea linea = new Linea();
+           Grupoproducto grupoProd = new Grupoproducto();
             System.out.println("descripcion" + descrip);
-            linea.setDescripcion(descrip);
-            linea.setEstado(1);
+            grupoProd.setDescripcion(descrip);
+            grupoProd.setEstado(1);
             entity.getTransaction().begin();
-            entity.persist(linea);
+            entity.persist(grupoProd);
             entity.getTransaction().commit();
             g = true;
         } catch (Exception e){
-            System.out.println(e + "Error en save Linea");
-            System.out.println("Error en Hibernate: " + e.getMessage());
+            System.out.println(e + "Error en save GrupoProducto");
         }
         return g;
     }
     
-        public List<Linea> findAllLinea() {
-        List<Linea> resultList = new ArrayList<>();
+        public List<Grupoproducto> findAllGrupo() {
+        List<Grupoproducto> resultList = new ArrayList<>();
         try {
-            System.out.println("metodo DB findAllLinea");
-            Query query = entity.createNamedQuery("Linea.findAll", Linea.class);
-            //resultado de lista LINEA
+            System.out.println("metodo DB findAllGrupo");
+            Query query = entity.createNamedQuery("Grupoproducto.findAll", Grupoproducto.class);
+            //resultado de lista GRUPOS
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
                 System.out.println("Log#: Resultado de la consulta:");
-                for (Linea emp : resultList) {
-                    System.out.println(emp.toString());
+                for (Grupoproducto grup : resultList) {
+                    System.out.println(grup.toString());
                 }
             } else {
-                System.out.println("No se encontraron Lineas");
+                System.out.println("No se encontraron Grupos");
             }
         } catch (Exception e) {
-            System.err.println("Error en findAllLinea " + e.getMessage());
+            System.err.println("Error en findAllGrupos " + e.getMessage());
         }
     
         return resultList;

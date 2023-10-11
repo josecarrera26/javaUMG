@@ -4,7 +4,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Ingreso Marca</title>
+        <title>Ingreso GrupoProducto</title>
         <h:outputStylesheet library="css" name="inventario.css"/>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
@@ -17,24 +17,17 @@
             <div class="formgrid grid">
                 <div class="field col-12 md:col-6">
                     <p:outputLabel for="@next">Descripcion</p:outputLabel>
-                    <p:inputText id="firstname" value="#{marcaUI.descripcionM}" styleClass="w-full" />
+                    <p:inputText id="firstname" value="#{grupoProductoUI.descripcion}" styleClass="w-full" />
                 </div>
 
             </div>
 
             <div>
-                <p:commandButton value="Registrar" action="#{marcaUI.saveMarca()}" styleClass="mr-2"/>
-
+                <p:commandButton value="Registrar" action="#{grupoProductoUI.saveGrupo()}" styleClass="mr-2"/>
             </div>
-            <div class="field col-12 md:col-6">
-                <p:outputLabel for="@next">Id Marca</p:outputLabel>
-                <p:inputNumber id="nmbIdMarca" value="#{marcaUI.idMarca}" styleClass="w-full" />
-            </div>
-            <div>
-                <p:commandButton value="Validar Marca" actionListener="#{marcaUI.findAllMarcaUi()}" styleClass="mr-2"/>
-
-            </div>  
+           
         </h:form>
     </h:body>
 
 </html>
+

@@ -6,16 +6,34 @@
 package com.umgprogra.erp.javaee7UI;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author madis
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class InventarioUI implements Serializable {
+
+    /**
+     * @return the unidades
+     */
+    public List<String> getUnidades() {
+        return unidades;
+    }
+
+    /**
+     * @param unidades the unidades to set
+     */
+    public void setUnidades(List<String> unidades) {
+        this.unidades = unidades;
+    }
 
     /**
      * @return the codProducto
@@ -226,11 +244,14 @@ public class InventarioUI implements Serializable {
     private LineaUI linea;
     private String grupo;
     private int proveedor;
+    private List<String> unidades;
     
+   @PostConstruct
+    public void init() {
+        unidades = new ArrayList();
+        unidades.add("Caja");
+        unidades.add("Unidad");
+    }
     
-  public void pruebaInventario(){
-      System.out.println("ESTOY EN ");
-  }
- 
 }
 

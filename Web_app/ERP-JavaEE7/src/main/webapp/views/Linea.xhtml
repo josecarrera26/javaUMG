@@ -4,7 +4,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Ingreso Marca</title>
+        <title>Ingreso Linea</title>
          <h:outputStylesheet library="css" name="inventario.css"/>
          <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
          <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
@@ -19,14 +19,13 @@
 <div class="formgrid grid">
     <div class="field col-12 md:col-6">
         <p:outputLabel for="@next">Descripcion</p:outputLabel>
-        <p:inputText id="firstname" value="#{lineaUI.descripcion}" styleClass="w-full" />
+        <p:inputText id="desLinea" value="#{lineaUI.descripcion}" styleClass="w-full" />
     </div>
    
 </div>
 
 <div>
-    <p:commandButton value="show message" action="#{dFview.prueba()}" styleClass="mr-2" />
-    <p:commandButton value="close" action="#{dfResponsiveView.closeDialog()}" />
+    <p:commandButton value="show message" action="#{lineaUI.saveLinea()}" styleClass="mr-2" />
 </div>
     </h:form>
 </h:body>
