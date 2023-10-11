@@ -4,6 +4,9 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.ui.services.EmpleadoServicio;
+import com.umgprogra.erp.ui.services.MarcaServicio;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -13,15 +16,16 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class EmpleadoUI {
-   private Integer idEmpleado;
-   private String nombre_empleado;
-   private String apellido_empleado;
-   private String telefono_empleado;
-   private String email_empleado;
-   private String password_empleado;
-   private Integer idRole;
-   private Integer idCargo;
+public class EmpleadoUI implements Serializable {
+
+    private Integer idEmpleado;
+    private String nombre_empleado;
+    private String apellido_empleado;
+    private String telefono_empleado;
+    private String email_empleado;
+    private String password_empleado;
+    private Integer idRole;
+    private Integer idCargo;
 
     public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, Integer idRole, Integer idCargo) {
         this.idEmpleado = idEmpleado;
@@ -33,11 +37,10 @@ public class EmpleadoUI {
         this.idRole = idRole;
         this.idCargo = idCargo;
     }
-   
-   
-   public EmpleadoUI(){
-       
-   }
+
+    public EmpleadoUI() {
+
+    }
 
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -102,5 +105,15 @@ public class EmpleadoUI {
     public void setIdCargo(Integer idCargo) {
         this.idCargo = idCargo;
     }
-   
+
+    public void GetEmpleados() {
+        try {
+            EmpleadoServicio empServ = new EmpleadoServicio();
+            empServ.getEmpleado(this.nombre_empleado, this.password_empleado);
+
+        } catch (Exception e) {
+            System.out.println(e + "Error en Get Empleado");
+        }
+    }
+
 }
