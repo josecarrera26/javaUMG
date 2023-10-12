@@ -74,6 +74,7 @@ public class EmpleadoServicio {
         } catch (Exception e) {
             System.out.println("Error registrado = " + e.getMessage());
         }
+        return 0;
     }
 
 }
