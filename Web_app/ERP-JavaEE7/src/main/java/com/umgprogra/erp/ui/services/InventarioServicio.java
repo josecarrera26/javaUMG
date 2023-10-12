@@ -4,6 +4,10 @@
  */
 package com.umgprogra.erp.ui.services;
 
+import com.umgprogra.erp.DAO.Grupoproducto;
+import com.umgprogra.erp.DAO.Inventario;
+import com.umgprogra.erp.DAO.Linea;
+import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
@@ -19,6 +23,37 @@ public class InventarioServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
+    public Boolean saveProducto(String nombre, String tipoComercializacion, String modelo, String unidadM, double coste, int margenGanancia, Marca idmarca, Linea idlinea, Grupoproducto idgrupoproducto, Proveedor idproveedor) {
+        boolean g = false;
+        try {
+            Inventario  inventario = new Inventario();
+            System.out.println("name" + nombre);
+            System.out.println("idMarca" + idmarca);
+            System.out.println("idLinea" + idlinea);
+            System.out.println("idGrupo" + idgrupoproducto);
+            System.out.println("idProveedor" + idproveedor);
+            inventario.setNombre(nombre);
+            inventario.setCantidad(0);
+            inventario.setTipoComercializacion(tipoComercializacion);
+            inventario.setModelo(modelo);
+            inventario.setUnidades(unidadM);
+            inventario.setPrecioventa(0.0);
+            inventario.setCoste(coste);
+            inventario.setMargenganancia(margenGanancia);
+            inventario.setIdmarca(idmarca);
+            inventario.setIdlinea(idlinea);
+            inventario.setIdgrupoproducto(idgrupoproducto);
+            inventario.setIdproveedor(idproveedor);
+            entity.getTransaction().begin();
+            entity.persist(inventario);
+            entity.getTransaction().commit();
+            g = true;
+        } catch (Exception e) {
+            System.out.println(e + "Error en save producto");
+        }
+        return g;
+    }
+    
     public List<Proveedor> findIdAndName() {
         List<Proveedor> resultList = new ArrayList<>();
         try {

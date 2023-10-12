@@ -209,8 +209,8 @@
                                     <p:outputLabel id="idLabelGrupo" value="Grupo"  for="@next"/>
 
                                     <div style="display: flex; flex-direction: column;">
-                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{inventarioUI.grupo}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
-                                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{inventarioUI.prueba}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
+                                            
                                             <f:selectItems value="#{grupoProductoUI.grupoItems}"/>
                                         </p:selectOneMenu>
                                     </div>
@@ -222,7 +222,7 @@
                         
 
                         <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnRegistro" value="Registar" action="#{inventarioUI.pruebaInventario()}" style="width: 50%"
+                            <p:commandButton id="btnRegistro" value="Registar" action="#{inventarioUI.saveProducto()}" style="width: 50%"
                                              update="pnlInventario"  />
                         </p:panelGrid>
 

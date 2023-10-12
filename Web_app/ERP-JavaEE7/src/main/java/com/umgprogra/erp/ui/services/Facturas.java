@@ -9,7 +9,9 @@ import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.DAO.Facturadet;
 import com.umgprogra.erp.util.JpaUtil;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 

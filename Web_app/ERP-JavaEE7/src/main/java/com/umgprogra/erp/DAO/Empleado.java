@@ -184,8 +184,9 @@ public class Empleado implements Serializable {
     public String toString() {
         return "com.umgprogra.erp.DAO.Empleado[ idempleado=" + idempleado + " ]";
     }
-   public Empleado(String nombre_empleado, String password) {
-    this.nombreEmpleado = nombre_empleado;
-    this.password = password;
-} 
+
+    public Empleado(String nombre_empleado, String password) {
+        this.nombreEmpleado = nombre_empleado;
+        this.password = password;
+    }
 }
