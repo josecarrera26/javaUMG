@@ -129,19 +129,11 @@ public class EmpleadoUI implements Serializable {
     public void GetEmpleado() {
         try {
 
-            EmpleadoServicio servicio = new EmpleadoServicio();
+            EmpleadoServicio servicioemp = new EmpleadoServicio();
 
             System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
-
-            //  empleados = servicio.findByEmpleadoPassword(idEmpleado, password_empleado);
-
-            System.out.println("empleados = " + empleados);
             
-            empleadoItems = new ArrayList<>();
-            for (Empleado emp : empleados) {
-                empleadoItems.add(new SelectItem(emp.getNombreEmpleado(), emp.getPassword()));
-            }
-            
+            servicioemp.findByEmpleadoPassword(this.idEmpleado,this.password_empleado); 
         } catch (Exception e) {
             System.out.println(e + "Error en consulta Usuario");
         }
