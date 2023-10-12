@@ -6,25 +6,42 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.util.JpaUtil;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
 /**
  *
  * @author hccon
  */
 public class EmpleadoServicio {
-    
+
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
-    
-     public void getEmpleado(String nombreEmpleado, String passwordEmpleado ){
-        Empleado empleado = new Empleado();
-    Query query2 = entity.createNamedQuery("Empleado.findByEmpeadoPassword", Empleado.class)
-                            .setParameter("nombreEmpleado", nombreEmpleado)
-                            .setParameter("password", passwordEmpleado);
-    
-         empleado = (Empleado) query2.getSingleResult();
-    
-        System.out.println(empleado.getNombreEmpleado()+ empleado.getPassword());
+
+    public List<Empleado> GetEmpleado() {
+        List<Empleado> resultList = new ArrayList<>();
+        try {
+            Query query = entity.createNamedQuery("Empleado.findByEmpleadoPassword");
+            List<Object[]> result = query.getResultList();
+            if (result != null && !result.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+                for (Object[] results : result) {
+                    String nombreEmpleado = (String) results[0];
+                    String password = (String) results[1];
+                    Empleado empleado = new Empleado(nombreEmpleado, password);
+                    
+                    resultList.add(empleado);
+                }
+            } else {
+                System.out.println("No se encontraron Empleados");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en GetEmpleado " + e.getMessage());
+        }
+
+        return resultList;
+
     }
-    
+
 }
