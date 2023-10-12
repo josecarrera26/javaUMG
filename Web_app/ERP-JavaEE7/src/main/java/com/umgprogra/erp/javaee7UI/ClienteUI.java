@@ -10,6 +10,10 @@ import com.umgprogra.erp.ui.services.ClienteServicio;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -26,7 +30,8 @@ public class ClienteUI  implements  Serializable {
     private String nitCliente;
     private String direccionCliente;
     private String dpiCliente;
-    
+    private List<Cliente> cliente;
+    private List<SelectItem> clienteItem;
 //Constructor de Cliente
     public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente) {
         this.idCliente = idCliente;
@@ -109,5 +114,21 @@ public class ClienteUI  implements  Serializable {
             System.out.println(e + "Error en save MarcaUI");
         }
     }
-    
+        @PostConstruct        
+    public void init() {
+        findAllClienteUi();
+    }
+
+    public void findAllClienteUi() {
+        try {
+            ClienteServicio clienteServ = new ClienteServicio();
+            cliente = clienteServ.findAllCliente();
+            clienteItem = new ArrayList<>();
+            for (Cliente cliente : cliente) {
+                clienteItem.add(new SelectItem(cliente.getIdcliente(), cliente.getNombreCliente(), cliente.getTelefonoCliente()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta marcas clase ClienteUI");
+        }
+    }
 }
