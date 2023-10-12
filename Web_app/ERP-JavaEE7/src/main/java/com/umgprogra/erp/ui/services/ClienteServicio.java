@@ -7,6 +7,8 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.util.JpaUtil;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -47,6 +49,35 @@ public class ClienteServicio {
             System.err.println("Error al guardar Cliente " + e.getMessage());           
         }
         return g;
+    }
+  
+      public void getCliente() {
+        Cliente cliente = new Cliente();
+        Query query2 = entity.createNamedQuery("Cliente.findAll", Cliente.class);
+
+        cliente = (Cliente) query2.getSingleResult();
+
+        System.out.println(cliente.getNombreCliente() + cliente.getTelefonoCliente() + cliente.getEmailCliente() + cliente.getNit() + cliente.getDireccionCliente() + cliente.getDpi());
+    }
+
+    public List<Cliente> finderClienteByID(Integer idCliente) {
+        List<Cliente> resultList = new ArrayList<>();
+        try {
+            System.out.println("metodo DB findAllCliente");
+            Query query = entity.createNamedQuery("Cliente.findbyIdCliente");
+            //resultado de lista MARCAS
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron Cliente");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findAllCliente " + e.getMessage());
+        }
+    
+        return resultList;
+
     }
     
 }
