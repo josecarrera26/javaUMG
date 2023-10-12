@@ -5,6 +5,7 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.ui.services.ClienteServicio;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -23,17 +24,17 @@ public class ClienteUI  implements  Serializable {
     private String telefonoCliente;
     private String emailCliente;
     private String nitCliente;
-    private String direccioncliente;
+    private String direccionCliente;
     private String dpiCliente;
     
 //Constructor de Cliente
-    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccioncliente, String dpiCliente) {
+    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente) {
         this.idCliente = idCliente;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
         this.emailCliente = emailCliente;
         this.nitCliente = nitCliente;
-        this.direccioncliente = direccioncliente;
+        this.direccionCliente = direccionCliente;
         this.dpiCliente = dpiCliente;
     }
     
@@ -82,12 +83,12 @@ public class ClienteUI  implements  Serializable {
         this.nitCliente = nitCliente;
     }
 
-    public String getDireccioncliente() {
-        return direccioncliente;
+    public String getDireccionCliente() {
+        return direccionCliente;
     }
 
-    public void setDireccioncliente(String direccioncliente) {
-        this.direccioncliente = direccioncliente;
+    public void setDireccionCliente(String direccionCliente) {
+        this.direccionCliente = direccionCliente;
     }
 
     public String getDpiCliente() {
@@ -100,16 +101,8 @@ public class ClienteUI  implements  Serializable {
     
         public void saveCliente(){
         try{
-            ClienteUI cliente = new ClienteUI();
-            cliente.setNombreCliente(this.nombreCliente);
-            System.out.println("error aqui");
-            System.out.println(cliente.getNombreCliente());
-            ClienteServicio clienteServ = new ClienteServicio();
-        //if (
-            System.out.println("error aqui2");
-                clienteServ.saveCliente(cliente.getNombreCliente());
-                //) {
-            System.err.println( "Estoy en MarcaUITRUE");            
+            ClienteServicio nuevoCliente = new ClienteServicio();
+            nuevoCliente.saveCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.dpiCliente, this.nombreCliente, this.dpiCliente);
             
         }
         catch(Exception e){
