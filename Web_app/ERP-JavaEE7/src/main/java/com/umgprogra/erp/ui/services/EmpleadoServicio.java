@@ -44,6 +44,26 @@ public class EmpleadoServicio {
         return resultList;
 
     }
+    
+    public List<Empleado> findAllEmpleados() {
+        List<Empleado> resultList = new ArrayList<>();
+        try {
+            System.out.println("metodo DB findAllMarca");
+            Query query = entity.createNamedQuery("Empleado.findAll", Empleado.class);
+            //resultado de lista EMPLEADOS
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron Marcas");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findAllMarca " + e.getMessage());
+        }
+    
+        return resultList;
+
+    }
 
      */
     public int  findByEmpleadoPassword(Integer idEmpleado, String password) {
@@ -75,6 +95,26 @@ public class EmpleadoServicio {
             System.out.println("Error registrado = " + e.getMessage());
         }
         return 0;
+    }
+    
+    public List<Empleado> findAllEmpleados() {
+        List<Empleado> resultList = new ArrayList<>();
+        try {
+            System.out.println("metodo DB findAllMarca");
+            Query query = entity.createNamedQuery("Empleado.findAll", Empleado.class);
+            //resultado de lista Empleado
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron Marcas");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findAllMarca " + e.getMessage());
+        }
+    
+        return resultList;
+
     }
 
 }

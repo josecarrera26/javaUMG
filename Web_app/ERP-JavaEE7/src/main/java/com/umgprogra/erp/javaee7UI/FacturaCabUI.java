@@ -2,21 +2,53 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.umgprogra.erpUI;
+package com.umgprogra.erp.javaee7UI;
 
-import com.umgprogra.erp.ui.services.Facturas;
+import com.umgprogra.erp.DAO.Empleado;
+import com.umgprogra.erp.ui.services.EmpleadoServicio;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
  * @author josel
  */
-
 @SessionScoped
 @Named
 public class FacturaCabUI {
+
+    /**
+     * @return the empleados
+     */
+    public List<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    /**
+     * @param empleados the empleados to set
+     */
+    public void setEmpleados(List<Empleado> empleados) {
+        this.empleados = empleados;
+    }
+
+    /**
+     * @return the empleadoItems
+     */
+    public List<SelectItem> getEmpleadoItems() {
+        return empleadoItems;
+    }
+
+    /**
+     * @param empleadoItems the empleadoItems to set
+     */
+    public void setEmpleadoItems(List<SelectItem> empleadoItems) {
+        this.empleadoItems = empleadoItems;
+    }
 
     /**
      * @return the idFacturaCab
@@ -184,6 +216,9 @@ public class FacturaCabUI {
     private String nit;
     private Integer tipoFactura;
 
+    private List<Empleado> empleados;
+    private List<SelectItem> empleadoItems;
+
     public FacturaCabUI(Integer idFacturaCab, Date fecha_registro, Integer plazos_pago, String referenciaFactura, Integer idEmpleado, Integer idTipoCliente, String estado_factura, Double total, Integer tipo_pago, String nit, Integer tipoFactura) {
         this.idFacturaCab = idFacturaCab;
         this.fecha_registro = fecha_registro;
@@ -197,14 +232,28 @@ public class FacturaCabUI {
         this.nit = nit;
         this.tipoFactura = tipoFactura;
     }
-    
-    public FacturaCabUI(){}
-    
-    public void CrearFactura(){}
-    
-//    public Integer lastFactura(){
-//    Facturas ultimaFactura = new Facturas();
-//    
-//    return ultimaFactura.lastFactura();
-//    }
+
+    public FacturaCabUI() {
+    }
+
+    public void CrearFactura() {
+    }
+
+    @PostConstruct
+    public void init() {
+        findAllEmpleadosUi();
+    }
+
+    public void findAllEmpleadosUi() {
+        try {
+            EmpleadoServicio empleadoServ = new EmpleadoServicio();
+            empleados = empleadoServ.findAllEmpleados();
+            empleadoItems = new ArrayList<>();
+            for (Empleado empleado : getEmpleados()) {
+                getEmpleadoItems().add(new SelectItem(empleado.getIdempleado(), empleado.getNombreEmpleado() + " " + empleado.getApellidoEmpleado()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta marcas clase MarcaUI");
+        }
+    }
 }
