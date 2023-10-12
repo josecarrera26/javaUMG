@@ -14,15 +14,15 @@ import javax.persistence.EntityManager;
  */
 public class FacturaDetServicio {
 
-    public boolean registroFacturaDet(Integer idFacturaDet, Integer cantidad, Integer precioUnitario, Integer iva, Integer idProducto) {
-
-        boolean exito = false;
-                
-        EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
-        
-
-        return exito;
-        
-
-    }
+//    public boolean registroFacturaDet(Integer idFacturaDet, Integer cantidad, Integer precioUnitario, Integer iva, Integer idProducto) {
+//
+//        boolean exito = false;
+//                
+//        EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
+//        
+//
+//        return exito;
+//        
+//
+//    }
 }
