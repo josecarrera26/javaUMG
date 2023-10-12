@@ -42,7 +42,6 @@ public class EmpleadoUI implements Serializable {
         this.idRole = idRole;
         this.idCargo = idCargo;
     }*/
-
     public EmpleadoUI() {
 
     }
@@ -126,20 +125,25 @@ public class EmpleadoUI implements Serializable {
     public void setEmpleadoItems(List<SelectItem> empleadoItems) {
         this.empleadoItems = empleadoItems;
     }
-    
-    
-    
 
     public void GetEmpleado() {
         try {
+
             EmpleadoServicio empServ = new EmpleadoServicio();
-            empleados = empServ.GetEmpleado();
+
+            System.out.println("parametros enviados = " + this.nombre_empleado + " " + this.password_empleado);
+
+            empleados = empServ.findByEmpleadoPassword(nombre_empleado, password_empleado);
+
+            /*System.out.println("empleados = " + empleados);
+            
             empleadoItems = new ArrayList<>();
             for (Empleado emp : empleados) {
                 empleadoItems.add(new SelectItem(emp.getNombreEmpleado(), emp.getPassword()));
             }
+             */
         } catch (Exception e) {
-            System.out.println(e + "Error en consulta Empleado en clase EmpleadoUI");
+            System.out.println(e + "Error en consulta Usuario");
         }
     }
 
