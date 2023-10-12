@@ -5,7 +5,6 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
-import static com.umgprogra.erp.DAO.Empleado_.idempleado;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
