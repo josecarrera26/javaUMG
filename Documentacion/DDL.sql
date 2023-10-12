@@ -90,18 +90,18 @@ CREATE TABLE "facturacab" (
   "idempleado" integer,
   "idtipocliente" integer,
   "estadofac" integer,
-  "total" double precision,,
+  "total" double precision,
   "idtipopago" integer,
   "nit" varchar,
   "idtipofactura" integer
 );
 
 CREATE TABLE "facturadet" (
-  "idtransaccion" Serial PRIMARY KEY
+  "idtransaccion" Serial PRIMARY key,
   "idfactura" integer,
   "cantidad" integer,
-  "preciounitario" double precision,,
-  "iva" double precision,,
+  "preciounitario" double precision,
+  "iva" double precision,
   "idproducto" integer
 );
 
@@ -147,7 +147,7 @@ ALTER TABLE "inventario" ADD FOREIGN KEY ("idgrupoproducto") REFERENCES "grupopr
 
 ALTER TABLE "facturacab" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("idempleado");
 
-ALTER TABLE "facturacab" ADD FOREIGN KEY ("idfactura") REFERENCES "facturadet" ("idfactura");
+ALTER TABLE  "facturadet" ADD FOREIGN KEY ("idfactura") REFERENCES "facturacab" ("idfactura");
 
 ALTER TABLE "facturadet" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 
