@@ -5,20 +5,25 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,10 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Facturacab.findAll", query = "SELECT f FROM Facturacab f"),
-    @NamedQuery(name = "Facturacab.findByIdfactura", query = "SELECT f FROM Facturacab f WHERE f.facturacabPK.idfactura = :idfactura"),
+    @NamedQuery(name = "Facturacab.findByIdfactura", query = "SELECT f FROM Facturacab f WHERE f.idfactura = :idfactura"),
     @NamedQuery(name = "Facturacab.findByFechaRegistro", query = "SELECT f FROM Facturacab f WHERE f.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Facturacab.findByPlazosPago", query = "SELECT f FROM Facturacab f WHERE f.plazosPago = :plazosPago"),
-    @NamedQuery(name = "Facturacab.findByReferenciaFactura", query = "SELECT f FROM Facturacab f WHERE f.facturacabPK.referenciaFactura = :referenciaFactura"),
+    @NamedQuery(name = "Facturacab.findByReferenciaFactura", query = "SELECT f FROM Facturacab f WHERE f.referenciaFactura = :referenciaFactura"),
     @NamedQuery(name = "Facturacab.findByIdtipocliente", query = "SELECT f FROM Facturacab f WHERE f.idtipocliente = :idtipocliente"),
     @NamedQuery(name = "Facturacab.findByEstadofac", query = "SELECT f FROM Facturacab f WHERE f.estadofac = :estadofac"),
     @NamedQuery(name = "Facturacab.findByTotal", query = "SELECT f FROM Facturacab f WHERE f.total = :total"),
@@ -42,19 +47,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Facturacab implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FacturacabPK facturacabPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idfactura")
+    private Integer idfactura;
     @Column(name = "fecha_registro")
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
     @Column(name = "plazos_pago")
     private Integer plazosPago;
+    @Basic(optional = false)
+    @Column(name = "referencia_factura")
+    private int referenciaFactura;
     @Column(name = "idtipocliente")
     private Integer idtipocliente;
     @Column(name = "estadofac")
     private Integer estadofac;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "total")
-    private BigInteger total;
+    private Double total;
     @Column(name = "idtipopago")
     private Integer idtipopago;
     @Size(max = 2147483647)
@@ -62,30 +74,30 @@ public class Facturacab implements Serializable {
     private String nit;
     @Column(name = "idtipofactura")
     private Integer idtipofactura;
+    @OneToMany(mappedBy = "idfactura")
+    private Collection<Facturadet> facturadetCollection;
     @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado idempleado;
-    @JoinColumn(name = "idfactura", referencedColumnName = "idfactura", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Facturadet facturadet;
 
     public Facturacab() {
     }
 
-    public Facturacab(FacturacabPK facturacabPK) {
-        this.facturacabPK = facturacabPK;
+    public Facturacab(Integer idfactura) {
+        this.idfactura = idfactura;
     }
 
-    public Facturacab(int idfactura, int referenciaFactura) {
-        this.facturacabPK = new FacturacabPK(idfactura, referenciaFactura);
+    public Facturacab(Integer idfactura, int referenciaFactura) {
+        this.idfactura = idfactura;
+        this.referenciaFactura = referenciaFactura;
     }
 
-    public FacturacabPK getFacturacabPK() {
-        return facturacabPK;
+    public Integer getIdfactura() {
+        return idfactura;
     }
 
-    public void setFacturacabPK(FacturacabPK facturacabPK) {
-        this.facturacabPK = facturacabPK;
+    public void setIdfactura(Integer idfactura) {
+        this.idfactura = idfactura;
     }
 
     public Date getFechaRegistro() {
@@ -104,6 +116,14 @@ public class Facturacab implements Serializable {
         this.plazosPago = plazosPago;
     }
 
+    public int getReferenciaFactura() {
+        return referenciaFactura;
+    }
+
+    public void setReferenciaFactura(int referenciaFactura) {
+        this.referenciaFactura = referenciaFactura;
+    }
+
     public Integer getIdtipocliente() {
         return idtipocliente;
     }
@@ -120,11 +140,11 @@ public class Facturacab implements Serializable {
         this.estadofac = estadofac;
     }
 
-    public BigInteger getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(BigInteger total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -152,6 +172,15 @@ public class Facturacab implements Serializable {
         this.idtipofactura = idtipofactura;
     }
 
+    @XmlTransient
+    public Collection<Facturadet> getFacturadetCollection() {
+        return facturadetCollection;
+    }
+
+    public void setFacturadetCollection(Collection<Facturadet> facturadetCollection) {
+        this.facturadetCollection = facturadetCollection;
+    }
+
     public Empleado getIdempleado() {
         return idempleado;
     }
@@ -160,18 +189,10 @@ public class Facturacab implements Serializable {
         this.idempleado = idempleado;
     }
 
-    public Facturadet getFacturadet() {
-        return facturadet;
-    }
-
-    public void setFacturadet(Facturadet facturadet) {
-        this.facturadet = facturadet;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (facturacabPK != null ? facturacabPK.hashCode() : 0);
+        hash += (idfactura != null ? idfactura.hashCode() : 0);
         return hash;
     }
 
@@ -182,7 +203,7 @@ public class Facturacab implements Serializable {
             return false;
         }
         Facturacab other = (Facturacab) object;
-        if ((this.facturacabPK == null && other.facturacabPK != null) || (this.facturacabPK != null && !this.facturacabPK.equals(other.facturacabPK))) {
+        if ((this.idfactura == null && other.idfactura != null) || (this.idfactura != null && !this.idfactura.equals(other.idfactura))) {
             return false;
         }
         return true;
@@ -190,7 +211,7 @@ public class Facturacab implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Facturacab[ facturacabPK=" + facturacabPK + " ]";
+        return "com.umgprogra.erp.DAO.Facturacab[ idfactura=" + idfactura + " ]";
     }
     
 }

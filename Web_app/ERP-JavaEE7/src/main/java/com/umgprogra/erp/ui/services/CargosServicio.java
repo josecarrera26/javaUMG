@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 public class CargosServicio {
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
     
-    public String InsertarCargo(String pNombreCargo, BigInteger pSueldo) {
+    public String InsertarCargo(String pNombreCargo, Double pSueldo) {
     try 
     {
         CargoEmpleado cargo = new CargoEmpleado();

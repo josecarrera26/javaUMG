@@ -36,8 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empleado.findByApellidoEmpleado", query = "SELECT e FROM Empleado e WHERE e.apellidoEmpleado = :apellidoEmpleado"),
     @NamedQuery(name = "Empleado.findByTelefonoEmpleado", query = "SELECT e FROM Empleado e WHERE e.telefonoEmpleado = :telefonoEmpleado"),
     @NamedQuery(name = "Empleado.findByEmailEmpleado", query = "SELECT e FROM Empleado e WHERE e.emailEmpleado = :emailEmpleado"),
-    @NamedQuery(name = "Empleado.findByPassword", query = "SELECT e FROM Empleado e WHERE e.password = :password"),
-    @NamedQuery(name = "Empleado.findByEmpleadoPassword", query = "SELECT e.nombreEmpleado, e.password  FROM Empleado e")})
+    @NamedQuery(name = "Empleado.findByPassword", query = "SELECT e FROM Empleado e WHERE e.password = :password")})
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,11 +73,6 @@ public class Empleado implements Serializable {
 
     public Empleado() {
     }
-    
-    public Empleado(String nombre_empleado, String password) {
-    this.nombreEmpleado = nombre_empleado;
-    this.password = password;
-}
 
     public Empleado(Integer idempleado) {
         this.idempleado = idempleado;
@@ -190,5 +184,10 @@ public class Empleado implements Serializable {
     public String toString() {
         return "com.umgprogra.erp.DAO.Empleado[ idempleado=" + idempleado + " ]";
     }
+    
+    public Empleado(String nombre_empleado, String password) {
+    this.nombreEmpleado = nombre_empleado;
+    this.password = password;
+}
     
 }

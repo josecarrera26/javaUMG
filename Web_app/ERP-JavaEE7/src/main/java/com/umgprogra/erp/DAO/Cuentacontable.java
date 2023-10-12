@@ -5,7 +5,6 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,8 +42,9 @@ public class Cuentacontable implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "nombrecuenta")
     private String nombrecuenta;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "impuesto_inventario")
-    private BigInteger impuestoInventario;
+    private Double impuestoInventario;
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne
     private Cliente idcliente;
@@ -75,11 +75,11 @@ public class Cuentacontable implements Serializable {
         this.nombrecuenta = nombrecuenta;
     }
 
-    public BigInteger getImpuestoInventario() {
+    public Double getImpuestoInventario() {
         return impuestoInventario;
     }
 
-    public void setImpuestoInventario(BigInteger impuestoInventario) {
+    public void setImpuestoInventario(Double impuestoInventario) {
         this.impuestoInventario = impuestoInventario;
     }
 

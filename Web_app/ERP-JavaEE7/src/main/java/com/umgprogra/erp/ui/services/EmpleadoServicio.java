@@ -30,7 +30,7 @@ public class EmpleadoServicio {
                     String nombreEmpleado = (String) results[0];
                     String password = (String) results[1];
                     Empleado empleado = new Empleado(nombreEmpleado, password);
-                    
+
                     resultList.add(empleado);
                 }
             } else {

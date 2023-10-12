@@ -6,7 +6,6 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Facturacab;
-import com.umgprogra.erp.DAO.FacturacabPK;
 import com.umgprogra.erp.DAO.Facturadet;
 import com.umgprogra.erp.util.JpaUtil;
 import java.math.BigInteger;
@@ -29,12 +28,11 @@ public class Facturas {
 //        return ultimaFactura.getIdfactura() + 1;
 //    }
 
-    public String insertarFacturacab(Date pFechaRegistro, Integer pPlazoPagos, Integer pReferenciaFactura, Integer pIDEmpleado, Integer pTipoCliente, Integer pEstadoFactura, BigInteger pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {
+    public String insertarFacturacab(Date pFechaRegistro, Integer pPlazoPagos, Integer pReferenciaFactura, Integer pIDEmpleado, Integer pTipoCliente, Integer pEstadoFactura, Double pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {
         try {
-
-            FacturacabPK facturaRef = new FacturacabPK();
-            facturaRef.setIdfactura(pReferenciaFactura);
-            facturaRef.setReferenciaFactura(pReferenciaFactura);
+            
+            
+            
 
             Empleado idEmpleado = new Empleado();
             idEmpleado.setIdempleado(pIDEmpleado);
@@ -42,7 +40,7 @@ public class Facturas {
             Facturacab facturacabecera = new Facturacab();
             facturacabecera.setFechaRegistro(pFechaRegistro);
             facturacabecera.setPlazosPago(pPlazoPagos);
-            facturacabecera.setFacturacabPK(facturaRef);
+            facturacabecera.setReferenciaFactura(pReferenciaFactura);
             facturacabecera.setIdempleado(idEmpleado);
             facturacabecera.setIdtipocliente(pTipoCliente);
             facturacabecera.setEstadofac(pEstadoFactura);

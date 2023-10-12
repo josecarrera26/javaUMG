@@ -5,7 +5,6 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -44,8 +43,9 @@ public class CargoEmpleado implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "nombre_cargo")
     private String nombreCargo;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "salario")
-    private BigInteger salario;
+    private Double salario;
     @OneToMany(mappedBy = "idcargoEmpleado")
     private Collection<Empleado> empleadoCollection;
 
@@ -72,11 +72,11 @@ public class CargoEmpleado implements Serializable {
         this.nombreCargo = nombreCargo;
     }
 
-    public BigInteger getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(BigInteger salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
 

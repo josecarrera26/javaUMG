@@ -5,7 +5,6 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -52,9 +51,8 @@ public class Inventario implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
-    @Size(max = 2147483647)
     @Column(name = "cantidad")
-    private String cantidad;
+    private Integer cantidad;
     @Size(max = 2147483647)
     @Column(name = "tipo_comercializacion")
     private String tipoComercializacion;
@@ -64,10 +62,11 @@ public class Inventario implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "unidades")
     private String unidades;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "precioventa")
-    private BigInteger precioventa;
+    private Double precioventa;
     @Column(name = "coste")
-    private BigInteger coste;
+    private Double coste;
     @Column(name = "margenganancia")
     private Integer margenganancia;
     @OneToMany(mappedBy = "idproducto")
@@ -112,11 +111,11 @@ public class Inventario implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -144,19 +143,19 @@ public class Inventario implements Serializable {
         this.unidades = unidades;
     }
 
-    public BigInteger getPrecioventa() {
+    public Double getPrecioventa() {
         return precioventa;
     }
 
-    public void setPrecioventa(BigInteger precioventa) {
+    public void setPrecioventa(Double precioventa) {
         this.precioventa = precioventa;
     }
 
-    public BigInteger getCoste() {
+    public Double getCoste() {
         return coste;
     }
 
-    public void setCoste(BigInteger coste) {
+    public void setCoste(Double coste) {
         this.coste = coste;
     }
 

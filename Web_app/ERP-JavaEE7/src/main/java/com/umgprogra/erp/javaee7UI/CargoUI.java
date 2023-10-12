@@ -75,6 +75,6 @@ public class CargoUI {
     
         CargosServicio nuevoCargo = new CargosServicio();
         
-       return nuevoCargo.InsertarCargo(this.nombre_cargo, BigDecimal.valueOf(this.salario).toBigInteger());
+       return nuevoCargo.InsertarCargo(this.nombre_cargo, this.salario);
     }
 }
