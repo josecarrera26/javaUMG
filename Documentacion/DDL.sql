@@ -22,13 +22,13 @@ CREATE TABLE "cuentacontable" (
   "nombrecuenta" varchar,
   "idcliente" integer,
   "idproveedor" integer,
-  "impuesto_inventario" decimal
+  "impuesto_inventario" double precision
 );
 
 CREATE TABLE "cargo_empleado" (
   "idcargo" Serial PRIMARY KEY,
   "nombre_cargo" varchar,
-  "salario" decimal
+  "salario" double precision
 );
 
 CREATE TABLE "empleado" (
@@ -69,12 +69,12 @@ CREATE TABLE "grupoproducto" (
 CREATE TABLE "inventario" (
   "idproducto" Serial PRIMARY KEY,
   "nombre" varchar,
-  "cantidad" varchar,
+  "cantidad" integer,
   "tipo_comercializacion" varchar,
   "modelo" varchar,
   "unidades" VARCHAR,
-  "precioventa" decimal,
-  "coste" decimal,
+  "precioventa" double precision,
+  "coste" double precision,
   "margenganancia" integer,
   "idmarca" integer,
   "idlinea" integer,
@@ -83,25 +83,25 @@ CREATE TABLE "inventario" (
 );
 
 CREATE TABLE "facturacab" (
-  "idfactura" Serial,
+  "idfactura" Serial PRIMARY KEY,
   "fecha_registro" date,
   "plazos_pago" integer,
   "referencia_factura" serial,
   "idempleado" integer,
   "idtipocliente" integer,
   "estadofac" integer,
-  "total" decimal,
+  "total" double precision,,
   "idtipopago" integer,
   "nit" varchar,
-  "idtipofactura" integer,
-  PRIMARY KEY ("idfactura", "referencia_factura")
+  "idtipofactura" integer
 );
 
 CREATE TABLE "facturadet" (
-  "idfactura" Serial PRIMARY KEY,
+  "idtransaccion" Serial PRIMARY KEY
+  "idfactura" integer,
   "cantidad" integer,
-  "preciounitario" decimal,
-  "iva" decimal,
+  "preciounitario" double precision,,
+  "iva" double precision,,
   "idproducto" integer
 );
 
