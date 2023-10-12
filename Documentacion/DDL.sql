@@ -14,7 +14,8 @@ CREATE TABLE "proveedor" (
   "direccion" varchar,
   "telefono" varchar,
   "regimen_proveedor" varchar,
-  "email_proveedor" varchar
+  "email_proveedor" varchar,
+  "idbanco" integer
 );
 
 CREATE TABLE "cuentacontable" (
@@ -79,7 +80,8 @@ CREATE TABLE "inventario" (
   "idmarca" integer,
   "idlinea" integer,
   "idgrupoproducto" integer,
-  "idproveedor" integer
+  "idproveedor" integer,
+  "estado" integer
 );
 
 CREATE TABLE "facturacab" (
@@ -116,8 +118,7 @@ CREATE TABLE "pedido" (
 
 CREATE TABLE "banco" (
   "idbanco" Serial PRIMARY KEY,
-  "nombrebanco" varchar,
-  "idproveedor" integer
+  "nombrebanco" varchar
 );
 
 CREATE TABLE "kardex" (
@@ -156,12 +157,11 @@ ALTER TABLE "pedido" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("id
 
 ALTER TABLE "pedido" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
 
-ALTER TABLE "banco" ADD FOREIGN KEY ("idproveedor") REFERENCES  "proveedor" ("idproveedor");
+ALTER TABLE "proveedor"  ADD FOREIGN KEY ("idbanco") REFERENCES "banco" ("idbanco");
 
 ALTER TABLE "empleado" ADD FOREIGN KEY ("idrole") REFERENCES "roles" ("idrole");
 
 ALTER TABLE "kardex" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
-
 
 
 --drop table banco cascade;
