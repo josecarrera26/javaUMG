@@ -44,6 +44,7 @@ public class InventarioServicio {
             inventario.setIdlinea(idlinea);
             inventario.setIdgrupoproducto(idgrupoproducto);
             inventario.setIdproveedor(idproveedor);
+            inventario.setEstado(1);
             entity.getTransaction().begin();
             entity.persist(inventario);
             entity.getTransaction().commit();

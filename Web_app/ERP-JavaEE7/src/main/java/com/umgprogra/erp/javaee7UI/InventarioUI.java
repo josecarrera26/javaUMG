@@ -9,13 +9,16 @@ import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.DAO.Linea;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
+import com.umgprogra.erp.ui.services.GrupoProductoServicio;
 import com.umgprogra.erp.ui.services.InventarioServicio;
+import com.umgprogra.erp.ui.services.LineaServicio;
+import com.umgprogra.erp.ui.services.MarcaServicio;
+import com.umgprogra.erp.ui.services.ProveedoreServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
@@ -28,20 +31,62 @@ import javax.faces.model.SelectItem;
 public class InventarioUI implements Serializable {
 
     /**
-     * @return the prueba
+     * @return the idMarca
      */
-    public String getPrueba() {
-        return prueba;
+    public int getIdMarca() {
+        return idMarca;
     }
 
     /**
-     * @param prueba the prueba to set
+     * @param idMarca the idMarca to set
      */
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
+    public void setIdMarca(int idMarca) {
+        this.idMarca = idMarca;
     }
 
-     /**
+    /**
+     * @return the idProveedor
+     */
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    /**
+     * @param idProveedor the idProveedor to set
+     */
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    /**
+     * @return the idGrupo
+     */
+    public int getIdGrupo() {
+        return idGrupo;
+    }
+
+    /**
+     * @param idGrupo the idGrupo to set
+     */
+    public void setIdGrupo(int idGrupo) {
+        this.idGrupo = idGrupo;
+    }
+
+    /**
+     * @return the idLinea
+     */
+    public int getIdLinea() {
+        return idLinea;
+    }
+
+    /**
+     * @param idLinea the idLinea to set
+     */
+    public void setIdLinea(int idLinea) {
+        this.idLinea = idLinea;
+    }
+
+    /**
      * @return the proveedores
      */
     public List<Proveedor> getProveedores() {
@@ -278,6 +323,91 @@ public class InventarioUI implements Serializable {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+
+    /**
+     * @return the grupos
+     */
+    public List<Grupoproducto> getGrupos() {
+        return grupos;
+    }
+
+    /**
+     * @param grupos the grupos to set
+     */
+    public void setGrupos(List<Grupoproducto> grupos) {
+        this.grupos = grupos;
+    }
+
+    /**
+     * @return the grupoItems
+     */
+    public List<SelectItem> getGrupoItems() {
+        return grupoItems;
+    }
+
+    /**
+     * @param grupoItems the grupoItems to set
+     */
+    public void setGrupoItems(List<SelectItem> grupoItems) {
+        this.grupoItems = grupoItems;
+    }
+
+    /**
+     * @return the marcaItems
+     */
+    public List<SelectItem> getMarcaItems() {
+        return marcaItems;
+    }
+
+    /**
+     * @param marcaItems the marcaItems to set
+     */
+    public void setMarcaItems(List<SelectItem> marcaItems) {
+        this.marcaItems = marcaItems;
+    }
+
+    /**
+     * @return the marcas
+     */
+    public List<Marca> getMarcas() {
+        return marcas;
+    }
+
+    /**
+     * @param marcas the marcas to set
+     */
+    public void setMarcas(List<Marca> marcas) {
+        this.marcas = marcas;
+    }
+
+    /**
+     * @return the marcas
+     */
+    public List<Linea> getLineas() {
+        return lineas;
+    }
+
+    /**
+     * @param lineas the marcas to set
+     */
+    public void setLineas(List<Linea> lineas) {
+        this.lineas = lineas;
+    }
+
+    /**
+     * @return the lineaItems
+     */
+    public List<SelectItem> getLineaItems() {
+        return lineaItems;
+    }
+
+    /**
+     * @param lineaItems the marcaItems to set
+     */
+    public void setLineaItems(List<SelectItem> lineaItems) {
+        this.lineaItems = lineaItems;
+    }
+
     private String codProducto;
     private String nombre;
     private int cantidad;
@@ -288,62 +418,159 @@ public class InventarioUI implements Serializable {
     private double impuesto_Inventario;
     private double coste;
     private int margen_Ganancia;
+    //DE TIPO OBJETO PARA MANDAR A DB
     private Marca marca;
     private Linea linea;
     private Grupoproducto grupo;
     private Proveedor proveedor;
+    //LISTAS PARA LLENAR LOS CB
     private List<String> unidades;
-     private List<Proveedor> proveedores;
+    private List<Proveedor> proveedores;
     private List<SelectItem> proveedorItems;
-    private String prueba;
-    
-   @PostConstruct
+    private List<Grupoproducto> grupos;
+    private List<SelectItem> grupoItems;
+    private List<Marca> marcas;
+    private List<SelectItem> marcaItems;
+    private List<Linea> lineas;
+    private List<SelectItem> lineaItems;
+    //PARA OBTENER EL ID SELECCIONADO EN EL CB
+    private int idMarca;
+    private int idProveedor;
+    private int idGrupo;
+    private int idLinea;
+
+    @PostConstruct
     public void init() {
         unidades = new ArrayList();
         unidades.add("Caja");
         unidades.add("Unidad");
-      //  findIdAndNameUi();
+        findIdAndNameUi();
+        findAllGrupoUi();
+        findAllMarcaUi();
+        findAllLineaUi();
     }
-    
-       public void saveProducto() {
-          
-        try {
 
+    public void saveProducto() {
+
+        try {
             InventarioServicio inventarioServ = new InventarioServicio();
-            proveedor = findIdAndNameUi().get(0);
-              System.out.println("GRUPO:" + prueba);
-            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, marca, linea, grupo, proveedor)) {
+          
+//            System.err.println("Marca: " +  getMarcaSeleccionada());
+//            System.err.println("Linea: " +  getLineaSeleccionada());
+//            System.err.println("Proveedor: " +  getProveedorSeleccionado());
+//            System.err.println("Grupo: " +  getGrupoSeleccionado());
+//              System.err.println("Medida: " +  unidadMed);
+
+
+            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado())) {
                 System.err.println("Estoy en ProdUITRUE");
-               // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
+                // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
                 //Agrega el mensaje al componente <p:growl>
-              //  FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+                //  FacesContext.getCurrentInstance().addMessage("messages", mensaje);
             } else {
                 System.err.println("Estoy en InventarioUIFALSE");
-              //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Registro no guardado");
+                //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Registro no guardado");
                 // Agrega el mensaje al componente <p:growl>
-             //   FacesContext.getCurrentInstance().addMessage("messages", mensaje);
-
+                //   FacesContext.getCurrentInstance().addMessage("messages", mensaje);
             }
 
         } catch (Exception e) {
             System.out.println(e + "Error en save MarcaUI");
         }
     }
-    
-    public List<Proveedor> findIdAndNameUi() {
+
+    //Metodos para obtener el objeto seleccionado en cb
+    public Marca getMarcaSeleccionada() {
+        try {
+            MarcaServicio marcaServ = new MarcaServicio();
+            marca = marcaServ.getMarcaId(idMarca).get(0);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+        return marca;
+    }
+
+    public Linea getLineaSeleccionada() {
+        try {
+            LineaServicio lineaServ = new LineaServicio();
+            linea = lineaServ.getLineaId(idLinea).get(0);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+        return linea;
+    }
+
+    public Grupoproducto getGrupoSeleccionado() {
+        try {
+            GrupoProductoServicio grupoServ = new GrupoProductoServicio();
+            grupo = grupoServ.getGrupoId(idGrupo).get(0);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+        return grupo;
+    }
+
+    public Proveedor getProveedorSeleccionado() {
+        try {
+            ProveedoreServicio provServ = new ProveedoreServicio();
+            proveedor = provServ.getProveedorId(idProveedor).get(0);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+        return proveedor;
+    }
+
+//METODOS PARA LLENAR LOS CB
+    public void findIdAndNameUi() {
         try {
             InventarioServicio provServ = new InventarioServicio();
             proveedores = provServ.findIdAndName();
-//            proveedorItems = new ArrayList<>();
-//            for (Proveedor prov : proveedores) {
-//                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
-//            }
+            proveedorItems = new ArrayList<>();
+            for (Proveedor prov : proveedores) {
+                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
+            }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta proveedor en clase InventarioUI");
         }
-        return proveedores;
     }
-    
-    
-}
 
+    public void findAllGrupoUi() {
+        try {
+            GrupoProductoServicio grupoServ = new GrupoProductoServicio();
+            grupos = grupoServ.findAllGrupo();
+            grupoItems = new ArrayList<>();
+            for (Grupoproducto grupoObj : grupos) {
+                grupoItems.add(new SelectItem(grupoObj.getIdgrupoproducto(), grupoObj.getDescripcion()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta grupo clase GrupoUI");
+        }
+    }
+
+    public void findAllMarcaUi() {
+        try {
+            MarcaServicio marcaServ = new MarcaServicio();
+            marcas = marcaServ.findAllMarca();
+            marcaItems = new ArrayList<>();
+            for (Marca marcaObj : marcas) {
+                marcaItems.add(new SelectItem(marcaObj.getIdmarca(), marcaObj.getDescripcion()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta marcas clase MarcaUI");
+        }
+    }
+
+    public void findAllLineaUi() {
+        try {
+            LineaServicio lineaServ = new LineaServicio();
+            lineas = lineaServ.findAllLinea();
+            lineaItems = new ArrayList<>();
+            for (Linea lineaObj : lineas) {
+                lineaItems.add(new SelectItem(lineaObj.getIdlinea(), lineaObj.getDescripcion()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta linea clase LineaUI");
+        }
+    }
+
+}

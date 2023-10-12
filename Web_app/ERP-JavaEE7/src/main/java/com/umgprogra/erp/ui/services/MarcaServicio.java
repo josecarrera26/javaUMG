@@ -37,13 +37,19 @@ public class MarcaServicio {
         return g;
     }
 
-    public void getMarca() {
-        Marca marca = new Marca();
-        Query query2 = entity.createNamedQuery("Marca.findAll", Marca.class);
+    public List<Marca> getMarcaId(int idMarca) {
+        List<Marca> resultList = new ArrayList<>();
+        try {
+            Query query2 = entity.createNamedQuery("Marca.findByIdmarca", Marca.class).setParameter("idmarca", idMarca);
+            resultList = query2.getResultList();
+            if (resultList == null && resultList.isEmpty()) {
+                System.out.println("No se encontraron Marcas con el ID");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la consulta getMarcaId" + e);
+        }
 
-        marca = (Marca) query2.getSingleResult();
-
-        System.out.println(marca.getDescripcion() + marca.getEstado());
+        return resultList;
     }
 
     public List<Marca> findAllMarca() {
@@ -61,7 +67,7 @@ public class MarcaServicio {
         } catch (Exception e) {
             System.err.println("Error en findAllMarca " + e.getMessage());
         }
-    
+
         return resultList;
 
     }

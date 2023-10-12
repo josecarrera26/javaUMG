@@ -55,4 +55,19 @@ public class LineaServicio {
         return resultList;
 
     }
+        
+         public List<Linea> getLineaId(int idLinea) {
+        List<Linea> resultList = new ArrayList<>();
+        try {
+            Query query2 = entity.createNamedQuery("Linea.findByIdlinea", Linea.class).setParameter("idlinea", idLinea);
+            resultList = query2.getResultList();
+            if (resultList == null && resultList.isEmpty()) {
+                System.out.println("No se encontraron Lineas con el ID");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la consulta getLineaId" + e);
+        }
+
+        return resultList;
+    }
 }

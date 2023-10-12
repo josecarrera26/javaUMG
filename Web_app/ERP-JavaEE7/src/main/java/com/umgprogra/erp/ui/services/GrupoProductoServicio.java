@@ -54,4 +54,19 @@ public class GrupoProductoServicio {
         return resultList;
 
     }
+        
+         public List<Grupoproducto> getGrupoId(int idGrupo) {
+        List<Grupoproducto> resultList = new ArrayList<>();
+        try {
+            Query query2 = entity.createNamedQuery("Grupoproducto.findByIdgrupoproducto", Grupoproducto.class).setParameter("idgrupoproducto", idGrupo);
+            resultList = query2.getResultList();
+            if (resultList == null && resultList.isEmpty()) {
+                System.out.println("No se encontraron grupos con el ID");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la consulta getGrupoId" + e);
+        }
+
+        return resultList;
+    }
 }

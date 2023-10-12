@@ -8,14 +8,11 @@ package com.umgprogra.erp.javaee7UI;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.ui.services.MarcaServicio;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
 /**
  *
@@ -24,34 +21,6 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @ViewScoped
 public class MarcaUI implements Serializable {
-
-    /**
-     * @return the marcaItems
-     */
-    public List<SelectItem> getMarcaItems() {
-        return marcaItems;
-    }
-
-    /**
-     * @param marcaItems the marcaItems to set
-     */
-    public void setMarcaItems(List<SelectItem> marcaItems) {
-        this.marcaItems = marcaItems;
-    }
-
-    /**
-     * @return the marcas
-     */
-    public List<Marca> getMarcas() {
-        return marcas;
-    }
-
-    /**
-     * @param marcas the marcas to set
-     */
-    public void setMarcas(List<Marca> marcas) {
-        this.marcas = marcas;
-    }
 
     /**
      * @return the idMarca
@@ -83,8 +52,7 @@ public class MarcaUI implements Serializable {
 
     private int idMarca;
     private String descripcionM;
-    private List<Marca> marcas;
-    private List<SelectItem> marcaItems;
+    private List<Marca> resultadoMId;
 
     public void saveMarca() {
         try {
@@ -108,22 +76,6 @@ public class MarcaUI implements Serializable {
         }
     }
 
-    @PostConstruct
-    public void init() {
-        findAllMarcaUi();
-    }
-
-    public void findAllMarcaUi() {
-        try {
-            MarcaServicio marcaServ = new MarcaServicio();
-            marcas = marcaServ.findAllMarca();
-            marcaItems = new ArrayList<>();
-            for (Marca marca : marcas) {
-                marcaItems.add(new SelectItem(marca.getIdmarca(), marca.getDescripcion()));
-            }
-        } catch (Exception e) {
-            System.out.println(e + "Error en consulta marcas clase MarcaUI");
-        }
-    }
+   
 
 }

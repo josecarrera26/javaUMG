@@ -86,7 +86,7 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <p:outputLabel id="idLabelProveedor" value="Proveedor"  for="@next"/>
-                                        <p:selectOneMenu id="proveedor" class="combo" value="#{inventarioUI.proveedor}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
+                                        <p:selectOneMenu id="proveedor" class="combo" value="#{inventarioUI.idProveedor}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
                                                              >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
                                             <f:selectItems value="#{inventarioUI.proveedorItems}"/>
@@ -170,9 +170,9 @@
                                             <br/>
                                             <p:selectOneMenu id="marca" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
                                                              style="width: 14rem;" panelStyle="width: 15rem" 
-                                                             value="#{inventarioUI.marca}">
+                                                             value="#{inventarioUI.idMarca}">
                                                 <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                                <f:selectItems value="#{marcaUI.marcaItems}"/>
+                                                <f:selectItems value="#{inventarioUI.marcaItems}"/>
                                             </p:selectOneMenu>
                                             <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
                                         </div>
@@ -189,9 +189,9 @@
                                         <br/>
                                         <p:selectOneMenu id="linea" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
                                                          style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{inventarioUI.linea}">
+                                                         value="#{inventarioUI.idLinea}">
                                             <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{lineaUI.lineaItems}"/>
+                                            <f:selectItems value="#{inventarioUI.lineaItems}"/>
                                         </p:selectOneMenu>
                                         <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
 
@@ -209,9 +209,9 @@
                                     <p:outputLabel id="idLabelGrupo" value="Grupo"  for="@next"/>
 
                                     <div style="display: flex; flex-direction: column;">
-                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{inventarioUI.prueba}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
-                                            
-                                            <f:selectItems value="#{grupoProductoUI.grupoItems}"/>
+                                        <p:selectOneMenu id="grupo" style="width: 250px;" class="combo" value="#{inventarioUI.idGrupo}" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
+                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                            <f:selectItems value="#{inventarioUI.grupoItems}"/>
                                         </p:selectOneMenu>
                                     </div>
                                 </div>

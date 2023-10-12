@@ -6,8 +6,8 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.DAO.Facturadet;
-import static com.umgprogra.erp.DAO.Facturadet_.idfactura;
-import static com.umgprogra.erp.DAO.Facturadet_.idproducto;
+//import static com.umgprogra.erp.DAO.Facturadet_.idfactura;
+//import static com.umgprogra.erp.DAO.Facturadet_.idproducto;
 import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.javaee7UI.FacturasDET;
 import com.umgprogra.erp.util.JpaUtil;
@@ -32,11 +32,11 @@ public class FacturaDetServicio {
         // Crear una instancia de Proveedor y configurar sus propiedades
         Facturadet facDet = new Facturadet();
 
-        facDet.setIdfactura((Facturacab) idfactura);
+        //facDet.setIdfactura((Facturacab) idfactura);
         facDet.setCantidad(cantidad);
         facDet.setPreciounitario(precioUnitario);
         facDet.setIva(iva);
-        facDet.setIdproducto((Inventario) idproducto);
+        //facDet.setIdproducto((Inventario) idproducto);
         // Iniciar la transacción
         entity.getTransaction().begin();
 

@@ -4,17 +4,12 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
-import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.ui.services.GrupoProductoServicio;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
 /**
  *
@@ -25,33 +20,6 @@ import javax.faces.model.SelectItem;
 
 public class GrupoProductoUI implements Serializable {
 
-    /**
-     * @return the grupos
-     */
-    public List<Grupoproducto> getGrupos() {
-        return grupos;
-    }
-
-    /**
-     * @param grupos the grupos to set
-     */
-    public void setGrupos(List<Grupoproducto> grupos) {
-        this.grupos = grupos;
-    }
-
-    /**
-     * @return the grupoItems
-     */
-    public List<SelectItem> getGrupoItems() {
-        return grupoItems;
-    }
-
-    /**
-     * @param grupoItems the grupoItems to set
-     */
-    public void setGrupoItems(List<SelectItem> grupoItems) {
-        this.grupoItems = grupoItems;
-    }
 
     /**
      * @return the idGrupoProducto
@@ -84,8 +52,7 @@ public class GrupoProductoUI implements Serializable {
    
     private int idGrupoProducto;
     private String descripcion;
-    private List<Grupoproducto> grupos;
-    private List<SelectItem> grupoItems;
+ 
     
     public void saveGrupo() {
         try{
@@ -107,22 +74,5 @@ public class GrupoProductoUI implements Serializable {
     }
 }
     
-     @PostConstruct
-    public void init() {
-        findAllGrupoUi();
-    }
-    
-    public void findAllGrupoUi() {
-        try {
-            GrupoProductoServicio grupoServ = new GrupoProductoServicio();
-            grupos = grupoServ.findAllGrupo();
-            grupoItems = new ArrayList<>();
-            for (Grupoproducto grupo : grupos) {
-                grupoItems.add(new SelectItem(grupo.getIdgrupoproducto(), grupo.getDescripcion()));
-            }
-        } catch (Exception e) {
-            System.out.println(e + "Error en consulta grupo clase GrupoUI");
-        }
-    }
 
 }
