@@ -5,6 +5,9 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Grupoproducto;
+import com.umgprogra.erp.DAO.Linea;
+import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.ui.services.InventarioServicio;
 import java.io.Serializable;
@@ -25,6 +28,20 @@ import javax.faces.model.SelectItem;
 public class InventarioUI implements Serializable {
 
     /**
+     * @return the prueba
+     */
+    public String getPrueba() {
+        return prueba;
+    }
+
+    /**
+     * @param prueba the prueba to set
+     */
+    public void setPrueba(String prueba) {
+        this.prueba = prueba;
+    }
+
+     /**
      * @return the proveedores
      */
     public List<Proveedor> getProveedores() {
@@ -209,56 +226,56 @@ public class InventarioUI implements Serializable {
     /**
      * @return the marca
      */
-    public MarcaUI getMarca() {
+    public Marca getMarca() {
         return marca;
     }
 
     /**
      * @param marca the marca to set
      */
-    public void setMarca(MarcaUI marca) {
+    public void setMarca(Marca marca) {
         this.marca = marca;
     }
 
     /**
      * @return the linea
      */
-    public LineaUI getLinea() {
+    public Linea getLinea() {
         return linea;
     }
 
     /**
      * @param linea the linea to set
      */
-    public void setLinea(LineaUI linea) {
+    public void setLinea(Linea linea) {
         this.linea = linea;
     }
 
     /**
      * @return the grupo
      */
-    public String getGrupo() {
+    public Grupoproducto getGrupo() {
         return grupo;
     }
 
     /**
      * @param grupo the grupo to set
      */
-    public void setGrupo(String grupo) {
+    public void setGrupo(Grupoproducto grupo) {
         this.grupo = grupo;
     }
 
     /**
      * @return the proveedor
      */
-    public int getProveedor() {
+    public Proveedor getProveedor() {
         return proveedor;
     }
 
     /**
      * @param proveedor the proveedor to set
      */
-    public void setProveedor(int proveedor) {
+    public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
     private String codProducto;
@@ -271,34 +288,62 @@ public class InventarioUI implements Serializable {
     private double impuesto_Inventario;
     private double coste;
     private int margen_Ganancia;
-    private MarcaUI marca;
-    private LineaUI linea;
-    private String grupo;
-    private int proveedor;
+    private Marca marca;
+    private Linea linea;
+    private Grupoproducto grupo;
+    private Proveedor proveedor;
     private List<String> unidades;
      private List<Proveedor> proveedores;
     private List<SelectItem> proveedorItems;
+    private String prueba;
     
    @PostConstruct
     public void init() {
         unidades = new ArrayList();
         unidades.add("Caja");
         unidades.add("Unidad");
-        findIdAndNameUi();
+      //  findIdAndNameUi();
     }
     
-    public void findIdAndNameUi() {
+       public void saveProducto() {
+          
+        try {
+
+            InventarioServicio inventarioServ = new InventarioServicio();
+            proveedor = findIdAndNameUi().get(0);
+              System.out.println("GRUPO:" + prueba);
+            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, marca, linea, grupo, proveedor)) {
+                System.err.println("Estoy en ProdUITRUE");
+               // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
+                //Agrega el mensaje al componente <p:growl>
+              //  FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+            } else {
+                System.err.println("Estoy en InventarioUIFALSE");
+              //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Registro no guardado");
+                // Agrega el mensaje al componente <p:growl>
+             //   FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+
+            }
+
+        } catch (Exception e) {
+            System.out.println(e + "Error en save MarcaUI");
+        }
+    }
+    
+    public List<Proveedor> findIdAndNameUi() {
         try {
             InventarioServicio provServ = new InventarioServicio();
             proveedores = provServ.findIdAndName();
-            proveedorItems = new ArrayList<>();
-            for (Proveedor prov : proveedores) {
-                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
-            }
+//            proveedorItems = new ArrayList<>();
+//            for (Proveedor prov : proveedores) {
+//                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
+//            }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta proveedor en clase InventarioUI");
         }
+        return proveedores;
     }
+    
     
 }
 
