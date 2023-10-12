@@ -133,7 +133,7 @@ public class EmpleadoUI implements Serializable {
 
             System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
 
-         //   empleados = servicio.findByEmpleadoPassword(idEmpleado, password_empleado);
+            //  empleados = servicio.findByEmpleadoPassword(idEmpleado, password_empleado);
 
             System.out.println("empleados = " + empleados);
             

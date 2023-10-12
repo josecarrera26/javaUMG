@@ -46,7 +46,7 @@ public class EmpleadoServicio {
     }
 
      */
-    public Integer findByEmpleadoPassword(Integer idEmpleado, String password) {
+    public int  findByEmpleadoPassword(Integer idEmpleado, String password) {
 
         try {
 
