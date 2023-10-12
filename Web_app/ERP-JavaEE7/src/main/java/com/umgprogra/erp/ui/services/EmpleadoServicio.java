@@ -19,7 +19,7 @@ public class EmpleadoServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public List<Empleado> GetEmpleado() {
+    /* public List<Empleado> GetEmpleado() {
         List<Empleado> resultList = new ArrayList<>();
         try {
             Query query = entity.createNamedQuery("Empleado.findByEmpleadoPassword");
@@ -42,6 +42,33 @@ public class EmpleadoServicio {
 
         return resultList;
 
+    }
+
+     */
+    public List<Empleado> findByEmpleadoPassword(String nombre_empleado, String password) {
+        List<Empleado> resultList = new ArrayList<>();
+        try {
+            System.out.println("metodo DB findByEmpleadoPassword");
+            System.out.println("nombreEmpleado " + nombre_empleado + " " + "Password Empleado" + password);
+            Query query = entity.createNamedQuery("Empleado.findByEmpleadoPassword",
+                    Empleado.class)
+                    .setParameter("nombreEmpleado", nombre_empleado)
+                    .setParameter("password", password);
+
+            //resultado de lista de Empleados
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+                for (Empleado emp : resultList) {
+                    System.out.println(emp.toString());
+                }
+            } else {
+                System.out.println("No se encontraron empleados con el ID proporcionado.");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en finderEmpleadoById " + e.getMessage());
+        }
+        return resultList;
     }
 
 }
