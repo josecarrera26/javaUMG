@@ -8,6 +8,7 @@ import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -65,30 +66,34 @@ public class EmpleadoServicio {
     }
 
      */
-    public List<Empleado> findByEmpleadoPassword(String nombre_empleado, String password) {
-        List<Empleado> resultList = new ArrayList<>();
-        try {
-            System.out.println("metodo DB findByEmpleadoPassword");
-            System.out.println("nombreEmpleado " + nombre_empleado + " " + "Password Empleado" + password);
-            Query query = entity.createNamedQuery("Empleado.findByEmpleadoPassword",
-                    Empleado.class)
-                    .setParameter("nombreEmpleado", nombre_empleado)
-                    .setParameter("password", password);
+    public Integer findByEmpleadoPassword(Integer idEmpleado, String password) {
 
-            //resultado de lista de Empleados
-            resultList = query.getResultList();
-            if (resultList != null && !resultList.isEmpty()) {
-                System.out.println("Log#: Resultado de la consulta:");
-                for (Empleado emp : resultList) {
-                    System.out.println(emp.toString());
-                }
+        try {
+
+            Empleado empleado = new Empleado();
+
+            Query query2 = entity.createNamedQuery("Empleado.findAll", Empleado.class);
+
+            empleado = (Empleado) query2.getSingleResult();
+
+            if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
+                System.out.println("Empleado si Existe");
+                return 1;
             } else {
-                System.out.println("No se encontraron empleados con el ID proporcionado.");
+                System.out.println("Empleado no existe");
             }
+            /*
+            if(empleado.getPassword().equals(password)){
+                System.out.println("Password Empleado Correcto");
+                return 1;
+        }else{
+                 System.out.println("Empleado no existe");
+            }
+             */
+
         } catch (Exception e) {
-            System.err.println("Error en finderEmpleadoById " + e.getMessage());
+            System.out.println("Error registrado = " + e.getMessage());
         }
-        return resultList;
     }
     
     public List<Empleado> findAllEmpleados() {
