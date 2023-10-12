@@ -5,6 +5,7 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Banco.findByIdbanco", query = "SELECT b FROM Banco b WHERE b.idbanco = :idbanco"),
     @NamedQuery(name = "Banco.findByNombrebanco", query = "SELECT b FROM Banco b WHERE b.nombrebanco = :nombrebanco")})
 public class Banco implements Serializable {
+
+    @OneToMany(mappedBy = "idbanco")
+    private Collection<Proveedor> proveedorCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -99,6 +105,15 @@ public class Banco implements Serializable {
     @Override
     public String toString() {
         return "com.umgprogra.erp.DAO.Banco[ idbanco=" + idbanco + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Proveedor> getProveedorCollection() {
+        return proveedorCollection;
+    }
+
+    public void setProveedorCollection(Collection<Proveedor> proveedorCollection) {
+        this.proveedorCollection = proveedorCollection;
     }
     
 }
