@@ -19,8 +19,10 @@ public class FacturaDetServicio {
         boolean exito = false;
                 
         EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
+        
 
         return exito;
+        
 
     }
 }

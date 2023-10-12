@@ -18,7 +18,7 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
-public class Proveedores implements Serializable{
+public class Proveedores implements Serializable {
 
     private Integer idProveedor;
     private String nombreProveedor;

@@ -89,11 +89,17 @@ public class FacturasDET {
 
     }
 
+    // FacturaCabUI idFac = new FacturaCabUI(); 
     public void RegistroFacturaDetalle() {
+        Proveedores id = new Proveedores();
         FacturaDetServicio registroFac = new FacturaDetServicio();
-        registroFac.registroFacturaDet(this.idFacturaDet, this.cantidad, this.cantidad, this.cantidad, this.idProducto);
+        
+        Integer idFacturaCab = id.getIdProveedor();
+        
+        registroFac.registroFacturaDet( idFacturaCab , this.cantidad, this.cantidad, this.cantidad, this.idProducto);
         
         
+
     }
 
 }

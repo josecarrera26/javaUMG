@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Facturadet.findByCantidad", query = "SELECT f FROM Facturadet f WHERE f.cantidad = :cantidad"),
     @NamedQuery(name = "Facturadet.findByPreciounitario", query = "SELECT f FROM Facturadet f WHERE f.preciounitario = :preciounitario"),
     @NamedQuery(name = "Facturadet.findByIva", query = "SELECT f FROM Facturadet f WHERE f.iva = :iva")})
+    
 public class Facturadet implements Serializable {
 
     private static final long serialVersionUID = 1L;
