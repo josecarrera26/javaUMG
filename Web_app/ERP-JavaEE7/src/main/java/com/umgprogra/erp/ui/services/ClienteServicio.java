@@ -60,15 +60,15 @@ public class ClienteServicio {
         System.out.println(cliente.getNombreCliente() + cliente.getTelefonoCliente() + cliente.getEmailCliente() + cliente.getNit() + cliente.getDireccionCliente() + cliente.getDpi());
     }
 
-    public List<Cliente> finderClienteByID(Integer idCliente) {
+    public List<Cliente> findAllCliente() {
         List<Cliente> resultList = new ArrayList<>();
         try {
             System.out.println("metodo DB findAllCliente");
-            Query query = entity.createNamedQuery("Cliente.findbyIdCliente");
-            //resultado de lista MARCAS
+            Query query = entity.createNamedQuery("Cliente.findbyIdCliente", Cliente.class);
+            //resultado
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
-                System.out.println("Log#: Resultado de la consulta:");
+                System.out.println("Resultado de la consulta:");
             } else {
                 System.out.println("No se encontraron Cliente");
             }

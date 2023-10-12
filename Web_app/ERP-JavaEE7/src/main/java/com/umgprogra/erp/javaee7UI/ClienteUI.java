@@ -114,7 +114,7 @@ public class ClienteUI  implements  Serializable {
             System.out.println(e + "Error en save MarcaUI");
         }
     }
-        @PostConstruct        
+       /* @PostConstruct        
     public void init() {
         findAllClienteUi();
     }
@@ -130,5 +130,5 @@ public class ClienteUI  implements  Serializable {
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");
         }
-    }
+    }*/
 }
