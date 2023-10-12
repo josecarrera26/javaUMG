@@ -86,7 +86,6 @@ CREATE TABLE "facturacab" (
   "idfactura" Serial PRIMARY KEY,
   "fecha_registro" date,
   "plazos_pago" integer,
-  "referencia_factura" serial,
   "idempleado" integer,
   "idtipocliente" integer,
   "estadofac" integer,

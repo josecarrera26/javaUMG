@@ -5,10 +5,7 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,44 +27,45 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Facturadet.findAll", query = "SELECT f FROM Facturadet f"),
-    @NamedQuery(name = "Facturadet.findByIdfactura", query = "SELECT f FROM Facturadet f WHERE f.idfactura = :idfactura"),
+    @NamedQuery(name = "Facturadet.findByIdtransaccion", query = "SELECT f FROM Facturadet f WHERE f.idtransaccion = :idtransaccion"),
     @NamedQuery(name = "Facturadet.findByCantidad", query = "SELECT f FROM Facturadet f WHERE f.cantidad = :cantidad"),
     @NamedQuery(name = "Facturadet.findByPreciounitario", query = "SELECT f FROM Facturadet f WHERE f.preciounitario = :preciounitario"),
     @NamedQuery(name = "Facturadet.findByIva", query = "SELECT f FROM Facturadet f WHERE f.iva = :iva")})
-    
 public class Facturadet implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idfactura")
-    private Integer idfactura;
+    @Column(name = "idtransaccion")
+    private Integer idtransaccion;
     @Column(name = "cantidad")
     private Integer cantidad;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "preciounitario")
-    private BigInteger preciounitario;
+    private Double preciounitario;
     @Column(name = "iva")
-    private BigInteger iva;
+    private Double iva;
+    @JoinColumn(name = "idfactura", referencedColumnName = "idfactura")
+    @ManyToOne
+    private Facturacab idfactura;
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne
     private Inventario idproducto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturadet")
-    private Collection<Facturacab> facturacabCollection;
 
     public Facturadet() {
     }
 
-    public Facturadet(Integer idfactura) {
-        this.idfactura = idfactura;
+    public Facturadet(Integer idtransaccion) {
+        this.idtransaccion = idtransaccion;
     }
 
-    public Integer getIdfactura() {
-        return idfactura;
+    public Integer getIdtransaccion() {
+        return idtransaccion;
     }
 
-    public void setIdfactura(Integer idfactura) {
-        this.idfactura = idfactura;
+    public void setIdtransaccion(Integer idtransaccion) {
+        this.idtransaccion = idtransaccion;
     }
 
     public Integer getCantidad() {
@@ -80,20 +76,28 @@ public class Facturadet implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public BigInteger getPreciounitario() {
+    public Double getPreciounitario() {
         return preciounitario;
     }
 
-    public void setPreciounitario(BigInteger preciounitario) {
+    public void setPreciounitario(Double preciounitario) {
         this.preciounitario = preciounitario;
     }
 
-    public BigInteger getIva() {
+    public Double getIva() {
         return iva;
     }
 
-    public void setIva(BigInteger iva) {
+    public void setIva(Double iva) {
         this.iva = iva;
+    }
+
+    public Facturacab getIdfactura() {
+        return idfactura;
+    }
+
+    public void setIdfactura(Facturacab idfactura) {
+        this.idfactura = idfactura;
     }
 
     public Inventario getIdproducto() {
@@ -104,19 +108,10 @@ public class Facturadet implements Serializable {
         this.idproducto = idproducto;
     }
 
-    @XmlTransient
-    public Collection<Facturacab> getFacturacabCollection() {
-        return facturacabCollection;
-    }
-
-    public void setFacturacabCollection(Collection<Facturacab> facturacabCollection) {
-        this.facturacabCollection = facturacabCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idfactura != null ? idfactura.hashCode() : 0);
+        hash += (idtransaccion != null ? idtransaccion.hashCode() : 0);
         return hash;
     }
 
@@ -127,7 +122,7 @@ public class Facturadet implements Serializable {
             return false;
         }
         Facturadet other = (Facturadet) object;
-        if ((this.idfactura == null && other.idfactura != null) || (this.idfactura != null && !this.idfactura.equals(other.idfactura))) {
+        if ((this.idtransaccion == null && other.idtransaccion != null) || (this.idtransaccion != null && !this.idtransaccion.equals(other.idtransaccion))) {
             return false;
         }
         return true;
@@ -135,7 +130,7 @@ public class Facturadet implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Facturadet[ idfactura=" + idfactura + " ]";
+        return "com.umgprogra.erp.DAO.Facturadet[ idtransaccion=" + idtransaccion + " ]";
     }
     
 }

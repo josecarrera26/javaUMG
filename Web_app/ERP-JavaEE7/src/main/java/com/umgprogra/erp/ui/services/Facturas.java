@@ -40,7 +40,6 @@ public class Facturas {
             Facturacab facturacabecera = new Facturacab();
             facturacabecera.setFechaRegistro(pFechaRegistro);
             facturacabecera.setPlazosPago(pPlazoPagos);
-            facturacabecera.setReferenciaFactura(pReferenciaFactura);
             facturacabecera.setIdempleado(idEmpleado);
             facturacabecera.setIdtipocliente(pTipoCliente);
             facturacabecera.setEstadofac(pEstadoFactura);

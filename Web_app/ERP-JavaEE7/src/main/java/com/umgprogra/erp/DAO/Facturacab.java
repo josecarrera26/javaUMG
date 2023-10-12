@@ -37,7 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Facturacab.findByIdfactura", query = "SELECT f FROM Facturacab f WHERE f.idfactura = :idfactura"),
     @NamedQuery(name = "Facturacab.findByFechaRegistro", query = "SELECT f FROM Facturacab f WHERE f.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Facturacab.findByPlazosPago", query = "SELECT f FROM Facturacab f WHERE f.plazosPago = :plazosPago"),
-    @NamedQuery(name = "Facturacab.findByReferenciaFactura", query = "SELECT f FROM Facturacab f WHERE f.referenciaFactura = :referenciaFactura"),
     @NamedQuery(name = "Facturacab.findByIdtipocliente", query = "SELECT f FROM Facturacab f WHERE f.idtipocliente = :idtipocliente"),
     @NamedQuery(name = "Facturacab.findByEstadofac", query = "SELECT f FROM Facturacab f WHERE f.estadofac = :estadofac"),
     @NamedQuery(name = "Facturacab.findByTotal", query = "SELECT f FROM Facturacab f WHERE f.total = :total"),
@@ -57,9 +56,6 @@ public class Facturacab implements Serializable {
     private Date fechaRegistro;
     @Column(name = "plazos_pago")
     private Integer plazosPago;
-    @Basic(optional = false)
-    @Column(name = "referencia_factura")
-    private int referenciaFactura;
     @Column(name = "idtipocliente")
     private Integer idtipocliente;
     @Column(name = "estadofac")
@@ -87,11 +83,6 @@ public class Facturacab implements Serializable {
         this.idfactura = idfactura;
     }
 
-    public Facturacab(Integer idfactura, int referenciaFactura) {
-        this.idfactura = idfactura;
-        this.referenciaFactura = referenciaFactura;
-    }
-
     public Integer getIdfactura() {
         return idfactura;
     }
@@ -114,14 +105,6 @@ public class Facturacab implements Serializable {
 
     public void setPlazosPago(Integer plazosPago) {
         this.plazosPago = plazosPago;
-    }
-
-    public int getReferenciaFactura() {
-        return referenciaFactura;
-    }
-
-    public void setReferenciaFactura(int referenciaFactura) {
-        this.referenciaFactura = referenciaFactura;
     }
 
     public Integer getIdtipocliente() {
