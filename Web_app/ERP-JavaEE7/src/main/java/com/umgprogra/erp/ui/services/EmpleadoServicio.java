@@ -9,6 +9,8 @@ import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -78,10 +80,12 @@ public class EmpleadoServicio {
 
             empleado = (Empleado) query2.getSingleResult();
             
-            System.out.println("empleado = " + empleado);
+            System.out.println("Id Empleado = " + " " + empleado.getIdempleado() + "Nombre Empleado" + " " + empleado.getNombreEmpleado());
 
             if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
                 System.out.println("Empleado si Existe");
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                externalContext.redirect("./MenuPrincipal.xhtml");  
                 return 1;
             } else {
                 System.out.println("Empleado no existe");

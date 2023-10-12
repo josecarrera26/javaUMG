@@ -65,27 +65,25 @@
                         <p:panelGrid id="pnlGridId" layout="grid" columns="2" style="width: 100%" >
 
                             <h:outputLabel id= "lblIdFacturaDet" value="Id Factura Detalle " />
-                            <p:inputText id="idFacDet" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
-                            <h:outputLabel id="lblCantidad" value="Cantidad de Producto" />
-                            <p:inputText id="cantProd" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
-                            <h:outputLabel id="lblPrecioUnit" value="Precio Unitario" />
-                            <p:inputText id="precioUnitario" value="" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
-                            <h:outputLabel id="lblsubTotal" value="SubTotal " />
-                            <p:inputText id="subTotall" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
-
-                            <h:outputLabel id="lblIva" value="Iva" />
-                            <p:inputText id="subTotal" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
-
+                            <p:inputText id="idFacDet" value="#{facturasDET.idFacturaDet}" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                             
                             <h:outputLabel id="lblIdProd" value="Id del Producto" />
-                            <p:inputText id="idProducto" value="" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+                            <p:inputText id="idProducto" value="#{facturasDET.idFacturaDet}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+       
+                            <h:outputLabel id="lblCantidad" value="Cantidad de Producto" />
+                            <p:inputText id="cantProd" value="#{facturasDET.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            
+                            
+                            <h:outputLabel id="lblPrecioUnit" value="Precio Unitario" />
+                            <p:inputText id="precioUnitario" value="#{facturasDET.precioUnitario}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
+                            <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.registroFacturaDet()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />  
                             <!-- comment <input type="email" required="required" />--> 
                         </p:panelGrid >
+                        
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2"  class="centerPnlGrid">
-                            <p:commandButton id="btnRegBanco" value="Registrar" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnRegBanco" value="Registrar compra" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                             
                         </p:panelGrid>
                     </p:panel> 
                 </p:tab>

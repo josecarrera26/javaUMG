@@ -87,6 +87,8 @@ public class Inventario implements Serializable {
     @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor")
     @ManyToOne
     private Proveedor idproveedor;
+     @Column(name = "estado")
+    private Integer estado;
 
     public Inventario() {
     }
@@ -224,6 +226,14 @@ public class Inventario implements Serializable {
 
     public void setIdproveedor(Proveedor idproveedor) {
         this.idproveedor = idproveedor;
+    }
+    
+      public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
     }
 
     @Override
