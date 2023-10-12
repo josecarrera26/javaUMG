@@ -4,11 +4,14 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
-import com.umgprogra.erp.ui.services.MarcaServicio;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -26,8 +29,10 @@ public class EmpleadoUI implements Serializable {
     private String password_empleado;
     private Integer idRole;
     private Integer idCargo;
+    private List<Empleado> empleados;
+    private List<SelectItem> empleadoItems;
 
-    public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, Integer idRole, Integer idCargo) {
+    /*public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, Integer idRole, Integer idCargo) {
         this.idEmpleado = idEmpleado;
         this.nombre_empleado = nombre_empleado;
         this.apellido_empleado = apellido_empleado;
@@ -36,7 +41,7 @@ public class EmpleadoUI implements Serializable {
         this.password_empleado = password_empleado;
         this.idRole = idRole;
         this.idCargo = idCargo;
-    }
+    }*/
 
     public EmpleadoUI() {
 
@@ -106,13 +111,35 @@ public class EmpleadoUI implements Serializable {
         this.idCargo = idCargo;
     }
 
-    public void GetEmpleados() {
+    public List<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(List<Empleado> empleados) {
+        this.empleados = empleados;
+    }
+
+    public List<SelectItem> getEmpleadoItems() {
+        return empleadoItems;
+    }
+
+    public void setEmpleadoItems(List<SelectItem> empleadoItems) {
+        this.empleadoItems = empleadoItems;
+    }
+    
+    
+    
+
+    public void GetEmpleado() {
         try {
             EmpleadoServicio empServ = new EmpleadoServicio();
-            empServ.getEmpleado(this.nombre_empleado, this.password_empleado);
-
+            empleados = empServ.GetEmpleado();
+            empleadoItems = new ArrayList<>();
+            for (Empleado emp : empleados) {
+                empleadoItems.add(new SelectItem(emp.getNombreEmpleado(), emp.getPassword()));
+            }
         } catch (Exception e) {
-            System.out.println(e + "Error en Get Empleado");
+            System.out.println(e + "Error en consulta Empleado en clase EmpleadoUI");
         }
     }
 

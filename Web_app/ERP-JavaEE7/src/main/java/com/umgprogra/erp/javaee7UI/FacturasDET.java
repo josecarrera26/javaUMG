@@ -4,6 +4,7 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.ui.services.FacturaDetServicio;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -86,6 +87,13 @@ public class FacturasDET {
 
     public void eliminarLineaFactura() {
 
+    }
+
+    public void RegistroFacturaDetalle() {
+        FacturaDetServicio registroFac = new FacturaDetServicio();
+        registroFac.registroFacturaDet(this.idFacturaDet, this.cantidad, this.cantidad, this.cantidad, this.idProducto);
+        
+        
     }
 
 }
