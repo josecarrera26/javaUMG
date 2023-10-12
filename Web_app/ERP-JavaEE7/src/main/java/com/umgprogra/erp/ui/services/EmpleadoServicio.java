@@ -73,7 +73,8 @@ public class EmpleadoServicio {
 
             Empleado empleado = new Empleado();
 
-            Query query2 = entity.createNamedQuery("Empleado.findAll", Empleado.class);
+            Query query2 = entity.createNamedQuery("Empleado.findByIdempleado", Empleado.class)
+                    .setParameter("idempleado", idEmpleado);
 
             empleado = (Empleado) query2.getSingleResult();
             
