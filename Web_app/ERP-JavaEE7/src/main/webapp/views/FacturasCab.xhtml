@@ -4,9 +4,9 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+         <link rel="icon" href="../resources/images/Logo proyecto umg2.png"/>
         <title>Facturas Cab</title>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
         <h:outputStylesheet library="css" name="inventario.css"/>
     </h:head>
 
@@ -85,7 +85,7 @@
                                 </div>
 
                                 <div class="ui-fluid">
-                                     <div class="ui-fluid">
+                                    <div class="ui-fluid">
                                         <div class="field">
                                             <p:outputLabel id="lblPlazoPago" value="Plazo de pagos"  for="@next"/>
                                             <p:selectOneMenu id="proveedor" class="combo" value="#{facturaCabUI.plazos_pago}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
@@ -134,8 +134,15 @@
                                         <div class="field">
                                             <p:outputLabel id="idLabelProducto" value="Producto"  for="@next"/>
                                             <br/>
-                                            <p:inputText id="producto" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Producto requerida" />
-                                            <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                                            <p:selectOneMenu id="Productos" class="combo" label="Seleccione uno"
+                                                             style="width: 14rem;" panelStyle="width: 15rem" 
+                                                             value="#{facturasDET.idProducto}">
+                                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                <f:selectItems value="#{facturasDET.idProducto}"/>
+                                            </p:selectOneMenu>
+                                            <p:linkButton outcome="Inventario" icon="pi pi-plus" style="margin-right:20px;" target="_blank">
+                                                <f:param name="inventario" value="10"/>
+                                            </p:linkButton>
                                         </div>
                                     </div>
                                 </div>
@@ -149,18 +156,31 @@
                                         <br/>
                                         <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
                                                          style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{facturaCabUI.plazos_pago}">
+                                                         value="#{facturaCabUI.tipo_pago}">
                                             <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{facturaCabUI.plazosPago}"/>
+                                            <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
                                         </p:selectOneMenu>
-                                        <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <h:outputLabel id="lbltipoFactura" value="tipo Factura" />
+                                    <div style="display: flex; flex-direction: column;">
+                                        <p:selectOneMenu id="tipofactura" class="combo" label="Seleccione uno"
+                                                         style="width: 14rem;" panelStyle="width: 15rem" 
+                                                         value="#{facturaCabUI.tipo_pago}">
+                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                            <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                       
 
                     </p:panel>
 
