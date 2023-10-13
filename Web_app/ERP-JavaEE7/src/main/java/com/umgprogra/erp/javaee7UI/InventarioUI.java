@@ -444,7 +444,7 @@ public class InventarioUI implements Serializable {
         unidades = new ArrayList();
         unidades.add("Caja");
         unidades.add("Unidad");
-        findIdAndNameUi();
+//        findIdAndNameUi();
         findAllGrupoUi();
         findAllMarcaUi();
         findAllLineaUi();

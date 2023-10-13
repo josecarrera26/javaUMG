@@ -6,11 +6,15 @@ package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
+import com.umgprogra.erp.ui.services.ProveedoreServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 /**
@@ -131,12 +135,39 @@ public class EmpleadoUI implements Serializable {
 
             EmpleadoServicio servicioemp = new EmpleadoServicio();
 
-            System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
-            
-            servicioemp.findByEmpleadoPassword(this.idEmpleado,this.password_empleado); 
+            // System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
+            servicioemp.findByEmpleadoPassword(this.idEmpleado, this.password_empleado);
+
         } catch (Exception e) {
-            System.out.println(e + "Error en consulta Usuario");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Error en Servicio",
+                    "Por Favor intente mas tarde!"));
         }
     }
 
+    public void registroEmpleado() {
+
+        try {
+            EmpleadoServicio servicioreg = new EmpleadoServicio();
+
+            boolean registro = servicioreg.registrarEmpleado(this.nombre_empleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado, this.password_empleado);
+
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+
+            if (registro = true) {
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Registro Exitoso!",
+                        "Gracias!"));
+                externalContext.redirect("./login.xhtml");
+            } else {
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Error en registro Empleado!",
+                        "Por favor contacte al administrador"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en metodo Registro Empleado = " + e.getMessage());
+        }
+    }
 }

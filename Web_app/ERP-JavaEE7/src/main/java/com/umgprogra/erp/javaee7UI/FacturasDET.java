@@ -84,52 +84,52 @@ public class FacturasDET implements Serializable {
 
     }
 
-    public void listaProducto() {
-        // Creación de lista
-        List<FacturasDET> ListProd = new ArrayList<>();
-
-        if (this.idProducto == 0 || this.precioUnitario == 0 || this.cantidad == 0 || this.iva == 0) {
-            // Algunos campos no se han completado correctamente, muestra un mensaje de error.
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Por favor, complete todos los campos correctamente.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        } else {
-            // Los campos se completaron correctamente, crea un nuevo producto y agrégalo a la lista.
-            FacturasDET producto = new FacturasDET();
-            // Asigna los valores de los campos a la instancia del producto
-            producto.setIdProducto(this.idProducto);
-            producto.setPrecioUnitario(this.precioUnitario);
-            producto.setCantidad(this.cantidad);
-            producto.setIva(this.iva);
-
-            // Agregar el producto a la lista
-            ListProd.add(producto);
-
-            // Reinicia los valores de los campos
-            this.idProducto = 0;
-            this.precioUnitario = 0;
-            this.cantidad = 0;
-            this.iva = 0;
-        }
-    }
+//    public void listaProducto() {
+//        // Creación de lista
+//        List<FacturasDET> ListProd = new ArrayList<>();
+//
+//        if (this.idProducto == 0 || this.precioUnitario == 0 || this.cantidad == 0 || this.iva == 0) {
+//            // Algunos campos no se han completado correctamente, muestra un mensaje de error.
+//            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Por favor, complete todos los campos correctamente.");
+//            FacesContext.getCurrentInstance().addMessage(null, message);
+//        } else {
+//            // Los campos se completaron correctamente, crea un nuevo producto y agrégalo a la lista.
+//            FacturasDET producto = new FacturasDET();
+//            // Asigna los valores de los campos a la instancia del producto
+//            producto.setIdProducto(this.idProducto);
+//            producto.setPrecioUnitario(this.precioUnitario);
+//            producto.setCantidad(this.cantidad);
+//            producto.setIva(this.iva);
+//
+//            // Agregar el producto a la lista
+//            ListProd.add(producto);
+//
+//            // Reinicia los valores de los campos
+////            this.idProducto = 0;
+////            this.precioUnitario = 0;
+////            this.cantidad = 0;
+////            this.iva = 0;
+//        }
+//    }
 
     public void registroFacturaDet() {
 
         FacturaDetServicio registroFac = new FacturaDetServicio();
 
-        boolean exito = registroFac.registroFacturaDet(this.idFacturaDet, this.cantidad, this.precioUnitario, this.idProducto);
-
+        boolean exito = registroFac.registroFacturaDet(idFacturaDet, cantidad, precioUnitario, idProducto);
         if (exito) {
             // Éxito: muestra un mensaje de éxito
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Proveedor registrado con éxito");
             FacesContext.getCurrentInstance().addMessage(null, message);
+            this.idProducto = null;
+            this.cantidad = null;
+            this.precioUnitario = 0;
+
         } else {
             // Error: muestra un mensaje de error
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el proveedor");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        this.idProducto = null;
-        this.cantidad = null;
-        this.precioUnitario = 0;
 
     }
 

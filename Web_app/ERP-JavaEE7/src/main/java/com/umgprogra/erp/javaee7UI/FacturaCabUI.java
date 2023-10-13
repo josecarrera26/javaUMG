@@ -10,17 +10,73 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 /**
  *
  * @author josel
  */
-@SessionScoped
-@Named
+@ManagedBean
+@ViewScoped
 public class FacturaCabUI {
+
+    /**
+     * @return the cantidad
+     */
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    /**
+     * @param cantidad the cantidad to set
+     */
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    /**
+     * @return the tipoPago
+     */
+    public List<SelectItem> getTipoPago() {
+        return tipoPago;
+    }
+
+    /**
+     * @param tipoPago the tipoPago to set
+     */
+    public void setTipoPago(List<SelectItem> tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    /**
+     * @return the tipoFacturaList
+     */
+    public List<SelectItem> getTipoFacturaList() {
+        return tipoFacturaList;
+    }
+
+    /**
+     * @param tipoFacturaList the tipoFacturaList to set
+     */
+    public void setTipoFacturaList(List<SelectItem> tipoFacturaList) {
+        this.tipoFacturaList = tipoFacturaList;
+    }
+
+    /**
+     * @return the plazosPago
+     */
+    public List<SelectItem> getPlazosPago() {
+        return plazosPago;
+    }
+
+    /**
+     * @param plazosPago the plazosPago to set
+     */
+    public void setPlazosPago(List<SelectItem> plazosPago) {
+        this.plazosPago = plazosPago;
+    }
 
     /**
      * @return the empleados
@@ -92,19 +148,6 @@ public class FacturaCabUI {
         this.plazos_pago = plazos_pago;
     }
 
-    /**
-     * @return the referenciaFactura
-     */
-    public String getReferenciaFactura() {
-        return referenciaFactura;
-    }
-
-    /**
-     * @param referenciaFactura the referenciaFactura to set
-     */
-    public void setReferenciaFactura(String referenciaFactura) {
-        this.referenciaFactura = referenciaFactura;
-    }
 
     /**
      * @return the idEmpleado
@@ -207,7 +250,6 @@ public class FacturaCabUI {
     private Integer idFacturaCab;
     private Date fecha_registro;
     private Integer plazos_pago;
-    private String referenciaFactura;
     private Integer idEmpleado;
     private Integer idTipoCliente;
     private String estado_factura;
@@ -215,45 +257,37 @@ public class FacturaCabUI {
     private Integer tipo_pago;
     private String nit;
     private Integer tipoFactura;
-
+    private int cantidad;
     private List<Empleado> empleados;
     private List<SelectItem> empleadoItems;
-
-    public FacturaCabUI(Integer idFacturaCab, Date fecha_registro, Integer plazos_pago, String referenciaFactura, Integer idEmpleado, Integer idTipoCliente, String estado_factura, Double total, Integer tipo_pago, String nit, Integer tipoFactura) {
-        this.idFacturaCab = idFacturaCab;
-        this.fecha_registro = fecha_registro;
-        this.plazos_pago = plazos_pago;
-        this.referenciaFactura = referenciaFactura;
-        this.idEmpleado = idEmpleado;
-        this.idTipoCliente = idTipoCliente;
-        this.estado_factura = estado_factura;
-        this.total = total;
-        this.tipo_pago = tipo_pago;
-        this.nit = nit;
-        this.tipoFactura = tipoFactura;
-    }
-
-    public FacturaCabUI() {
-    }
-
-    public void CrearFactura() {
-    }
-
-    @PostConstruct
+    private List<SelectItem> plazosPago;
+    private List<SelectItem> tipoPago;
+    private List<SelectItem> tipoFacturaList;
+    
+        @PostConstruct
     public void init() {
-        findAllEmpleadosUi();
+        plazosPago();
+        pagos();
+        tipoFactura();
     }
 
-    public void findAllEmpleadosUi() {
-        try {
-            EmpleadoServicio empleadoServ = new EmpleadoServicio();
-            empleados = empleadoServ.findAllEmpleados();
-            empleadoItems = new ArrayList<>();
-            for (Empleado empleado : getEmpleados()) {
-                getEmpleadoItems().add(new SelectItem(empleado.getIdempleado(), empleado.getNombreEmpleado() + " " + empleado.getApellidoEmpleado()));
-            }
-        } catch (Exception e) {
-            System.out.println(e + "Error en consulta marcas clase MarcaUI");
-        }
+    
+    public void plazosPago(){
+        plazosPago = new ArrayList();
+        plazosPago.add(new SelectItem(1,"Pago unico"));
+        plazosPago.add(new SelectItem(2,"2 pagos"));
+        plazosPago.add(new SelectItem(3,"3 pagos"));
+    }
+    
+    public void pagos(){
+        tipoPago = new ArrayList();
+        tipoPago.add(new SelectItem(1,"Efectivo"));
+        tipoPago.add(new SelectItem(2,"Tarjeta"));
+    }
+    
+    public void tipoFactura(){
+        tipoFacturaList = new ArrayList();
+        tipoFacturaList.add(new SelectItem(1,"Compra"));
+        tipoFacturaList.add(new SelectItem(2,"Venta"));
     }
 }

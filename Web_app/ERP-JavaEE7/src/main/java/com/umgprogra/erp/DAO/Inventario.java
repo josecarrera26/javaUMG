@@ -39,7 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Inventario.findByUnidades", query = "SELECT i FROM Inventario i WHERE i.unidades = :unidades"),
     @NamedQuery(name = "Inventario.findByPrecioventa", query = "SELECT i FROM Inventario i WHERE i.precioventa = :precioventa"),
     @NamedQuery(name = "Inventario.findByCoste", query = "SELECT i FROM Inventario i WHERE i.coste = :coste"),
-    @NamedQuery(name = "Inventario.findByMargenganancia", query = "SELECT i FROM Inventario i WHERE i.margenganancia = :margenganancia")})
+    @NamedQuery(name = "Inventario.findByMargenganancia", query = "SELECT i FROM Inventario i WHERE i.margenganancia = :margenganancia"),
+    @NamedQuery(name = "Inventario.findByEstado", query = "SELECT i FROM Inventario i WHERE i.estado = :estado"),
+    @NamedQuery(name = "Inventario.findByImpuestoinventario", query = "SELECT i FROM Inventario i WHERE i.impuestoinventario = :impuestoinventario")})
 public class Inventario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,12 +71,19 @@ public class Inventario implements Serializable {
     private Double coste;
     @Column(name = "margenganancia")
     private Integer margenganancia;
+    @Column(name = "estado")
+    private Integer estado;
+    @Column(name = "impuestoinventario")
+    private Double impuestoinventario;
     @OneToMany(mappedBy = "idproducto")
     private Collection<Facturadet> facturadetCollection;
     @OneToMany(mappedBy = "idproducto")
     private Collection<Pedido> pedidoCollection;
     @OneToMany(mappedBy = "idproducto")
     private Collection<Kardex> kardexCollection;
+    @JoinColumn(name = "idcuentacontable", referencedColumnName = "idcuentacontable")
+    @ManyToOne
+    private Cuentacontable idcuentacontable;
     @JoinColumn(name = "idgrupoproducto", referencedColumnName = "idgrupoproducto")
     @ManyToOne
     private Grupoproducto idgrupoproducto;
@@ -87,8 +96,6 @@ public class Inventario implements Serializable {
     @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor")
     @ManyToOne
     private Proveedor idproveedor;
-     @Column(name = "estado")
-    private Integer estado;
 
     public Inventario() {
     }
@@ -169,6 +176,22 @@ public class Inventario implements Serializable {
         this.margenganancia = margenganancia;
     }
 
+    public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
+
+    public Double getImpuestoinventario() {
+        return impuestoinventario;
+    }
+
+    public void setImpuestoinventario(Double impuestoinventario) {
+        this.impuestoinventario = impuestoinventario;
+    }
+
     @XmlTransient
     public Collection<Facturadet> getFacturadetCollection() {
         return facturadetCollection;
@@ -194,6 +217,14 @@ public class Inventario implements Serializable {
 
     public void setKardexCollection(Collection<Kardex> kardexCollection) {
         this.kardexCollection = kardexCollection;
+    }
+
+    public Cuentacontable getIdcuentacontable() {
+        return idcuentacontable;
+    }
+
+    public void setIdcuentacontable(Cuentacontable idcuentacontable) {
+        this.idcuentacontable = idcuentacontable;
     }
 
     public Grupoproducto getIdgrupoproducto() {
@@ -226,14 +257,6 @@ public class Inventario implements Serializable {
 
     public void setIdproveedor(Proveedor idproveedor) {
         this.idproveedor = idproveedor;
-    }
-    
-      public Integer getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Integer estado) {
-        this.estado = estado;
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -46,8 +47,7 @@ public class EmpleadoServicio {
         return resultList;
 
     }
-    */
-    
+     */
     public List<Empleado> findAllEmpleados() {
         List<Empleado> resultList = new ArrayList<>();
         try {
@@ -63,13 +63,12 @@ public class EmpleadoServicio {
         } catch (Exception e) {
             System.err.println("Error en findAllMarca " + e.getMessage());
         }
-    
+
         return resultList;
 
     }
 
-     
-    public int  findByEmpleadoPassword(Integer idEmpleado, String password) {
+    public int findByEmpleadoPassword(Integer idEmpleado, String password) {
 
         try {
 
@@ -79,29 +78,60 @@ public class EmpleadoServicio {
                     .setParameter("idempleado", idEmpleado);
 
             empleado = (Empleado) query2.getSingleResult();
-            
+
             System.out.println("Id Empleado = " + " " + empleado.getIdempleado() + "Nombre Empleado" + " " + empleado.getNombreEmpleado());
 
-            if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
-                System.out.println("Empleado si Existe");
-                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                externalContext.redirect("./MenuPrincipal.xhtml");  
-                return 1;
-            } else {
-                System.out.println("Empleado no existe");
-            }
-            /*
-            if(empleado.getPassword().equals(password)){
-                System.out.println("Password Empleado Correcto");
-                return 1;
-        }else{
-                 System.out.println("Empleado no existe");
-            }
-             */
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
+            if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Conexion exitosa!",
+                        "Bienvenido"));
+                
+                externalContext.redirect("./MenuPrincipal.xhtml");
+                return 1;
+                
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Nombre o Contraseña Invalida!",
+                        "Por Favor intente Nuevamente!"));
+                return 0;   
+            }
         } catch (Exception e) {
             System.out.println("Error registrado = " + e.getMessage());
         }
         return 0;
     }
+
+    public boolean registrarEmpleado(String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String emailEmpleado, String passwordEmpleado) {
+        boolean registro = false;
+
+        Empleado empreg = new Empleado();
+
+        empreg.setNombreEmpleado(nombreEmpleado);
+        empreg.setApellidoEmpleado(apellidoEmpleado);
+        empreg.setTelefonoEmpleado(telefonoEmpleado);
+        empreg.setEmailEmpleado(emailEmpleado);
+        empreg.setPassword(passwordEmpleado);
+        //empreg.setIdrole(idRoleE);
+        //empreg.setIdcargoEmpleado(idCrgoE);
+
+        entity.getTransaction().begin();
+
+        try {
+            entity.persist(empreg);
+            entity.getTransaction().commit();
+            entity.close();
+            registro = true;
+
+        } catch (Exception e) {
+            entity.getTransaction().rollback();
+            registro = false;
+
+        }
+
+        return registro;
+    }
+
 }

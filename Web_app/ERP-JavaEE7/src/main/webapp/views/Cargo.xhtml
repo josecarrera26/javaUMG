@@ -5,9 +5,9 @@
 
     <h:head>
         <title>Cargo</title>
-        <h:outputStylesheet library="css" name="styleCargo.css"/>
-        <h:outputStylesheet library="css" name="style.css"/>
-       <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <h:outputStylesheet library="css" name="inventario.css"/>
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
 
     <h:body id="cuerpo">
@@ -52,30 +52,58 @@
         </h:form>
 
         <div>
-            <p:graphicImage name="Logo.png" library="images" styleClass="logo"/>
-
             <p:panel>
-                <h:form>
-                    <div class="card">
-                        <h5>Cargo</h5>
-                        
-                        <div class="grid ui-fluid">
-                            <div class="col-12 md:col-4">
-                                <div class="ui-inputgroup">
-                                    <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
-                                    <p:inputText placeholder="Nombre del Cargo" value="#{cargoUI.nombre_cargo}"/>
-                                </div>
-                            </div>
+                <h:form id="frmCargo">
+                    <p:tabView dynamic="true">
+                        <p:tab title="Nuevo Cargo">
+                            <p:panel id="pnlCargo" header="Registar cargo" style="width: 100%">
 
-                            <div class="col-12 md:col-4">
-                                <div class="ui-inputgroup">
-                                    <div class="ui-inputgroup-addon">$</div>
-                                    <p:inputNumber placeholder="Sueldo del cargo" value="#{cargoUI.salario}"/>
+                                <div class="card">
+                                    <div class="grid">
+                                        <div class="col-5 flex align-items-center justify-content-center">
+                                            <div class="ui-fluid">
+                                                <div class="field">
+                                                    <h:outputLabel id="lblNombreCargo" value="Nombre" for="txtNombreCargo"/>
+                                                    <p:inputText id="txtNombreCargo" value="#{cargoUI.nombre_cargo}" required="true" requiredMessage="Descripcion requerida" />
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <p:divider layout="vertical"> </p:divider>
+                                        </div>
+
+                                        <div class="ui-fluid">
+                                            <div class="field">
+                                                <h:outputLabel id="lblSalario" value="Salario" for="txtSalario"/>
+                                                <p:inputNumber id="txtSalario" value="#{cargoUI.salario}" modifyValueOnWheel="true" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <p:commandButton actionListener="#{cargoUI.crearCargo()}" value="Guardar"/>
-                    </div>
+                                <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
+                                    <p:commandButton id="btnRegistro" value="Registar" action="#{cargoUI.crearCargo()}" style="width: 50%"
+                                                     update="pnlCargo"  />
+                                </p:panelGrid>
+
+                            </p:panel>
+                            <p:dataTable id="dtCargos" var="cargos" value="#{cargoUI.cargos}" rowKey="#{cargoUI.idCargo}" selectionMode="single">
+                                <f:facet name="header">
+                                    Cargos
+                                </f:facet>
+                                <p:column headerText="Codigo Cargo">
+                                    <h:outputText value="#{cargoUI.idCargo}" />
+                                </p:column>
+                                <p:column headerText="Nombre del Cargo">
+                                    <h:outputText value="#{cargoUI.nombre_cargo}" />
+                                </p:column>
+                                <p:column headerText="Salario">
+                                    <h:outputText value="#{cargoUI.salario}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>       
+                    </p:tabView>
                 </h:form>
             </p:panel>
 

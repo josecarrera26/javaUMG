@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
-    @NamedQuery(name = "Proveedor.findIdAndName", query = "SELECT p.idproveedor, p.nombreProveedor  FROM Proveedor p"),
     @NamedQuery(name = "Proveedor.findByIdproveedor", query = "SELECT p FROM Proveedor p WHERE p.idproveedor = :idproveedor"),
     @NamedQuery(name = "Proveedor.findByNombreProveedor", query = "SELECT p FROM Proveedor p WHERE p.nombreProveedor = :nombreProveedor"),
     @NamedQuery(name = "Proveedor.findByDireccion", query = "SELECT p FROM Proveedor p WHERE p.direccion = :direccion"),
@@ -39,10 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proveedor.findByRegimenProveedor", query = "SELECT p FROM Proveedor p WHERE p.regimenProveedor = :regimenProveedor"),
     @NamedQuery(name = "Proveedor.findByEmailProveedor", query = "SELECT p FROM Proveedor p WHERE p.emailProveedor = :emailProveedor")})
 public class Proveedor implements Serializable {
-
-    @JoinColumn(name = "idbanco", referencedColumnName = "idbanco")
-    @ManyToOne
-    private Banco idbanco;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,10 +60,9 @@ public class Proveedor implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "email_proveedor")
     private String emailProveedor;
-    @OneToMany(mappedBy = "idproveedor")
-    private Collection<Banco> bancoCollection;
-    @OneToMany(mappedBy = "idproveedor")
-    private Collection<Cuentacontable> cuentacontableCollection;
+    @JoinColumn(name = "idcuentacontable", referencedColumnName = "idcuentacontable")
+    @ManyToOne
+    private Cuentacontable idcuentacontable;
     @OneToMany(mappedBy = "idproveedor")
     private Collection<Inventario> inventarioCollection;
 
@@ -132,22 +126,12 @@ public class Proveedor implements Serializable {
         this.emailProveedor = emailProveedor;
     }
 
-    @XmlTransient
-    public Collection<Banco> getBancoCollection() {
-        return bancoCollection;
+    public Cuentacontable getIdcuentacontable() {
+        return idcuentacontable;
     }
 
-    public void setBancoCollection(Collection<Banco> bancoCollection) {
-        this.bancoCollection = bancoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Cuentacontable> getCuentacontableCollection() {
-        return cuentacontableCollection;
-    }
-
-    public void setCuentacontableCollection(Collection<Cuentacontable> cuentacontableCollection) {
-        this.cuentacontableCollection = cuentacontableCollection;
+    public void setIdcuentacontable(Cuentacontable idcuentacontable) {
+        this.idcuentacontable = idcuentacontable;
     }
 
     @XmlTransient
@@ -184,13 +168,4 @@ public class Proveedor implements Serializable {
         return "com.umgprogra.erp.DAO.Proveedor[ idproveedor=" + idproveedor + " ]";
     }
 
-    public Banco getIdbanco() {
-        return idbanco;
-    }
-
-    public void setIdbanco(Banco idbanco) {
-        this.idbanco = idbanco;
-    }
-
-    
 }

@@ -116,3 +116,4 @@ public class PedidosUI {
     private Integer idProducto;
     private Integer idCliente;
 }
+
