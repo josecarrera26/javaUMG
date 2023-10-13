@@ -1,23 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-        <title>Pagina de Registro</title>
-        <link type="text/css"
-              href="${facesContext.externalContext.requestContextPath}/resources/css/style.css"
-              rel="stylesheet" />
-        <link type="image/x-icon"
-              href="${facesContext.externalContext.requestContextPath}/images/login-logo.png"
-              rel="shortcut icon" />
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Registrarse</title>
+        <link rel="stylesheet" media="screen" href="../resources/css/styleHeader.css" type="text/css" />
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
-
+        <link 
+            href="${facesContext.externalContext.requestContextPath}/resources/css/styleFernando.css"
+            rel="stylesheet" />
     </h:head>
 
     <h:body>
@@ -25,119 +21,129 @@
         <h:form>
             <p:menubar>
                 <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
-                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="views/registrarUsuario.xhtml"/>
-                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:8080/ERP-JavaEE7"/>
+                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="./login.xhtml"/>
                 </p:submenu>      
             </p:menubar>
 
-        </h:form>       
-
-        <div id="message">
-
-            <p:ajaxStatus style="display:inline-block ;  margin-top:.15em;">
-                <f:facet name="start">
-                    <h:outputText value="Please wait #{loginBean.uname}, Connecting database..." />
-                </f:facet>
-                <f:facet name="complete">
-                    <h:outputText value="Please try again #{loginBean.uname}, Database/Login error!!" />
-                </f:facet>
-            </p:ajaxStatus>
-
-            <p:spacer> </p:spacer>
-
-        </div>	
-
-        <h:form id="RegisterForm">
-            <p:growl id="msg" showDetail="true" life="5000" />
-
-            <p:panel id="RegisterPnl" header="Registro de Usuario"
-                     style= "width: 500px; height: 600px; margin: auto">
-                <h:panelGrid id="RegisterPanel" columns="2" cellpadding="10">
-                    <h:outputText value="Username" />
-                    <p:inputText id="usernameR" value="Usuario"></p:inputText>
-                    <p:spacer/>
-                    <p:spacer/>
-                    <h:outputText value="Password" />
-                    <p:password id="passwordR" value="password" toggleMask="true" redisplay="true"/>
-                    <p:message for="passwordR"></p:message>   
-                </h:panelGrid>
-
-                <h:panelGrid columns="2" cellpadding="10" width="100%">
-                    <div class="contenedor">
-                        <p:commandButton id="RegisterButtonR" action="bean"
-                                         value="Registrarse" update="RegisterForm" ajax="true" style=" margin-left: 80px" icon="pi pi-user">
-                        </p:commandButton>
-                    </div>
-                    <p:spacer/>
-                    <p:spacer/>
-
-                    <center>
-                        <div class="contenedor" style="margin-left: 10px">
-                            <img src="../resources/images/Logo proyecto umg2.png" width="100" height="100" alt="Imagen Logo" />
-                        </div>
-                    </center>
-
-                </h:panelGrid>
-
-            </p:panel>
-
-            <!-- <p:blockUI block="RegisterPnl" trigger="RegisterButtonR" >
-                 <p:graphicImage value="Hola" />
-             </p:blockUI>
-            -->
-
-            <div class="layout-footer">
-                <div class="card">
-                    <p:accordionPanel widgetVar="basic">
-                        <p:tab title="GRANDES SOLUCIONES (UNA EXPERIENCIA UNICA PARA TU NEGOCIO)">
-
-                            <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" style="float: left" />
-
-                            <style>
-                                .custom-scrolltop.ui-scrolltop {
-                                    width: 2rem;
-                                    height: 2rem;
-                                    border-radius: 4px;
-                                    outline: 0 none;
-                                    background-color: var(--primary-color);
-                                }
-                                .custom-scrolltop.ui-scrolltop:hover {
-                                    background-color: var(--primary-color);
-                                }
-
-                                .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
-                                    font-size: 1rem;
-                                    color: var(--primary-color-text);
-                                }
-                            </style>
-
-                            <div class="card">
-                                <p:scrollTop />
-                                <p:scrollPanel style="width: 500px; height: 80px; margin: auto" mode="native">
-                                    <p>
-                                        Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
-                                        un servicio de control contable/financiero para su empresa. contamos con 
-                                        un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
-                                        mejor servicio que usted necesita.
-                                    </p>
-                                    <p:scrollTop target="parent" threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
-                                </p:scrollPanel>                            
-                            </div>
-                        </p:tab>
-
-                        <p:tab title="Contactanos" menuTitle="Options">
-                            <div id="container">
-                                <span id="slot0"> https://solucionesgt.com </span>
-                                <span id="slot1"> | </span>
-                                <span id="slot2"> 2424-2424 </span>
-                                <span id="slot3"> | </span>
-                                 <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
-                            </div>
-                        </p:tab>
-                    </p:accordionPanel>
-                </div>
-            </div>
-
         </h:form>
+
+        <h:form id="formRegistroEmpleado">
+
+            <p:tabView dynamic="true">
+                <p:growl id="msg"   />
+
+                <p:tab  title="Registrarse">
+                    <p:panel id="pnlRegistroEmpleado" header="Registrarse" class="centerPnl" >
+                        <p:panelGrid id="pnlGridEmpId" layout="grid" columns="2" style="width: 100%" >
+
+                            <h:outputLabel id="lblNomEmp" value=" Nombres " />
+                            <p:inputText id="nombreEmpleado" value="#{empleadoUI.nombre_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
+
+                            <h:outputLabel for="lblApEmp" value="Apellidos"/>
+                            <p:inputText id="apellidoEmpleado" value="#{empleadoUI.apellido_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
+
+                            <h:outputLabel id="lblTelEmp" value=" Telefono" />
+                            <p:inputText id="telEmpleado" value="#{empleadoUI.telefono_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
+
+                            <h:outputLabel id="lblEmailEmp" value="Correo Electronico" />
+                            <p:inputText id="emailEmp" value="#{empleadoUI.email_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
+
+                            <h:outputLabel id="lblpassEmp" value="Contraseña" />
+                            <p:inputText id="passwordEmp" value="#{empleadoUI.password_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
+
+
+                            <!-- <h:outputLabel id="lblIdRolEmp" value=" ID Rol Empleado " />
+                             <p:inputText id="IdRolEmpleado" value="#{empleadoUI.idRole}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
+ 
+ 
+                             <h:outputLabel id="lblIdCEmp" value=" ID Cargo Empleado " />
+                             <p:inputText id="IdCEmp" value="#{empleadoUI.idCargo}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
+                            
+                            -->
+                            <!-- <p:outputLabel for="lblRoleProv" value="Role"/>
+                                 <p:selectOneMenu id="lblRolProv" value="test" style="width: 312px;" >
+                                 <f:selectItem itemLabel="" itemValue=""/>
+                                 <f:selectItem itemLabel="Usuario" itemValue="Usuario" />
+                            -->
+                        </p:panelGrid >
+
+                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
+                            <p:commandButton id="btnRegEmp" value="Registrar Empleado" actionListener ="#{empleadoUI.registroEmpleado()}"
+                                             update="pnlRegistroEmpleado ,msg" icon="pi pi-check" styleClass="rounded-button" />
+                        </p:panelGrid>
+                    </p:panel > 
+                </p:tab>   
+                <!--
+                <p:tab title="Modificar" >
+                     <p:panel id="pnlModificar" header="Buscar el Proveedor para realizar cambios" style="width: 70%;">
+        
+                         <h:outputLabel id="lblModProv" value="Ingrese el ID" />
+                         <span class="ui-input-icon-left">
+                             <i class="pi pi-search" />
+                             <p:inputText id="modficiacionProv" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                         </span>
+        
+                         <p:panelGrid id="pnlBtnMod" layout="grid" columns="1" style="width: 100%">
+                             <p:commandButton id="btnActualizarProv" value="Buscar" actionListener="#{cPacientes.cargarPacienteParaModificar(idPaciente)}" style="width: 20%; margin-left: 05px; margin-top: 30px;"
+                                              update="pnlModificar,msg"  icon="pi pi-search" styleClass="rounded-button ui-button-success"  />
+                         </p:panelGrid>
+                     </p:panel>
+                 </p:tab>
+                -->              
+            </p:tabView>
+        </h:form>
+
+
+        <div class="layout-footer">
+            <div class="card">
+                <p:accordionPanel widgetVar="basic">
+                    <p:tab title="GRANDES SOLUCIONES (UNA EXPERIENCIA UNICA PARA TU NEGOCIO)">
+
+                        <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" style="float: left" />
+
+                        <style>
+                            .custom-scrolltop.ui-scrolltop {
+                                width: 2rem;
+                                height: 2rem;
+                                border-radius: 4px;
+                                outline: 0 none;
+                                background-color: var(--primary-color);
+                            }
+                            .custom-scrolltop.ui-scrolltop:hover {
+                                background-color: var(--primary-color);
+                            }
+
+                            .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
+                                font-size: 1rem;
+                                color: var(--primary-color-text);
+                            }
+                        </style>
+
+                        <div class="card">
+                            <p:scrollTop />
+                            <p:scrollPanel style="width: 500px; height: 80px; margin: auto" mode="native">
+                                <p>
+                                    Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
+                                    un servicio de control contable/financiero para su empresa. contamos con 
+                                    un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
+                                    mejor servicio que usted necesita.
+                                </p>
+                                <p:scrollTop target="parent" threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
+                            </p:scrollPanel>                            
+                        </div>
+                    </p:tab>
+
+                    <p:tab title="Contactanos" menuTitle="Options">
+                        <div id="container">
+                            <span id="slot0"> https://solucionesgt.com </span>
+                            <span id="slot1"> | </span>
+                            <span id="slot2"> 2424-2424 </span>
+                            <span id="slot3"> | </span>
+                            <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                        </div>
+                    </p:tab>
+                </p:accordionPanel>
+            </div>
+        </div>
     </h:body>
 </html>

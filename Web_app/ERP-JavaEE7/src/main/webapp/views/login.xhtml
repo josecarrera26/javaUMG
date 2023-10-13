@@ -18,13 +18,13 @@
         <h:form>
             <p:menubar>
                 <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
-                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="views/registrarUsuario.xhtml"/>
-                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:8080/ERP-JavaEE7"/>
+                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
+                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:38080/ERP-JavaEE7/views/login.xhtml"/>
                 </p:submenu>      
             </p:menubar>
 
         </h:form>
-        
+
         <p:spacer> </p:spacer>
 
 
@@ -44,26 +44,21 @@
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" cellpadding="10" width="100%">
-                    
+
                     <p:commandButton id="loginButton" action="#{empleadoUI.GetEmpleado}"
-                                     value="Iniciar Sesion" update="loginForm" ajax="true" style="float: left; margin-left: 40px" icon="pi pi-user">
-                    </p:commandButton>
-                    
-
-                    <p:commandButton id="RegisterButton" action="bean"
-                                     value="Registrarse" update="loginForm" ajax="true"  style="float: right; margin-right: 40px" icon="pi pi-user">
+                                     value="Iniciar Sesion" update="loginForm" ajax="true" style="float: left; margin-left: 150px" icon="pi pi-user">
                     </p:commandButton>
 
                     <p:spacer/>
                     <p:spacer/>
-
-                    <center>
-                        <div class="contenedor" style="margin-left: 150px">
-                            <p:graphicImage name="Logo.png" library="images" styleClass="logo" style="margin-right: 80px; width: 100px"/>
-                        </div>
-                    </center>
 
                 </h:panelGrid>
+
+                <center>
+                    <div class="contenedor" style="margin-left: 150px">
+                        <p:graphicImage name="Logo.png" library="images" styleClass="logo" style="margin-right: 120px;width: 100px"/>
+                    </div>
+                </center>
 
             </p:panel>
 
