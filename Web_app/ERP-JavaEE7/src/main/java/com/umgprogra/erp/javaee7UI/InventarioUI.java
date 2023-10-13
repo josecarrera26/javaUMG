@@ -521,18 +521,18 @@ public class InventarioUI implements Serializable {
     }
 
 //METODOS PARA LLENAR LOS CB
-//    public void findIdAndNameUi() {
-//        try {
-//            InventarioServicio provServ = new InventarioServicio();
-//            proveedores = provServ.findIdAndName();
-//            proveedorItems = new ArrayList<>();
-//            for (Proveedor prov : proveedores) {
-//                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e + "Error en consulta proveedor en clase InventarioUI");
-//        }
-//    }
+    public void findIdAndNameUi() {
+        try {
+            InventarioServicio provServ = new InventarioServicio();
+            proveedores = provServ.findIdAndName();
+            proveedorItems = new ArrayList<>();
+            for (Proveedor prov : proveedores) {
+                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta proveedor en clase InventarioUI");
+        }
+    }
 
     public void findAllGrupoUi() {
         try {

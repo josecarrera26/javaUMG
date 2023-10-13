@@ -57,9 +57,35 @@
                 <p:tab title="Factura Cabecera">
                     <p:panel id="pnlFacturaCab" header="Registro de nueva factura" style="width: 100%">
                         <div class="card">
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <h:outputLabel id="lblnoFac" value="No.Fac" />
+                                    <div style="display: flex; flex-direction: column;">
+                                        <p:inputText id="noFac" style="width: 250px;" value="#{facturaCabUI.idFacturaCab}" disabled="true"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+
                             <div class="grid">
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
+                                        <div class="field">
+                                            <h:outputLabel id="lblnitc" value="NIT" />
+                                            <div style="display: flex; flex-direction: column;">
+                                                <p:inputText id="nit" style="width: 250px;" value="#{facturaCabUI.nit}"   required="true" requiredMessage="nit Requerido" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                     <div class="ui-fluid">
                                         <div class="field">
                                             <p:outputLabel id="lblPlazoPago" value="Plazo de pagos"  for="@next"/>
                                             <p:selectOneMenu id="proveedor" class="combo" value="#{facturaCabUI.plazos_pago}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
@@ -69,8 +95,72 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <h:outputLabel id="lblCantidad" value="Cantidad" />
+                                            <p:inputText id="cantidad" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Cantidad requerida" />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <div class="field">
+                                            <h:outputLabel id="lblCoste" value="Coste" />
+                                            <p:inputText id="coste" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Coste requerida" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <p:outputLabel id="idLabelProducto" value="Producto"  for="@next"/>
+                                            <br/>
+                                            <p:inputText id="producto" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Producto requerida" />
+                                            <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
+                                        <br/>
+                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
+                                                         style="width: 14rem;" panelStyle="width: 15rem" 
+                                                         value="#{facturaCabUI.plazos_pago}">
+                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                            <f:selectItems value="#{facturaCabUI.plazosPago}"/>
+                                        </p:selectOneMenu>
+                                        <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                       
 
                     </p:panel>
 
