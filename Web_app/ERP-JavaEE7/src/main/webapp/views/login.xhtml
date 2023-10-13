@@ -18,8 +18,8 @@
         <h:form>
             <p:menubar>
                 <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
-                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
-                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:38080/ERP-JavaEE7/views/login.xhtml"/>
+                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="views/registrarUsuario.xhtml"/>
+                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:38080/ERP-JavaEE7"/>
                 </p:submenu>      
             </p:menubar>
 
@@ -67,7 +67,9 @@
                     <p:accordionPanel widgetVar="basic">
                         <p:tab title="GRANDES SOLUCIONES (UNA EXPERIENCIA UNICA PARA TU NEGOCIO)">
 
-                            <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" style="float: left" />
+                            <div>
+                                <p:graphicImage name="Logo.png" library="images" styleClass="logo" style="float: left; width: 100px"/>
+                            </div>
 
                             <style>
                                 .custom-scrolltop.ui-scrolltop {
