@@ -110,7 +110,7 @@
                     <p:commandButton value="Consultar" update="@form" styleClass="ml-2"
                                      action="#{clienteUI.consultaCliente}"/>
                     </div>                                 
-                            <p:dataTable id="tablaCliente" var="cliente" value="#{clienteUI.clientes}" emptyMessage="">
+                            <p:dataTable id="tablaCliente" var="cliente" value="#{clienteUI.clientes}">
                                 <p:column headerText="ID Empleado">
                                     <h:outputText value="#{cliente.idcliente}"/>                                    
                                 </p:column>

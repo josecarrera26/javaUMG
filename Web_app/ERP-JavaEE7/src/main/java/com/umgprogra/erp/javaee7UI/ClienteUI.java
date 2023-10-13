@@ -23,6 +23,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ClienteUI  implements  Serializable {
 
+
     /**
      * @return the clienteItem
      */
@@ -61,6 +62,7 @@ public class ClienteUI  implements  Serializable {
     private List<Cliente> resultados;
     private List<SelectItem> clienteItem;
     private List<Cliente> cliente;
+
     
     ClienteServicio servicio = new ClienteServicio();
 //Constructor de Cliente
@@ -72,6 +74,7 @@ public class ClienteUI  implements  Serializable {
         this.nitCliente = nitCliente;
         this.direccionCliente = direccionCliente;
         this.dpiCliente = dpiCliente;
+
     }
     
     public ClienteUI(){
@@ -142,7 +145,7 @@ public class ClienteUI  implements  Serializable {
         public void saveCliente(){
         try{
             ClienteServicio nuevoCliente = new ClienteServicio();
-            nuevoCliente.saveCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.dpiCliente, this.nombreCliente, this.dpiCliente);
+            nuevoCliente.saveCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente);
             
         }
         catch(Exception e){
