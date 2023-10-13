@@ -23,6 +23,48 @@ import javax.faces.model.SelectItem;
 public class FacturaCabUI {
 
     /**
+     * @return the tipoPago
+     */
+    public List<SelectItem> getTipoPago() {
+        return tipoPago;
+    }
+
+    /**
+     * @param tipoPago the tipoPago to set
+     */
+    public void setTipoPago(List<SelectItem> tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+
+    /**
+     * @return the tipoFacturaList
+     */
+    public List<SelectItem> getTipoFacturaList() {
+        return tipoFacturaList;
+    }
+
+    /**
+     * @param tipoFacturaList the tipoFacturaList to set
+     */
+    public void setTipoFacturaList(List<SelectItem> tipoFacturaList) {
+        this.tipoFacturaList = tipoFacturaList;
+    }
+
+    /**
+     * @return the plazosPago
+     */
+    public List<SelectItem> getPlazosPago() {
+        return plazosPago;
+    }
+
+    /**
+     * @param plazosPago the plazosPago to set
+     */
+    public void setPlazosPago(List<SelectItem> plazosPago) {
+        this.plazosPago = plazosPago;
+    }
+
+    /**
      * @return the empleados
      */
     public List<Empleado> getEmpleados() {
@@ -92,19 +134,6 @@ public class FacturaCabUI {
         this.plazos_pago = plazos_pago;
     }
 
-    /**
-     * @return the referenciaFactura
-     */
-    public String getReferenciaFactura() {
-        return referenciaFactura;
-    }
-
-    /**
-     * @param referenciaFactura the referenciaFactura to set
-     */
-    public void setReferenciaFactura(String referenciaFactura) {
-        this.referenciaFactura = referenciaFactura;
-    }
 
     /**
      * @return the idEmpleado
@@ -207,7 +236,6 @@ public class FacturaCabUI {
     private Integer idFacturaCab;
     private Date fecha_registro;
     private Integer plazos_pago;
-    private String referenciaFactura;
     private Integer idEmpleado;
     private Integer idTipoCliente;
     private String estado_factura;
@@ -218,12 +246,14 @@ public class FacturaCabUI {
 
     private List<Empleado> empleados;
     private List<SelectItem> empleadoItems;
+    private List<SelectItem> plazosPago;
+    private List<SelectItem> tipoPago;
+    private List<SelectItem> tipoFacturaList;
 
     public FacturaCabUI(Integer idFacturaCab, Date fecha_registro, Integer plazos_pago, String referenciaFactura, Integer idEmpleado, Integer idTipoCliente, String estado_factura, Double total, Integer tipo_pago, String nit, Integer tipoFactura) {
         this.idFacturaCab = idFacturaCab;
         this.fecha_registro = fecha_registro;
         this.plazos_pago = plazos_pago;
-        this.referenciaFactura = referenciaFactura;
         this.idEmpleado = idEmpleado;
         this.idTipoCliente = idTipoCliente;
         this.estado_factura = estado_factura;
@@ -242,6 +272,9 @@ public class FacturaCabUI {
     @PostConstruct
     public void init() {
         findAllEmpleadosUi();
+        plazosPago();
+        pagos();
+        tipoFactura();
     }
 
     public void findAllEmpleadosUi() {
@@ -255,5 +288,21 @@ public class FacturaCabUI {
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase MarcaUI");
         }
+    }
+    
+    public void plazosPago(){
+        plazosPago.add(new SelectItem(1,"Pago unico"));
+        plazosPago.add(new SelectItem(2,"2 pagos"));
+        plazosPago.add(new SelectItem(1,"3 pagos"));
+    }
+    
+    public void pagos(){
+        tipoPago.add(new SelectItem(1,"Efectivo"));
+        tipoPago.add(new SelectItem(2,"Tarjeta"));
+    }
+    
+    public void tipoFactura(){
+        tipoFacturaList.add(new SelectItem(1,"Compra"));
+        tipoFacturaList.add(new SelectItem(2,"Venta"));
     }
 }
