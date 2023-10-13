@@ -69,6 +69,11 @@ public class Proveedor implements Serializable {
     public Proveedor() {
     }
 
+    public Proveedor(int idproveedor, String nombreProveedor) {
+        this.idproveedor = idproveedor;
+        this.nombreProveedor = nombreProveedor;
+    }
+
     public Proveedor(Integer idproveedor) {
         this.idproveedor = idproveedor;
     }
@@ -162,5 +167,5 @@ public class Proveedor implements Serializable {
     public String toString() {
         return "com.umgprogra.erp.DAO.Proveedor[ idproveedor=" + idproveedor + " ]";
     }
-    
+
 }
