@@ -266,44 +266,11 @@ public class FacturaCabUI {
     
         @PostConstruct
     public void init() {
-//        findAllEmpleadosUi();
         plazosPago();
         pagos();
         tipoFactura();
     }
 
-//    public FacturaCabUI(Integer idFacturaCab, Date fecha_registro, Integer plazos_pago, String referenciaFactura, Integer idEmpleado, Integer idTipoCliente, String estado_factura, Double total, Integer tipo_pago, String nit, Integer tipoFactura) {
-//        this.idFacturaCab = idFacturaCab;
-//        this.fecha_registro = fecha_registro;
-//        this.plazos_pago = plazos_pago;
-//        this.idEmpleado = idEmpleado;
-//        this.idTipoCliente = idTipoCliente;
-//        this.estado_factura = estado_factura;
-//        this.total = total;
-//        this.tipo_pago = tipo_pago;
-//        this.nit = nit;
-//        this.tipoFactura = tipoFactura;
-//    }
-
-    
-    
-//    public void CrearFactura() {
-//    }
-
-
-
-//    public void findAllEmpleadosUi() {
-//        try {
-//            EmpleadoServicio empleadoServ = new EmpleadoServicio();
-//            empleados = empleadoServ.findAllEmpleados();
-//            empleadoItems = new ArrayList<>();
-//            for (Empleado empleado : getEmpleados()) {
-//                empleadoItems.add(new SelectItem(empleado.getIdempleado(), empleado.getNombreEmpleado() + " " + empleado.getApellidoEmpleado()));
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e + "Error en consulta empleados clase facCanUIUI");
-//        }
-//    }
     
     public void plazosPago(){
         plazosPago = new ArrayList();

@@ -5,9 +5,7 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.CargoEmpleado;
-import com.umgprogra.erp.javaee7UI.CargoUI;
 import com.umgprogra.erp.util.JpaUtil;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
