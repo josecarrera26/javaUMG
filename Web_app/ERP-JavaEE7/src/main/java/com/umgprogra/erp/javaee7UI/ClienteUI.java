@@ -22,6 +22,34 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @SessionScoped
 public class ClienteUI  implements  Serializable {
+
+    /**
+     * @return the clienteItem
+     */
+    public List<SelectItem> getClienteItem() {
+        return clienteItem;
+    }
+
+    /**
+     * @param clienteItem the clienteItem to set
+     */
+    public void setClienteItem(List<SelectItem> clienteItem) {
+        this.clienteItem = clienteItem;
+    }
+
+    /**
+     * @return the clientes
+     */
+    public List<Cliente> getClientes() {
+        return cliente;
+    }
+
+    /**
+     * @param clientes the clientes to set
+     */
+    public void setClientes(List<Cliente> clientes) {
+        this.cliente = clientes;
+    }
     
     private Integer idCliente;
     private String nombreCliente;
@@ -30,8 +58,11 @@ public class ClienteUI  implements  Serializable {
     private String nitCliente;
     private String direccionCliente;
     private String dpiCliente;
-    private List<Cliente> cliente;
+    private List<Cliente> resultados;
     private List<SelectItem> clienteItem;
+    private List<Cliente> cliente;
+    
+    ClienteServicio servicio = new ClienteServicio();
 //Constructor de Cliente
     public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente) {
         this.idCliente = idCliente;
@@ -104,6 +135,10 @@ public class ClienteUI  implements  Serializable {
         this.dpiCliente = dpiCliente;
     }
     
+    public List<Cliente> getResultados() {
+        return resultados;
+    }
+    
         public void saveCliente(){
         try{
             ClienteServicio nuevoCliente = new ClienteServicio();
@@ -111,24 +146,34 @@ public class ClienteUI  implements  Serializable {
             
         }
         catch(Exception e){
-            System.out.println(e + "Error en save MarcaUI");
+            System.out.println(e + "Error en save ClienteUI");
         }
     }
-       /* @PostConstruct        
-    public void init() {
-        findAllClienteUi();
-    }
-
+        @PostConstruct
+    public void init() 
+        {findAllClienteUi();
+                }
+    
+        public void consultaCliente(){
+            try{
+                resultados = new ArrayList<>();
+                System.out.println("idCliente buscado" + this.idCliente);
+                resultados = servicio.finderClienteById(idCliente);
+            }catch(Exception e){
+                System.err.println("Error al consultar");
+            }
+        }        
+ 
     public void findAllClienteUi() {
         try {
             ClienteServicio clienteServ = new ClienteServicio();
             cliente = clienteServ.findAllCliente();
             clienteItem = new ArrayList<>();
-            for (Cliente cliente : cliente) {
-                clienteItem.add(new SelectItem(cliente.getIdcliente(), cliente.getNombreCliente(), cliente.getTelefonoCliente()));
+            for (Cliente clientes : cliente) {
+                clienteItem.add(new SelectItem(clientes.getIdcliente(), clientes.getNombreCliente(), clientes.getTelefonoCliente()));
             }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");
         }
-    }*/
+    }
 }

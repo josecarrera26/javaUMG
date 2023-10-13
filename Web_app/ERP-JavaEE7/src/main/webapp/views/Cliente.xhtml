@@ -100,35 +100,43 @@
                     </p:panel > 
 
                 </p:tab>
-                <!-- seccion de COnsulta de Cliente -->
-                <p:tab  title="Consultar Cliente">
-                    <p:dataTable id="consuClientes" value="#{cliente.idCliente}" rowKey="#{cliente.idCliente}"
-                                 selection="" selectionMode="single">
-
-                        <p:column headerText="ID cliente">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Nombre">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Telefono">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Email">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="NIT">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="direccion">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="DPI">
-                            <h:outputText value="" />
-                        </p:column>                        
-                    </p:dataTable>
-
+                <p:tab  title="Consultar Cliente">   
+                    <div class="card">
+                        <h5>Consultar Cliente</h5>
+                        <h:form> 
+                    <div>
+                    <p:inputText id="idCliente1" style="width:10rem"
+                                 placeholder="Enter keyword" />
+                    <p:commandButton value="Consultar" update="@form" styleClass="ml-2"
+                                     action="#{clienteUI.consultaCliente}"/>
+                    </div>                                 
+                            <p:dataTable id="tablaCliente" var="cliente" value="#{clienteUI.clientes}" emptyMessage="">
+                                <p:column headerText="ID Empleado">
+                                    <h:outputText value="#{cliente.idcliente}"/>                                    
+                                </p:column>
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{cliente.nombreCliente}"/>
+                                </p:column>
+                                <p:column headerText="Teléfono">
+                                    <h:outputText value="#{cliente.telefonoCliente}"/>
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{cliente.emailCliente}"/>
+                                </p:column>   
+                                <p:column headerText="Nit">
+                                    <h:outputText value="#{cliente.nit}"/>
+                                </p:column>  
+                                <p:column headerText="Direccion">
+                                    <h:outputText value="#{cliente.direccionCliente}"/>
+                                </p:column>  
+                                <p:column headerText="DPI">
+                                    <h:outputText value="#{cliente.dpi}"/>
+                                </p:column>                                                           
+                            </p:dataTable>
+                        </h:form>
+                    </div>
                 </p:tab>
+
                 <!--
                 <p:tab  title="Consultar Clientes">
                     <p:panel id="pnlListadoClientes">

@@ -43,7 +43,7 @@ public class ClienteServicio {
             entity.persist(client);
             entity.getTransaction().commit();            
 
-            System.out.println( "Estoy en MarcaServicio");
+            System.out.println( "Estoy en ClienteServicio");
             g = true;            
         }catch (Exception e){
             System.err.println("Error al guardar Cliente " + e.getMessage());           
@@ -60,11 +60,13 @@ public class ClienteServicio {
         System.out.println(cliente.getNombreCliente() + cliente.getTelefonoCliente() + cliente.getEmailCliente() + cliente.getNit() + cliente.getDireccionCliente() + cliente.getDpi());
     }
 
-    public List<Cliente> findAllCliente() {
+    public List<Cliente> finderClienteById(Integer idCliente) {
         List<Cliente> resultList = new ArrayList<>();
         try {
-            System.out.println("metodo DB findAllCliente");
-            Query query = entity.createNamedQuery("Cliente.findbyIdCliente", Cliente.class);
+            System.out.println("metodo DB findbyIdCliente");
+            System.out.println("idCliente" + idCliente);
+            Query query = entity.createNamedQuery("Cliente.findByIdcliente", Cliente.class)
+                .setParameter("idcliente", idCliente);
             //resultado
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
@@ -73,7 +75,26 @@ public class ClienteServicio {
                 System.out.println("No se encontraron Cliente");
             }
         } catch (Exception e) {
-            System.err.println("Error en findAllCliente " + e.getMessage());
+            System.err.println("Error en findbyIdCliente " + e.getMessage());
+        }
+    
+        return resultList;
+
+    }
+    
+    public List<Cliente> findAllCliente() {
+        List<Cliente> resultList = new ArrayList<>();
+        try {
+            Query query = entity.createNamedQuery("Cliente.findAll", Cliente.class);
+            //resultado
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron Cliente");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findbyIdCliente " + e.getMessage());
         }
     
         return resultList;
