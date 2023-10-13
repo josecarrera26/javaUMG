@@ -5,7 +5,8 @@ CREATE TABLE "cliente" (
   "email_cliente" varchar,
   "nit" varchar,
   "direccion_cliente" varchar,
-  "dpi" varchar
+  "dpi" varchar,
+  "idcuentacontable" integer
 );
 
 CREATE TABLE "proveedor" (
@@ -15,15 +16,13 @@ CREATE TABLE "proveedor" (
   "telefono" varchar,
   "regimen_proveedor" varchar,
   "email_proveedor" varchar,
-  "idbanco" integer
+  "idcuentacontable" integer
 );
 
 CREATE TABLE "cuentacontable" (
-  "idcuenta" Serial PRIMARY KEY,
+  "idcuentacontable" Serial PRIMARY KEY,
   "nombrecuenta" varchar,
-  "idcliente" integer,
-  "idproveedor" integer,
-  "impuesto_inventario" double precision
+  "tipocuenta" varchar
 );
 
 CREATE TABLE "cargo_empleado" (
@@ -81,7 +80,9 @@ CREATE TABLE "inventario" (
   "idlinea" integer,
   "idgrupoproducto" integer,
   "idproveedor" integer,
-  "estado" integer
+  "estado" integer,
+  "impuestoinventario" double precision,
+  "idcuentacontable" integer
 );
 
 CREATE TABLE "facturacab" (
@@ -116,10 +117,6 @@ CREATE TABLE "pedido" (
   "estado" varchar
 );
 
-CREATE TABLE "banco" (
-  "idbanco" Serial PRIMARY KEY,
-  "nombrebanco" varchar
-);
 
 CREATE TABLE "kardex" (
   "id" Serial PRIMARY KEY,
@@ -131,9 +128,6 @@ CREATE TABLE "kardex" (
   "int_out" varchar
 );
 
-ALTER TABLE "cuentacontable" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
-
-ALTER TABLE "cuentacontable" ADD FOREIGN KEY ("idproveedor") REFERENCES "proveedor" ("idproveedor");
 
 ALTER TABLE  "empleado" ADD FOREIGN KEY ("idcargo_empleado") REFERENCES "cargo_empleado" ("idcargo");
 
@@ -157,14 +151,17 @@ ALTER TABLE "pedido" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("id
 
 ALTER TABLE "pedido" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
 
-ALTER TABLE "proveedor"  ADD FOREIGN KEY ("idbanco") REFERENCES "banco" ("idbanco");
-
 ALTER TABLE "empleado" ADD FOREIGN KEY ("idrole") REFERENCES "roles" ("idrole");
 
 ALTER TABLE "kardex" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 
+ALTER TABLE "inventario" ADD FOREIGN KEY ("idcuentacontable") REFERENCES "cuentacontable" ("idcuentacontable");
 
---drop table banco cascade;
+ALTER TABLE "cliente" ADD FOREIGN KEY ("idcuentacontable") REFERENCES "cuentacontable" ("idcuentacontable");
+
+ALTER TABLE "proveedor" ADD FOREIGN KEY ("idcuentacontable") REFERENCES "cuentacontable" ("idcuentacontable");
+
+
 --drop table cargo_empleado  cascade;
 --drop table cliente cascade;
 --drop table cuentacontable  cascade;

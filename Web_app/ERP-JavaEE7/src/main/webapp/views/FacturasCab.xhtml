@@ -56,12 +56,7 @@
             <h:form id="frmFacturaCab">
                 <p:growl id="msg" showDetail="true" skipDetailIfEqualsSummary="true"/>
                 <h5 class="mt-0" >Numero de Factura</h5>
-<!--                <h5>#{facturaCabUI.lastFactura()}</h5>-->
-                <div class="formgrid grid"> 
-                    <div class="field col-12 md:col-4">
-                        <p:outputLabel id="lblFechaRegistro" value ="Fecha de registro" for="@next" class="justify-content-between"/>
-                        <p:datePicker value="#{facturaCabUI.fecha_registro}" id="dtPkFechaRegistro" />
-                    </div>
+                <!--fecha es el dia actual-->
                     <div class="field col-12 md:col-4">
                         <p:outputLabel id="lblPlazoPagos" value ="Plazo pagos" for="slctPlazoPagos"/>
                         <p:selectOneMenu id="slctPlazoPagos" value="#{facturaCabUI.plazos_pago}">
@@ -71,14 +66,8 @@
                             <f:selectItem itemLabel="3 Pagos" itemValue="3"/>
                         </p:selectOneMenu>
                     </div>
-                    <div class="field col-12 md:col-4">
-                        <p:outputLabel id="lblReferenciaFactura" value ="Referencia Factura" for="nmbReferenciaFactura"/>
-                        <p:inputNumber id="nmbReferenciaFactura" value="#{facturaCabUI.referenciaFactura}"/>
-                    </div>
-                    <div class="field col-12 md:col-4">
-                        <p:outputLabel id="lblIdEmpleado" value="ID del empleado" for="nmbIdEmpelado"/>
-                        <p:inputNumber id="nmbIdEmpelado" value="#{facturaCabUI.idEmpleado}"/>
-                    </div>
+                    <!--id Empleado jalarlo del login-->
+                    <!--tipo cliente guardar el resultado que traiga el nit y se guarda el id de la linea del nit-->
                     <div class="field col-12 md:col-4">
                         <p:outputLabel id="lblTipoCliente" value="Tipo cliente" for="slctTipoCliente"/>
                         <p:selectOneMenu id="slctTipoCliente" value="#{facturaCabUI.idTipoCliente}">
@@ -87,20 +76,13 @@
                             <f:selectItem itemLabel="Externo" itemValue="2"/>
                         </p:selectOneMenu>
                     </div>
+                    <!--Estado factura va quemado como activo-->
                     <div class="field col-12 md:col-4">    
-                        <p:outputLabel id="lblEstadoFactura" value="Estado factura" for="slctEstadoFactura"/>
-                        <p:selectOneMenu id="slctEstadoFactura" value="#{facturaCabUI.estado_factura}">
-                            <f:selectItem itemLabel="" itemValue=""/>
-                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                            <f:selectItem itemLabel="Inactivo" itemValue="2"/>
-                        </p:selectOneMenu>
-                    </div>
-                    <div class="field col-12 md:col-4">    
-                        <p:outputLabel id="lblTotal" value="ID del empleado" for="nmbTotal"/>
+                        <p:outputLabel id="lblTotal" value="Total" for="nmbTotal"/>
                         <p:inputNumber id="nmbTotal" value="#{facturaCabUI.total}" decimalPlaces="2"/>
                     </div>
                     <div class="field col-12 md:col-4">
-                        <p:outputLabel id="lblTipoPago" value="Estado factura" for="slctEstadoFactura"/>
+                        <p:outputLabel id="lblTipoPago" value="Tipo pago" for="slctTipoPago"/>
                         <p:selectOneMenu id="slctTipoPago" value="#{facturaCabUI.tipo_pago} ">
                             <f:selectItem itemLabel="" itemValue=""/>
                             <f:selectItem itemLabel="Tarjeta" itemValue="1"/>
@@ -120,7 +102,6 @@
                         </p:selectOneMenu>
                     </div>
                     <p:commandButton value="Insertar" actionListener="#{facturaCabUI.crearFactura()}"/>
-                </div>
             </h:form>
         </div>
 
@@ -137,23 +118,23 @@
                             <div>
                                 <p:inputText id="globalFilter" onkeyup="PF('customersTable').filter()" style="width:10rem"
                                              placeholder="Codigo de factura" />
-                                <p:commandButton value="Global Filter Only" update="@form" styleClass="ml-2"
+                                <p:commandButton value="Filtro Global" update="@form" styleClass="ml-2"
                                                  action="#{dtFilterView.toggleGlobalFilter()}"/>
                             </div>
                         </div>
                     </f:facet>
-                    <p:column headerText="Id Factura" sortBy="#{customer.name}" filterBy="#{customer.name}" filterMatchMode="contains">
-                        <h:outputText value="#{customer.name}" />
+                    <p:column headerText="Id Factura" sortBy="#{facturaCabUI.idFacturaCab}" filterBy="#{facturaCabUI.idFacturaCab}" filterMatchMode="contains">
+                        <h:outputText value="#{facturaCabUI.idFacturaCab}" />
                     </p:column>
 
-                    <p:column headerText="Fecha de emision" sortBy="#{customer.country.name}" filterBy="#{customer.country.name}">
+                    <p:column headerText="Fecha de emision" sortBy="#{facturaCabUI.fecha_registro}" filterBy="#{facturaCabUI.fecha_registro}">
                         <f:facet name="filter">
                             <p:datePicker selectionMode="range" onchange="PF('customersTable2').filter()" styleClass="ui-custom-filter"/>
                         </f:facet>
                     </p:column>
 
                     <p:column field="TipoPago" headerText="Tipo de pago" filterMatchMode="exact"
-                              sortBy="#{customer.representative.name}">
+                              sortBy="#{facturaCabUI.tipo_pago}">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('customersTable').filter()" styleClass="ui-custom-filter">
                                 <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />

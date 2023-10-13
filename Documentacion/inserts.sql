@@ -52,70 +52,55 @@ INSERT INTO public.empleado
 VALUES('Luis', 'Cano', '1234567', 'test@test.com', 'password6', 1, 5);
 
 --Modulo clientes
---bancos
-INSERT INTO public.banco
-(nombrebanco)
-VALUES('Banco Industrial');
-INSERT INTO public.banco
-(nombrebanco)
-VALUES('Banco de desarrollo rural');
-INSERT INTO public.banco
-(nombrebanco)
-VALUES('Banco credito hipotecario nacional');
-INSERT INTO public.banco
-(nombrebanco)
-VALUES('Banco de los trabajadores');
-INSERT INTO public.banco
-(nombrebanco)
-VALUES('Banco los mijos');
+--cuentacontable
+INSERT INTO public.cuentacontable
+(nombrecuenta, tipocuenta)
+VALUES('cuenta1', 'entrada');
+INSERT INTO public.cuentacontable
+(nombrecuenta, tipocuenta)
+VALUES('cuenta2', 'entrada');
+INSERT INTO public.cuentacontable
+(nombrecuenta, tipocuenta)
+VALUES('cuenta3', 'entrada');
+INSERT INTO public.cuentacontable
+(nombrecuenta, tipocuenta)
+VALUES('cuenta4', 'entrada');
+INSERT INTO public.cuentacontable
+(nombrecuenta, tipocuenta)
+VALUES('cuenta5', 'entrada');
 --proveedor
 INSERT INTO public.proveedor
-(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idbanco)
+(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idcuentacontable)
 VALUES('porveedor1', 'direccion1', '1234567', 'regimen1', 'test@test.com', 1);
 INSERT INTO public.proveedor
-(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idbanco)
+(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idcuentacontable)
 VALUES('porveedor2', 'direccion2', '1234567', 'regimen2', 'test@test.com', 2);
 INSERT INTO public.proveedor
-(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idbanco)
+(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idcuentacontable)
 VALUES('porveedor3', 'direccion3', '1234567', 'regimen3', 'test@test.com', 3);
 INSERT INTO public.proveedor
-(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idbanco)
+(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idcuentacontable)
 VALUES('porveedor4', 'direccion4', '1234567', 'regimen4', 'test@test.com', 4);
 INSERT INTO public.proveedor
-(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idbanco)
+(nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idcuentacontable)
 VALUES('porveedor5', 'direccion5', '1234567', 'regimen5', 'test@test.com', 5);
 --cliente
 INSERT INTO public.cliente
-(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi)
-VALUES('cliente1', 'tel1', 'test@test.com', 'nit1', 'direccion1', 'cedula');
+(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi, idcuentacontable)
+VALUES('cliente1', 'tel1', 'test@test.com', 'nit1', 'direccion1', 'cedula',1);
 INSERT INTO public.cliente
-(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi)
-VALUES('cliente2', 'tel2', 'test@test.com', 'nit2', 'direccion2', 'cedula');
+(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi, idcuentacontable)
+VALUES('cliente2', 'tel2', 'test@test.com', 'nit2', 'direccion2', 'cedula',2);
 INSERT INTO public.cliente
-(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi)
-VALUES('cliente1', 'tel3', 'test@test.com', 'nit3', 'direccion3', 'cedula');
+(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi, idcuentacontable)
+VALUES('cliente1', 'tel3', 'test@test.com', 'nit3', 'direccion3', 'cedula',3);
 INSERT INTO public.cliente
-(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi)
-VALUES('cliente1', 'tel4', 'test@test.com', 'nit4', 'direccion4', 'cedula');
+(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi, idcuentacontable)
+VALUES('cliente1', 'tel4', 'test@test.com', 'nit4', 'direccion4', 'cedula',4);
 INSERT INTO public.cliente
-(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi)
-VALUES('cliente1', 'tel5', 'test@test.com', 'nit5', 'direccion5', 'cedula');
---cuentacontable
-INSERT INTO public.cuentacontable
-(nombrecuenta, idcliente, idproveedor, impuesto_inventario)
-VALUES('cuenta1', 1, 1, 1000.00);
-INSERT INTO public.cuentacontable
-(nombrecuenta, idcliente, idproveedor, impuesto_inventario)
-VALUES('cuenta2', 2, 2, 2000.00);
-INSERT INTO public.cuentacontable
-(nombrecuenta, idcliente, idproveedor, impuesto_inventario)
-VALUES('cuenta3', 3, 3, 3000.00);
-INSERT INTO public.cuentacontable
-(nombrecuenta, idcliente, idproveedor, impuesto_inventario)
-VALUES('cuenta4', 4, 4, 4000.00);
-INSERT INTO public.cuentacontable
-(nombrecuenta, idcliente, idproveedor, impuesto_inventario)
-VALUES('cuenta5', 5, 5, 5000.00);
+(nombre_cliente, telefono_cliente, email_cliente, nit, direccion_cliente, dpi, idcuentacontable)
+VALUES('cliente1', 'tel5', 'test@test.com', 'nit5', 'direccion5', 'cedula',5);
+
 
 --Modulo productos
 --grupoproducto
@@ -168,20 +153,20 @@ INSERT INTO public.marca
 VALUES('marca5', 0);
 --Inventario
 INSERT INTO public.inventario
-(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor)
-VALUES('Producto1', 10, 'tipoCom1', 'model1', 'unidades1', 100, 10, 90, 1, 1, 1, 1);
+(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor, estado, impuestoinventario, idcuentacontable)
+VALUES('Producto1', 10, 'tipoCom1', 'model1', 'unidades1', 100, 10, 90, 1, 1, 1, 1, 1, 0.12, 1);
 INSERT INTO public.inventario
-(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor)
-VALUES('Producto2', 20, 'tipoCom2', 'model2', 'unidades2', 200, 20, 180, 2, 2, 2, 2);
+(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor, estado, impuestoinventario, idcuentacontable)
+VALUES('Producto2', 20, 'tipoCom2', 'model2', 'unidades2', 200, 20, 180, 2, 2, 2, 2, 2, 0.12, 2);
 INSERT INTO public.inventario
-(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor)
-VALUES('Producto3', 30, 'tipoCom3', 'model3', 'unidades3', 300, 30, 270, 3, 3, 3, 3);
+(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor, estado, impuestoinventario, idcuentacontable)
+VALUES('Producto3', 30, 'tipoCom3', 'model3', 'unidades3', 300, 30, 270, 3, 3, 3, 3, 3, 0.12, 3);
 INSERT INTO public.inventario
-(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor)
-VALUES('Producto4', 40, 'tipoCom4', 'model4', 'unidades4', 400, 40, 360, 4, 4, 4, 4);
+(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor, estado, impuestoinventario, idcuentacontable)
+VALUES('Producto4', 40, 'tipoCom4', 'model4', 'unidades4', 400, 40, 360, 4, 4, 4, 4, 4, 0.12, 4);
 INSERT INTO public.inventario
-(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor)
-VALUES('Producto5', 50, 'tipoCom5', 'model5', 'unidades5', 500, 50, 450, 5, 5, 5, 5);
+(nombre, cantidad, tipo_comercializacion, modelo, unidades, precioventa, coste, margenganancia, idmarca, idlinea, idgrupoproducto, idproveedor, estado, impuestoinventario, idcuentacontable)
+VALUES('Producto5', 50, 'tipoCom5', 'model5', 'unidades5', 500, 50, 450, 5, 5, 5, 5, 5, 0.12, 5);
 
 --Modulo Facturas
 --factura cab
