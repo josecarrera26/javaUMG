@@ -293,7 +293,7 @@ public class FacturaCabUI {
     public void plazosPago(){
         plazosPago.add(new SelectItem(1,"Pago unico"));
         plazosPago.add(new SelectItem(2,"2 pagos"));
-        plazosPago.add(new SelectItem(1,"3 pagos"));
+        plazosPago.add(new SelectItem(3,"3 pagos"));
     }
     
     public void pagos(){

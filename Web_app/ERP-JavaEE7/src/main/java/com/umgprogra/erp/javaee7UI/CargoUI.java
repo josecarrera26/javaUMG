@@ -4,11 +4,13 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.CargoEmpleado;
 import com.umgprogra.erp.ui.services.CargosServicio;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
@@ -16,8 +18,22 @@ import javax.faces.bean.SessionScoped;
  */
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class CargoUI {
+
+    /**
+     * @return the cargos
+     */
+    public List<CargoEmpleado> getCargos() {
+        return cargos;
+    }
+
+    /**
+     * @param cargos the cargos to set
+     */
+    public void setCargos(List<CargoEmpleado> cargos) {
+        this.cargos = cargos;
+    }
   /**
      * @return the idCargo
      */
@@ -60,21 +76,28 @@ public class CargoUI {
         this.salario = salario;
     }
 
-    public CargoUI(Integer idCargo, String nombre_cargo, Double salario) {
-        this.idCargo = idCargo;
-        this.nombre_cargo = nombre_cargo;
-        this.salario = salario;
-    }
     private Integer idCargo;
     private String nombre_cargo;
-    private Double salario;  
+    private Double salario;
     
-    public CargoUI(){}
+    private List<CargoEmpleado> cargos;
+
+    
+    @PostConstruct
+    public void init() {
+    listaCargos();
+    }
     
     public String crearCargo(){
     
         CargosServicio nuevoCargo = new CargosServicio();
         
        return nuevoCargo.InsertarCargo(this.nombre_cargo, this.salario);
+    }
+    
+    public void listaCargos(){
+        cargos = new ArrayList<>();
+        CargosServicio cargosServicio = new CargosServicio();
+        cargos = cargosServicio.getAllCargos();
     }
 }
