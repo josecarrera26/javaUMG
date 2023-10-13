@@ -9,9 +9,7 @@ import com.umgprogra.erp.DAO.Facturadet;
 //import static com.umgprogra.erp.DAO.Facturadet_.idfactura;
 //import static com.umgprogra.erp.DAO.Facturadet_.idproducto;
 import com.umgprogra.erp.DAO.Inventario;
-import com.umgprogra.erp.javaee7UI.FacturasDET;
 import com.umgprogra.erp.util.JpaUtil;
-import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -22,7 +20,7 @@ public class FacturaDetServicio {
 
     public boolean registroFacturaDet(Integer idFactura, Integer cantidad, double precioUnitario, Integer idProducto) {
 
-        boolean exito = false; 
+        boolean exito = false;
 
         double iva = precioUnitario * 0.12;
 
@@ -31,12 +29,14 @@ public class FacturaDetServicio {
 
         // Crear una instancia de Proveedor y configurar sus propiedades
         Facturadet facDet = new Facturadet();
+        Inventario inventario = entity.find(Inventario.class, 1);
+        Facturacab facturaCab = entity.find(Facturacab.class, 1);
 
-        //facDet.setIdfactura((Facturacab) idfactura);
+        facDet.setIdfactura(facturaCab);
         facDet.setCantidad(cantidad);
         facDet.setPreciounitario(precioUnitario);
         facDet.setIva(iva);
-        //facDet.setIdproducto((Inventario) idproducto);
+        facDet.setIdproducto(inventario);
         // Iniciar la transacción
         entity.getTransaction().begin();
 
