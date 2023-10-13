@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -62,8 +64,9 @@ public class Cliente implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "dpi")
     private String dpi;
-    @OneToMany(mappedBy = "idcliente")
-    private Collection<Cuentacontable> cuentacontableCollection;
+    @JoinColumn(name = "idcuentacontable", referencedColumnName = "idcuentacontable")
+    @ManyToOne
+    private Cuentacontable idcuentacontable;
     @OneToMany(mappedBy = "idcliente")
     private Collection<Pedido> pedidoCollection;
 
@@ -130,13 +133,12 @@ public class Cliente implements Serializable {
         this.dpi = dpi;
     }
 
-    @XmlTransient
-    public Collection<Cuentacontable> getCuentacontableCollection() {
-        return cuentacontableCollection;
+    public Cuentacontable getIdcuentacontable() {
+        return idcuentacontable;
     }
 
-    public void setCuentacontableCollection(Collection<Cuentacontable> cuentacontableCollection) {
-        this.cuentacontableCollection = cuentacontableCollection;
+    public void setIdcuentacontable(Cuentacontable idcuentacontable) {
+        this.idcuentacontable = idcuentacontable;
     }
 
     @XmlTransient

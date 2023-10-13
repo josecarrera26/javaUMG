@@ -5,19 +5,20 @@
 package com.umgprogra.erp.DAO;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,43 +29,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cuentacontable.findAll", query = "SELECT c FROM Cuentacontable c"),
-    @NamedQuery(name = "Cuentacontable.findByIdcuenta", query = "SELECT c FROM Cuentacontable c WHERE c.idcuenta = :idcuenta"),
+    @NamedQuery(name = "Cuentacontable.findByIdcuentacontable", query = "SELECT c FROM Cuentacontable c WHERE c.idcuentacontable = :idcuentacontable"),
     @NamedQuery(name = "Cuentacontable.findByNombrecuenta", query = "SELECT c FROM Cuentacontable c WHERE c.nombrecuenta = :nombrecuenta"),
-    @NamedQuery(name = "Cuentacontable.findByImpuestoInventario", query = "SELECT c FROM Cuentacontable c WHERE c.impuestoInventario = :impuestoInventario")})
+    @NamedQuery(name = "Cuentacontable.findByTipocuenta", query = "SELECT c FROM Cuentacontable c WHERE c.tipocuenta = :tipocuenta")})
 public class Cuentacontable implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idcuenta")
-    private Integer idcuenta;
+    @Column(name = "idcuentacontable")
+    private Integer idcuentacontable;
     @Size(max = 2147483647)
     @Column(name = "nombrecuenta")
     private String nombrecuenta;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "impuesto_inventario")
-    private Double impuestoInventario;
-    @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
-    @ManyToOne
-    private Cliente idcliente;
-    @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor")
-    @ManyToOne
-    private Proveedor idproveedor;
+    @Size(max = 2147483647)
+    @Column(name = "tipocuenta")
+    private String tipocuenta;
+    @OneToMany(mappedBy = "idcuentacontable")
+    private Collection<Cliente> clienteCollection;
+    @OneToMany(mappedBy = "idcuentacontable")
+    private Collection<Proveedor> proveedorCollection;
+    @OneToMany(mappedBy = "idcuentacontable")
+    private Collection<Inventario> inventarioCollection;
 
     public Cuentacontable() {
     }
 
-    public Cuentacontable(Integer idcuenta) {
-        this.idcuenta = idcuenta;
+    public Cuentacontable(Integer idcuentacontable) {
+        this.idcuentacontable = idcuentacontable;
     }
 
-    public Integer getIdcuenta() {
-        return idcuenta;
+    public Integer getIdcuentacontable() {
+        return idcuentacontable;
     }
 
-    public void setIdcuenta(Integer idcuenta) {
-        this.idcuenta = idcuenta;
+    public void setIdcuentacontable(Integer idcuentacontable) {
+        this.idcuentacontable = idcuentacontable;
     }
 
     public String getNombrecuenta() {
@@ -75,34 +76,45 @@ public class Cuentacontable implements Serializable {
         this.nombrecuenta = nombrecuenta;
     }
 
-    public Double getImpuestoInventario() {
-        return impuestoInventario;
+    public String getTipocuenta() {
+        return tipocuenta;
     }
 
-    public void setImpuestoInventario(Double impuestoInventario) {
-        this.impuestoInventario = impuestoInventario;
+    public void setTipocuenta(String tipocuenta) {
+        this.tipocuenta = tipocuenta;
     }
 
-    public Cliente getIdcliente() {
-        return idcliente;
+    @XmlTransient
+    public Collection<Cliente> getClienteCollection() {
+        return clienteCollection;
     }
 
-    public void setIdcliente(Cliente idcliente) {
-        this.idcliente = idcliente;
+    public void setClienteCollection(Collection<Cliente> clienteCollection) {
+        this.clienteCollection = clienteCollection;
     }
 
-    public Proveedor getIdproveedor() {
-        return idproveedor;
+    @XmlTransient
+    public Collection<Proveedor> getProveedorCollection() {
+        return proveedorCollection;
     }
 
-    public void setIdproveedor(Proveedor idproveedor) {
-        this.idproveedor = idproveedor;
+    public void setProveedorCollection(Collection<Proveedor> proveedorCollection) {
+        this.proveedorCollection = proveedorCollection;
+    }
+
+    @XmlTransient
+    public Collection<Inventario> getInventarioCollection() {
+        return inventarioCollection;
+    }
+
+    public void setInventarioCollection(Collection<Inventario> inventarioCollection) {
+        this.inventarioCollection = inventarioCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idcuenta != null ? idcuenta.hashCode() : 0);
+        hash += (idcuentacontable != null ? idcuentacontable.hashCode() : 0);
         return hash;
     }
 
@@ -113,7 +125,7 @@ public class Cuentacontable implements Serializable {
             return false;
         }
         Cuentacontable other = (Cuentacontable) object;
-        if ((this.idcuenta == null && other.idcuenta != null) || (this.idcuenta != null && !this.idcuenta.equals(other.idcuenta))) {
+        if ((this.idcuentacontable == null && other.idcuentacontable != null) || (this.idcuentacontable != null && !this.idcuentacontable.equals(other.idcuentacontable))) {
             return false;
         }
         return true;
@@ -121,7 +133,7 @@ public class Cuentacontable implements Serializable {
 
     @Override
     public String toString() {
-        return "com.umgprogra.erp.DAO.Cuentacontable[ idcuenta=" + idcuenta + " ]";
+        return "com.umgprogra.erp.DAO.Cuentacontable[ idcuentacontable=" + idcuentacontable + " ]";
     }
     
 }
