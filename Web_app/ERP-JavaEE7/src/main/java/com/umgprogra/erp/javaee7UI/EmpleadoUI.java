@@ -130,6 +130,8 @@ public class EmpleadoUI implements Serializable {
         this.empleadoItems = empleadoItems;
     }
 
+    
+    
     public void GetEmpleado() {
         try {
 
@@ -137,7 +139,7 @@ public class EmpleadoUI implements Serializable {
 
             // System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
             servicioemp.findByEmpleadoPassword(this.idEmpleado, this.password_empleado);
-
+            
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Error en Servicio",
@@ -152,14 +154,11 @@ public class EmpleadoUI implements Serializable {
 
             boolean registro = servicioreg.registrarEmpleado(this.nombre_empleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado, this.password_empleado);
 
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-
             if (registro = true) {
                 
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                         "Registro Exitoso!",
-                        "Gracias!"));
-                externalContext.redirect("./login.xhtml");
+                        "Para iniciar sesion por favor regrese al login!"));
             } else {
                 
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
