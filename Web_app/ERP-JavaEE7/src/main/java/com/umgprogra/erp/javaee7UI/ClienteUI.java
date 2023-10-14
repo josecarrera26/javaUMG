@@ -161,9 +161,10 @@ public class ClienteUI  implements  Serializable {
     
         public void saveCliente(){
         try{
+         
             ClienteServicio nuevoCliente = new ClienteServicio();
             nuevoCliente.saveCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente);
-            
+            cliente = nuevoCliente.findAllCliente();
         }
         catch(Exception e){
             System.out.println(e + "Error en save ClienteUI");
