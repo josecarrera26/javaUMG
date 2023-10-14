@@ -444,7 +444,7 @@ public class InventarioUI implements Serializable {
         unidades = new ArrayList();
         unidades.add("Caja");
         unidades.add("Unidad");
-//        findIdAndNameUi();
+        findIdAndNameUi();
         findAllGrupoUi();
         findAllMarcaUi();
         findAllLineaUi();
@@ -454,14 +454,12 @@ public class InventarioUI implements Serializable {
 
         try {
             InventarioServicio inventarioServ = new InventarioServicio();
-          
+
 //            System.err.println("Marca: " +  getMarcaSeleccionada());
 //            System.err.println("Linea: " +  getLineaSeleccionada());
 //            System.err.println("Proveedor: " +  getProveedorSeleccionado());
 //            System.err.println("Grupo: " +  getGrupoSeleccionado());
 //              System.err.println("Medida: " +  unidadMed);
-
-
             if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado())) {
                 System.err.println("Estoy en ProdUITRUE");
                 // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
