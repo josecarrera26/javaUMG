@@ -57,48 +57,60 @@
 
         <h:form id="formFacturaDET" >
 
-                <p:growl id="msg"/>
-                <!-- seccion del detalle de la factura-->
-                <p:tab  title="Facturacion">
-                    <p:panel id="pnlFacturaDet" header="Detalle de factura" class="centerPnl"  >
-                        <p:panelGrid id="pnlGridId" layout="grid" columns="2" style="width: 100%" >
-                            
-                            <h:outputLabel id="lblIdProd" value="Id del Producto" />
-                            <p:inputText id="idProducto" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
-       
-                            <h:outputLabel id="lblCantidad" value="Cantidad de Producto" />
-                            <p:inputText id="cantProd" value="#{facturasDET.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" />     
+            <p:growl id="msg"/>
+            <!-- seccion del detalle de la factura-->
+            <p:tab  title="Facturacion">
+                <p:panel id="pnlFacturaDet" header="Detalle de factura" class="centerPnl"  >
+                    <p:panelGrid id="pnlGridId" layout="grid" columns="2" style="width: 100%" >
 
-                            <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.registroFacturaDet()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />  
-                            <!-- comment <input type="email" required="required" />--> 
-                        </p:panelGrid >
+                        <h:outputLabel id="lblIdProd" value="Id del Producto" />
+                        <p:inputText id="idProducto" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
 
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2"  class="centerPnlGrid">
-                            <p:commandButton id="btnRegBanco" value="Registrar Factura" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                        <h:outputLabel id="lblCantidad" value="Cantidad de Producto" />
+                        <p:inputText id="cantProd" value="#{facturasDET.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
-                        </p:panelGrid>
-                    
-                    <p:dataTable id="pacientes" var="paciente" value="#{cPacientes.listarPacientes()}" rowKey="#{paciente.idpaciente}" selection="" selectionMode="single"> 
+                        <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.agregarProducto()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />  
+                        <!-- comment <input type="email" required="required" />--> 
+                    </p:panelGrid >
+
+                    <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2"  class="centerPnlGrid">
+                        <p:commandButton id="btnRegBanco" value="Registrar Factura" actionListener="#{facturasDET.registroFacturaDet()}"
+                                         update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+
+                    </p:panelGrid>
+
+                    <p:dataTable id="productos" var="producto" value="#{facturasDET.mostrarListProd()}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
 
 
                         <p:column headerText="Id Producto ">
-                            <h:outputText value="#{paciente.idpaciente}" />
+                            <h:outputText value="#{producto.idProducto}" />
                         </p:column>
                         <p:column headerText="Nombre">
-                            <h:outputText value="#{paciente.nombrepaciente}" />
+                            <h:outputText value="#{producto.nombreProducto}" />
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            <h:outputText value="#{producto.cantidad}" />
                         </p:column>
                         <p:column headerText="Precio Unitario">
-                            <h:outputText value="#{paciente.direccion}" />
+                            <h:outputText value="#{producto.precioUnitario}" />
                         </p:column>
                         <p:column headerText="Iva">
-                            <h:outputText value="#{paciente.estado}" />
+                            <h:outputText value="#{producto.iva}" />
                         </p:column>
                         <p:column headerText="Sub Total">
-                            <h:outputText value="#{paciente.enfermedad}" />
+                            <h:outputText value="#{producto.subTotal}" />
                         </p:column>
+                        <p:column headerText="Acciones">
+                            <p:commandButton icon="pi pi-trash" title="Eliminar" actionListener="#{facturasDET.eliminarProducto(index)}" update="productos" >
+                                <f:attribute name="index" value="#{rowIndex}"/>
+                            </p:commandButton>
+                            
+                        </p:column>
+
 
 
                     </p:dataTable>
+
                     </p:panel>
                 </p:tab>
 
