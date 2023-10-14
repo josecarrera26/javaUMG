@@ -98,16 +98,22 @@ public class FacturasDET implements Serializable {
     //funciones 
     public void registroFacturaDet() {
         FacturaDetServicio registroFac = new FacturaDetServicio();
+        boolean exito = false;
         try {
-            for (FacturasDET lista : listadoproductos) {
-                Integer idProd = lista.getIdProducto();
-                Integer cantidadprod = lista.getCantidad();
-
-                boolean exito = registroFac.registroFacturaDet(cantidadprod, idProd);
-
+            if (listadoproductos.isEmpty()) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pudo registrar el producto");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } else {
+                for (FacturasDET lista : listadoproductos) {
+                    Integer idProd = lista.getIdProducto();
+                    Integer cantidadprod = lista.getCantidad();
+                    exito = registroFac.registroFacturaDet(cantidadprod, idProd);
+                }
+                if (exito == true) {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
             }
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, message);
 
         } catch (Exception e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
@@ -127,7 +133,8 @@ public class FacturasDET implements Serializable {
             //para validacion de existacia en las tablas
             Inventario inventario = entityManager.find(Inventario.class, this.idProducto);
             int cantidadInventario = inventario.getCantidad();
-            if (cantidadInventario > this.cantidad) {
+
+            if (cantidadInventario > this.cantidad && this.cantidad != 0) {
 
                 //obtenenemos el precio unitario del producto
                 double preciounitario = inventario.getPrecioventa();
@@ -135,7 +142,7 @@ public class FacturasDET implements Serializable {
                 //calculo del iva
                 double iva = (preciounitario * this.cantidad) * 0.12;
                 //calculo del subtotal
-                double subTotal = preciounitario * this.cantidad;
+                double subTotal = (preciounitario * this.cantidad) + iva;
 
                 //seteamos los datos a la clase de facturaDET para agregarlo a una lista
                 facDET.setCantidad(this.cantidad);
@@ -172,6 +179,15 @@ public class FacturasDET implements Serializable {
 
         return mostrar;
 
+    }
+
+    public void eliminarProducto(int index) {
+        if (index >= 0 && index < listadoproductos.size()) {
+            listadoproductos.remove(index);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto eliminado con éxito."));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el producto."));
+        }
     }
 
 }

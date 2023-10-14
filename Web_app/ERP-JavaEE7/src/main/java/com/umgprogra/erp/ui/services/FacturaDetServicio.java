@@ -27,7 +27,6 @@ public class FacturaDetServicio {
 
         try {
             transaction.begin();
-
             // Crear una instancia de Facturadet
             Facturadet facDet = new Facturadet();
             //para validacion de existacia en las tablas
@@ -48,14 +47,13 @@ public class FacturaDetServicio {
 
                 facDet.setIdproducto(inventario);
                 // Actualizar el inventario
-                actualizarInventario(entityManager, idProducto, cantidad);
+                inventario.setCantidad(cantidadActual - cantidad);
+
                 // Persistir el detalle de factura
                 entityManager.persist(facDet);
                 transaction.commit();
-                return true; // La operación fue exitosa
-
+                return true; 
             }
-
         } catch (Exception e) {
             //para validar si la trasaccion esta en linea
             if (transaction.isActive()) {
@@ -71,20 +69,6 @@ public class FacturaDetServicio {
         }
         return false;
 
-    }
-
-    //funcion para actualizar la cantidad del inventario
-    private void actualizarInventario(EntityManager entityManager, Integer idProducto, Integer cantidad) {
-        Inventario inventario = entityManager.find(Inventario.class, idProducto);
-        if (inventario != null) {
-            int cantidadActual = inventario.getCantidad();
-            if (cantidadActual >= cantidad) {
-                inventario.setCantidad(cantidadActual - cantidad);
-                entityManager.merge(inventario);
-            } else {
-                // Manejo de error
-            }
-        }
     }
 
 }
