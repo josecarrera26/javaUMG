@@ -26,7 +26,11 @@
                 <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
                     <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml"/>
                     <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./CuentasContables.xhtml"/>
-                    <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                    <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
+                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Empleado.xhtml"/>
+                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" url="./Role.xhtml"/>
+                    </p:submenu>
                 </p:submenu>
 
 
@@ -94,7 +98,7 @@
                         </p:panelGrid >
 
                         <p:commandButton id="RegisterCliente" action="#{clienteUI.saveCliente()}"
-                                         value="Registrar Cliente" update="pnlRegistroCliente, msg" ajax="true"  style=" margin-left: 600px" >
+                                         value="Registrar Cliente" update="pnlRegistroCliente, msg, tablaCliente" ajax="true"  style=" margin-left: 600px" >
                         </p:commandButton>
 
                     </p:panel > 
@@ -110,7 +114,7 @@
 
                     <div class="card">
                         <h5>Column Filtering</h5>
-                        <h:form>
+                        <!--<h:form>-->
                             <p:dataTable id="tablaCliente" var="cliente" widgetVar="Cliente" filteredValue="#{clienteUI.filteredCliente}" value="#{clienteUI.clientes}">
 
                                 <f:facet name="header">
@@ -153,7 +157,7 @@
                                 </p:column>                                
 
                             </p:dataTable>
-                        </h:form>
+                        <!--</h:form>-->
                     </div> 
                     </p:tab>                   
  
