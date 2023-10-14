@@ -4,7 +4,9 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.ui.services.FacturaDetServicio;
+import com.umgprogra.erp.util.JpaUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -21,33 +24,29 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class FacturasDET implements Serializable {
 
-    private Integer idFacturaDet;
+    List<FacturasDET> listadoproductos = new ArrayList<>();
+
     private Integer cantidad;
     private double precioUnitario;
     private double iva;
     private Integer idProducto;
+    private double subTotal;
+    private String nombreProducto;
 
     //constructores
-    public FacturasDET(Integer idFacturaDet, Integer cantidad, double precioUnitario, double iva, Integer idProducto) {
-        this.idFacturaDet = idFacturaDet;
+    public FacturasDET(Integer cantidad, double precioUnitario, double iva, Integer idProducto, double subTotal, String nombreProducto) {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.iva = iva;
         this.idProducto = idProducto;
+        this.subTotal = subTotal;
+        this.nombreProducto = nombreProducto;
     }
 
     public FacturasDET() {
     }
 
     //getter y setter
-    public Integer getIdFacturaDet() {
-        return idFacturaDet;
-    }
-
-    public void setIdFacturaDet(Integer idFacturaDet) {
-        this.idFacturaDet = idFacturaDet;
-    }
-
     public Integer getCantidad() {
         return cantidad;
     }
@@ -80,56 +79,98 @@ public class FacturasDET implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public void eliminarLineaFactura() {
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    //funciones 
+    public void registroFacturaDet() {
+        FacturaDetServicio registroFac = new FacturaDetServicio();
+        try {
+            for (FacturasDET lista : listadoproductos) {
+                Integer idProd = lista.getIdProducto();
+                Integer cantidadprod = lista.getCantidad();
+
+                boolean exito = registroFac.registroFacturaDet(cantidadprod, idProd);
+
+            }
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+
+        }
+
+        // Limpia la lista después de procesar los productos
+        listadoproductos.clear();
+    }
+
+    public void agregarProducto() {
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        FacturasDET facDET = new FacturasDET();
+
+        try {
+            //para validacion de existacia en las tablas
+            Inventario inventario = entityManager.find(Inventario.class, this.idProducto);
+            int cantidadInventario = inventario.getCantidad();
+            if (cantidadInventario > this.cantidad) {
+
+                //obtenenemos el precio unitario del producto
+                double preciounitario = inventario.getPrecioventa();
+                String nombreProd = inventario.getNombre();
+                //calculo del iva
+                double iva = (preciounitario * this.cantidad) * 0.12;
+                //calculo del subtotal
+                double subTotal = preciounitario * this.cantidad;
+
+                //seteamos los datos a la clase de facturaDET para agregarlo a una lista
+                facDET.setCantidad(this.cantidad);
+                facDET.setIdProducto(this.idProducto);
+                facDET.setIva(iva);
+                facDET.setNombreProducto(nombreProd);
+                facDET.setPrecioUnitario(preciounitario);
+                facDET.setSubTotal(subTotal);
+                //agregamos el objeto a la lista
+                listadoproductos.add(facDET);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto insertado con éxito."));
+
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor nulo o falta de inventario", "No se pudo insertar el producto."));
+
+            }
+
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor nulo o falta de inventario", "No se pudo insertar el producto."));
+
+        } finally {
+            entityManager.close();
+        }
+        this.idProducto = 0;
+        this.cantidad = 0;
 
     }
 
-//    public void listaProducto() {
-//        // Creación de lista
-//        List<FacturasDET> ListProd = new ArrayList<>();
-//
-//        if (this.idProducto == 0 || this.precioUnitario == 0 || this.cantidad == 0 || this.iva == 0) {
-//            // Algunos campos no se han completado correctamente, muestra un mensaje de error.
-//            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Por favor, complete todos los campos correctamente.");
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-//        } else {
-//            // Los campos se completaron correctamente, crea un nuevo producto y agrégalo a la lista.
-//            FacturasDET producto = new FacturasDET();
-//            // Asigna los valores de los campos a la instancia del producto
-//            producto.setIdProducto(this.idProducto);
-//            producto.setPrecioUnitario(this.precioUnitario);
-//            producto.setCantidad(this.cantidad);
-//            producto.setIva(this.iva);
-//
-//            // Agregar el producto a la lista
-//            ListProd.add(producto);
-//
-//            // Reinicia los valores de los campos
-////            this.idProducto = 0;
-////            this.precioUnitario = 0;
-////            this.cantidad = 0;
-////            this.iva = 0;
-//        }
-//    }
-
-    public void registroFacturaDet() {
-
-        FacturaDetServicio registroFac = new FacturaDetServicio();
-
-        boolean exito = registroFac.registroFacturaDet(idFacturaDet, cantidad, precioUnitario, idProducto);
-        if (exito) {
-            // Éxito: muestra un mensaje de éxito
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Proveedor registrado con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            this.idProducto = null;
-            this.cantidad = null;
-            this.precioUnitario = 0;
-
-        } else {
-            // Error: muestra un mensaje de error
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el proveedor");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+    public List<FacturasDET> mostrarListProd() {
+        List<FacturasDET> mostrar = new ArrayList<>();
+        for (FacturasDET lista : listadoproductos) {
+            mostrar.add(lista);
         }
+
+        return mostrar;
 
     }
 
