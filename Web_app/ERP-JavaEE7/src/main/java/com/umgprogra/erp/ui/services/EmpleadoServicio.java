@@ -84,19 +84,19 @@ public class EmpleadoServicio {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
-                
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Conexion exitosa!",
-                        "Bienvenido"));
-                
-                externalContext.redirect("./MenuPrincipal.xhtml");
+
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Conexion Exitosa", 
+                        "Gracias!"));
+
+                externalContext.redirect("views/MenuPrincipal.xhtml");
                 return 1;
-                
+
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                         "Nombre o Contraseña Invalida!",
                         "Por Favor intente Nuevamente!"));
-                return 0;   
+                return 0;
             }
         } catch (Exception e) {
             System.out.println("Error registrado = " + e.getMessage());
@@ -128,9 +128,7 @@ public class EmpleadoServicio {
         } catch (Exception e) {
             entity.getTransaction().rollback();
             registro = false;
-
         }
-
         return registro;
     }
 
