@@ -100,78 +100,64 @@
                     </p:panel > 
 
                 </p:tab>
-                <p:tab  title="Consultar Cliente">   
+                <p:tab  title="Consultar Cliente">  
+                    <style>
+                        .ui-filter-column .ui-column-customfilter .custom-filter {
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+                    </style>
+
                     <div class="card">
-                        <h5>Consultar Cliente</h5>
-                        <h:form> 
-                    <div>
-                    <p:inputText id="idCliente1" style="width:10rem"
-                                 placeholder="Enter keyword" />
-                    <p:commandButton value="Consultar" update="@form" styleClass="ml-2"
-                                     action="#{clienteUI.consultaCliente}"/>
-                    </div>                                 
-                            <p:dataTable id="tablaCliente" var="cliente" value="#{clienteUI.clientes}">
-                                <p:column headerText="ID Empleado">
-                                    <h:outputText value="#{cliente.idcliente}"/>                                    
+                        <h5>Column Filtering</h5>
+                        <h:form>
+                            <p:dataTable id="tablaCliente" var="cliente" widgetVar="Cliente" filteredValue="#{clienteUI.filteredCliente}" value="#{clienteUI.clientes}">
+
+                                <f:facet name="header">
+                                    <div class="flex align-items-center justify-content-between">
+                                        <span>Lista Clientes</span>
+                                        <div>
+                                        <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
+                                                     placeholder="Enter keyword" />
+                                        </div>
+                                    </div>
+
+                                </f:facet>
+
+                                <p:column headerText="ID" sortBy="#{cliente.idcliente}" filterBy="#{cliente.idcliente}" filterMatchMode="exact">
+                                    <h:outputText value="#{cliente.idcliente}" />
                                 </p:column>
-                                <p:column headerText="Nombre">
-                                    <h:outputText value="#{cliente.nombreCliente}"/>
+
+                                <p:column headerText="Nombre" sortBy="#{cliente.nombreCliente}" filterBy="#{cliente.nombreCliente}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.nombreCliente}" />
                                 </p:column>
-                                <p:column headerText="Teléfono">
-                                    <h:outputText value="#{cliente.telefonoCliente}"/>
+
+                                <p:column headerText="Telefono" sortBy="#{cliente.telefonoCliente}" filterBy="#{cliente.telefonoCliente}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.telefonoCliente}" />
                                 </p:column>
-                                <p:column headerText="Email">
-                                    <h:outputText value="#{cliente.emailCliente}"/>
-                                </p:column>   
-                                <p:column headerText="Nit">
-                                    <h:outputText value="#{cliente.nit}"/>
-                                </p:column>  
-                                <p:column headerText="Direccion">
-                                    <h:outputText value="#{cliente.direccionCliente}"/>
-                                </p:column>  
-                                <p:column headerText="DPI">
-                                    <h:outputText value="#{cliente.dpi}"/>
-                                </p:column>                                                           
+
+                                <p:column headerText="Email" sortBy="#{cliente.emailCliente}" filterBy="#{cliente.emailCliente}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.emailCliente}" />
+                                </p:column>
+
+                                <p:column headerText="Nit" sortBy="#{cliente.nit}" filterBy="#{cliente.nit}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.nit}" />
+                                </p:column>
+
+                                <p:column headerText="Direccion" sortBy="#{cliente.direccionCliente}" filterBy="#{cliente.direccionCliente}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.direccionCliente}" />
+                                </p:column>
+                                
+                                <p:column headerText="DPI" sortBy="#{cliente.dpi}" filterBy="#{cliente.dpi}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.dpi}" />
+                                </p:column>                                
+
                             </p:dataTable>
                         </h:form>
-                    </div>
-                </p:tab>
-
-                <!--
-                <p:tab  title="Consultar Clientes">
-                    <p:panel id="pnlListadoClientes">
-                            
-                           <div class="card">
-            Available columns are <b>name</b>, <b>country</b>, <b>date</b>, <b>status</b> and <b>activity</b>.
-
-                    <h:form id="form">
-                        <div class="mt-3 mb-5">
-                        <p:inputText id="template" value="#{dtColumnsView.columnTemplate}" size="50" styleClass="mr-2"/>
-                        <p:commandButton update="customers" action="#{dtColumnsView.updateColumns}" value="Update"
-                                         process="@parent" icon="pi pi-refresh"
-                                         oncomplete="PF('customersTable').clearFilters()"/>
-                        </div>
-
-                            <p:dataTable id="customers" var="customer" value="#{dtColumnsView.customers}" widgetVar="customersTable"
-                                filteredValue="#{dtColumnsView.filteredCustomers}">
-
-                                    <p:columns value="#{dtColumnsView.columns}" var="column" headerText="#{column.header}" field="#{column.property}">
-                                        <f:facet name="filter">
-                                    <p:datePicker selectionMode="range" onchange="PF('customersTable').filter()" rendered="#{column.type eq 'date'}"/>
-                                        <p:selectOneMenu onchange="PF('customersTable').filter()" rendered="#{column.type eq 'enum'}">
-                                            <f:selectItem itemValue="#{null}" itemLabel=""/>
-                                            <f:selectItems value="#{column.klazz.enumConstants}" />
-                                        </p:selectOneMenu>
-                                    </f:facet>
-                                    </p:columns>
-
-                                </p:dataTable>
-                                </h:form>
-                            </div>               
-                    </p:panel>
-                </p:tab>
+                    </div> 
+                    </p:tab>                   
  
-                <p:tab  title ="Eliminar">
+                <!--<p:tab  title ="Eliminar">
                 
                      seccion de eliminacion de Cliente
                

@@ -8,20 +8,36 @@ package com.umgprogra.erp.javaee7UI;
 import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.ui.services.ClienteServicio;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 /**
  *
  * @author Miguel Coloma
  */
+@Named("dtFilterView")
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ClienteUI  implements  Serializable {
+
+    /**
+     * @return the filteredCliente
+     */
+    public List<Cliente> getFilteredCliente() {
+        return filteredCliente;
+    }
+
+    /**
+     * @param filteredCliente the filteredCliente to set
+     */
+    public void setFilteredCliente(List<Cliente> filteredCliente) {
+        this.filteredCliente = filteredCliente;
+    }
 
 
     /**
@@ -62,6 +78,7 @@ public class ClienteUI  implements  Serializable {
     private List<Cliente> resultados;
     private List<SelectItem> clienteItem;
     private List<Cliente> cliente;
+    private List<Cliente> filteredCliente;
 
     
     ClienteServicio servicio = new ClienteServicio();
@@ -179,4 +196,5 @@ public class ClienteUI  implements  Serializable {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");
         }
     }
+
 }
