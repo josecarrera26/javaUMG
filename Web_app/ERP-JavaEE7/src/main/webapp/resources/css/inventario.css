@@ -1,6 +1,6 @@
-#inventario {
-    width: 1024px;
-    margin: 10 auto;
+.centerPnl{
+    width: 70%;
+    margin: 0 auto;  
 }
 
 .combo {

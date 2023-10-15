@@ -12,6 +12,7 @@
     <h:body id="inventario">
 
         <h:form>
+            
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
@@ -52,9 +53,9 @@
 
 
         <h:form id="idFormInventario">
-            <p:tabView dynamic="false">
+            <p:tabView dynamic="false" >
                 <p:tab title="New Producto">
-                    <p:panel id="pnlInventario" header="Registro de productos" style="width: 100%">
+                    <p:panel id="pnlInventario" header="Registro de productos" class="centerPnl">
                         <div class="card">
 
                             <div class="ui-fluid">
@@ -87,7 +88,7 @@
                                     <div class="field">
                                         <p:outputLabel id="idLabelProveedor" value="Proveedor"  for="@next"/>
                                         <p:selectOneMenu id="proveedor" class="combo" value="#{inventarioUI.idProveedor}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
-                                                             >
+                                                         >
                                             <f:selectItem itemLabel="Select One" itemValue=""/>
                                             <f:selectItems value="#{inventarioUI.proveedorItems}"/>
                                         </p:selectOneMenu>
@@ -103,21 +104,14 @@
 
                             <div class="grid">
                                 <div class="col-5 flex align-items-center justify-content-center">
+
+
+
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <h:outputLabel id="idLabelCoste" value="Costo:" />
-                                            <p:inputNumber id="idCoste" value="#{inventarioUI.coste}" modifyValueOnWheel="false" />
+                                            <h:outputLabel id="idLabelMargen" value="Margen Ganancia:" />
+                                            <p:inputNumber id="idCoste3" value="#{inventarioUI.margen_Ganancia}" modifyValueOnWheel="false" />
                                         </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <p:divider layout="vertical"> </p:divider>
-                                </div>
-                                <div class="ui-fluid">
-                                    <div class="field">
-                                        <h:outputLabel id="idLabelMargen" value="Margen Ganancia:" />
-                                        <p:inputNumber id="idCoste3" value="#{inventarioUI.margen_Ganancia}" modifyValueOnWheel="false" />
                                     </div>
                                 </div>
                             </div>
@@ -218,8 +212,8 @@
                             </div>
 
                         </div>
-                        
-                        
+
+
 
                         <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
                             <p:commandButton id="btnRegistro" value="Registar" action="#{inventarioUI.saveProducto()}" style="width: 50%"
@@ -327,7 +321,7 @@ comment -->
                             <span id="slot1"> | </span>
                             <span id="slot2"> 2424-2424 </span>
                             <span id="slot3"> | </span>
-                             <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                            <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
                         </div>
                     </p:tab>
                 </p:accordionPanel>
@@ -335,5 +329,5 @@ comment -->
         </div>
 
     </h:body>
-    
+
 </html>
