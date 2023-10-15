@@ -5,10 +5,12 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.DAO.Linea;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
+import com.umgprogra.erp.ui.services.CuentacontableServicio;
 import com.umgprogra.erp.ui.services.GrupoProductoServicio;
 import com.umgprogra.erp.ui.services.InventarioServicio;
 import com.umgprogra.erp.ui.services.LineaServicio;
@@ -423,6 +425,7 @@ public class InventarioUI implements Serializable {
     private Linea linea;
     private Grupoproducto grupo;
     private Proveedor proveedor;
+    private Cuentacontable idCuenta;
     //LISTAS PARA LLENAR LOS CB
     private List<String> unidades;
     private List<Proveedor> proveedores;
@@ -569,6 +572,18 @@ public class InventarioUI implements Serializable {
         } catch (Exception e) {
             System.out.println(e + "Error en consulta linea clase LineaUI");
         }
+    }
+    
+      public Cuentacontable getCuenta(){
+        CuentacontableServicio cuentaServicio = new CuentacontableServicio();
+        idCuenta= cuentaServicio.getCuentacontableId(1);
+        if(idCuenta!=null){
+            if(!idCuenta.getNombrecuenta().equals("Cuentas por pagar")){
+                 System.out.println("ERROR AL AGREGAR CUENTA");
+                 idCuenta=null;
+            }
+        }
+        return idCuenta;
     }
 
 }
