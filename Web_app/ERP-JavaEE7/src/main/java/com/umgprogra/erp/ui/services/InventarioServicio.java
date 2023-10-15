@@ -4,6 +4,7 @@
  */
 package com.umgprogra.erp.ui.services;
 
+import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.DAO.Linea;
@@ -23,7 +24,7 @@ public class InventarioServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public Boolean saveProducto(String nombre, String tipoComercializacion, String modelo, String unidadM, double coste, int margenGanancia, Marca idmarca, Linea idlinea, Grupoproducto idgrupoproducto, Proveedor idproveedor) {
+    public Boolean saveProducto(String nombre, String tipoComercializacion, String modelo, String unidadM, double coste, int margenGanancia, Marca idmarca, Linea idlinea, Grupoproducto idgrupoproducto, Proveedor idproveedor, Cuentacontable idCuenta) {
         boolean g = false;
         try {
             Inventario  inventario = new Inventario();
@@ -45,6 +46,8 @@ public class InventarioServicio {
             inventario.setIdgrupoproducto(idgrupoproducto);
             inventario.setIdproveedor(idproveedor);
             inventario.setEstado(1);
+            inventario.setIdcuentacontable(idCuenta);
+            inventario.setImpuestoinventario(0.0);
             entity.getTransaction().begin();
             entity.persist(inventario);
             entity.getTransaction().commit();

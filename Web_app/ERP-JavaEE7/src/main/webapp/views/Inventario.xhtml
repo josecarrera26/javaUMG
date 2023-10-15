@@ -12,7 +12,7 @@
     <h:body id="inventario">
 
         <h:form>
-            
+
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
@@ -98,24 +98,37 @@
                         </div>
 
                         <p:divider align="left" >
-                            <b>Precio Venta</b>
+                            <b></b>
                         </p:divider>
                         <div class="card">
 
                             <div class="grid">
                                 <div class="col-5 flex align-items-center justify-content-center">
-
-
-
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <h:outputLabel id="idLabelMargen" value="Margen Ganancia:" />
-                                            <p:inputNumber id="idCoste3" value="#{inventarioUI.margen_Ganancia}" modifyValueOnWheel="false" />
+                                            <p:outputLabel id="idLabelTipoComer" value="Tipo Comercializacion"  for="@next"/>
+
+                                            <p:selectOneMenu id="tipoComercializacion"  class="combo" value="#{inventarioUI.tipo_comercializacion}" dynamic="true" >
+                                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                                <f:selectItems value="#{inventarioUI.tipoComercializacion}" />
+                                            </p:selectOneMenu>
+
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <h:outputLabel id="idLabelMargen" value="Margen Ganancia:" />
+                                        <p:inputNumber id="idCoste3" value="#{inventarioUI.margen_Ganancia}" modifyValueOnWheel="false" />
                                     </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <p:divider align="left" >
                             <b>Caracteristicas</b>

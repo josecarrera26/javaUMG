@@ -33,6 +33,20 @@ import javax.faces.model.SelectItem;
 public class InventarioUI implements Serializable {
 
     /**
+     * @return the tipoComercializacion
+     */
+    public List<String> getTipoComercializacion() {
+        return tipoComercializacion;
+    }
+
+    /**
+     * @param tipoComercializacion the tipoComercializacion to set
+     */
+    public void setTipoComercializacion(List<String> tipoComercializacion) {
+        this.tipoComercializacion = tipoComercializacion;
+    }
+
+    /**
      * @return the idMarca
      */
     public int getIdMarca() {
@@ -428,6 +442,7 @@ public class InventarioUI implements Serializable {
     private Cuentacontable idCuenta;
     //LISTAS PARA LLENAR LOS CB
     private List<String> unidades;
+    private List<String> tipoComercializacion;
     private List<Proveedor> proveedores;
     private List<SelectItem> proveedorItems;
     private List<Grupoproducto> grupos;
@@ -447,6 +462,9 @@ public class InventarioUI implements Serializable {
         unidades = new ArrayList();
         unidades.add("Caja");
         unidades.add("Unidad");
+        tipoComercializacion = new ArrayList();
+        tipoComercializacion.add("Venta");
+        tipoComercializacion.add("Gasto");
         findIdAndNameUi();
         findAllGrupoUi();
         findAllMarcaUi();
@@ -463,7 +481,7 @@ public class InventarioUI implements Serializable {
 //            System.err.println("Proveedor: " +  getProveedorSeleccionado());
 //            System.err.println("Grupo: " +  getGrupoSeleccionado());
 //              System.err.println("Medida: " +  unidadMed);
-            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado())) {
+            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta())) {
                 System.err.println("Estoy en ProdUITRUE");
                 // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
                 //Agrega el mensaje al componente <p:growl>
@@ -576,9 +594,9 @@ public class InventarioUI implements Serializable {
     
       public Cuentacontable getCuenta(){
         CuentacontableServicio cuentaServicio = new CuentacontableServicio();
-        idCuenta= cuentaServicio.getCuentacontableId(1);
+        idCuenta= cuentaServicio.getCuentacontableId(5);
         if(idCuenta!=null){
-            if(!idCuenta.getNombrecuenta().equals("Cuentas por pagar")){
+            if(!idCuenta.getNombrecuenta().equals("Inventario Mercaderias")){
                  System.out.println("ERROR AL AGREGAR CUENTA");
                  idCuenta=null;
             }
