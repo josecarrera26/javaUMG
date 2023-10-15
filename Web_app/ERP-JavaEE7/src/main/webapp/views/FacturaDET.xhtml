@@ -63,8 +63,11 @@
                 <p:panel id="pnlFacturaDet" header="Detalle de factura" class="centerPnl"  >
                     <p:panelGrid id="pnlGridId" layout="grid" columns="2" style="width: 100%" >
 
-                        <h:outputLabel id="lblIdProd" value="Id del Producto" />
-                        <p:inputText id="idProducto" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+                        <h:outputLabel id="lblIdProd" value="Nombre del Producto" />
+                        <p:selectOneMenu id="nombreproducto" label="Selecione uno" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio">
+                            <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                            <f:selectItems value="#{facturasDET.mostraridprod}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.idproducto}" />
+                        </p:selectOneMenu>
 
                         <h:outputLabel id="lblCantidad" value="Cantidad de Producto" />
                         <p:inputText id="cantProd" value="#{facturasDET.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" />     

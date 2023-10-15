@@ -6,6 +6,7 @@
     <h:head>
         <title>Facturas</title>
         <h:outputStylesheet library="css" name="inventario.css"/>
+       <h:outputStylesheet library="css" name="styleFernando.css"/>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
@@ -134,9 +135,9 @@
                                             <br/>
                                             <p:selectOneMenu id="Productos" class="combo" label="Seleccione uno"
                                                              style="width: 14rem;" panelStyle="width: 15rem" 
-                                                             value="#{facturasDET.idProducto}">
+                                                             value="">
                                                 <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                                <f:selectItems value="#{facturasDET.idProducto}"/>
+                                                <f:selectItems value=""/>
                                             </p:selectOneMenu>
                                             <p:linkButton outcome="Inventario" icon="pi pi-plus" style="margin-right:20px;" target="_blank">
                                                 <f:param name="inventario" value="10"/>
@@ -181,15 +182,18 @@
 
 
                     </p:panel>
-                    
-                    <p:panel id="pnlFacturaDet" header="Detalle de factura" class="centerPnl"  >
-                         <p:growl id="msg"/>
+
+                    <p:panel id="pnlFacturaDet" header="Detalle de factura" >
+                        <p:growl id="msg"/>
                         <p:panelGrid id="pnlGridId" layout="grid" columns="2" style="width: 100%" >
 
-                            <h:outputLabel id="lblIdProd" value="Id del Producto" />
-                            <p:inputText id="idProducto" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+                            <h:outputLabel id="lblIdProd" value="Nombre del Producto" />
+                            <p:selectOneMenu id="nombreproducto" label="Selecione uno" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio">
+                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                                <f:selectItems value="#{facturasDET.mostraridprod}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.idproducto}" />
+                            </p:selectOneMenu>
 
-                            <h:outputLabel id="lblCantidaDet" value="Cantidad de Producto" />
+                            <h:outputLabel id="lblCant" value="Cantidad de Producto" />
                             <p:inputText id="cantProd" value="#{facturasDET.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" />     
 
                             <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.agregarProducto()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />  
@@ -201,6 +205,7 @@
                                              update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
 
                         </p:panelGrid>
+
 
                         <p:dataTable id="productos" var="producto" value="#{facturasDET.mostrarListProd()}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
 
@@ -229,9 +234,6 @@
                                 </p:commandButton>
 
                             </p:column>
-
-
-
                         </p:dataTable>
 
                     </p:panel>
