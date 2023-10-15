@@ -8,10 +8,14 @@ import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.DAO.Facturadet;
 import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.util.JpaUtil;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 /**
  *
@@ -68,6 +72,25 @@ public class FacturaDetServicio {
             entityManager.close();
         }
         return false;
+
+    }
+    @PostConstruct
+      public void init() {
+      listadoProductos();
+      }
+      
+    //obtener listado id producto
+    //mostrar lista de id producto 
+    public List<Inventario> listadoProductos() {
+        EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
+        List<Inventario> resultado = new ArrayList<>();
+        //query para obtener el resutado
+        Query query = entity.createNamedQuery("Inventario.findAll", Inventario.class);
+
+        //obtenemos el resultado de la lista
+        resultado = query.getResultList();
+
+        return resultado;
 
     }
 

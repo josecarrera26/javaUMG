@@ -10,11 +10,15 @@ import com.umgprogra.erp.util.JpaUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import static javax.ws.rs.client.Entity.entity;
 
 /**
  *
@@ -25,7 +29,8 @@ import javax.persistence.EntityManager;
 public class FacturasDET implements Serializable {
 
     List<FacturasDET> listadoproductos = new ArrayList<>();
-
+    private List<Inventario> mostraridprod;
+    private List<SelectItem> listidItems;
     private Integer cantidad;
     private double precioUnitario;
     private double iva;
@@ -42,6 +47,23 @@ public class FacturasDET implements Serializable {
         this.subTotal = subTotal;
         this.nombreProducto = nombreProducto;
     }
+    
+    public List<Inventario> getMostraridprod() {
+        return mostraridprod;
+    }
+
+    public void setMostraridprod(List<Inventario> mostraridprod) {
+        this.mostraridprod = mostraridprod;
+    }
+
+    public List<SelectItem> getListidItems() {
+        return listidItems;
+    }
+
+    public void setListidItems(List<SelectItem> listidItems) {
+        this.listidItems = listidItems;
+    }
+    
 
     public FacturasDET() {
     }
@@ -94,6 +116,13 @@ public class FacturasDET implements Serializable {
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
     }
+    
+    @PostConstruct
+    public void init() {
+        mostrarIdProd();
+
+    }
+
 
     //funciones 
     public void registroFacturaDet() {
@@ -188,6 +217,23 @@ public class FacturasDET implements Serializable {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el producto."));
         }
+    }
+  
+    //listado de id producto
+    public void mostrarIdProd() {
+
+        FacturaDetServicio idprod = new FacturaDetServicio();
+        mostraridprod = idprod.listadoProductos();
+        try{
+            
+        for (Inventario inventario : mostraridprod){ 
+            listidItems.add(new SelectItem(inventario.getIdproducto(), inventario.getNombre()));
+
+        } 
+        }catch(Exception e){
+            System.out.println(e + "Error en consulta marcas clase MarcaUI");
+        }
+
     }
 
 }

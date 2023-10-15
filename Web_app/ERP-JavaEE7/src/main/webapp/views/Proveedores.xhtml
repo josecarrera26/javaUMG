@@ -64,10 +64,10 @@
                         <p:panelGrid id="pnlGridProvId" layout="grid" columns="2" style="width: 100%" >
 
                             <h:outputLabel id="lblNomProv" value=" Nombre " />
-                            <p:inputText id="nomProveedor" value="#{proveedores.nombreProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
+                            <p:inputText id="nomProveedor" value="#{proveedoresUI.nombreProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
 
                             <p:outputLabel for="lblRegProv" value="Regimen de proveedor"/>
-                            <p:selectOneMenu id="lblRegProv" value="#{proveedores.regimenProvedor}" style="width: 312px;" >
+                            <p:selectOneMenu id="lblRegProv" value="#{proveedoresUI.regimenProvedor}" style="width: 312px;" >
                                 <f:selectItem itemLabel="" itemValue=""/>
                                 <f:selectItem itemLabel="Pequeño contribuyente" itemValue="Pequeño contribuyente" />
                                 <f:selectItem itemLabel="Regimen opcional simplificado" itemValue="Regimen opcional simplificado"/>
@@ -75,19 +75,19 @@
                             </p:selectOneMenu>
 
                             <h:outputLabel id="lblDirecProv" value=" Direccion " />
-                            <p:inputText id="direcProveedor" value="#{proveedores.direccionProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
+                            <p:inputText id="direcProveedor" value="#{proveedoresUI.direccionProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
 
                             <h:outputLabel id="lblTelProv" value=" Telefono" />
-                            <p:inputText id="telProveedor" value="#{proveedores.telefonoProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/>     
+                            <p:inputText id="telProveedor" value="#{proveedoresUI.telefonoProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/>     
 
                             <h:outputLabel id="lblEmailProv" value="Correo Electronico" />
-                            <p:inputText id="emainProveedor" value="#{proveedores.emailProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
-
+                            <p:inputText id="emainProveedor" value="#{proveedoresUI.emailProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
+                            
                         </p:panelGrid >
 
 
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
-                            <p:commandButton id="btnRegProv" value="Registrar" actionListener ="#{proveedores.registroProveedor()}"
+                            <p:commandButton id="btnRegProv" value="Registrar" actionListener ="#{proveedoresUI.registroProveedor()}"
                                              update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
 
@@ -96,7 +96,7 @@
                 </p:tab>   
                 <!-- seccion de consulta de registros -->
                 <p:tab  title="Consultar registros">
-                    <p:dataTable id="proveedores" var="product" value="#{proveedores.idProveedor}" rowKey="#{proveedores.idProveedor}"
+                    <p:dataTable id="proveedores" var="product" value="#{proveedoresUI.idProveedor}" rowKey="#{proveedoresUI.idProveedor}"
                                  selection="" selectionMode="single">
 
                         <p:column headerText="ID proveedor">

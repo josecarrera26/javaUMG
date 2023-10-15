@@ -31,7 +31,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
-    @NamedQuery(name = "Inventario.findByIdproducto", query = "SELECT i FROM Inventario i WHERE i.idproducto = :idproducto"),
+    @NamedQuery(name = "Inventario.findByAllProducto", query = "SELECT i.idproducto, i.nombre, i.cantidad, i.tipoComercializacion, i.modelo, "
+            + " i.unidades, i.precioventa, i.coste, i.margenganancia, m.descripcion, l.descripcion, g.descripcion, "
+            + " p.nombreProveedor, i.estado, i.impuestoinventario "
+            + " FROM Inventario i "
+            + " INNER JOIN Marca m on i.idmarca = m.idmarca "
+            + " INNER JOIN Linea l on i.idlinea = l.idlinea "
+            + " INNER JOIN Grupoproducto g on i.idgrupoproducto = g.idgrupoproducto "
+            + " INNER JOIN Proveedor p on i.idproveedor = p.idproveedor"),
     @NamedQuery(name = "Inventario.findByNombre", query = "SELECT i FROM Inventario i WHERE i.nombre = :nombre"),
     @NamedQuery(name = "Inventario.findByCantidad", query = "SELECT i FROM Inventario i WHERE i.cantidad = :cantidad"),
     @NamedQuery(name = "Inventario.findByTipoComercializacion", query = "SELECT i FROM Inventario i WHERE i.tipoComercializacion = :tipoComercializacion"),
@@ -99,6 +106,24 @@ public class Inventario implements Serializable {
 
     public Inventario() {
     }
+
+//    public Inventario(Integer idproducto, String nombre, Integer cantidad, String tipoComercializacion, String modelo, String unidades, Double precioventa, Double coste, Integer margenganancia, Integer estado, Double impuestoinventario, Grupoproducto idgrupoproducto, Linea idlinea, Marca idmarca, Proveedor idproveedor) {
+//        this.idproducto = idproducto;
+//        this.nombre = nombre;
+//        this.cantidad = cantidad;
+//        this.tipoComercializacion = tipoComercializacion;
+//        this.modelo = modelo;
+//        this.unidades = unidades;
+//        this.precioventa = precioventa;
+//        this.coste = coste;
+//        this.margenganancia = margenganancia;
+//        this.estado = estado;
+//        this.impuestoinventario = impuestoinventario;
+//        this.idgrupoproducto = idgrupoproducto;
+//        this.idlinea = idlinea;
+//        this.idmarca = idmarca;
+//        this.idproveedor = idproveedor;
+//    }
 
     public Inventario(Integer idproducto) {
         this.idproducto = idproducto;
@@ -283,5 +308,5 @@ public class Inventario implements Serializable {
     public String toString() {
         return "com.umgprogra.erp.DAO.Inventario[ idproducto=" + idproducto + " ]";
     }
-    
+
 }
