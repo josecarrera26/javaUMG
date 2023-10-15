@@ -7,6 +7,7 @@ package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.DAO.Grupoproducto;
+import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.DAO.Linea;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
@@ -31,6 +32,104 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @ViewScoped
 public class InventarioUI implements Serializable {
+
+    /**
+     * @return the productoSelec
+     */
+    public InventarioUI getProductoSelec() {
+        return productoSelec;
+    }
+
+    /**
+     * @param productoSelec the productoSelec to set
+     */
+    public void setProductoSelec(InventarioUI productoSelec) {
+        this.productoSelec = productoSelec;
+    }
+
+    /**
+     * @return the estado
+     */
+    public int getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the marcaT
+     */
+    public String getMarcaT() {
+        return marcaT;
+    }
+
+    /**
+     * @param marcaT the marcaT to set
+     */
+    public void setMarcaT(String marcaT) {
+        this.marcaT = marcaT;
+    }
+
+    /**
+     * @return the lineaT
+     */
+    public String getLineaT() {
+        return lineaT;
+    }
+
+    /**
+     * @param lineaT the lineaT to set
+     */
+    public void setLineaT(String lineaT) {
+        this.lineaT = lineaT;
+    }
+
+    /**
+     * @return the grupoT
+     */
+    public String getGrupoT() {
+        return grupoT;
+    }
+
+    /**
+     * @param grupoT the grupoT to set
+     */
+    public void setGrupoT(String grupoT) {
+        this.grupoT = grupoT;
+    }
+
+    /**
+     * @return the proveedorT
+     */
+    public String getProveedorT() {
+        return proveedorT;
+    }
+
+    /**
+     * @param proveedorT the proveedorT to set
+     */
+    public void setProveedorT(String proveedorT) {
+        this.proveedorT = proveedorT;
+    }
+
+    /**
+     * @return the productos
+     */
+    public List<InventarioUI> getProductos() {
+        return productos;
+    }
+
+    /**
+     * @param productos the productos to set
+     */
+    public void setProductos(List<InventarioUI> productos) {
+        this.productos = productos;
+    }
 
     /**
      * @return the tipoComercializacion
@@ -147,14 +246,14 @@ public class InventarioUI implements Serializable {
     /**
      * @return the codProducto
      */
-    public String getCodProducto() {
+    public int getCodProducto() {
         return codProducto;
     }
 
     /**
      * @param codProducto the codProducto to set
      */
-    public void setCodProducto(String codProducto) {
+    public void setCodProducto(int codProducto) {
         this.codProducto = codProducto;
     }
 
@@ -423,8 +522,8 @@ public class InventarioUI implements Serializable {
     public void setLineaItems(List<SelectItem> lineaItems) {
         this.lineaItems = lineaItems;
     }
-
-    private String codProducto;
+    
+    private int codProducto;
     private String nombre;
     private int cantidad;
     private String tipo_comercializacion;
@@ -456,7 +555,16 @@ public class InventarioUI implements Serializable {
     private int idProveedor;
     private int idGrupo;
     private int idLinea;
-
+    //PARA LLENAR LA TABLA EN CONSULTA
+    private List<InventarioUI> productos;
+    private String marcaT;
+    private String lineaT;
+    private String grupoT;
+    private String proveedorT;
+    private int estado;
+    //PARA CAMBIOS EN PRODUCTO
+    private InventarioUI productoSelec;
+           
     @PostConstruct
     public void init() {
         unidades = new ArrayList();
@@ -469,6 +577,29 @@ public class InventarioUI implements Serializable {
         findAllGrupoUi();
         findAllMarcaUi();
         findAllLineaUi();
+        findAllProductosUi();
+    }
+    
+    public InventarioUI(){
+        
+    }
+    
+        public InventarioUI(Integer codProducto, String nombre, Integer cantidad, String tipo_comercializacion, String modelo, String unidades, Double precioventa, Double coste, Integer margenganancia, Integer estado, Double impuestoinventario, String idgrupoproducto, String idlinea, String idmarca, String idproveedor) {
+        this.codProducto = codProducto;
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.tipo_comercializacion = tipo_comercializacion;
+        this.modelo = modelo;
+        this.unidadMed = unidades;
+        this.precio = precioventa;
+        this.coste = coste;
+        this.margen_Ganancia = margenganancia;
+        this.estado = estado;
+        this.impuesto_Inventario = impuestoinventario;
+        this.grupoT = idgrupoproducto;
+        this.lineaT = idlinea;
+        this.marcaT = idmarca;
+        this.proveedorT = idproveedor;
     }
 
     public void saveProducto() {
@@ -496,6 +627,12 @@ public class InventarioUI implements Serializable {
         } catch (Exception e) {
             System.out.println(e + "Error en save MarcaUI");
         }
+    }
+    
+    
+    public void deleteProduct() {
+        productos.remove(productoSelec);
+        productoSelec = null;
     }
 
     //Metodos para obtener el objeto seleccionado en cb
@@ -602,6 +739,17 @@ public class InventarioUI implements Serializable {
             }
         }
         return idCuenta;
+    }
+      
+      
+       public void findAllProductosUi() {
+        try {
+            InventarioServicio inventarioServ = new InventarioServicio();
+            productos=(inventarioServ.findAllProducto());
+            
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta marcas clase ClienteUI");
+        }
     }
 
 }
