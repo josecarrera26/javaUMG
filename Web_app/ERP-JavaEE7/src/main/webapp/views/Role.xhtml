@@ -90,12 +90,13 @@
                                   
                                 </p:splitterPanel>
                                   </p:splitter>
+                               <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
+                                                value="Registrar Role" ajax="true"  style=" margin-left: 0px" >
+                               </p:commandButton>  
                             </div>
                         </h:form> 
                     </div>
-                        <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
-                                         value="Registrar Role" ajax="true"  style=" margin-left: 0px" >
-                        </p:commandButton>                        
+                      
                     </p:panel>
             </p:tab>
         </p:tabView>

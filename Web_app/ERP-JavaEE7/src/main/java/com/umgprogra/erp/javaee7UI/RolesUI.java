@@ -86,6 +86,14 @@ public class RolesUI implements  Serializable{
         public RolesUI(){
         
     }
+
+    public RolesServicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(RolesServicio servicio) {
+        this.servicio = servicio;
+    }
     
     private Integer idRole;
     private String nombreRole;

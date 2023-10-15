@@ -51,7 +51,7 @@ public class RolesServicio {
             if (resultList != null && !resultList.isEmpty()) {
                 System.out.println("Resultado de la consulta:");
             } else {
-                System.out.println("No se encontraron Cliente");
+                System.out.println("No se encontraron Roles");
             }
         } catch (Exception e) {
             System.err.println("Error en findbyIdRole " + e.getMessage());
