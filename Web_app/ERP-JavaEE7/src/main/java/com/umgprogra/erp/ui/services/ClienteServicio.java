@@ -21,7 +21,7 @@ public class ClienteServicio {
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
   public Boolean saveCliente(String pnombre, String ptelefono, String pemail, String pnit, String pdireccion, String pdpi) {
-        boolean g = false;   
+        boolean g = false;
         
         System.out.println( "Estoy en ClienteServicio");        
 

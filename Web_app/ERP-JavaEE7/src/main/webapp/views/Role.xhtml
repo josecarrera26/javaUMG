@@ -57,63 +57,41 @@
         
         <p:tabView dynamic="true">
             <p:growl id="msg"/>
-                <!-- seccion de registro de Cuentas Contables -->
-                <p:tab  title="Cuentas Contables">
+                <!-- seccion de registro de Role -->
+                <p:tab  title="Nuevo Role">
                     <div class="card" style="width: 100%">
                         <h:form>
                             <div class="grid ui-fluid mt-3 floatlabel-demo">
-                               <p:splitter style="height: 300px" styleClass="mb-5">
-                                   <p:splitterPanel styleClass="flex align-items-center justify-content-center">                               
+                               <h:outputLabel value="Ingrese los valores requeridos para registrar un nuevo Role: " />                             
+                               <p:splitter style="height: 100px" styleClass="mb-5">
+                                   <p:splitterPanel styleClass="flex align-items-center justify-content-center">                            
                                 <h5></h5>
                                 <div class="col-12 md:col-6">                                   
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                            <p:inputText id="idCuentaContable" value="#{clienteUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />
-                                            <p:outputLabel for="@previous" value="ID Cuenta" />
-                                        </span>
-                                    </div>
                                     <h5></h5>
                                     <div class="field">
                                         <span class="ui-float-label ui-input-icon-left">                                            
-                                            <p:inputText />
-                                            <p:outputLabel for="@previous" value="Nombre Cuenta" styleClass="ml-4" />
-                                        </span>
-                                    </div>
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label ui-input-icon-right">
-                                           <p:inputText />
-                                           <p:outputLabel for="@previous" value="Tipo Cuenta" />
+                                            <p:inputText id="nomRole" value="#{rolesUI.nombreRole}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                            <p:outputLabel for="@previous" value="Nombre del role" styleClass="ml-4" />
                                         </span>
                                     </div>
                                 </div>   
                                 </p:splitterPanel>
                                 <p:splitterPanel styleClass="flex align-items-center justify-content-center">
                                 <h5></h5>
-                                <div class="col-12 md:col-6">    
+                                <div class="col-12 md:col-6"> 
                                     <div class="field">
                                         <span class="ui-float-label">
-                                           <p:inputText />
-                                           <p:outputLabel for="@previous" value="Código Cuenta" />
-                                        </span>
-                                    </div>
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                           <p:inputText />
-                                           <p:outputLabel for="@previous" value="ID Cliente" />
-                                        </span>
-                                    </div>
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                              <p:inputText />
-                                              <p:outputLabel for="@previous" value="ID Proveedores" />
+                                            <p:inputText id="descRole" value="#{rolesUI.descripcion}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                           <p:outputLabel for="@previous" value="Descripción" />
                                         </span>
                                     </div>                                    
                                 </div>
+                                  
                                 </p:splitterPanel>
                                   </p:splitter>
+                               <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
+                                                value="Registrar Role" ajax="true"  style=" margin-left: 0px" >
+                               </p:commandButton>
                             </div>
                         </h:form> 
                     </div>
