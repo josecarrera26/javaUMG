@@ -4,9 +4,16 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Empleado;
+import com.umgprogra.erp.ui.services.EmpleadoServicio;
+import com.umgprogra.erp.ui.services.Pedidos;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -16,6 +23,48 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class PedidosUI {
+
+    /**
+     * @return the empleados
+     */
+    public List<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    /**
+     * @param empleados the empleados to set
+     */
+    public void setEmpleados(List<Empleado> empleados) {
+        this.empleados = empleados;
+    }
+
+    /**
+     * @return the empleadosItem
+     */
+    public List<SelectItem> getEmpleadosItem() {
+        return empleadosItem;
+    }
+
+    /**
+     * @param empleadosItem the empleadosItem to set
+     */
+    public void setEmpleadosItem(List<SelectItem> empleadosItem) {
+        this.empleadosItem = empleadosItem;
+    }
+
+    /**
+     * @return the ultimoPedido
+     */
+    public Integer getUltimoPedido() {
+        return ultimoPedido;
+    }
+
+    /**
+     * @param ultimoPedido the ultimoPedido to set
+     */
+    public void setUltimoPedido(Integer ultimoPedido) {
+        this.ultimoPedido = ultimoPedido;
+    }
 
     /**
      * @return the idPedido
@@ -101,13 +150,28 @@ public class PedidosUI {
         this.idCliente = idCliente;
     }
 
-    public PedidosUI(Integer idPedido, Date fecha_pedido, String nit, Integer idEmpleado, Integer idProducto, Integer idCliente) {
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public PedidosUI(Integer idPedido, Date fecha_pedido, String nit, Integer idEmpleado, Integer idProducto, Integer idCliente, String estado) {
         this.idPedido = idPedido;
         this.fecha_pedido = fecha_pedido;
         this.nit = nit;
         this.idEmpleado = idEmpleado;
         this.idProducto = idProducto;
         this.idCliente = idCliente;
+        this.estado = estado;
     }
     private Integer idPedido;
     private Date fecha_pedido;
@@ -115,5 +179,48 @@ public class PedidosUI {
     private Integer idEmpleado;
     private Integer idProducto;
     private Integer idCliente;
+    private String estado;
+    
+    private Integer ultimoPedido;
+    
+    private List<Empleado> empleados;
+    private List<SelectItem> empleadosItem;
+    
+    public PedidosUI(){
+    }
+    
+    @PostConstruct
+    public void init() {
+    obtenerUltimaFactura();
+    findAllEmpleados();
+    }
+    
+    public void obtenerUltimaFactura(){
+     try{
+            Pedidos pedido = new Pedidos();
+            ultimoPedido = pedido.getLastPedido();
+        }
+        catch (Exception e) {
+            System.out.println("Error al consultar ultimo numero de factura");
+            System.out.println("Mensaje: " + e.getMessage());
+        }
+    }
+    
+    public void findAllEmpleados(){
+    
+    try {
+        EmpleadoServicio empleadoServicio = new EmpleadoServicio();
+            empleados = empleadoServicio.findAllEmpleados();
+            empleadosItem = new ArrayList<>();
+        
+        for (Empleado empleadoobj : getEmpleados()){
+                getEmpleadosItem().add(new SelectItem(empleadoobj.getIdempleado(),empleadoobj.getNombreEmpleado()));
+        }
+    }
+    catch (Exception e) {
+        System.out.println("Error al consultar clase Empleado " + e.getMessage());
+    }
+    
+    }
 }
 

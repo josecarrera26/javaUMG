@@ -5,7 +5,6 @@
 package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Empleado;
-import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.ui.services.FacturasServicio;
 import java.util.ArrayList;
 import java.util.Date;
@@ -316,10 +315,4 @@ public class FacturaCabUI {
         }
     }
 
-    /**
-     * @param lastFactura the lastFactura to set
-     */
-    public void setLastFactura(Integer lastFactura) {
-        this.lastFactura = lastFactura;
-    }
 }

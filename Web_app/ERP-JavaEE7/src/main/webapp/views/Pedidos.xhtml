@@ -1,0 +1,219 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Pedidos</title>
+        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+        <h:outputStylesheet library="css" name="styleCliente.css"/>
+    </h:head>
+
+    <h:body>
+        <h:form id="formCliente">
+
+            <p:menubar>
+                <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
+                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                </p:submenu>
+
+                <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
+                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
+                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="./login.xhtml"/>
+                </p:submenu>
+
+
+                <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
+                    <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml"/>
+                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./CuentasContables.xhtml"/>
+                    <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
+                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Empleado.xhtml"/>
+                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" url="./Role.xhtml"/>
+                    </p:submenu>
+                </p:submenu>
+
+
+                <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
+                    <p:menuitem value="Cliente" icon="pi pi-fw pi-user" url="./Cliente.xhtml"/>
+                    <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" url="./Facturas.xhtml"/>
+                    <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" url="./Proveedores.xhtml"/>
+                </p:submenu>
+
+                <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
+                    <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" url="./Pedidos.xhtml"/>
+                    <p:menuitem value="Producto" icon="pi pi-fw pi-box" url="./Inventario.xhtml"/>
+                    <p:submenu label="Tags" icon="pi pi-fw pi-tags">
+                        <p:menuitem value="Marca" icon="pi pi-fw pi-tag"/>
+                        <p:menuitem value="Linea" icon="pi pi-fw pi-tag"/>
+                        <p:menuitem value="Grupo" icon="pi pi-fw pi-tag"/>
+                    </p:submenu>
+                    <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
+                </p:submenu>
+
+            </p:menubar>
+
+            <h:form id="frmPedido">
+                <p:tabView dynamic="false">
+                    <p:tab title="Pedidos">
+                        <p:panel id="pnlFacturaCab" header="Registro de nuevo pedido" style="width: 100%">
+                            <div class="card">
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <h:outputLabel id="lblnoPedido" value="No.Pedido" />
+                                        <div style="display: flex; flex-direction: column;">
+                                            <p:inputText id="txtnoPedido" style="width: 250px;" disabled="true" value="#{pedidosUI.ultimoPedido}"></p:inputText>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+
+                                <div class="grid">
+                                    <div class="col-5 flex align-items-center justify-content-center">
+                                        <div class="ui-fluid">
+                                            <div class="field">
+                                                <h:outputLabel id="lblnitc" value="NIT" />
+                                                <div style="display: flex; flex-direction: column;">
+                                                    <p:inputText id="nit" style="width: 250px;" value="#{pedidosUI.nit}"   required="true" requiredMessage="nit Requerido" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <p:divider layout="vertical"> </p:divider>
+                                    </div>
+
+                                    <div class="ui-fluid">
+                                        <div class="ui-fluid">
+                                            <div class="field">
+                                                <p:outputLabel id="idEmpleado" value="Empleado"  for="@next"/>
+                                                <br/>
+                                                <p:selectOneMenu id="slcEmpleado" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
+                                                                 style="width: 14rem;" panelStyle="width: 15rem" 
+                                                                 value="#{empleadoUI.empleadoItems}">
+                                                    <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                    <f:selectItems value="#{empleadoUI.empleadoItems}"/>
+                                                </p:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="grid">
+                                    <div class="col-5 flex align-items-center justify-content-center">
+                                        <div class="ui-fluid">
+                                            <div class="field">
+                                                <p:outputLabel id="idLabelProducto" value="Producto"  for="@next"/>
+                                                <br/>
+                                                <p:selectOneMenu id="Productos" class="combo" label="Seleccione uno"
+                                                                 style="width: 14rem;" panelStyle="width: 15rem" 
+                                                                 value="" dynamic="true" filter="true" filterMatchMode="startsWith">
+                                                    <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                    <f:selectItems value=""/>
+                                                </p:selectOneMenu>
+                                                <p:linkButton outcome="Inventario" icon="pi pi-plus" style="margin-right:20px;" target="_blank">
+                                                </p:linkButton>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <p:divider layout="vertical"> </p:divider>
+                                    </div>
+
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <div class="field">
+                                                <p:outputLabel id="lblCliente" value="Cliente"  for="@next"/>
+                                                <br/>
+                                                <p:selectOneMenu id="slcCliente" class="combo" label="Seleccione uno"
+                                                                 style="width: 14rem;" panelStyle="width: 15rem" 
+                                                                 value="" dynamic="true" filter="true" filterMatchMode="startsWith">
+                                                    <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                    <f:selectItems value=""/>
+                                                </p:selectOneMenu>
+                                                <p:linkButton outcome="Cliente" icon="pi pi-plus" style="margin-right:20px;" target="_blank">
+                                                </p:linkButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+
+                                <div class="grid">
+                                    <div class="col-5 flex align-items-center justify-content-center">
+                                        <div class="ui-fluid">
+                                            <div class="field">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+
+            <div class="layout-footer">
+                <div class="card">
+                    <p:accordionPanel widgetVar="basic">
+                        <p:tab title="GRANDES SOLUCIONES (UNA EXPERIENCIA UNICA PARA TU NEGOCIO)">
+
+                            <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" style="float: left" />
+
+                            <style>
+                                .custom-scrolltop.ui-scrolltop {
+                                    width: 2rem;
+                                    height: 2rem;
+                                    border-radius: 4px;
+                                    outline: 0 none;
+                                    background-color: var(--primary-color);
+                                }
+                                .custom-scrolltop.ui-scrolltop:hover {
+                                    background-color: var(--primary-color);
+                                }
+
+                                .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
+                                    font-size: 1rem;
+                                    color: var(--primary-color-text);
+                                }
+                            </style>
+
+                            <div class="card">
+                                <p:scrollTop />
+                                <p:scrollPanel style="width: 500px; height: 80px; margin: auto" mode="native">
+                                    <p>
+                                        Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
+                                        un servicio de control contable/financiero para su empresa. contamos con 
+                                        un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
+                                        mejor servicio que usted necesita.
+                                    </p>
+                                    <p:scrollTop target="parent" threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
+                                </p:scrollPanel>                            
+                            </div>
+                        </p:tab>
+
+                        <p:tab title="Contactanos" menuTitle="Options">
+                            <div id="container">
+                                <span id="slot0"> https://solucionesgt.com </span>
+                                <span id="slot1"> | </span>
+                                <span id="slot2"> 2424-2424 </span>
+                                <span id="slot3"> | </span>
+                                <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                            </div>
+                        </p:tab>
+                    </p:accordionPanel>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>            

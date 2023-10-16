@@ -17,8 +17,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import static javax.ws.rs.client.Entity.entity;
+
 
 /**
  *

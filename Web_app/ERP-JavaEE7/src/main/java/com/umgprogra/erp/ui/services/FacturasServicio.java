@@ -6,11 +6,8 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Facturacab;
-import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.util.JpaUtil;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
