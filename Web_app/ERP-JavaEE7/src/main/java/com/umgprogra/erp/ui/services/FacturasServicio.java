@@ -21,21 +21,20 @@ import javax.persistence.Query;
 public class FacturasServicio {
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public Facturacab getLastFactura() {
-        Facturacab ultimaFactura = new Facturacab();
-        Integer contarFacturas;
-        List<Facturacab> facturas = new ArrayList<>();
+    public int  getLastFactura() {
+       // Object[] ultimaFactura;
+        int  idFac =0;
         try {
-            Query query = entity.createNamedQuery("Facturacab.findAll", Facturacab.class);
-            facturas = query.getResultList();
-            contarFacturas = facturas.size();
-            ultimaFactura = facturas.get(contarFacturas);
+            Query query = entity.createNamedQuery("Facturacab.findUltimaFactura");
+            idFac = (int) query.getSingleResult();
+           // contarFacturas = facturas.size();
+            //idFac = ultimaFactura.getIdfactura();
             
-            System.out.println("Esta es la utlima factura: " + ultimaFactura.getIdfactura());
+            System.out.println("Esta es la utlima factura: " + idFac);
         } catch (Exception e) {
             System.err.println("Error en getAllFacturas " + e.getMessage());
         }
-        return ultimaFactura;
+        return idFac;
     }
 
     public String insertarFacturacab(Date pFechaRegistro, Integer pPlazoPagos, Integer pReferenciaFactura, Integer pIDEmpleado, Integer pTipoCliente, Integer pEstadoFactura, Double pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {

@@ -305,10 +305,10 @@ public class FacturaCabUI {
     public void getUltimaFactura(){
         try{
             FacturasServicio factura = new FacturasServicio();
-            Facturacab utimaFactura = new Facturacab();
+            //Facturacab utimaFactura = new Facturacab();
             
-            utimaFactura = factura.getLastFactura();
-            lastFactura = utimaFactura.getIdfactura() + 1;
+            lastFactura = factura.getLastFactura();
+            System.out.println("DATO IDFAC VISTA UI"+lastFactura);
         }
         catch (Exception e) {
             System.out.println("Error al consultar ultimo numero de factura");
