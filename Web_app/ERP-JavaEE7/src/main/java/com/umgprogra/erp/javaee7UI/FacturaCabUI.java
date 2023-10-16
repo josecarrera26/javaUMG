@@ -23,6 +23,13 @@ import javax.faces.model.SelectItem;
 @ViewScoped
 public class FacturaCabUI {
 
+    /**
+     * @return the lastFactura
+     */
+    public Integer getLastFactura() {
+        return lastFactura;
+    }
+
 
     /**
      * @return the cantidad
@@ -272,7 +279,7 @@ public class FacturaCabUI {
         plazosPago();
         pagos();
         tipoFactura();
-        getLastFactura();
+        getUltimaFactura();
     }
 
     
@@ -295,13 +302,13 @@ public class FacturaCabUI {
         tipoFacturaList.add(new SelectItem(2,"Venta"));
     }
     
-    public void getLastFactura(){
+    public void getUltimaFactura(){
         try{
             FacturasServicio factura = new FacturasServicio();
-            List<Facturacab> allFacturasItems = new ArrayList<>();
+            Facturacab utimaFactura = new Facturacab();
             
-            allFacturasItems = factura.getLastFactura();
-            lastFactura = allFacturasItems.get(1).getIdfactura() + 1;
+            utimaFactura = factura.getLastFactura();
+            lastFactura = utimaFactura.getIdfactura() + 1;
         }
         catch (Exception e) {
             System.out.println("Error al consultar ultimo numero de factura");
