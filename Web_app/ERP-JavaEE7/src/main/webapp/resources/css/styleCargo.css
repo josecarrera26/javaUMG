@@ -15,3 +15,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 #pnlFormulario{
    text-align: center; 
 }
+
+.centerPnlGridRoletId{
+    width: 100%;
+    margin: 20px; /*autocentrado*/
+    align-items: center;
+    text-align: center; /*centrar*/
+    margin-top: 25px;   /*arriba o abajo*/
+    margin-left: 185px; /*mover a los lados*/
+}

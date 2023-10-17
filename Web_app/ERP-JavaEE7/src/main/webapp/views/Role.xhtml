@@ -59,9 +59,10 @@
             <p:growl id="msg"/>
                 <!-- seccion de registro de Role -->
                 <p:tab  title="Nuevo Role">
-                    <p:panel id="pnlRegistroCliente" >
+                    <p:panel id="pnlRegistroRole" style="width: 50%" >
                     <div class="card" style="width: 100%">
                         <h:form>
+                           <p:panelGrid id="pnlGridRoletId" layout="grid" columns="1" style="vertical-align:top;  ">
                             <div class="grid ui-fluid mt-3 floatlabel-demo">
                                <h:outputLabel value="Ingrese los valores requeridos para registrar un nuevo Role: " />                             
                                <p:splitter style="height: 100px" styleClass="mb-5">
@@ -90,14 +91,15 @@
                                   
                                 </p:splitterPanel>
                                   </p:splitter>
-                               <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
-                                                value="Registrar Role" ajax="true"  style=" margin-left: 0px" >
-                               </p:commandButton>  
+                        <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
+                                         value="Registrar Role" ajax="true"  style=" margin-left: 0px" >
+                        </p:commandButton> 
                             </div>
+                        </p:panelGrid >
                         </h:form> 
                     </div>
-                      
-                    </p:panel>
+    
+                    </p:panel>                                     
             </p:tab>
         </p:tabView>
 
