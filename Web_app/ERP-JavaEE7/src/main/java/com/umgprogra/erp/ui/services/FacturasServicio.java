@@ -6,11 +6,8 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Facturacab;
-import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.util.JpaUtil;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -21,15 +18,20 @@ import javax.persistence.Query;
 public class FacturasServicio {
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public List<Facturacab> getLastFactura() {
-        List<Facturacab> ultimaFactura = new ArrayList<>();
+    public int  getLastFactura() {
+       // Object[] ultimaFactura;
+        int  idFac =0;
         try {
-            Query query = entity.createQuery("SELECT f FROM facturacab f order by 1 desc limit 1");
-            ultimaFactura = query.getResultList();
+            Query query = entity.createNamedQuery("Facturacab.findUltimaFactura");
+            idFac = (int) query.getSingleResult();
+           // contarFacturas = facturas.size();
+            //idFac = ultimaFactura.getIdfactura();
+            
+            System.out.println("Esta es la utlima factura: " + idFac);
         } catch (Exception e) {
             System.err.println("Error en getAllFacturas " + e.getMessage());
         }
-        return ultimaFactura;
+        return idFac;
     }
 
     public String insertarFacturacab(Date pFechaRegistro, Integer pPlazoPagos, Integer pReferenciaFactura, Integer pIDEmpleado, Integer pTipoCliente, Integer pEstadoFactura, Double pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {

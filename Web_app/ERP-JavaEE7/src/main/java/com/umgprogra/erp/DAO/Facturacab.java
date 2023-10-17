@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Facturacab.findAll", query = "SELECT f FROM Facturacab f"),
+    @NamedQuery(name = "Facturacab.findUltimaFactura", query = "SELECT MAX(f.idfactura) + 1  FROM Facturacab f"),
     @NamedQuery(name = "Facturacab.findByIdfactura", query = "SELECT f FROM Facturacab f WHERE f.idfactura = :idfactura"),
     @NamedQuery(name = "Facturacab.findByFechaRegistro", query = "SELECT f FROM Facturacab f WHERE f.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Facturacab.findByPlazosPago", query = "SELECT f FROM Facturacab f WHERE f.plazosPago = :plazosPago"),

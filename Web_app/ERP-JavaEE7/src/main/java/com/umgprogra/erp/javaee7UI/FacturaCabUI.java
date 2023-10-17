@@ -5,7 +5,6 @@
 package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Empleado;
-import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.ui.services.FacturasServicio;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +21,13 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @ViewScoped
 public class FacturaCabUI {
+
+    /**
+     * @return the lastFactura
+     */
+    public Integer getLastFactura() {
+        return lastFactura;
+    }
 
 
     /**
@@ -272,7 +278,7 @@ public class FacturaCabUI {
         plazosPago();
         pagos();
         tipoFactura();
-        getLastFactura();
+        getUltimaFactura();
     }
 
     
@@ -295,13 +301,13 @@ public class FacturaCabUI {
         tipoFacturaList.add(new SelectItem(2,"Venta"));
     }
     
-    public void getLastFactura(){
+    public void getUltimaFactura(){
         try{
             FacturasServicio factura = new FacturasServicio();
-            List<Facturacab> allFacturasItems = new ArrayList<>();
+            //Facturacab utimaFactura = new Facturacab();
             
-            allFacturasItems = factura.getLastFactura();
-            lastFactura = allFacturasItems.get(1).getIdfactura() + 1;
+            lastFactura = factura.getLastFactura();
+            System.out.println("DATO IDFAC VISTA UI"+lastFactura);
         }
         catch (Exception e) {
             System.out.println("Error al consultar ultimo numero de factura");
@@ -309,10 +315,4 @@ public class FacturaCabUI {
         }
     }
 
-    /**
-     * @param lastFactura the lastFactura to set
-     */
-    public void setLastFactura(Integer lastFactura) {
-        this.lastFactura = lastFactura;
-    }
 }

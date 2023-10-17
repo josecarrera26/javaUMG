@@ -17,8 +17,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import static javax.ws.rs.client.Entity.entity;
 
 /**
  *
@@ -47,7 +45,7 @@ public class FacturasDET implements Serializable {
         this.subTotal = subTotal;
         this.nombreProducto = nombreProducto;
     }
-    
+
     public List<Inventario> getMostraridprod() {
         return mostraridprod;
     }
@@ -63,7 +61,6 @@ public class FacturasDET implements Serializable {
     public void setListidItems(List<SelectItem> listidItems) {
         this.listidItems = listidItems;
     }
-    
 
     public FacturasDET() {
     }
@@ -116,13 +113,12 @@ public class FacturasDET implements Serializable {
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
     }
-    
+
     @PostConstruct
     public void init() {
         mostrarIdProd();
 
     }
-
 
     //funciones 
     public void registroFacturaDet() {
@@ -154,52 +150,51 @@ public class FacturasDET implements Serializable {
         listadoproductos.clear();
     }
 
-    public void agregarProducto() {
-        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
-        FacturasDET facDET = new FacturasDET();
-
-        try {
-            //para validacion de existacia en las tablas
-            Inventario inventario = entityManager.find(Inventario.class, this.idProducto);
-            int cantidadInventario = inventario.getCantidad();
-
-            if (cantidadInventario > this.cantidad && this.cantidad != 0) {
-
-                //obtenenemos el precio unitario del producto
-                double preciounitario = inventario.getPrecioventa();
-                String nombreProd = inventario.getNombre();
-                //calculo del iva
-                double iva = (preciounitario * this.cantidad) * 0.12;
-                //calculo del subtotal
-                double subTotal = (preciounitario * this.cantidad) + iva;
-
-                //seteamos los datos a la clase de facturaDET para agregarlo a una lista
-                facDET.setCantidad(this.cantidad);
-                facDET.setIdProducto(this.idProducto);
-                facDET.setIva(iva);
-                facDET.setNombreProducto(nombreProd);
-                facDET.setPrecioUnitario(preciounitario);
-                facDET.setSubTotal(subTotal);
-                //agregamos el objeto a la lista
-                listadoproductos.add(facDET);
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto insertado con éxito."));
-
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor nulo o falta de inventario", "No se pudo insertar el producto."));
-
-            }
-
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor nulo o falta de inventario", "No se pudo insertar el producto."));
-
-        } finally {
-            entityManager.close();
-        }
-        this.idProducto = 0;
-        this.cantidad = 0;
-
-    }
-
+//    public void agregarProducto() {
+//        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+//        FacturasDET facDET = new FacturasDET();
+//
+//        try {
+//            //para validacion de existacia en las tablas
+//            Inventario inventario = entityManager.find(Inventario.class, this.idProducto);
+//            int cantidadInventario = inventario.getCantidad();
+//
+//            if (cantidadInventario > this.cantidad && this.cantidad != 0) {
+//
+//                //obtenenemos el precio unitario del producto
+//                double preciounitario = inventario.getPrecioventa();
+//                String nombreProd = inventario.getNombre();
+//                //calculo del iva
+//                double iva = (preciounitario * this.cantidad) * 0.12;
+//                //calculo del subtotal
+//                double subTotal = (preciounitario * this.cantidad) + iva;
+//
+//                //seteamos los datos a la clase de facturaDET para agregarlo a una lista
+//                facDET.setCantidad(this.cantidad);
+//                facDET.setIdProducto(this.idProducto);
+//                facDET.setIva(iva);
+//                facDET.setNombreProducto(nombreProd);
+//                facDET.setPrecioUnitario(preciounitario);
+//                facDET.setSubTotal(subTotal);
+//                //agregamos el objeto a la lista
+//                listadoproductos.add(facDET);
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto insertado con éxito."));
+//
+//            } else {
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor nulo o falta de inventario", "No se pudo insertar el producto."));
+//
+//            }
+//
+//        } catch (Exception e) {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor nulo o falta de inventario", "No se pudo insertar el producto."));
+//
+//        } finally {
+//            entityManager.close();
+//        }
+//        this.idProducto = 0;
+//        this.cantidad = 0;
+//
+//    }
     public List<FacturasDET> mostrarListProd() {
         List<FacturasDET> mostrar = new ArrayList<>();
         for (FacturasDET lista : listadoproductos) {
@@ -218,21 +213,84 @@ public class FacturasDET implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el producto."));
         }
     }
-  
+
     //listado de id producto
     public void mostrarIdProd() {
 
         FacturaDetServicio idprod = new FacturaDetServicio();
         mostraridprod = idprod.listadoProductos();
-        try{
-            
-        for (Inventario inventario : mostraridprod){ 
-            listidItems.add(new SelectItem(inventario.getIdproducto(), inventario.getNombre()));
+        try {
 
-        } 
-        }catch(Exception e){
+            for (Inventario inventario : mostraridprod) {
+                listidItems.add(new SelectItem(inventario.getIdproducto(), inventario.getNombre()));
+
+            }
+        } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase MarcaUI");
         }
+
+    }
+
+    public void agregarProducto() {
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+
+        try {
+            //para validacion de existacia en las tablas
+            Inventario inventario = entityManager.find(Inventario.class, this.idProducto);
+            int cantidadInventario = inventario.getCantidad();
+
+            if (cantidadInventario > this.cantidad && this.cantidad != 0) {
+                //obtenenemos el precio unitario del producto
+                double preciounitario = inventario.getPrecioventa();
+                String nombreProd = inventario.getNombre();
+                //calculo del iva
+                double iva = (preciounitario * this.cantidad) * 0.12;
+                //calculo del subtotal
+                double subTotal = (preciounitario * this.cantidad) + iva;
+
+                //buscamos si el producto ya se encuentra en la lista
+                FacturasDET existenciaprod = null;
+                for (FacturasDET producto : listadoproductos) {
+                    if (producto.getIdProducto() == this.idProducto) {
+                        existenciaprod = producto;
+                    }
+                }
+
+                if (existenciaprod != null && cantidadInventario > existenciaprod.getCantidad() + this.cantidad) {
+                    existenciaprod.setCantidad(existenciaprod.getCantidad() + this.cantidad);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suma de producto", "exito."));
+                }if(existenciaprod != null && cantidadInventario <= existenciaprod.getCantidad() + this.cantidad ){
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "falta de inventario", "error."));
+                }
+
+                if (existenciaprod == null) {
+                    FacturasDET facDET = new FacturasDET();
+
+                    //seteamos los datos a la clase de facturaDET para agregarlo a una lista
+                    facDET.setCantidad(this.cantidad);
+                    facDET.setIdProducto(this.idProducto);
+                    facDET.setIva(iva);
+                    facDET.setNombreProducto(nombreProd);
+                    facDET.setPrecioUnitario(preciounitario);
+                    facDET.setSubTotal(subTotal);
+                    //agregamos el objeto a la lista
+                    listadoproductos.add(facDET);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "agregado a la lista", "Producto insertado con éxito."));
+                }
+                
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor nulo o falta de inventario", "No se pudo insertar el producto."));
+
+            }
+
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "No se pudo insertar el producto."));
+
+        } finally {
+            entityManager.close();
+        }
+        this.idProducto = 0;
+        this.cantidad = 0;
 
     }
 

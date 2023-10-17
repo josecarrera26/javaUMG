@@ -6,7 +6,7 @@
     <h:head>
         <title>Facturas</title>
         <h:outputStylesheet library="css" name="inventario.css"/>
-       <h:outputStylesheet library="css" name="styleFernando.css"/>
+        <h:outputStylesheet library="css" name="styleFernando.css"/>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
@@ -26,7 +26,7 @@
 
 
                 <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
-                    <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml"/>
+                    <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml" includeViewParams="true"/>
                     <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./CuentasContables.xhtml"/>
                     <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
                 </p:submenu>
@@ -58,9 +58,9 @@
                         <div class="card">
                             <div class="ui-fluid">
                                 <div class="field">
-                                    <h:outputLabel id="lblnoFac" value="No.Fac" />
+                                    <h:outputLabel id="lblnoFac" value="No.Factura" />
                                     <div style="display: flex; flex-direction: column;">
-                                        <p:inputText id="noFac" style="width: 250px;" disabled="true"></p:inputText>
+                                        <p:inputText id="noFac" value="#{facturaCabUI.lastFactura}" style="width: 250px;" disabled="true"></p:inputText>
                                     </div>
                                 </div>
                             </div>
@@ -103,8 +103,8 @@
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <h:outputLabel id="lblCantidad" value="Cantidad" />
-                                            <p:inputText id="cantidad" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Cantidad requerida" />
+                                            <h:outputLabel id="lblCoste" value="Coste" />
+                                            <p:inputText id="coste" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Coste requerida" />
 
                                         </div>
 
@@ -117,8 +117,14 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <div class="field">
-                                            <h:outputLabel id="lblCoste" value="Coste" />
-                                            <p:inputText id="coste" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Coste requerida" />
+                                            <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
+                                        <br/>
+                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
+                                                         style="width: 14rem;" panelStyle="width: 15rem" 
+                                                         value="#{facturaCabUI.tipo_pago}">
+                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                            <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
+                                        </p:selectOneMenu>
                                         </div>
                                     </div>
                                 </div>
@@ -131,17 +137,15 @@
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <p:outputLabel id="idLabelProducto" value="Producto"  for="@next"/>
-                                            <br/>
-                                            <p:selectOneMenu id="Productos" class="combo" label="Seleccione uno"
-                                                             style="width: 14rem;" panelStyle="width: 15rem" 
-                                                             value="">
-                                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                                <f:selectItems value=""/>
-                                            </p:selectOneMenu>
-                                            <p:linkButton outcome="Inventario" icon="pi pi-plus" style="margin-right:20px;" target="_blank">
-                                                <f:param name="inventario" value="10"/>
-                                            </p:linkButton>
+                                            <h:outputLabel id="lbltipoFactura" value="Tipo Factura" />
+                                            <div style="display: flex; flex-direction: column;">
+                                                <p:selectOneMenu id="Tipofactura" class="combo" label="Seleccione uno"
+                                                                 style="width: 15rem;" panelStyle="width: 15rem" 
+                                                                 value="#{facturaCabUI.tipo_pago}">
+                                                    <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                    <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
+                                                </p:selectOneMenu>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,30 +155,62 @@
 
                                 <div class="ui-fluid">
                                     <div class="field">
-                                        <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
-                                        <br/>
-                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
-                                                         style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{facturaCabUI.tipo_pago}">
-                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
-                                        </p:selectOneMenu>
+                                        
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+
                         <div class="card">
-                            <div class="ui-fluid">
-                                <div class="field">
-                                    <h:outputLabel id="lbltipoFactura" value="tipo Factura" />
-                                    <div style="display: flex; flex-direction: column;">
-                                        <p:selectOneMenu id="Tipofactura" class="combo" label="Seleccione uno"
-                                                         style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{facturaCabUI.tipo_pago}">
-                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
-                                        </p:selectOneMenu>
+
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <h:outputLabel id="lblIdProd" value="Nombre del Producto" for="@next"/>
+                                            <br/>
+                                            <p:selectOneMenu id="nombreproducto" label="Selecione uno" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio"
+                                                             style="width: 13rem;" panelStyle="width: 15rem">
+                                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                                                <f:selectItems value="#{facturasDET.mostraridprod}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.idproducto}" />
+                                            </p:selectOneMenu>
+                                            <p:linkButton outcome="Inventario" icon="pi pi-plus"  target="_blank">
+                                            </p:linkButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <h:outputLabel id="lblCant" value="Cantidad de Producto" />
+                                        <br/>
+                                            <p:inputText id="cantProd" value="#{facturasDET.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 250px;" /> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <p:commandButton id="btnRegBanco" value="Registrar Factura" actionListener="#{facturasDET.registroFacturaDet()}"
+                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <div class="field">
+                                            <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.agregarProducto()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />    
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -185,28 +221,6 @@
 
                     <p:panel id="pnlFacturaDet" header="Detalle de factura" >
                         <p:growl id="msg"/>
-                        <p:panelGrid id="pnlGridId" layout="grid" columns="2" style="width: 100%" >
-
-                            <h:outputLabel id="lblIdProd" value="Nombre del Producto" />
-                            <p:selectOneMenu id="nombreproducto" label="Selecione uno" value="#{facturasDET.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio">
-                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
-                                <f:selectItems value="#{facturasDET.mostraridprod}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.idproducto}" />
-                            </p:selectOneMenu>
-
-                            <h:outputLabel id="lblCant" value="Cantidad de Producto" />
-                            <p:inputText id="cantProd" value="#{facturasDET.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
-                            <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.agregarProducto()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />  
-                            <!-- comment <input type="email" required="required" />--> 
-                        </p:panelGrid >
-
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2"  class="centerPnlGrid">
-                            <p:commandButton id="btnRegBanco" value="Registrar Factura" actionListener="#{facturasDET.registroFacturaDet()}"
-                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
-
-                        </p:panelGrid>
-
-
                         <p:dataTable id="productos" var="producto" value="#{facturasDET.mostrarListProd()}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
 
 
