@@ -6,21 +6,38 @@ package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.ui.services.FacturasServicio;
+import com.umgprogra.erp.util.SessionUser;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 /**
  *
  * @author josel
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class FacturaCabUI {
+
+     /**
+     * @return the sessionUser
+     */
+    public SessionUser getSessionUser() {
+        return sessionUser;
+    }
+
+    /**
+     * @param sessionUser the sessionUser to set
+     */
+    public void setSessionUser(SessionUser sessionUser) {
+        this.sessionUser = sessionUser;
+    }
 
     /**
      * @return the lastFactura
@@ -29,20 +46,6 @@ public class FacturaCabUI {
         return lastFactura;
     }
 
-
-    /**
-     * @return the cantidad
-     */
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    /**
-     * @param cantidad the cantidad to set
-     */
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 
     /**
      * @return the tipoPago
@@ -265,7 +268,6 @@ public class FacturaCabUI {
     private Integer tipo_pago;
     private String nit;
     private Integer tipoFactura;
-    private int cantidad;
     private List<Empleado> empleados;
     private List<SelectItem> empleadoItems;
     private List<SelectItem> plazosPago;
@@ -281,6 +283,8 @@ public class FacturaCabUI {
         getUltimaFactura();
     }
 
+     @Inject
+    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
     
     public void plazosPago(){
         plazosPago = new ArrayList();
@@ -312,6 +316,17 @@ public class FacturaCabUI {
         catch (Exception e) {
             System.out.println("Error al consultar ultimo numero de factura");
             System.out.println("Mensaje: " + e.getMessage());
+        }
+    }
+    
+    public void insertFacturaCab() {
+        try{
+        FacturasServicio nuevaFactura = new FacturasServicio();
+        System.out.println("Username: " + sessionUser.getIdUser());
+        nuevaFactura.insertarFacturacab(this.plazos_pago,  sessionUser.getIdUser(), this.idTipoCliente, 0.00, this.tipo_pago, this.nit, this.tipoFactura);
+        }
+        catch (Exception e){
+            System.out.println("error: " + e.getMessage());
         }
     }
 

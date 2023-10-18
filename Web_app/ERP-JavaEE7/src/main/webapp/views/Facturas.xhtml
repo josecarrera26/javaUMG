@@ -72,10 +72,12 @@
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <h:outputLabel id="lblnitc" value="NIT" />
-                                            <div style="display: flex; flex-direction: column;">
-                                                <p:inputText id="nit" style="width: 250px;" value="#{facturaCabUI.nit}"   required="true" requiredMessage="nit Requerido" />
-                                            </div>
+                                            <p:outputLabel id="lblPlazoPago" value="Plazo de pagos"  for="@next"/>
+                                            <p:selectOneMenu id="proveedor" class="combo" value="#{facturaCabUI.plazos_pago}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
+                                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                                <f:selectItems value="#{facturaCabUI.plazosPago}"/>
+                                            </p:selectOneMenu>
+
                                         </div>
                                     </div>
                                 </div>
@@ -86,11 +88,12 @@
                                 <div class="ui-fluid">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <p:outputLabel id="lblPlazoPago" value="Plazo de pagos"  for="@next"/>
-                                            <p:selectOneMenu id="proveedor" class="combo" value="#{facturaCabUI.plazos_pago}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
+                                             <p:outputLabel id="lblTipoCliente" value="Tipo Cliente"  for="@next"/>
+                                            <p:selectOneMenu id="tipoCliente" class="combo" value="#{facturaCabUI.idTipoCliente}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
                                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                                 <f:selectItems value="#{facturaCabUI.plazosPago}"/>
                                             </p:selectOneMenu>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -100,16 +103,22 @@
 
                         <div class="card">
                             <div class="grid">
-                                <div class="col-5 flex align-items-center justify-content-center">
+                               <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <h:outputLabel id="lblCoste" value="Coste" />
-                                            <p:inputText id="coste" value="#{facturaCabUI.cantidad}" required="true" requiredMessage="Coste requerida" />
+                                           <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
+                                        <br/>
+                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
+                                                         style="width: 14rem;" panelStyle="width: 15rem" 
+                                                         value="#{facturaCabUI.tipo_pago}">
+                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                            <f:selectItems value="#{facturaCabUI.tipoPago}"/>
+                                        </p:selectOneMenu>
 
                                         </div>
-
                                     </div>
                                 </div>
+                                
                                 <div class="col-2">
                                     <p:divider layout="vertical"> </p:divider>
                                 </div>
@@ -117,16 +126,13 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <div class="field">
-                                            <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
-                                        <br/>
-                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
-                                                         style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{facturaCabUI.tipo_pago}">
-                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
-                                        </p:selectOneMenu>
+                                             <h:outputLabel id="lblnitc" value="NIT" />
+                                            <div style="display: flex; flex-direction: column;">
+                                                <p:inputText id="nit" style="width: 250px;" value="#{facturaCabUI.nit}"   required="true" requiredMessage="nit Requerido" />
+                                            </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -155,7 +161,7 @@
 
                                 <div class="ui-fluid">
                                     <div class="field">
-                                        
+                                       
                                     </div>
                                 </div>
 

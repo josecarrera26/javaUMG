@@ -7,6 +7,9 @@ package com.umgprogra.erp.ui.services;
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.util.JpaUtil;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -34,19 +37,21 @@ public class FacturasServicio {
         return idFac;
     }
 
-    public String insertarFacturacab(Date pFechaRegistro, Integer pPlazoPagos, Integer pReferenciaFactura, Integer pIDEmpleado, Integer pTipoCliente, Integer pEstadoFactura, Double pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {
+    public String insertarFacturacab(Integer pPlazoPagos, Integer pIDEmpleado, Integer pTipoCliente, Double pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {
         try {
-
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+             LocalDateTime ahora = LocalDateTime.now();
+             Date fecha =new SimpleDateFormat("dd/MM/yyyy").parse(dtf.format(ahora)); 
             Empleado idEmpleado = new Empleado();
             idEmpleado.setIdempleado(pIDEmpleado);
             Facturacab facturacabecera = new Facturacab();
-            facturacabecera.setFechaRegistro(pFechaRegistro);
+            facturacabecera.setFechaRegistro(fecha);
             facturacabecera.setPlazosPago(pPlazoPagos);
             facturacabecera.setIdempleado(idEmpleado);
             facturacabecera.setIdtipocliente(pTipoCliente);
-            facturacabecera.setEstadofac(pEstadoFactura);
+            facturacabecera.setEstadofac(1);
             facturacabecera.setTotal(pTotal);
-            facturacabecera.setIdtipofactura(pTipoFactura);
+            facturacabecera.setIdtipopago(pTipoPago);
             facturacabecera.setNit(nit);
             facturacabecera.setIdtipofactura(pTipoFactura);
 
