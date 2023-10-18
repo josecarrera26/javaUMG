@@ -6,6 +6,7 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.util.JpaUtil;
+import com.umgprogra.erp.util.SessionUser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -84,7 +85,9 @@ public class EmpleadoServicio {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
-
+                SessionUser user = new SessionUser(empleado.getIdempleado(),empleado.getIdrole().getIdrole());
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
+                System.out.println("DATOS CAPTURADOS" + user.getIdUser() + " IDROLE " + user.getIdRol());
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Conexion Exitosa", 
                         "Gracias!"));

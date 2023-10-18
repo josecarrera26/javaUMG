@@ -12,26 +12,46 @@ import com.umgprogra.erp.DAO.Linea;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.ui.services.CuentacontableServicio;
+import com.umgprogra.erp.ui.services.EmpleadoServicio;
 import com.umgprogra.erp.ui.services.GrupoProductoServicio;
 import com.umgprogra.erp.ui.services.InventarioServicio;
 import com.umgprogra.erp.ui.services.LineaServicio;
 import com.umgprogra.erp.ui.services.MarcaServicio;
 import com.umgprogra.erp.ui.services.ProveedoreServicio;
+import com.umgprogra.erp.util.SessionUser;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 /**
  *
  * @author madis
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class InventarioUI implements Serializable {
+
+    /**
+     * @return the sessionUser
+     */
+    public SessionUser getSessionUser() {
+        return sessionUser;
+    }
+
+    /**
+     * @param sessionUser the sessionUser to set
+     */
+    public void setSessionUser(SessionUser sessionUser) {
+        this.sessionUser = sessionUser;
+    }
 
     /**
      * @return the productoSelec
@@ -522,7 +542,7 @@ public class InventarioUI implements Serializable {
     public void setLineaItems(List<SelectItem> lineaItems) {
         this.lineaItems = lineaItems;
     }
-    
+
     private int codProducto;
     private String nombre;
     private int cantidad;
@@ -564,7 +584,7 @@ public class InventarioUI implements Serializable {
     private int estado;
     //PARA CAMBIOS EN PRODUCTO
     private InventarioUI productoSelec;
-           
+
     @PostConstruct
     public void init() {
         unidades = new ArrayList();
@@ -578,13 +598,18 @@ public class InventarioUI implements Serializable {
         findAllMarcaUi();
         findAllLineaUi();
         findAllProductosUi();
+        pruebaID();
     }
-    
-    public InventarioUI(){
-        
+    @Inject
+    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
+
+    public InventarioUI() {
+
     }
+
     
-        public InventarioUI(Integer codProducto, String nombre, Integer cantidad, String tipo_comercializacion, String modelo, String unidades, Double precioventa, Double coste, Integer margenganancia, Integer estado, Double impuestoinventario, String idgrupoproducto, String idlinea, String idmarca, String idproveedor) {
+
+    public InventarioUI(Integer codProducto, String nombre, Integer cantidad, String tipo_comercializacion, String modelo, String unidades, Double precioventa, Double coste, Integer margenganancia, Integer estado, Double impuestoinventario, String idgrupoproducto, String idlinea, String idmarca, String idproveedor) {
         this.codProducto = codProducto;
         this.nombre = nombre;
         this.cantidad = cantidad;
@@ -628,8 +653,21 @@ public class InventarioUI implements Serializable {
             System.out.println(e + "Error en save MarcaUI");
         }
     }
-    
-    
+
+    public void pruebaID() {
+
+        //EmpleadoServicio user = new EmpleadoServicio();
+        //EmpleadoUI emp = new EmpleadoUI();
+        //user.findByEmpleadoPassword(emp.getIdEmpleado(), emp.getPassword_empleado());
+        try {
+            System.out.println("ESTOY EN INVENTARIOUI ID " + sessionUser.getIdUser() + " ROLE " + sessionUser.getIdRol());
+
+        } catch (Exception e) {
+            System.out.println("Error en ID" + e.getMessage());
+
+        }
+    }
+
     public void deleteProduct() {
         productos.remove(productoSelec);
         productoSelec = null;
@@ -728,25 +766,24 @@ public class InventarioUI implements Serializable {
             System.out.println(e + "Error en consulta linea clase LineaUI");
         }
     }
-    
-      public Cuentacontable getCuenta(){
+
+    public Cuentacontable getCuenta() {
         CuentacontableServicio cuentaServicio = new CuentacontableServicio();
-        idCuenta= cuentaServicio.getCuentacontableId(5);
-        if(idCuenta!=null){
-            if(!idCuenta.getNombrecuenta().equals("Inventario Mercaderias")){
-                 System.out.println("ERROR AL AGREGAR CUENTA");
-                 idCuenta=null;
+        idCuenta = cuentaServicio.getCuentacontableId(5);
+        if (idCuenta != null) {
+            if (!idCuenta.getNombrecuenta().equals("Inventario Mercaderias")) {
+                System.out.println("ERROR AL AGREGAR CUENTA");
+                idCuenta = null;
             }
         }
         return idCuenta;
     }
-      
-      
-       public void findAllProductosUi() {
+
+    public void findAllProductosUi() {
         try {
             InventarioServicio inventarioServ = new InventarioServicio();
-            productos=(inventarioServ.findAllProducto());
-            
+            productos = (inventarioServ.findAllProducto());
+
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");
         }
