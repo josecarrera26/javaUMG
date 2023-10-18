@@ -5,25 +5,89 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import com.umgprogra.erp.ui.services.CuentacontableServicio;
+import com.umgprogra.erp.DAO.Cuentacontable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 /**
  *
  * @author Miguel Coloma
  */
+@Named("dtFilterView")
 @ManagedBean
-@SessionScoped
-public class CuentasContablesUI {
+@ViewScoped
+public class CuentasContablesUI implements  Serializable {
 
-    public CuentasContablesUI(Integer idCuenta, String nombreCuenta, String tipoCuenta, String codigoCuenta, String idCliente, String idProveedores) {
+    /**
+     * @return the resultados
+     */
+    public List<Cuentacontable> getResultados() {
+        return resultados;
+    }
+
+    /**
+     * @param resultados the resultados to set
+     */
+    public void setResultados(List<Cuentacontable> resultados) {
+        this.resultados = resultados;
+    }
+
+    /**
+     * @return the cuentaItem
+     */
+    public List<SelectItem> getCuentaItem() {
+        return cuentaItem;
+    }
+
+    /**
+     * @param cuentaItem the cuentaItem to set
+     */
+    public void setCuentaItem(List<SelectItem> cuentaItem) {
+        this.cuentaItem = cuentaItem;
+    }
+
+    /**
+     * @return the cuentacontable
+     */
+    public List<Cuentacontable> getCuentacontable() {
+        return cuentacontable;
+    }
+
+    /**
+     * @param cuentacontable the cuentacontable to set
+     */
+    public void setCuentacontable(List<Cuentacontable> cuentacontable) {
+        this.cuentacontable = cuentacontable;
+    }
+
+    /**
+     * @return the filteredCuenta
+     */
+    public List<Cuentacontable> getFilteredCuenta() {
+        return filteredCuenta;
+    }
+
+    /**
+     * @param filteredCuenta the filteredCuenta to set
+     */
+    public void setFilteredCuenta(List<Cuentacontable> filteredCuenta) {
+        this.filteredCuenta = filteredCuenta;
+    }
+
+    public CuentasContablesUI(Integer idCuenta, String nombreCuenta, String tipoCuenta) {
         this.idCuenta = idCuenta;
         this.nombreCuenta = nombreCuenta;
         this.tipoCuenta = tipoCuenta;
-        this.codigoCuenta = codigoCuenta;
-        this.idCliente = idCliente;
-        this.idProveedores = idProveedores;
     }
+    
+        CuentacontableServicio servicio = new CuentacontableServicio();
 
     public Integer getIdCuenta() {
         return idCuenta;
@@ -49,35 +113,54 @@ public class CuentasContablesUI {
         this.tipoCuenta = tipoCuenta;
     }
 
-    public String getCodigoCuenta() {
-        return codigoCuenta;
-    }
 
-    public void setCodigoCuenta(String codigoCuenta) {
-        this.codigoCuenta = codigoCuenta;
-    }
-
-    public String getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public String getIdProveedores() {
-        return idProveedores;
-    }
-
-    public void setIdProveedores(String idProveedores) {
-        this.idProveedores = idProveedores;
-    }
     private Integer idCuenta;
     private String nombreCuenta;
     private String tipoCuenta;
-    private String codigoCuenta;
-    private String idCliente;
-    private String idProveedores;
+    private List<Cuentacontable> resultados;
+    private List<SelectItem> cuentaItem;
+    private List<Cuentacontable> cuentacontable; 
+    private List<Cuentacontable> filteredCuenta;
     
+    public CuentasContablesUI(){
+    }
     
+    public void saveCuenta(){
+        try{
+         
+            CuentacontableServicio nuevaCuenta = new CuentacontableServicio();
+            nuevaCuenta.saveCuenta(this.nombreCuenta, this.tipoCuenta);
+            cuentacontable = nuevaCuenta.findAllCuenta();
+        }
+        catch(Exception e){
+            System.out.println(e + "Error en save CuentasContablesUI");
+        }
+    }
+        
+           @PostConstruct
+    public void init() 
+        {findAllCuentasContablesUi();
+                }
+    
+        public void consultaCuentas(){
+            try{
+                resultados = new ArrayList<>();
+                System.out.println("idCuenta buscado" + this.idCuenta);
+                resultados = servicio.finderCuentaById(idCuenta);
+            }catch(Exception e){
+                System.err.println("Error al consultar");
+            }
+        }
+        public void findAllCuentasContablesUi() {
+        try {
+            CuentacontableServicio cuentaServ = new CuentacontableServicio();
+            cuentacontable = cuentaServ.findAllCuenta();
+            cuentaItem = new ArrayList<>();
+            for (Cuentacontable cuentas : cuentacontable) {
+                cuentaItem.add(new SelectItem(cuentas.getIdcuentacontable(), cuentas.getNombrecuenta(), cuentas.getTipocuenta()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta marcas clase CuentasContablesUI");
+        }
+    }
 }

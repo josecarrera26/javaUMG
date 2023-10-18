@@ -5,7 +5,9 @@
 
     <h:head>
         <title>Cuentas Contables</title>
-        <h:outputStylesheet library="css" name="styleCargo.css"/>
+        <link type="text/css"
+              href="${facesContext.externalContext.requestContextPath}/resources/css/styleCliente.css"
+              rel="stylesheet" />
         <h:outputStylesheet library="css" name="style.css"/>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
@@ -55,64 +57,38 @@
             <p:growl id="msg"/>
                 <!-- seccion de registro de Cuentas Contables -->
                 <p:tab  title="Cuentas Contables">
+                    <p:panel id="pnlRegistroCuentas" header="Registro de Cuenta Contable" class="centerPnl" style="width: 40%" >
                     <div class="card" style="width: 100%">
                         <h:form>
                             <div class="grid ui-fluid mt-3 floatlabel-demo">
-                               <p:splitter style="height: 300px" styleClass="mb-5">
+                               <p:splitter style="height: 150px" styleClass="mb-5">
                                    <p:splitterPanel styleClass="flex align-items-center justify-content-center">                               
                                 <h5></h5>
                                 <div class="col-12 md:col-6">                                   
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                            <p:inputText id="idCuentaContable" value="#{clienteUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />
-                                            <p:outputLabel for="@previous" value="ID Cuenta" />
-                                        </span>
-                                    </div>
                                     <h5></h5>
                                     <div class="field">
                                         <span class="ui-float-label ui-input-icon-left">                                            
-                                            <p:inputText />
+                                            <p:inputText id="nomCuenta" value="#{cuentasContablesUI.nombreCuenta}" required="true" requiredMessage ="El campo no puede estar vacio"/>
                                             <p:outputLabel for="@previous" value="Nombre Cuenta" styleClass="ml-4" />
                                         </span>
                                     </div>
                                     <h5></h5>
                                     <div class="field">
                                         <span class="ui-float-label ui-input-icon-right">
-                                           <p:inputText />
+                                           <p:inputText id="tipCuenta" value="#{cuentasContablesUI.tipoCuenta}" required="true" requiredMessage ="El campo no puede estar vacio"/>
                                            <p:outputLabel for="@previous" value="Tipo Cuenta" />
                                         </span>
                                     </div>
                                 </div>   
                                 </p:splitterPanel>
-                                <p:splitterPanel styleClass="flex align-items-center justify-content-center">
-                                <h5></h5>
-                                <div class="col-12 md:col-6">    
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                           <p:inputText />
-                                           <p:outputLabel for="@previous" value="Código Cuenta" />
-                                        </span>
-                                    </div>
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                           <p:inputText />
-                                           <p:outputLabel for="@previous" value="ID Cliente" />
-                                        </span>
-                                    </div>
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                              <p:inputText />
-                                              <p:outputLabel for="@previous" value="ID Proveedores" />
-                                        </span>
-                                    </div>                                    
-                                </div>
-                                </p:splitterPanel>
                                   </p:splitter>
                             </div>
+                            <p:commandButton id="RegisterCuenta" action="#{cuentasContablesUI.saveCuenta}"
+                                             value="Registrar"  ajax="true" style=" margin-left: 0px" >
+                            </p:commandButton>
                         </h:form> 
                     </div>
+                </p:panel>
             </p:tab>
         </p:tabView>
 

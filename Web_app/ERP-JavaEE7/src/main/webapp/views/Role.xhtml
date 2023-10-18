@@ -5,7 +5,9 @@
 
     <h:head>
         <title>Role</title>
-        <h:outputStylesheet library="css" name="styleCargo.css"/>
+        <link type="text/css"
+              href="${facesContext.externalContext.requestContextPath}/resources/css/styleCliente.css"
+              rel="stylesheet" />
         <h:outputStylesheet library="css" name="style.css"/>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
@@ -59,12 +61,11 @@
             <p:growl id="msg"/>
                 <!-- seccion de registro de Role -->
                 <p:tab  title="Nuevo Role">
-                    <p:panel id="pnlRegistroRole" style="width: 50%" >
+                    <p:panel id="pnlRegistroRole" header="Registro de Role" class="centerPnl" style="width: 50%" >
                     <div class="card" style="width: 100%">
                         <h:form>
-                           <p:panelGrid id="pnlGridRoletId" layout="grid" columns="1" style="vertical-align:top;  ">
-                            <div class="grid ui-fluid mt-3 floatlabel-demo">
-                               <h:outputLabel value="Ingrese los valores requeridos para registrar un nuevo Role: " />                             
+                            <h:outputLabel value="Ingrese los valores requeridos para registrar un nuevo Role: " />
+                            <div class="grid ui-fluid mt-3 floatlabel-demo">                                                   
                                <p:splitter style="height: 100px" styleClass="mb-5">
                                    <p:splitterPanel styleClass="flex align-items-center justify-content-center">                            
                                 <h5></h5>
@@ -91,15 +92,14 @@
                                   
                                 </p:splitterPanel>
                                   </p:splitter>
-                        <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
-                                         value="Registrar Role" ajax="true"  style=" margin-left: 0px" >
-                        </p:commandButton> 
                             </div>
-                        </p:panelGrid >
+                            <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
+                                             value="Registrar" ajax="true"  style=" margin-left: 0px" >
+                            </p:commandButton> 
                         </h:form> 
                     </div>
     
-                    </p:panel>                                     
+                    </p:panel>
             </p:tab>
         </p:tabView>
 

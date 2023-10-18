@@ -32,4 +32,77 @@ public class CuentacontableServicio {
 
         return cuenta;
     }
+     
+  public Boolean saveCuenta(String pnombre, String ptipocuenta) {
+        boolean g = false;
+        
+        System.out.println( "Estoy en CuentacontableServicio");        
+
+        try{
+            Cuentacontable ncuenta = new Cuentacontable();
+            System.out.println("nombre de Cuenta Contable" + pnombre);
+            System.out.println("Tipo de Cuenta" + ptipocuenta);
+            ncuenta.setNombrecuenta(pnombre);
+            ncuenta.setTipocuenta(ptipocuenta);
+            entity.getTransaction().begin();
+            entity.persist(ncuenta);
+            entity.getTransaction().commit();            
+
+            System.out.println( "Estoy en CuentacontableServicio");
+            g = true;            
+        }catch (Exception e){
+            System.err.println("Error al guardar Cuenta " + e.getMessage());           
+        }
+        return g;
+    }
+  
+      public List<Cuentacontable> findAllCuenta() {
+        List<Cuentacontable> resultList = new ArrayList<>();
+        try {
+            Query query = entity.createNamedQuery("Cuentacontable.findAll", Cuentacontable.class);
+            //resultado
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron CuentasContables");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findbyIdCuentacontable " + e.getMessage());
+        }
+    
+        return resultList;
+
+    }
+      
+public void getCuenta() {
+        Cuentacontable cuenta = new Cuentacontable();
+        Query query2 = entity.createNamedQuery("Cuentacontable.findAll", Cuentacontable.class);
+
+        cuenta = (Cuentacontable) query2.getSingleResult();
+
+        System.out.println(cuenta.getNombrecuenta() + cuenta.getTipocuenta());
+    }
+      
+    public List<Cuentacontable> finderCuentaById(Integer idCuenta) {
+        List<Cuentacontable> resultList = new ArrayList<>();
+        try {
+            System.out.println("metodo DB findbyIdCuenta");
+            System.out.println("idCuenta" + idCuenta);
+            Query query = entity.createNamedQuery("Cliente.findByIdcliente", Cuentacontable.class)
+                .setParameter("idcliente", idCuenta);
+            //resultado
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron Cuentas Contables");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findbyIdCuenta " + e.getMessage());
+        }
+    
+        return resultList;
+
+    }
 }
