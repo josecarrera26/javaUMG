@@ -27,69 +27,43 @@
 
         </h:form>
 
-        <h:form id="formRegistroEmpleado">
+        <h:form id="formRegistroUsuario">
 
             <p:tabView dynamic="true">
                 <p:growl id="msg"   />
 
                 <p:tab  title="Registrarse">
-                    <p:panel id="pnlRegistroEmpleado" header="Registrarse" class="centerPnl" >
-                        <p:panelGrid id="pnlGridEmpId" layout="grid" columns="2" style="width: 100%" >
+                    <p:panel id="pnlRegistroUsuario" header="Registrarse" class="centerPnl" >
+                        <p:panelGrid id="pnlGridUsr" layout="grid" columns="2" style="width: 100%" >
 
-                            <h:outputLabel id="lblNomEmp" value=" Nombres " />
-                            <p:inputText id="nombreEmpleado" value="#{empleadoUI.nombre_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
+                            <h:outputLabel id="lblusr" value="Username" />
+                            <p:inputText id="usernameUsr" value="#{usuarioUI.username}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
 
-                            <h:outputLabel for="lblApEmp" value="Apellidos"/>
-                            <p:inputText id="apellidoEmpleado" value="#{empleadoUI.apellido_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
+                            <h:outputLabel id="lblpassUsr" value="Contraseña" />
+                            <p:inputText id="passwordUsr" value="#{usuarioUI.password}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
 
-                            <h:outputLabel id="lblTelEmp" value=" Telefono" />
-                            <p:inputText id="telEmpleado" value="#{empleadoUI.telefono_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
-
-                            <h:outputLabel id="lblEmailEmp" value="Correo Electronico" />
-                            <p:inputText id="emailEmp" value="#{empleadoUI.email_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
-
-                            <h:outputLabel id="lblpassEmp" value="Contraseña" />
-                            <p:inputText id="passwordEmp" value="#{empleadoUI.password_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
-
-
-                            <!-- <h:outputLabel id="lblIdRolEmp" value=" ID Rol Empleado " />
-                             <p:inputText id="IdRolEmpleado" value="#{empleadoUI.idRole}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
- 
- 
-                             <h:outputLabel id="lblIdCEmp" value=" ID Cargo Empleado " />
-                             <p:inputText id="IdCEmp" value="#{empleadoUI.idCargo}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
+                            <!--  <h:outputLabel id="lblNomEmp" value=" Nombres " />
+                              <p:inputText id="nombreEmpleado" value="#{empleadoUI.nombre_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
+  
+                              <h:outputLabel for="lblApEmp" value="Apellidos"/>
+                              <p:inputText id="apellidoEmpleado" value="#{empleadoUI.apellido_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
+  
+                              <h:outputLabel id="lblTelEmp" value=" Telefono" />
+                              <p:inputText id="telEmpleado" value="#{empleadoUI.telefono_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
+  
+                              <h:outputLabel id="lblEmailEmp" value="Correo Electronico" />
+                              <p:inputText id="emailEmp" value="#{empleadoUI.email_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
                             
                             -->
-                            <!-- <p:outputLabel for="lblRoleProv" value="Role"/>
-                                 <p:selectOneMenu id="lblRolProv" value="test" style="width: 312px;" >
-                                 <f:selectItem itemLabel="" itemValue=""/>
-                                 <f:selectItem itemLabel="Usuario" itemValue="Usuario" />
-                            -->
+
                         </p:panelGrid >
 
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
-                            <p:commandButton id="btnRegEmp" value="Registrar Empleado" actionListener ="#{empleadoUI.registroEmpleado()}"
-                                             update="pnlRegistroEmpleado ,msg" icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnRegEmp" value="Registrar Usuario" actionListener ="#{usuarioUI.registroUsuario()}"
+                                             update="formRegistroUsuario ,msg" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
                     </p:panel > 
-                </p:tab>   
-                <!--
-                <p:tab title="Modificar" >
-                     <p:panel id="pnlModificar" header="Buscar el Proveedor para realizar cambios" style="width: 70%;">
-        
-                         <h:outputLabel id="lblModProv" value="Ingrese el ID" />
-                         <span class="ui-input-icon-left">
-                             <i class="pi pi-search" />
-                             <p:inputText id="modficiacionProv" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                         </span>
-        
-                         <p:panelGrid id="pnlBtnMod" layout="grid" columns="1" style="width: 100%">
-                             <p:commandButton id="btnActualizarProv" value="Buscar" actionListener="#{cPacientes.cargarPacienteParaModificar(idPaciente)}" style="width: 20%; margin-left: 05px; margin-top: 30px;"
-                                              update="pnlModificar,msg"  icon="pi pi-search" styleClass="rounded-button ui-button-success"  />
-                         </p:panelGrid>
-                     </p:panel>
-                 </p:tab>
-                -->              
+                </p:tab>               
             </p:tabView>
         </h:form>
 
