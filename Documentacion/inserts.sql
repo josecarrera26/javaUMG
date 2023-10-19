@@ -33,23 +33,40 @@ INSERT INTO public.roles
 VALUES('cajeros', 'Acceso a cajeros');
 --empleados
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Jose', 'Carrera', '1234567', 'test@test.com', 'password1', 1, 1);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Jose', 'Carrera', '1234567', 'test@test.com',  1);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Miguel', 'Coloma', '1234567', 'test@test.com', 'password2', 2, 2);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Miguel', 'Coloma', '1234567', 'test@test.com',  2);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Madelin', 'Robles', '1234567', 'test@test.com', 'password3', 3, 3);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Madelin', 'Robles', '1234567', 'test@test.com', 3);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Hector', 'Contrera', '1234567', 'test@test.com', 'password4', 4, 4);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado,  idcargo_empleado)
+VALUES('Hector', 'Contrera', '1234567', 'test@test.com', 4);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Pedro', 'Chial', '1234567', 'test@test.com', 'password5', 5, 5);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Pedro', 'Chial', '1234567', 'test@test.com', 5);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Luis', 'Cano', '1234567', 'test@test.com', 'password6', 1, 5);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Luis', 'Cano', '1234567', 'test@test.com', 5);
+
+
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('joseC', 'password1', 1, 1);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('Mikey', 'password2', 1, 2);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('Made', 'password3', 1, 3);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('HectorC', 'password4', 1, 4);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('PedroC', 'password5', 1, 5);
 
 --Modulo clientes
 --cuentacontable

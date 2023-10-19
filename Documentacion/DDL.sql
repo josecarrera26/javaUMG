@@ -140,6 +140,7 @@ CREATE TABLE "kardex" (
 
 
 ALTER TABLE  "usuario" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("idempleado");
+ALTER TABLE  "usuario" ADD FOREIGN KEY ("idrole") REFERENCES "role" ("idrole");
 
 ALTER TABLE  "empleado" ADD FOREIGN KEY ("idcargo_empleado") REFERENCES "cargo_empleado" ("idcargo");
 
@@ -163,7 +164,6 @@ ALTER TABLE "pedido" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("id
 
 ALTER TABLE "pedido" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
 
-ALTER TABLE "empleado" ADD FOREIGN KEY ("idrole") REFERENCES "roles" ("idrole");
 
 ALTER TABLE "kardex" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 
