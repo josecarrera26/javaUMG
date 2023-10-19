@@ -6,16 +6,15 @@ package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
-import com.umgprogra.erp.ui.services.ProveedoreServicio;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -129,7 +128,11 @@ public class EmpleadoUI implements Serializable {
     public void setEmpleadoItems(List<SelectItem> empleadoItems) {
         this.empleadoItems = empleadoItems;
     }
-
+    
+    @PostConstruct
+    public void init() {
+        mostrarURLactual();
+    }
     public void GetEmpleado() {
         try {
 
@@ -168,5 +171,13 @@ public class EmpleadoUI implements Serializable {
         } catch (Exception e) {
             System.out.println("Error en metodo Registro Empleado = " + e.getMessage());
         }
+    }
+    
+    public void mostrarURLactual(){
+    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+    String currentURL = request.getRequestURL().toString();
+   
+        System.out.println(currentURL);
     }
 }

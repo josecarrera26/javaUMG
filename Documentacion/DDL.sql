@@ -25,6 +25,14 @@ CREATE TABLE "cuentacontable" (
   "tipocuenta" varchar
 );
 
+CREATE TABLE "usuario" (
+  "idusuario" Serial PRIMARY KEY,
+  "username" varchar,
+  "password" varchar,
+  "idrole" integer,
+  "idempleado" integer
+);
+
 CREATE TABLE "cargo_empleado" (
   "idcargo" Serial PRIMARY KEY,
   "nombre_cargo" varchar,
@@ -37,8 +45,6 @@ CREATE TABLE "empleado" (
   "apellido_empleado" varchar,
   "telefono_empleado" varchar,
   "email_empleado" varchar,
-  "password" varchar,
-  "idrole" integer,
   "idcargo_empleado" integer
 );
 
@@ -129,16 +135,12 @@ CREATE TABLE "kardex" (
 );
 
 
-CREATE TABLE "usuario" (
-  "idusuario" Serial PRIMARY KEY,
-  "username" varchar,
-  "password" varchar,
-  "idempleado" integer
-);
+
 
 
 
 ALTER TABLE  "usuario" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("idempleado");
+ALTER TABLE  "usuario" ADD FOREIGN KEY ("idrole") REFERENCES "role" ("idrole");
 
 ALTER TABLE  "empleado" ADD FOREIGN KEY ("idcargo_empleado") REFERENCES "cargo_empleado" ("idcargo");
 
@@ -162,7 +164,6 @@ ALTER TABLE "pedido" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("id
 
 ALTER TABLE "pedido" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
 
-ALTER TABLE "empleado" ADD FOREIGN KEY ("idrole") REFERENCES "roles" ("idrole");
 
 ALTER TABLE "kardex" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 

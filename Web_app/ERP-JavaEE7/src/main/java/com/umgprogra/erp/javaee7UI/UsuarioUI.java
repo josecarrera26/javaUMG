@@ -8,13 +8,19 @@ import com.umgprogra.erp.DAO.Usuario;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
 import com.umgprogra.erp.ui.services.UsuarioServicio;
 import com.umgprogra.erp.util.JpaUtil;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 import static javax.ws.rs.client.Entity.entity;
 
 /**
@@ -24,7 +30,7 @@ import static javax.ws.rs.client.Entity.entity;
 @ManagedBean
 @SessionScoped
 public class UsuarioUI implements Serializable {
-    
+
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
     private String username;
@@ -46,6 +52,11 @@ public class UsuarioUI implements Serializable {
         this.password = password;
     }
 
+    @PostConstruct
+    public void init() {
+        mostrarURLactual();
+    }
+
     public void GetUsuario() {
         try {
 
@@ -64,19 +75,51 @@ public class UsuarioUI implements Serializable {
     public void registroUsuario() {
 
         try {
-            
+
             UsuarioServicio servicioreg = new UsuarioServicio();
 
             servicioreg.registrarUsuario(this.password, this.username);
 
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Registro Exitoso!",
-                        "Para iniciar sesion por favor regrese a Iniciar Sesion!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Registro Exitoso!",
+                    "Para iniciar sesion por favor regrese a Iniciar Sesion!"));
 
-                System.out.println("El registro fue Exitoso");
+            System.out.println("El registro fue Exitoso");
 
         } catch (Exception e) {
             System.out.println("Error en metodo Registro Empleado = " + e.getMessage());
+        }
+    }
+
+    public void mostrarURLactual() {
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String currentURL = request.getRequestURL().toString();
+            String[] partes = currentURL.split("/");
+            String ultimaParteURL = partes[partes.length - 1];
+            System.out.println("pagina Actual: " + ultimaParteURL);
+
+            String accesos = "MenuPrincipal,calabozo";
+            String[] arrayAccesos = accesos.split(",");
+
+            Boolean tieneAcceso = null;
+            for (String acceso : arrayAccesos) {
+                System.out.println(acceso);
+                if (acceso.equals(ultimaParteURL.trim())) {
+                    tieneAcceso = true;
+                    System.out.println("tieneAcceso? " + tieneAcceso);
+                    if (tieneAcceso == true) {
+                    } else {
+                        externalContext.redirect("views/sinacceso.xhtml");
+                    }
+                    break;
+                }
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioUI.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 

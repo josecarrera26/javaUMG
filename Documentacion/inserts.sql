@@ -33,41 +33,58 @@ INSERT INTO public.roles
 VALUES('cajeros', 'Acceso a cajeros');
 --empleados
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Jose', 'Carrera', '1234567', 'test@test.com', 'password1', 1, 1);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Jose', 'Carrera', '1234567', 'test@test.com',  1);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Miguel', 'Coloma', '1234567', 'test@test.com', 'password2', 2, 2);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Miguel', 'Coloma', '1234567', 'test@test.com',  2);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Madelin', 'Robles', '1234567', 'test@test.com', 'password3', 3, 3);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Madelin', 'Robles', '1234567', 'test@test.com', 3);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Hector', 'Contrera', '1234567', 'test@test.com', 'password4', 4, 4);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado,  idcargo_empleado)
+VALUES('Hector', 'Contrera', '1234567', 'test@test.com', 4);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Pedro', 'Chial', '1234567', 'test@test.com', 'password5', 5, 5);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Pedro', 'Chial', '1234567', 'test@test.com', 5);
 INSERT INTO public.empleado
-(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, "password", idrole, idcargo_empleado)
-VALUES('Luis', 'Cano', '1234567', 'test@test.com', 'password6', 1, 5);
+(nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
+VALUES('Luis', 'Cano', '1234567', 'test@test.com', 5);
+
+
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('joseC', 'password1', 1, 1);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('Mikey', 'password2', 1, 2);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('Made', 'password3', 1, 3);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('HectorC', 'password4', 1, 4);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('PedroC', 'password5', 1, 5);
 
 --Modulo clientes
 --cuentacontable
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta1', 'entrada');
+VALUES('Cuentaas por pagar', 'Costo');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta2', 'entrada');
+VALUES('Cuentas por cobrar', 'Ingreso');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta3', 'entrada');
+VALUES('Iva por cobrar', 'Ingreso');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta4', 'entrada');
+VALUES('Iva por pagar', 'Costo');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta5', 'entrada');
+VALUES('Inventario de mercaderias', 'Costo');
 --proveedor
 INSERT INTO public.proveedor
 (nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idcuentacontable)
@@ -217,3 +234,27 @@ VALUES(CURRENT_DATE - INTERVAL '2 days', 'nit1', 4, 4, 4, 'activo');
 INSERT INTO public.pedido
 (fecha_pedido, nit, idempleado, idproducto, idcliente, estado)
 VALUES(CURRENT_DATE - INTERVAL '1 days', 'nit1', 5, 5, 5, 'activo');
+
+
+
+//UPDATE DE CUENTACONTABLE
+UPDATE public.cuentacontable
+SET nombrecuenta='Cuentas por pagar', tipocuenta='Costo'
+WHERE idcuentacontable=1
+
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Cuentas por cobrar', tipocuenta='Ingreso'
+WHERE idcuentacontable=2
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Iva por cobrar', tipocuenta='Ingreso'
+WHERE idcuentacontable=3
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Iva por pagar', tipocuenta='Costo'
+WHERE idcuentacontable=4
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Inventario Mercaderias', tipocuenta='Costo'
+WHERE idcuentacontable=5
