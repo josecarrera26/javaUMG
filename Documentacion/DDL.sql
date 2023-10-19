@@ -25,6 +25,14 @@ CREATE TABLE "cuentacontable" (
   "tipocuenta" varchar
 );
 
+CREATE TABLE "usuario" (
+  "idusuario" Serial PRIMARY KEY,
+  "username" varchar,
+  "password" varchar,
+  "idrole" integer,
+  "idempleado" integer
+);
+
 CREATE TABLE "cargo_empleado" (
   "idcargo" Serial PRIMARY KEY,
   "nombre_cargo" varchar,
@@ -37,8 +45,6 @@ CREATE TABLE "empleado" (
   "apellido_empleado" varchar,
   "telefono_empleado" varchar,
   "email_empleado" varchar,
-  "password" varchar,
-  "idrole" integer,
   "idcargo_empleado" integer
 );
 
@@ -129,12 +135,7 @@ CREATE TABLE "kardex" (
 );
 
 
-CREATE TABLE "usuario" (
-  "idusuario" Serial PRIMARY KEY,
-  "username" varchar,
-  "password" varchar,
-  "idempleado" integer
-);
+
 
 
 

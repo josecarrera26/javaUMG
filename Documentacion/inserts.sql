@@ -55,19 +55,19 @@ VALUES('Luis', 'Cano', '1234567', 'test@test.com', 'password6', 1, 5);
 --cuentacontable
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta1', 'entrada');
+VALUES('Cuentaas por pagar', 'Costo');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta2', 'entrada');
+VALUES('Cuentas por cobrar', 'Ingreso');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta3', 'entrada');
+VALUES('Iva por cobrar', 'Ingreso');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta4', 'entrada');
+VALUES('Iva por pagar', 'Costo');
 INSERT INTO public.cuentacontable
 (nombrecuenta, tipocuenta)
-VALUES('cuenta5', 'entrada');
+VALUES('Inventario de mercaderias', 'Costo');
 --proveedor
 INSERT INTO public.proveedor
 (nombre_proveedor, direccion, telefono, regimen_proveedor, email_proveedor, idcuentacontable)
@@ -217,3 +217,27 @@ VALUES(CURRENT_DATE - INTERVAL '2 days', 'nit1', 4, 4, 4, 'activo');
 INSERT INTO public.pedido
 (fecha_pedido, nit, idempleado, idproducto, idcliente, estado)
 VALUES(CURRENT_DATE - INTERVAL '1 days', 'nit1', 5, 5, 5, 'activo');
+
+
+
+//UPDATE DE CUENTACONTABLE
+UPDATE public.cuentacontable
+SET nombrecuenta='Cuentas por pagar', tipocuenta='Costo'
+WHERE idcuentacontable=1
+
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Cuentas por cobrar', tipocuenta='Ingreso'
+WHERE idcuentacontable=2
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Iva por cobrar', tipocuenta='Ingreso'
+WHERE idcuentacontable=3
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Iva por pagar', tipocuenta='Costo'
+WHERE idcuentacontable=4
+
+UPDATE public.cuentacontable
+SET nombrecuenta='Inventario Mercaderias', tipocuenta='Costo'
+WHERE idcuentacontable=5
