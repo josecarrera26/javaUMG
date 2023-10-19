@@ -6,13 +6,8 @@ package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.util.JpaUtil;
-import com.umgprogra.erp.util.SessionUser;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -69,45 +64,44 @@ public class EmpleadoServicio {
 
     }
 
-    public int findByEmpleadoPassword(Integer idEmpleado, String password) {
+//    public int findByEmpleadoPassword(Integer idEmpleado, String password) {
+//
+//        try {
+//
+//            Empleado empleado = new Empleado();
+//
+//            Query query2 = entity.createNamedQuery("Empleado.findByIdempleado", Empleado.class)
+//                    .setParameter("idempleado", idEmpleado);
+//
+//            empleado = (Empleado) query2.getSingleResult();
+//
+//            System.out.println("Id Empleado = " + " " + empleado.getIdempleado() + "Nombre Empleado" + " " + empleado.getNombreEmpleado());
+//
+//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//
+//            if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
+//                
+//                
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+//                        "Conexion Exitosa", 
+//                        "Gracias!"));
+//
+//                externalContext.redirect("views/MenuPrincipal.xhtml");
+//                return 1;
+//
+//            } else {
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+//                        "Nombre o Contraseña Invalida!",
+//                        "Por Favor intente Nuevamente!"));
+//                return 0;
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error registrado = " + e.getMessage());
+//        }
+//        return 0;
+//    }
 
-        try {
-
-            Empleado empleado = new Empleado();
-
-            Query query2 = entity.createNamedQuery("Empleado.findByIdempleado", Empleado.class)
-                    .setParameter("idempleado", idEmpleado);
-
-            empleado = (Empleado) query2.getSingleResult();
-
-            System.out.println("Id Empleado = " + " " + empleado.getIdempleado() + "Nombre Empleado" + " " + empleado.getNombreEmpleado());
-
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-
-            if (Objects.equals(empleado.getIdempleado(), idEmpleado) && empleado.getPassword().equals(password)) {
-                SessionUser user = new SessionUser(empleado.getIdempleado(),empleado.getIdrole().getIdrole());
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
-                System.out.println("DATOS CAPTURADOS" + user.getIdUser() + " IDROLE " + user.getIdRol());
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Conexion Exitosa", 
-                        "Gracias!"));
-
-                externalContext.redirect("views/MenuPrincipal.xhtml");
-                return 1;
-
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Nombre o Contraseña Invalida!",
-                        "Por Favor intente Nuevamente!"));
-                return 0;
-            }
-        } catch (Exception e) {
-            System.out.println("Error registrado = " + e.getMessage());
-        }
-        return 0;
-    }
-
-    public boolean registrarEmpleado(String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String emailEmpleado, String passwordEmpleado) {
+    public boolean registrarEmpleado(String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String emailEmpleado) {
         boolean registro = false;
 
         Empleado empreg = new Empleado();
@@ -116,7 +110,7 @@ public class EmpleadoServicio {
         empreg.setApellidoEmpleado(apellidoEmpleado);
         empreg.setTelefonoEmpleado(telefonoEmpleado);
         empreg.setEmailEmpleado(emailEmpleado);
-        empreg.setPassword(passwordEmpleado);
+        
         //empreg.setIdrole(idRoleE);
         //empreg.setIdcargoEmpleado(idCrgoE);
 

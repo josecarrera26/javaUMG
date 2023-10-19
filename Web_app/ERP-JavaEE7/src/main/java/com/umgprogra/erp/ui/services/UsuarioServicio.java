@@ -4,10 +4,9 @@
  */
 package com.umgprogra.erp.ui.services;
 
-import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Usuario;
-import com.umgprogra.erp.DAO.Usuario_;
 import com.umgprogra.erp.util.JpaUtil;
+import com.umgprogra.erp.util.SessionUser;
 import java.util.Objects;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -39,7 +38,8 @@ public class UsuarioServicio {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             if (Objects.equals(usuario.getUsername(), username) && usuario.getPassword().equals(password)) {
-
+                SessionUser user = new SessionUser(usuario.getIdusuario(),usuario.getIdrole().getIdrole());
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Conexion Exitosa",
                         "Gracias!"));
