@@ -765,9 +765,9 @@ public class InventarioUI implements Serializable {
 
     public Cuentacontable getCuenta() {
         CuentacontableServicio cuentaServicio = new CuentacontableServicio();
-        idCuenta = cuentaServicio.getCuentacontableId(5);
+        idCuenta = cuentaServicio.getCuentacontableId(4);
         if (idCuenta != null) {
-            if (!idCuenta.getNombrecuenta().equals("Inventario Mercaderias")) {
+            if (!idCuenta.getNombrecuenta().equals("Iva por pagar")) {
                 System.out.println("ERROR AL AGREGAR CUENTA");
                 idCuenta = null;
             }

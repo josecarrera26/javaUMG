@@ -6,6 +6,7 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Cliente;
+import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ClienteServicio {
     
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-  public Boolean saveCliente(String pnombre, String ptelefono, String pemail, String pnit, String pdireccion, String pdpi) {
+  public Boolean saveCliente(String pnombre, String ptelefono, String pemail, String pnit, String pdireccion, String pdpi, Cuentacontable idCuenta) {
         boolean g = false;
         
         System.out.println( "Estoy en ClienteServicio");        
@@ -39,6 +40,7 @@ public class ClienteServicio {
             client.setNit(pnit);
             client.setDireccionCliente(pdireccion);
             client.setDpi(pdpi);
+            client.setIdcuentacontable(idCuenta);
             entity.getTransaction().begin();
             entity.persist(client);
             entity.getTransaction().commit();            
