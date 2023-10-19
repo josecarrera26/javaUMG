@@ -129,6 +129,17 @@ CREATE TABLE "kardex" (
 );
 
 
+CREATE TABLE "usuario" (
+  "idusuario" Serial PRIMARY KEY,
+  "username" varchar,
+  "password" varchar,
+  "idempleado" integer
+);
+
+
+
+ALTER TABLE  "usuario" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("idempleado");
+
 ALTER TABLE  "empleado" ADD FOREIGN KEY ("idcargo_empleado") REFERENCES "cargo_empleado" ("idcargo");
 
 ALTER TABLE "inventario" ADD FOREIGN KEY ("idproveedor") REFERENCES "proveedor" ("idproveedor");

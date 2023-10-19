@@ -72,7 +72,7 @@ public class UsuarioServicio {
         
         findusuario = (Usuario) query2.getSingleResult();
    
-        if (findusuario.getIdempleado() != null) {
+        if (findusuario.getIdempleado() == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Username ya existe!",
                     "Por favor ingrese un nuevo username!"));
