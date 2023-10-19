@@ -21,9 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author hccon
+ * @author madis
  */
-
 @Entity
 @Table(name = "usuario")
 @XmlRootElement
@@ -31,8 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdusuario", query = "SELECT u FROM Usuario u WHERE u.idusuario = :idusuario"),
     @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username"),
-    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
-    @NamedQuery(name = "Usuario.findUsername", query = "SELECT u.idusuario FROM Usuario u WHERE u.username = :username")})
+    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,6 +48,9 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "idempleado", referencedColumnName = "idempleado")
     @ManyToOne
     private Empleado idempleado;
+    @JoinColumn(name = "idrole", referencedColumnName = "idrole")
+    @ManyToOne
+    private Roles idrole;
 
     public Usuario() {
     }
@@ -88,6 +89,14 @@ public class Usuario implements Serializable {
 
     public void setIdempleado(Empleado idempleado) {
         this.idempleado = idempleado;
+    }
+
+    public Roles getIdrole() {
+        return idrole;
+    }
+
+    public void setIdrole(Roles idrole) {
+        this.idrole = idrole;
     }
 
     @Override

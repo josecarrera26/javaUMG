@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roles.findByDescripcion", query = "SELECT r FROM Roles r WHERE r.descripcion = :descripcion")})
 public class Roles implements Serializable {
 
+    @OneToMany(mappedBy = "idrole")
+    private Collection<Usuario> usuarioCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +49,7 @@ public class Roles implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(mappedBy = "idrole")
-    private Collection<Empleado> empleadoCollection;
+  
 
     public Roles() {
     }
@@ -80,14 +82,7 @@ public class Roles implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @XmlTransient
-    public Collection<Empleado> getEmpleadoCollection() {
-        return empleadoCollection;
-    }
-
-    public void setEmpleadoCollection(Collection<Empleado> empleadoCollection) {
-        this.empleadoCollection = empleadoCollection;
-    }
+ 
 
     @Override
     public int hashCode() {
@@ -112,6 +107,15 @@ public class Roles implements Serializable {
     @Override
     public String toString() {
         return "com.umgprogra.erp.DAO.Roles[ idrole=" + idrole + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
     
 }

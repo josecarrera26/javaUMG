@@ -133,27 +133,28 @@ public class EmpleadoUI implements Serializable {
     public void init() {
         mostrarURLactual();
     }
-    public void GetEmpleado() {
-        try {
-
-            EmpleadoServicio servicioemp = new EmpleadoServicio();
-
-            // System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
-            servicioemp.findByEmpleadoPassword(this.idEmpleado, this.password_empleado);
-
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Error en Servicio",
-                    "Por Favor intente mas tarde!"));
-        }
-    }
+    
+//    public void GetEmpleado() {
+//        try {
+//
+//            EmpleadoServicio servicioemp = new EmpleadoServicio();
+//
+//            // System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
+//            servicioemp.findByEmpleadoPassword(this.idEmpleado, this.password_empleado);
+//
+//        } catch (Exception e) {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+//                    "Error en Servicio",
+//                    "Por Favor intente mas tarde!"));
+//        }
+//    }
 
     public void registroEmpleado() {
 
         try {
             EmpleadoServicio servicioreg = new EmpleadoServicio();
 
-            boolean registro = servicioreg.registrarEmpleado(this.nombre_empleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado, this.password_empleado);
+            boolean registro = servicioreg.registrarEmpleado(this.nombre_empleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado);
 
             if (registro == true) {
 
