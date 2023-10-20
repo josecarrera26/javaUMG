@@ -27,7 +27,11 @@
                 <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
                     <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml"/>
                     <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./CuentasContables.xhtml"/>
-                    <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                    <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
+                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Empleado.xhtml"/>
+                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" url="./Role.xhtml"/>
+                    </p:submenu>    
                 </p:submenu>
 
 

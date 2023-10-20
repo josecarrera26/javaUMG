@@ -89,8 +89,8 @@ public void getCuenta() {
         try {
             System.out.println("metodo DB findbyIdCuenta");
             System.out.println("idCuenta" + idCuenta);
-            Query query = entity.createNamedQuery("Cliente.findByIdcliente", Cuentacontable.class)
-                .setParameter("idcliente", idCuenta);
+            Query query = entity.createNamedQuery("Cuentacontable.findByIdcuentacontable", Cuentacontable.class)
+                .setParameter("idcuenta", idCuenta);
             //resultado
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {

@@ -59,7 +59,7 @@ public class ClienteServicio {
 
         cliente = (Cliente) query2.getSingleResult();
 
-        System.out.println(cliente.getNombreCliente() + cliente.getTelefonoCliente() + cliente.getEmailCliente() + cliente.getNit() + cliente.getDireccionCliente() + cliente.getDpi());
+        System.out.println(cliente.getNombreCliente() + cliente.getTelefonoCliente() + cliente.getEmailCliente() + cliente.getNit() + cliente.getDireccionCliente() + cliente.getDpi() + cliente.getIdcuentacontable());
     }
 
     public List<Cliente> finderClienteById(Integer idCliente) {

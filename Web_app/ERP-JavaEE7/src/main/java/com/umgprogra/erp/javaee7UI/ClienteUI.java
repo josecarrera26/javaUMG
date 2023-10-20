@@ -26,6 +26,67 @@ import javax.inject.Named;
 @ManagedBean
 @ViewScoped
 public class ClienteUI implements Serializable {
+ 
+    private Integer idCliente;
+    private String nombreCliente;
+    private String telefonoCliente;
+    private String emailCliente;
+    private String nitCliente;
+    private String direccionCliente;
+    private String dpiCliente;
+    private List<Cliente> resultados;
+    private List<SelectItem> clienteItem;
+    private List<Cliente> cliente;
+    private List<Cliente> filteredCliente;
+    
+    private Cuentacontable cuentacontable;
+    private Cuentacontable idCuenta;
+    private List<SelectItem> cuentaItems;
+    private List<Cuentacontable> cuentas;
+    
+    private String idCuentaContable;
+    
+    /**
+     * @return the idCuentaContable
+     */
+    public String getIdCuentaContable() {
+        return idCuentaContable;
+    }
+
+    /**
+     * @param idCuentaContable the idCuentaContable to set
+     */
+    public void setIdCuentaContable(String idCuentaContable) {
+        this.idCuentaContable = idCuentaContable;
+    }
+    
+    /**
+     * @return the cuentaItem
+     */
+    public List<SelectItem> getCuentaItems() {
+        return cuentaItems;
+    }
+
+    /**
+     * @param cuentaItems the cuentaItem to set
+     */
+    public void setCuentaItems(List<SelectItem> cuentaItems) {
+        this.cuentaItems = cuentaItems;
+    }
+
+    /**
+     * @return the idCuenta
+     */
+    public Cuentacontable getIdCuenta() {
+        return idCuenta;
+    }
+
+    /**
+     * @param idCuenta the idCuenta to set
+     */
+    public void setIdCuenta(Cuentacontable idCuenta) {
+        this.idCuenta = idCuenta;
+    }
 
     /**
      * @return the filteredCliente
@@ -69,23 +130,10 @@ public class ClienteUI implements Serializable {
         this.cliente = clientes;
     }
 
-    private Integer idCliente;
-    private String nombreCliente;
-    private String telefonoCliente;
-    private String emailCliente;
-    private String nitCliente;
-    private String direccionCliente;
-    private String dpiCliente;
-    private List<Cliente> resultados;
-    private List<SelectItem> clienteItem;
-    private List<Cliente> cliente;
-    private List<Cliente> filteredCliente;
-    private Cuentacontable idCuenta;
-
     ClienteServicio servicio = new ClienteServicio();
+    
 //Constructor de Cliente
-
-    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente) {
+    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente, String idcuenta) {
         this.idCliente = idCliente;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
@@ -93,6 +141,7 @@ public class ClienteUI implements Serializable {
         this.nitCliente = nitCliente;
         this.direccionCliente = direccionCliente;
         this.dpiCliente = dpiCliente;
+        this.idCuentaContable = idcuenta;
 
     }
 
@@ -163,14 +212,14 @@ public class ClienteUI implements Serializable {
 
     public Cuentacontable getCuentac() {
         CuentacontableServicio cuentaServicio = new CuentacontableServicio();
-        idCuenta = cuentaServicio.getCuentacontableId(3);
-        if (idCuenta != null) {
+        setIdCuenta(cuentaServicio.getCuentacontableId(3));
+        if (getIdCuenta() != null) {
             if (!idCuenta.getNombrecuenta().equals("Iva por cobrar")) {
                 System.out.println("ERROR AL AGREGAR CUENTA");
-                idCuenta = null;
+                setIdCuenta(null);
             }
         }
-        return idCuenta;
+        return getIdCuenta();
     }
 
     public void saveCliente() {
@@ -211,5 +260,18 @@ public class ClienteUI implements Serializable {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");
         }
     }
+    
+        public void findAllCuentaUi() {
+        try {
+            CuentacontableServicio cuentaServ = new CuentacontableServicio();
+            cuentas = cuentaServ.findAllCuenta();
+            cuentaItems = new ArrayList<>();
+            for (Cuentacontable cuentaObj : cuentas) {
+                cuentaItems.add(new SelectItem(cuentaObj.getIdcuentacontable(), cuentaObj.getNombrecuenta()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta cuentas clase CuentasContablesUI");
+        }
+    }       
 
 }

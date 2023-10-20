@@ -8,13 +8,13 @@
         <link type="text/css"
               href="${facesContext.externalContext.requestContextPath}/resources/css/styleCliente.css"
               rel="stylesheet" />
-        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputStylesheet library="css" name="styleCliente.css"/>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
 
     <h:body>
         
-        <h:form>
+        <h:form id="formCuentas">
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
@@ -29,7 +29,11 @@
                 <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
                     <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml"/>
                     <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./CuentasContables.xhtml"/>
-                    <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                    <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
+                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Empleado.xhtml"/>
+                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" url="./Role.xhtml"/>
+                    </p:submenu>
                 </p:submenu>
 
 
@@ -51,7 +55,6 @@
                 </p:submenu>
 
             </p:menubar>
-        </h:form>
         
         <p:tabView dynamic="true">
             <p:growl id="msg"/>
@@ -59,7 +62,6 @@
                 <p:tab  title="Cuentas Contables">
                     <p:panel id="pnlRegistroCuentas" header="Registro de Cuenta Contable" class="centerPnl" style="width: 40%" >
                     <div class="card" style="width: 100%">
-                        <h:form>
                             <div class="grid ui-fluid mt-3 floatlabel-demo">
                                <p:splitter style="height: 150px" styleClass="mb-5">
                                    <p:splitterPanel styleClass="flex align-items-center justify-content-center">                               
@@ -84,12 +86,86 @@
                                   </p:splitter>
                             </div>
                             <p:commandButton id="RegisterCuenta" action="#{cuentasContablesUI.saveCuenta}"
-                                             value="Registrar"  ajax="true" style=" margin-left: 0px" >
+                                             value="Registrar"  update="pnlRegistroCuentas, msg, tablaCuenta" ajax="true" style=" margin-left: 0px" >
                             </p:commandButton>
-                        </h:form> 
                     </div>
                 </p:panel>
             </p:tab>
+                            <p:tab  title="Consultar Cuenta">  
+                    <style>
+                        .ui-filter-column .ui-column-customfilter .custom-filter {
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+                    </style>
+
+                    <div class="card">
+                            <p:dataTable id="tablaCuenta" var="cuentaContable" widgetVar="CuentaContable" filteredValue="#{cuentasContablesUI.filteredCuenta}" value="#{cuentasContablesUI.cuentacontable}">
+
+                                <f:facet name="header">
+                                    <div class="flex align-items-center justify-content-between">
+                                        <span>Lista Cuentas</span>
+                                        <div>
+                                        <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
+                                                     placeholder="Enter keyword" />
+                                        </div>
+                                    </div>
+
+                                </f:facet>
+
+                                <p:column headerText="ID" sortBy="#{cuentaContable.idcuentacontable}" filterBy="#{cuentaContable.idcuentacontable}" filterMatchMode="exact">
+                                    <h:outputText value="#{cuentaContable.idcuentacontable}" />
+                                </p:column>
+
+                                <p:column headerText="Nombre" sortBy="#{cuentaContable.nombrecuenta}" filterBy="#{cuentaContable.nombrecuenta}" filterMatchMode="contains">
+                                    <h:outputText value="#{cuentaContable.nombrecuenta}" />
+                                </p:column>
+
+                                <p:column headerText="Telefono" sortBy="#{cuentaContable.tipocuenta}" filterBy="#{cuentaContable.tipocuenta}" filterMatchMode="contains">
+                                    <h:outputText value="#{cuentaContable.tipocuenta}" />
+                                </p:column>
+
+                            </p:dataTable>
+                    </div> 
+                    </p:tab> 
+           <!-- <p:tab  title="Consultar Cuentas">  
+                    <style>
+                        .ui-filter-column .ui-column-customfilter .custom-filter {
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+                    </style>
+
+                    <div class="card">
+                        <h5>Column Filtering</h5>
+                        <p:dataTable id="tablaCuenta" var="cuentas" widgetVar="CuentaContable" filteredValue="#{cuentasContablesUI.getFilteredCuenta}" value="#{cuentasContablesUI.getCuentacontable}">
+
+                            <f:facet name="header">
+                                <div class="flex align-items-center justify-content-between">
+                                    <span>Lista Cuentas</span>
+                                    <div>
+                                        <p:inputText id="globalFilterCuentas" onkeyup="PF('Cliente').filter()" style="width:10rem"
+                                                     placeholder="Enter keyword" />
+                                    </div>
+                                </div>
+
+                            </f:facet>
+
+                            <p:column headerText="ID" sortBy="#{cuentaContable.idcuentacontable}" filterBy="#{cuentaContable.idcuentacontable}" filterMatchMode="exact">
+                                <h:outputText value="#{cuentaContable.idcuentacontable}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre" sortBy="#{cuentaContable.nombrecuenta}" filterBy="#{cuentaContable.nombrecuenta}" filterMatchMode="contains">
+                                <h:outputText value="#{cuentaContable.nombrecuenta}" />
+                            </p:column>
+
+                            <p:column headerText="Telefono" sortBy="#{cuentaContable.tipocuenta}" filterBy="#{cuentaContable.tipocuenta}" filterMatchMode="contains">
+                                <h:outputText value="#{cuentaContable.tipocuenta}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </div> 
+            </p:tab>-->            
         </p:tabView>
 
         <div class="layout-footer">
@@ -143,5 +219,6 @@
                 </p:accordionPanel>
             </div>
         </div>
+       </h:form>
     </h:body>
 </html>
