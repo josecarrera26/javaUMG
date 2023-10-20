@@ -23,6 +23,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
  * @author madis
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class InventarioUI implements Serializable {
 
     /**
@@ -603,8 +604,6 @@ public class InventarioUI implements Serializable {
 
     }
 
-    
-
     public InventarioUI(Integer codProducto, String nombre, Integer cantidad, String tipo_comercializacion, String modelo, String unidades, Double precioventa, Double coste, Integer margenganancia, Integer estado, Double impuestoinventario, String idgrupoproducto, String idlinea, String idmarca, String idproveedor) {
         this.codProducto = codProducto;
         this.nombre = nombre;
@@ -648,6 +647,33 @@ public class InventarioUI implements Serializable {
         } catch (Exception e) {
             System.out.println(e + "Error en save MarcaUI");
         }
+    }
+
+    public void actualizarProducto(int index) {
+        System.out.println("Index: " + index);
+//        try {
+//            InventarioServicio inventarioServ = new InventarioServicio();
+//
+////            System.err.println("Marca: " +  getMarcaSeleccionada());
+////            System.err.println("Linea: " +  getLineaSeleccionada());
+////            System.err.println("Proveedor: " +  getProveedorSeleccionado());
+////            System.err.println("Grupo: " +  getGrupoSeleccionado());
+////              System.err.println("Medida: " +  unidadMed);
+//            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta())) {
+//                System.err.println("Estoy en ProdUITRUE");
+//                // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
+//                //Agrega el mensaje al componente <p:growl>
+//                //  FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+//            } else {
+//                System.err.println("Estoy en InventarioUIFALSE");
+//                //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Registro no guardado");
+//                // Agrega el mensaje al componente <p:growl>
+//                //   FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+//            }
+//
+//        } catch (Exception e) {
+//            System.out.println(e + "Error en save MarcaUI");
+//        }
     }
 
     public void pruebaID() {

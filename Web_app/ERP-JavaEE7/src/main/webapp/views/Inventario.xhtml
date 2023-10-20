@@ -292,12 +292,14 @@
                             <h:outputText value="#{product.grupoT}" />
                         </p:column>
                     </p:dataTable>
-                    <p:contextMenu for="products">
-                       
-                        <p:menuitem value="Delete" update="products" icon="pi pi-times"
+                    <p:contextMenu for="products" rendered="true">
+                        <p:menuitem value="Actualizar" update="products" icon="pi pi-times"
                                     action="#{inventarioUI.deleteProduct()}"/>
+                        <p:menuitem value="Delete" update="products" icon="pi pi-times "
+                                    action="#{inventarioUI.actualizarProducto(index)}"/>
+                        <f:attribute name="index" value="#{rowIndex}"/>
                     </p:contextMenu>
-                  
+
 
                 </p:tab>
 
