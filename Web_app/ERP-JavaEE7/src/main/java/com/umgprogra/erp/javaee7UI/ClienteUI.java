@@ -6,7 +6,9 @@
 package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Cliente;
+import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.ui.services.ClienteServicio;
+import com.umgprogra.erp.ui.services.CuentacontableServicio;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import javax.inject.Named;
 @Named("dtFilterView")
 @ManagedBean
 @ViewScoped
-public class ClienteUI  implements  Serializable {
+public class ClienteUI implements Serializable {
 
     /**
      * @return the filteredCliente
@@ -38,7 +40,6 @@ public class ClienteUI  implements  Serializable {
     public void setFilteredCliente(List<Cliente> filteredCliente) {
         this.filteredCliente = filteredCliente;
     }
-
 
     /**
      * @return the clienteItem
@@ -67,7 +68,7 @@ public class ClienteUI  implements  Serializable {
     public void setClientes(List<Cliente> clientes) {
         this.cliente = clientes;
     }
-    
+
     private Integer idCliente;
     private String nombreCliente;
     private String telefonoCliente;
@@ -79,10 +80,11 @@ public class ClienteUI  implements  Serializable {
     private List<SelectItem> clienteItem;
     private List<Cliente> cliente;
     private List<Cliente> filteredCliente;
+    private Cuentacontable idCuenta;
 
-    
     ClienteServicio servicio = new ClienteServicio();
 //Constructor de Cliente
+
     public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente) {
         this.idCliente = idCliente;
         this.nombreCliente = nombreCliente;
@@ -93,11 +95,11 @@ public class ClienteUI  implements  Serializable {
         this.dpiCliente = dpiCliente;
 
     }
-    
-    public ClienteUI(){
-        
+
+    public ClienteUI() {
+
     }
-    
+
 //Getters y Setters de Cliente
     public Integer getIdCliente() {
         return idCliente;
@@ -154,37 +156,49 @@ public class ClienteUI  implements  Serializable {
     public void setDpiCliente(String dpiCliente) {
         this.dpiCliente = dpiCliente;
     }
-    
+
     public List<Cliente> getResultados() {
         return resultados;
     }
-    
-        public void saveCliente(){
-        try{
-         
-            ClienteServicio nuevoCliente = new ClienteServicio();
-            nuevoCliente.saveCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente);
-            cliente = nuevoCliente.findAllCliente();
+
+    public Cuentacontable getCuentac() {
+        CuentacontableServicio cuentaServicio = new CuentacontableServicio();
+        idCuenta = cuentaServicio.getCuentacontableId(3);
+        if (idCuenta != null) {
+            if (!idCuenta.getNombrecuenta().equals("Iva por cobrar")) {
+                System.out.println("ERROR AL AGREGAR CUENTA");
+                idCuenta = null;
+            }
         }
-        catch(Exception e){
+        return idCuenta;
+    }
+
+    public void saveCliente() {
+        try {
+
+            ClienteServicio nuevoCliente = new ClienteServicio();
+            nuevoCliente.saveCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente, getCuentac());
+            cliente = nuevoCliente.findAllCliente();
+        } catch (Exception e) {
             System.out.println(e + "Error en save ClienteUI");
         }
     }
-        @PostConstruct
-    public void init() 
-        {findAllClienteUi();
-                }
-    
-        public void consultaCliente(){
-            try{
-                resultados = new ArrayList<>();
-                System.out.println("idCliente buscado" + this.idCliente);
-                resultados = servicio.finderClienteById(idCliente);
-            }catch(Exception e){
-                System.err.println("Error al consultar");
-            }
-        }        
- 
+
+    @PostConstruct
+    public void init() {
+        findAllClienteUi();
+    }
+
+    public void consultaCliente() {
+        try {
+            resultados = new ArrayList<>();
+            System.out.println("idCliente buscado" + this.idCliente);
+            resultados = servicio.finderClienteById(idCliente);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+    }
+
     public void findAllClienteUi() {
         try {
             ClienteServicio clienteServ = new ClienteServicio();

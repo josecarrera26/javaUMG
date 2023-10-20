@@ -1,7 +1,0 @@
-controlador\exceptions\PreexistingEntityException.class
-modelo\Registropaciente.class
-modelo\Registropaciente_.class
-controlador\exceptions\NonexistentEntityException.class
-controlador\exceptions\IllegalOrphanException.class
-controlador\RegistropacienteJpaController.class
-ui\cPacientes.class

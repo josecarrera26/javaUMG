@@ -17,15 +17,15 @@ public class PruebasAPP {
 
     public static void main(String[] args) {
          WebDriver driver = new ChromeDriver();
-         driver.get("https://www.selenium.dev/selenium/web/web-form.html");
+         driver.get("http://localhost:8080/ERP-JavaEE7/");
          System.out.println("Titulo de la pagina: " + driver.getTitle());
          
-        WebElement textBox = driver.findElement(By.name("my-text"));
-        WebElement textPassword = driver.findElement(By.name("my-password"));
-        WebElement submitButton = driver.findElement(By.cssSelector("button"));
+        WebElement textBox = driver.findElement(By.name("loginForm:username"));
+        WebElement textPassword = driver.findElement(By.name("loginForm:password"));
+        WebElement submitButton = driver.findElement(By.id("loginForm:loginButton"));
         
-        textBox.sendKeys("prueba");
-        textPassword.sendKeys("prueba 2");
+        textBox.sendKeys("joseC");
+        textPassword.sendKeys("password1");
         submitButton.click();
     }
 }
