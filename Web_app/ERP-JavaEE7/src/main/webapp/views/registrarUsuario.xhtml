@@ -41,26 +41,11 @@
 
                             <h:outputLabel id="lblpassUsr" value="Contraseña" />
                             <p:inputText id="passwordUsr" value="#{usuarioUI.password}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
-
-                            <!--  <h:outputLabel id="lblNomEmp" value=" Nombres " />
-                              <p:inputText id="nombreEmpleado" value="#{empleadoUI.nombre_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
-  
-                              <h:outputLabel for="lblApEmp" value="Apellidos"/>
-                              <p:inputText id="apellidoEmpleado" value="#{empleadoUI.apellido_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
-  
-                              <h:outputLabel id="lblTelEmp" value=" Telefono" />
-                              <p:inputText id="telEmpleado" value="#{empleadoUI.telefono_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35"/> 
-  
-                              <h:outputLabel id="lblEmailEmp" value="Correo Electronico" />
-                              <p:inputText id="emailEmp" value="#{empleadoUI.email_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
-                            
-                            -->
-
                         </p:panelGrid >
 
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
                             <p:commandButton id="btnRegEmp" value="Registrar Usuario" actionListener ="#{usuarioUI.registroUsuario()}"
-                                             update="formRegistroUsuario ,msg" icon="pi pi-check" styleClass="rounded-button" />
+                                             update="formRegistroUsuario ,msg,pnlRegistroUsuario" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
                     </p:panel > 
                 </p:tab>               

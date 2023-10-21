@@ -8,6 +8,7 @@ import com.umgprogra.erp.DAO.Usuario;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
 import com.umgprogra.erp.ui.services.UsuarioServicio;
 import com.umgprogra.erp.util.JpaUtil;
+import com.umgprogra.erp.util.SessionUser;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -58,12 +59,30 @@ public class UsuarioUI implements Serializable {
     }
 
     public void GetUsuario() {
+        int existe = 0;
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
 
             UsuarioServicio servicioemp = new UsuarioServicio();
 
-            // System.out.println("parametros enviados = " + this.idEmpleado + " " + this.password_empleado);
-            servicioemp.findByUsername(this.username, this.password);
+            existe = servicioemp.findByUsername(this.username, this.password);
+
+            if (existe == 1) {
+
+                //SessionUser user = new SessionUser(usuario.getIdusuario(), usuario.getIdrole().getIdrole());
+                //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Conexion Exitosa",
+                        "Gracias!"));
+
+                externalContext.redirect("views/MenuPrincipal.xhtml");
+
+            } else {
+
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Nombre o Contraseña Invalida!",
+                        "Por Favor intente Nuevamente!"));
+            }
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -72,23 +91,47 @@ public class UsuarioUI implements Serializable {
         }
     }
 
-    public void registroUsuario() {
+    public int registroUsuario() {
 
+        boolean registro;
+        int existe;
         try {
 
             UsuarioServicio servicioreg = new UsuarioServicio();
 
-            servicioreg.registrarUsuario(this.password, this.username);
+            UsuarioServicio validacion = new UsuarioServicio();
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Registro Exitoso!",
-                    "Para iniciar sesion por favor regrese a Iniciar Sesion!"));
+            existe = validacion.findByUsername(this.username, this.password);
 
-            System.out.println("El registro fue Exitoso");
+            if (existe == 1) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Username y Password ya existen!",
+                        "Por favor ingrese un nuevo username o pongase en contacto con el administrador!"));
+
+                System.out.println("Registro ya existe");
+                return 1;
+            }
+
+            registro = servicioreg.registrarUsuario(this.password, this.username);
+
+            if (registro == true) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Registro Exitoso!",
+                        "Para iniciar sesion por favor regrese a Iniciar Sesion!"));
+
+                System.out.println("Registro Exitoso");
+                return 1;
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Error en Registro!",
+                        "Username ya existe!"));
+                return 0;
+            }
 
         } catch (Exception e) {
             System.out.println("Error en metodo Registro Empleado = " + e.getMessage());
         }
+        return 0;
     }
 
     public void mostrarURLactual() {
