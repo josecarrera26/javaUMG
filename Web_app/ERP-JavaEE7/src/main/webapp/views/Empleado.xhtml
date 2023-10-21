@@ -89,7 +89,19 @@
 
                             <h:outputLabel id="lblidCargo" value=" ID Cargo:" />
                             <p:inputText id="idCargo" value="#{empleadoUI.idCargo}" required="true" requiredMessage ="El campo no puede estar vacio" />     
-                                                       
+                            
+                            <!--<div class="field">
+                                <p:outputLabel id="idLabelCargo" value="Cargos"  for="@next"/>
+                                <br/>
+                                <p:selectOneMenu id="cargo" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
+                                                 style="width: 14rem;" panelStyle="width: 15rem" 
+                                                 value="#{empleadoUI.idCargo}">
+                                    <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                                    <f:selectItems value="#{empleadoUI.cargoItems}"/>
+                                </p:selectOneMenu>
+                                <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                            </div>-->                           
+                            
                         </p:panelGrid >
 
                         <p:commandButton id="RegisterEmpleado" action="#{empleadoUI.saveEmpleado()}"

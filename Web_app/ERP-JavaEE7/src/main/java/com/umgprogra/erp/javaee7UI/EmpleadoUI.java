@@ -22,7 +22,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author josel
+ * @author Miguel Coloma
  */
 @Named("dtFilterView")
 @ManagedBean
@@ -30,17 +30,59 @@ import javax.inject.Named;
 public class EmpleadoUI implements Serializable {
 
     /**
-     * @return the filteredEmpleados
+     * @return the cargoItems
      */
-    public List<Empleado> getFilteredEmpleados() {
-        return filteredEmpleados;
+    public List<SelectItem> getCargoItems() {
+        return cargoItems;
     }
 
     /**
-     * @param filteredEmpleados the filteredEmpleados to set
+     * @param cargoItems the cargoItems to set
      */
-    public void setFilteredEmpleados(List<Empleado> filteredEmpleados) {
-        this.filteredEmpleados = filteredEmpleados;
+    public void setCargoItems(List<SelectItem> cargoItems) {
+        this.cargoItems = cargoItems;
+    }
+
+    /**
+     * @return the cargoT
+     */
+    public String getCargoT() {
+        return cargoT;
+    }
+
+    /**
+     * @param cargoT the cargoT to set
+     */
+    public void setCargoT(String cargoT) {
+        this.cargoT = cargoT;
+    }
+
+    /**
+     * @return the idCargo
+     */
+    public int getIdCargo() {
+        return idCargo;
+    }
+
+    /**
+     * @param idCargo the idCargo to set
+     */
+    public void setIdCargo(int idCargo) {
+        this.idCargo = idCargo;
+    }
+
+    /**
+     * @return the cargo
+     */
+    public CargoEmpleado getCargo() {
+        return cargo;
+    }
+
+    /**
+     * @param cargo the cargo to set
+     */
+    public void setCargo(CargoEmpleado cargo) {
+        this.cargo = cargo;
     }
 
     private Integer idEmpleado;
@@ -49,19 +91,27 @@ public class EmpleadoUI implements Serializable {
     private String telefono_empleado;
     private String email_empleado;
     private String password_empleado;
-    private CargoEmpleado idCargo;
+    private String cargoT;
+    private int idCargo;
+    private List<Empleado> resultados;
     private List<Empleado> empleados;
     private List<Empleado> filteredEmpleados;
-    private List<SelectItem> empleadoItems;
+    private List<SelectItem> empleadoItems;    
+    private List<CargoEmpleado> cargos;
+    private List<SelectItem> cargoItems;
+    private CargoEmpleado cargo;
+    
+    EmpleadoServicio servicio = new EmpleadoServicio();    
 
-    public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, CargoEmpleado idCargo) {
+    //Constructor de Empleado
+    public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, String idcargo) {
         this.idEmpleado = idEmpleado;
         this.nombreEmpleado = nombre_empleado;
         this.apellido_empleado = apellido_empleado;
         this.telefono_empleado = telefono_empleado;
         this.email_empleado = email_empleado;
         this.password_empleado = password_empleado;
-        this.idCargo = idCargo;
+        this.cargoT = idcargo;
     }
     public EmpleadoUI() {
 
@@ -116,18 +166,33 @@ public class EmpleadoUI implements Serializable {
     }
 
     /**
-     * @return the idCargo
+     * @return the resultados
      */
-    public CargoEmpleado getIdCargo() {
-        return idCargo;
+    public List<Empleado> getResultados() {
+        return resultados;
     }
 
     /**
-     * @param idCargo the idCargo to set
+     * @param resultados the resultados to set
      */
-    public void setIdCargo(CargoEmpleado idCargo) {
-        this.idCargo = idCargo;
+    public void setResultados(List<Empleado> resultados) {
+        this.resultados = resultados;
     }
+
+    /**
+     * @return the filteredEmpleados
+     */
+    public List<Empleado> getFilteredEmpleados() {
+        return filteredEmpleados;
+    }
+
+    /**
+     * @param filteredEmpleados the filteredEmpleados to set
+     */
+    public void setFilteredEmpleados(List<Empleado> filteredEmpleados) {
+        this.filteredEmpleados = filteredEmpleados;
+    }    
+   
 
     public List<Empleado> getEmpleados() {
         return empleados;
@@ -147,10 +212,13 @@ public class EmpleadoUI implements Serializable {
 
     public void saveEmpleado() {
         try {
-
             EmpleadoServicio nuevoEmpleado = new EmpleadoServicio();
-            nuevoEmpleado.saveEmpleado(this.nombreEmpleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado, this.idCargo);
-            empleados = nuevoEmpleado.findAllEmpleados();
+            
+            if (nuevoEmpleado.saveEmpleado(nombreEmpleado, apellido_empleado, telefono_empleado, email_empleado, getCargoSeleccionado())) {
+                System.err.println("Estoy en CargoUITRUE");
+            } else {
+                System.err.println("Estoy en EmpleadoUIFalse");
+            }   
         } catch (Exception e) {
             System.out.println(e + "Error en save EmpleadoUI");
         }
@@ -160,6 +228,39 @@ public class EmpleadoUI implements Serializable {
     public void init() {
         mostrarURLactual();
     }
+    
+    public void consultaEmpelado() {
+        try {
+            resultados = new ArrayList<>();
+            System.out.println("idEmpleado buscado" + this.idEmpleado);
+            resultados = servicio.finderEmpleadoById(idEmpleado);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+    }
+    
+        public void findAllCargoUi() {
+        try {
+            CargosServicio cargoServ = new CargosServicio();
+            cargos = cargoServ.findAllCargo();
+            cargoItems = new ArrayList<>();
+            for (CargoEmpleado cargoObj : cargos) {
+                cargoItems.add(new SelectItem(cargoObj.getIdcargo(), cargoObj.getNombreCargo()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta cargos clase CargoUI");
+        }
+    }
+
+    public CargoEmpleado getCargoSeleccionado() {
+        try {
+            CargosServicio cargoServ = new CargosServicio();
+            cargo = cargoServ.getCargoId(idCargo).get(0);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+        return cargo;
+    }        
     
 //    public void GetEmpleado() {
 //        try {

@@ -46,6 +46,25 @@ public class ClienteUI implements Serializable {
     
     private String idCuentaContable;
     
+    ClienteServicio servicio = new ClienteServicio();
+       
+//Constructor de Cliente
+    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente, String idcuenta) {
+        this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.emailCliente = emailCliente;
+        this.nitCliente = nitCliente;
+        this.direccionCliente = direccionCliente;
+        this.dpiCliente = dpiCliente;
+        this.idCuentaContable = idcuenta;
+
+    }
+
+    public ClienteUI() {
+
+    }
+    
     /**
      * @return the idCuentaContable
      */
@@ -128,25 +147,6 @@ public class ClienteUI implements Serializable {
      */
     public void setClientes(List<Cliente> clientes) {
         this.cliente = clientes;
-    }
-
-    ClienteServicio servicio = new ClienteServicio();
-    
-//Constructor de Cliente
-    public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente, String idcuenta) {
-        this.idCliente = idCliente;
-        this.nombreCliente = nombreCliente;
-        this.telefonoCliente = telefonoCliente;
-        this.emailCliente = emailCliente;
-        this.nitCliente = nitCliente;
-        this.direccionCliente = direccionCliente;
-        this.dpiCliente = dpiCliente;
-        this.idCuentaContable = idcuenta;
-
-    }
-
-    public ClienteUI() {
-
     }
 
 //Getters y Setters de Cliente

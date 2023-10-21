@@ -42,4 +42,39 @@ public class CargosServicio {
         cargos = query.getResultList();
         return cargos;
     }
+    
+    public List<CargoEmpleado> getCargoId(int idCargo) {
+        List<CargoEmpleado> resultList = new ArrayList<>();
+        try {
+            Query query2 = entity.createNamedQuery("CargoEmpleado.findByIdcargo", CargoEmpleado.class).setParameter("idcargo", idCargo);
+            resultList = query2.getResultList();
+            if (resultList == null && resultList.isEmpty()) {
+                System.out.println("No se encontraron Cargos con el ID");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la consulta getCargoId" + e);
+        }
+
+        return resultList;
+    }
+    
+    public List<CargoEmpleado> findAllCargo() {
+        List<CargoEmpleado> resultList = new ArrayList<>();
+        try {
+            System.out.println("metodo DB findAllCargo");
+            Query query = entity.createNamedQuery("CargoEmpleado.findAll", CargoEmpleado.class);
+            //resultado de lista Cargos
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron Cargos");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findAllCargo " + e.getMessage());
+        }
+
+        return resultList;
+
+    }    
 }
