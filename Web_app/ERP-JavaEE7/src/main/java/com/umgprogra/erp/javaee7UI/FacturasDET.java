@@ -34,18 +34,28 @@ public class FacturasDET implements Serializable {
     private double iva;
     private Integer idProducto;
     private double subTotal;
+    private double totalFac;
     private String nombreProducto;
 
     //constructores
-    public FacturasDET(Integer cantidad, double precioUnitario, double iva, Integer idProducto, double subTotal, String nombreProducto) {
+    public FacturasDET(Integer cantidad, double precioUnitario, double iva, Integer idProducto, double subTotal, String nombreProducto,double totalFac) {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.iva = iva;
         this.idProducto = idProducto;
         this.subTotal = subTotal;
         this.nombreProducto = nombreProducto;
+        this.totalFac = totalFac;
     }
 
+    public double getTotalFac() {
+        return totalFac;
+    }
+
+    public void setTotalFac(double totalFac) {
+        this.totalFac = totalFac;
+    }
+    
     public List<Inventario> getMostraridprod() {
         return mostraridprod;
     }
@@ -133,6 +143,8 @@ public class FacturasDET implements Serializable {
                     Integer idProd = lista.getIdProducto();
                     Integer cantidadprod = lista.getCantidad();
                     exito = registroFac.registroFacturaDet(cantidadprod, idProd);
+                    
+                   
                 }
                 if (exito == true) {
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
@@ -163,7 +175,12 @@ public class FacturasDET implements Serializable {
 
     public void eliminarProducto(int index) {
         if (index >= 0 && index < listadoproductos.size()) {
-            listadoproductos.remove(index);
+            double subtotalAEliminar = listadoproductos.get(index).subTotal; // Obtén el subtotal del producto que se va a eliminar
+            listadoproductos.remove(index); // Elimina el producto de la lista
+
+            // Actualiza totalFac después de eliminar el producto
+            totalFac = totalFac - subtotalAEliminar;
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto eliminado con éxito."));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el producto."));
@@ -213,10 +230,12 @@ public class FacturasDET implements Serializable {
                 }
 
                 if (existenciaprod != null && cantidadInventario > existenciaprod.getCantidad() + this.cantidad) {
+
+                    this.totalFac = totalFac + subTotal;
                     // si existe entonces remplazamos el valor existente en la lista
                     existenciaprod.setCantidad(existenciaprod.getCantidad() + this.cantidad);
-                    existenciaprod.setIva((existenciaprod.getCantidad() *existenciaprod.getPrecioUnitario())*0.12);
-                    existenciaprod.setSubTotal((existenciaprod.getCantidad()*existenciaprod.getPrecioUnitario())+existenciaprod.getIva());
+                    existenciaprod.setIva((existenciaprod.getCantidad() * existenciaprod.getPrecioUnitario()) * 0.12);
+                    existenciaprod.setSubTotal((existenciaprod.getCantidad() * existenciaprod.getPrecioUnitario()) + existenciaprod.getIva());
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suma de producto", "exito."));
                 }
                 if (existenciaprod != null && cantidadInventario <= existenciaprod.getCantidad() + this.cantidad) {
@@ -226,6 +245,8 @@ public class FacturasDET implements Serializable {
                 //si el producto no esta en la lista lo insertamos como un nuevo registro
                 if (existenciaprod == null) {
                     FacturasDET facDET = new FacturasDET();
+
+                    this.totalFac = totalFac + subTotal;
 
                     //seteamos los datos a la clase de facturaDET para agregarlo a una lista
                     facDET.setCantidad(this.cantidad);
