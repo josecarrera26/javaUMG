@@ -96,7 +96,7 @@ public class ClienteServicio {
                 System.out.println("No se encontraron Cliente");
             }
         } catch (Exception e) {
-            System.err.println("Error en findbyIdCliente " + e.getMessage());
+            System.err.println("Error en findAllCliente " + e.getMessage());
         }
     
         return resultList;

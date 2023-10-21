@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -85,7 +84,7 @@ public class EmpleadoUI implements Serializable {
         this.cargo = cargo;
     }
 
-    private Integer idEmpleado;
+    private int idEmpleado;
     private String nombreEmpleado;
     private String apellido_empleado;
     private String telefono_empleado;
@@ -225,9 +224,13 @@ public class EmpleadoUI implements Serializable {
     }
     
     @PostConstruct
-    public void init() {
-        mostrarURLactual();
+        public void init() {
+        findAllEmpleadoUi();
     }
+        
+    //public void init() {
+    //    mostrarURLactual();
+    //}
     
     public void consultaEmpelado() {
         try {
@@ -238,6 +241,19 @@ public class EmpleadoUI implements Serializable {
             System.err.println("Error al consultar");
         }
     }
+    
+    public void findAllEmpleadoUi() {
+        try {
+            EmpleadoServicio empleadoServ = new EmpleadoServicio();
+            empleados = empleadoServ.findAllEmpleados();
+            empleadoItems = new ArrayList<>();
+            for (Empleado empleado : empleados) {
+                empleadoItems.add(new SelectItem(empleado.getIdempleado(), empleado.getNombreEmpleado(), empleado.getApellidoEmpleado()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta empleados clase EmpleadoUI");
+        }
+    }    
     
         public void findAllCargoUi() {
         try {

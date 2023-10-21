@@ -88,7 +88,7 @@
                             <h:outputLabel value=" " />
 
                             <h:outputLabel id="lblidCargo" value=" ID Cargo:" />
-                            <p:inputText id="idCargo" value="#{empleadoUI.idCargo}" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                            <p:inputText id="idCargo" value="#{empleadoUI.idCargo}" required="true" requiredMessage ="El campo no puede estar vacio" />       
                             
                             <!--<div class="field">
                                 <p:outputLabel id="idLabelCargo" value="Cargos"  for="@next"/>
@@ -100,7 +100,7 @@
                                     <f:selectItems value="#{empleadoUI.cargoItems}"/>
                                 </p:selectOneMenu>
                                 <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
-                            </div>-->                           
+                            </div> -->                       
                             
                         </p:panelGrid >
 
@@ -111,7 +111,7 @@
                     </p:panel > 
 
                 </p:tab>
-                <p:tab  title="Consultar Empleado   ">  
+                <p:tab  title="Consultar Empleado">  
                     <style>
                         .ui-filter-column .ui-column-customfilter .custom-filter {
                             width: 100%;
@@ -124,7 +124,7 @@
 
                                 <f:facet name="header">
                                     <div class="flex align-items-center justify-content-between">
-                                        <span>Lista Empelados</span>
+                                        <span>Lista Empleados</span>
                                         <div>
                                         <p:inputText id="globalFilter" onkeyup="PF('Empleados').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
@@ -157,7 +157,7 @@
                                     <h:outputText value="#{empleado.idcargoEmpleado}" />
                                 </p:column> 
 
-                            </p:dataTable>
+                            </p:dataTable>-
                     </div> 
                     </p:tab>                   
  
