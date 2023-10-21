@@ -12,7 +12,7 @@
 
     <h:body>
         
-        <h:form>
+        <h:form id="formEmpleado" >
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
@@ -51,13 +51,118 @@
                     </p:submenu>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
-
             </p:menubar>
-        </h:form>
-        
-        <p:spinner />
-        cambio
-        otro cambio
+
+            <p:tabView dynamic="true">
+                <p:growl id="msg"/>
+                <!-- seccion de registro de Cliente -->
+                <p:tab  title="Nuevo Empleado">
+                    <p:panel id="pnlRegistroEmpleado" >
+                        <p:panelGrid id="pnlGridEmpleadoId" layout="grid" columns="4" style="width: 65%">                           
+
+                            <h:outputLabel value=" " />
+                            <h:outputLabel value=" " />                               
+
+                            <h:outputLabel id="lblNomEmpleado" value=" Nombre:" />
+                            <p:inputText id="nomEmpleadoe" value="#{empleadoUI.nombreEmpleado}" required="true" requiredMessage ="El campo no puede estar vacio" />     
+
+                            <h:outputLabel value=" " />
+                            <h:outputLabel value=" " />
+
+                            <h:outputLabel id="lblApellidoEmp" value=" Apellido:" />
+                            <p:inputText id="ApelliEmpleado" value="#{empleadoUI.apellido_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" />     
+
+                            <h:outputLabel value=" " />
+                            <h:outputLabel value=" " />
+
+                            <h:outputLabel id="lblTelEmpleado" value=" Telefono:" />
+                            <p:inputText id="TelEmpleado" value="#{empleadoUI.telefono_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" />                               
+
+                            <h:outputLabel value=" " />
+                            <h:outputLabel value=" " />
+
+                            <h:outputLabel id="lblEmailEmpleado" value=" Email:" />
+                            <p:inputText id="EmailEmp" value="#{empleadoUI.email_empleado}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
+
+                            <h:outputLabel value=" " />
+                            <h:outputLabel value=" " />
+
+                            <h:outputLabel id="lblidCargo" value=" ID Cargo:" />
+                            <p:inputText id="idCargo" value="#{empleadoUI.idCargo}" required="true" requiredMessage ="El campo no puede estar vacio" />     
+                                                       
+                        </p:panelGrid >
+
+                        <p:commandButton id="RegisterEmpleado" action="#{empleadoUI.saveEmpleado()}"
+                                         value="Registrar Empleado" update="pnlRegistroEmpleado, msg, tablaEmpleado" ajax="true"  style=" margin-left: 600px" >
+                        </p:commandButton>
+
+                    </p:panel > 
+
+                </p:tab>
+                <p:tab  title="Consultar Empleado   ">  
+                    <style>
+                        .ui-filter-column .ui-column-customfilter .custom-filter {
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+                    </style>
+
+                    <div class="card">
+                            <p:dataTable id="tablaEmpleado" var="empleado" widgetVar="Empleado" filteredValue="#{empleadoUI.filteredEmpleados}" value="#{empleadoUI.empleados}">
+
+                                <f:facet name="header">
+                                    <div class="flex align-items-center justify-content-between">
+                                        <span>Lista Empelados</span>
+                                        <div>
+                                        <p:inputText id="globalFilter" onkeyup="PF('Empleados').filter()" style="width:10rem"
+                                                     placeholder="Enter keyword" />
+                                        </div>
+                                    </div>
+
+                                </f:facet>
+
+                                <p:column headerText="ID del Empleado" sortBy="#{empleado.idempleado}" filterBy="#{empleado.idempleado}" filterMatchMode="exact">
+                                    <h:outputText value="#{empleado.idempleado}" />
+                                </p:column>
+
+                                <p:column headerText="Nombre" sortBy="#{empleado.nombreEmpleado}" filterBy="#{empleado.nombreEmpleado}" filterMatchMode="contains">
+                                    <h:outputText value="#{empleado.nombreEmpleado}" />
+                                </p:column>
+
+                                <p:column headerText="Apellido" sortBy="#{empleado.apellidoEmpleado}" filterBy="#{empleado.apellidoEmpleado}" filterMatchMode="contains">
+                                    <h:outputText value="#{empleado.apellidoEmpleado}" />
+                                </p:column>
+
+                                <p:column headerText="Telefono" sortBy="#{empleado.telefonoEmpleado}" filterBy="#{empleado.telefonoEmpleado}" filterMatchMode="contains">
+                                    <h:outputText value="#{empleado.telefonoEmpleado}" />
+                                </p:column>
+
+                                <p:column headerText="Email" sortBy="#{empleado.emailEmpleado}" filterBy="#{empleado.emailEmpleado}" filterMatchMode="contains">
+                                    <h:outputText value="#{empleado.emailEmpleado}" />
+                                </p:column>
+
+                                <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado}" filterBy="#{empleado.idcargoEmpleado}" filterMatchMode="contains">
+                                    <h:outputText value="#{empleado.idcargoEmpleado}" />
+                                </p:column> 
+
+                            </p:dataTable>
+                    </div> 
+                    </p:tab>                   
+ 
+                <!--<p:tab  title ="Eliminar">
+                
+                     seccion de eliminacion de Cliente
+               
+                    <p:panel id="pnlElimCliente" header="Eliminar cliente">
+                        <h:outputLabel id="lblElimCliente" value="Ingrese el ID" />
+                        <span class="ui-input-icon-left">
+                            <i class="pi pi-search" />
+                            <p:inputText id="eliminacionCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                        </span>
+                    </p:panel>
+                </p:tab>
+                -->
+            </p:tabView>            
         
         <div class="layout-footer">
             <div class="card">
@@ -110,6 +215,6 @@
                 </p:accordionPanel>
             </div>
         </div>
-        
+        </h:form>
     </h:body>
 </html>

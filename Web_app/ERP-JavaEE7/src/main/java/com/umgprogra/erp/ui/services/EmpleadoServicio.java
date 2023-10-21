@@ -5,6 +5,7 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
+import com.umgprogra.erp.DAO.CargoEmpleado;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,46 +19,81 @@ import javax.persistence.Query;
 public class EmpleadoServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
+    
+  public Boolean saveEmpleado(String pnombre, String papellido, String ptelefono, String pemail, CargoEmpleado pidCargo) {
+        boolean g = false;
+        
+        System.out.println( "Estoy en EmpleadoServicio");        
 
-    /* public List<Empleado> GetEmpleado() {
+        try{
+            Empleado emplea = new Empleado();
+            System.out.println("Nombre del empleadod" + pnombre);
+            System.out.println("Apellido del empleado" + papellido);
+            System.out.println("Telefono" + ptelefono);
+            System.out.println("Email" + pemail);
+            System.out.println("ID Cargo" + pidCargo);
+            emplea.setNombreEmpleado(pnombre);
+            emplea.setApellidoEmpleado(papellido);
+            emplea.setTelefonoEmpleado(ptelefono);
+            emplea.setEmailEmpleado(pemail);
+            emplea.setIdcargoEmpleado(pidCargo);
+            entity.getTransaction().begin();
+            entity.persist(emplea);
+            entity.getTransaction().commit();            
+
+            System.out.println( "Estoy en EmpleadoServicio");
+            g = true;            
+        }catch (Exception e){
+            System.err.println("Error al guardar Empleado " + e.getMessage());           
+        }
+        return g;
+    }    
+
+      public void getEmpleado() {
+        Empleado empleado = new Empleado();
+        Query query2 = entity.createNamedQuery("Empleado.findAll", Empleado.class);
+
+        empleado = (Empleado) query2.getSingleResult();
+
+        System.out.println(empleado.getNombreEmpleado() + empleado.getApellidoEmpleado() + empleado.getTelefonoEmpleado()+ empleado.getEmailEmpleado() + empleado.getIdcargoEmpleado());
+    }
+    
+    public List<Empleado> finderEmpleadoById(Integer idEmpleado) {
         List<Empleado> resultList = new ArrayList<>();
         try {
-            Query query = entity.createNamedQuery("Empleado.findByEmpleadoPassword");
-            List<Object[]> result = query.getResultList();
-            if (result != null && !result.isEmpty()) {
-                System.out.println("Log#: Resultado de la consulta:");
-                for (Object[] results : result) {
-                    String nombreEmpleado = (String) results[0];
-                    String password = (String) results[1];
-                    Empleado empleado = new Empleado(nombreEmpleado, password);
-
-                    resultList.add(empleado);
-                }
+            System.out.println("metodo DB findByIdempleado");
+            System.out.println("idEmpleado" + idEmpleado);
+            Query query = entity.createNamedQuery("Empleado.findByIdempleado", Empleado.class)
+                .setParameter("idemplado", idEmpleado);
+            //resultado
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Resultado de la consulta:");
             } else {
-                System.out.println("No se encontraron Empleados");
+                System.out.println("No se encontraron Empleado");
             }
         } catch (Exception e) {
-            System.err.println("Error en GetEmpleado " + e.getMessage());
+            System.err.println("Error en findbyIdEmpleado " + e.getMessage());
         }
-
+    
         return resultList;
 
-    }
-     */
+    }      
+      
     public List<Empleado> findAllEmpleados() {
         List<Empleado> resultList = new ArrayList<>();
         try {
-            System.out.println("metodo DB findAllMarca");
+            System.out.println("metodo DB findAllEmpleados");
             Query query = entity.createNamedQuery("Empleado.findAll", Empleado.class);
             //resultado de lista EMPLEADOS
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
                 System.out.println("Log#: Resultado de la consulta:");
             } else {
-                System.out.println("No se encontraron Marcas");
+                System.out.println("No se encontraron Empleados");
             }
         } catch (Exception e) {
-            System.err.println("Error en findAllMarca " + e.getMessage());
+            System.err.println("Error en findAllEmpleados " + e.getMessage());
         }
 
         return resultList;
@@ -100,33 +136,5 @@ public class EmpleadoServicio {
 //        }
 //        return 0;
 //    }
-
-    public boolean registrarEmpleado(String nombreEmpleado, String apellidoEmpleado, String telefonoEmpleado, String emailEmpleado) {
-        boolean registro = false;
-
-        Empleado empreg = new Empleado();
-
-        empreg.setNombreEmpleado(nombreEmpleado);
-        empreg.setApellidoEmpleado(apellidoEmpleado);
-        empreg.setTelefonoEmpleado(telefonoEmpleado);
-        empreg.setEmailEmpleado(emailEmpleado);
-        
-        //empreg.setIdrole(idRoleE);
-        //empreg.setIdcargoEmpleado(idCrgoE);
-
-        entity.getTransaction().begin();
-
-        try {
-            entity.persist(empreg);
-            entity.getTransaction().commit();
-            entity.close();
-            registro = true;
-
-        } catch (Exception e) {
-            entity.getTransaction().rollback();
-            registro = false;
-        }
-        return registro;
-    }
 
 }

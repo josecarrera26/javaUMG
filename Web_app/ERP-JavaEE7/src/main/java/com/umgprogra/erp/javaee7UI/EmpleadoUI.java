@@ -5,46 +5,64 @@
 package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Empleado;
+import com.umgprogra.erp.DAO.CargoEmpleado;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
+import com.umgprogra.erp.ui.services.CargosServicio;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
+import javax.inject.Named;
 
 /**
  *
  * @author josel
  */
+@Named("dtFilterView")
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class EmpleadoUI implements Serializable {
 
+    /**
+     * @return the filteredEmpleados
+     */
+    public List<Empleado> getFilteredEmpleados() {
+        return filteredEmpleados;
+    }
+
+    /**
+     * @param filteredEmpleados the filteredEmpleados to set
+     */
+    public void setFilteredEmpleados(List<Empleado> filteredEmpleados) {
+        this.filteredEmpleados = filteredEmpleados;
+    }
+
     private Integer idEmpleado;
-    private String nombre_empleado;
+    private String nombreEmpleado;
     private String apellido_empleado;
     private String telefono_empleado;
     private String email_empleado;
     private String password_empleado;
-    private Integer idRole;
-    private Integer idCargo;
+    private CargoEmpleado idCargo;
     private List<Empleado> empleados;
+    private List<Empleado> filteredEmpleados;
     private List<SelectItem> empleadoItems;
 
-    /*public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, Integer idRole, Integer idCargo) {
+    public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, CargoEmpleado idCargo) {
         this.idEmpleado = idEmpleado;
-        this.nombre_empleado = nombre_empleado;
+        this.nombreEmpleado = nombre_empleado;
         this.apellido_empleado = apellido_empleado;
         this.telefono_empleado = telefono_empleado;
         this.email_empleado = email_empleado;
         this.password_empleado = password_empleado;
-        this.idRole = idRole;
         this.idCargo = idCargo;
-    }*/
+    }
     public EmpleadoUI() {
 
     }
@@ -57,12 +75,12 @@ public class EmpleadoUI implements Serializable {
         this.idEmpleado = idEmpleado;
     }
 
-    public String getNombre_empleado() {
-        return nombre_empleado;
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
     }
 
-    public void setNombre_empleado(String nombre_empleado) {
-        this.nombre_empleado = nombre_empleado;
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
 
     public String getApellido_empleado() {
@@ -97,19 +115,17 @@ public class EmpleadoUI implements Serializable {
         this.password_empleado = password_empleado;
     }
 
-    public Integer getIdRole() {
-        return idRole;
-    }
-
-    public void setIdRole(Integer idRole) {
-        this.idRole = idRole;
-    }
-
-    public Integer getIdCargo() {
+    /**
+     * @return the idCargo
+     */
+    public CargoEmpleado getIdCargo() {
         return idCargo;
     }
 
-    public void setIdCargo(Integer idCargo) {
+    /**
+     * @param idCargo the idCargo to set
+     */
+    public void setIdCargo(CargoEmpleado idCargo) {
         this.idCargo = idCargo;
     }
 
@@ -127,6 +143,17 @@ public class EmpleadoUI implements Serializable {
 
     public void setEmpleadoItems(List<SelectItem> empleadoItems) {
         this.empleadoItems = empleadoItems;
+    }
+
+    public void saveEmpleado() {
+        try {
+
+            EmpleadoServicio nuevoEmpleado = new EmpleadoServicio();
+            nuevoEmpleado.saveEmpleado(this.nombreEmpleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado, this.idCargo);
+            empleados = nuevoEmpleado.findAllEmpleados();
+        } catch (Exception e) {
+            System.out.println(e + "Error en save EmpleadoUI");
+        }
     }
     
     @PostConstruct
@@ -148,31 +175,6 @@ public class EmpleadoUI implements Serializable {
 //                    "Por Favor intente mas tarde!"));
 //        }
 //    }
-
-    public void registroEmpleado() {
-
-        try {
-            EmpleadoServicio servicioreg = new EmpleadoServicio();
-
-            boolean registro = servicioreg.registrarEmpleado(this.nombre_empleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado);
-
-            if (registro == true) {
-
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Registro Exitoso!",
-                        "Para iniciar sesion por favor regrese a Iniciar Sesion!"));
-
-                System.out.println("El registro fue Exitoso");
-            } else {
-
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Error en registro Empleado!",
-                        "Por favor contacte al administrador"));
-            }
-        } catch (Exception e) {
-            System.out.println("Error en metodo Registro Empleado = " + e.getMessage());
-        }
-    }
     
     public void mostrarURLactual(){
     HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
