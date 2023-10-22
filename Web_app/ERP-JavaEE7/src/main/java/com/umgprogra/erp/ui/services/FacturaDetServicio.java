@@ -38,13 +38,10 @@ public class FacturaDetServicio {
         //preparacion de ingreso de fecha
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime ahora = LocalDateTime.now();
-        String fechaString = dtf.format(ahora);  // Formatear la fecha en el formato deseado
-
-        // Parsear la fecha formateada de nuevo a un objeto Date
+        String fechaString = dtf.format(ahora); 
+        
         Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
-
-
-
+        
         try {
             //obtenemos el id de la factura
             FacturasServicio noFac = new FacturasServicio();
@@ -112,7 +109,6 @@ public class FacturaDetServicio {
       listadoProductos();
       }
       
-    //obtener listado id producto
     //mostrar lista de id producto 
     public List<Inventario> listadoProductos() {
         EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -127,4 +123,72 @@ public class FacturaDetServicio {
 
     }
 
+    //metodo para registrar la factura compra
+    public void registroFacturaCompra(Integer idprod, Integer cantidad, double costoproducto, double ivacompra) throws ParseException{
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        //preparacion de ingreso de fecha
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime ahora = LocalDateTime.now();
+        String fechaString = dtf.format(ahora);  
+
+        Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
+
+        try {
+
+            Inventario insertInventario = new Inventario();
+            Facturadet facDet = new Facturadet();
+            Kardex insertKardex = new Kardex();
+            Integer nuevaCantidad = 0;
+            Facturacab facturaCab = entityManager.find(Facturacab.class, 1);
+            Inventario inventario = entityManager.find(Inventario.class, idprod);
+            Integer cantidadactual = inventario.getCantidad();
+            
+             //calculamos el precio de venta
+            double margen = inventario.getMargenganancia();
+            
+            nuevaCantidad = cantidadactual + cantidad;
+            double calculoPrecio = margen / 100;
+            double precioVenta = costoproducto / (1 - calculoPrecio);
+            //iva inventario
+            double ivaInventario = (nuevaCantidad * costoproducto) * 0.12;
+            
+            //cantidad original
+            int cantidadActual = inventario.getCantidad();
+            
+            //inciamos el insert a la tabla inventario
+            transaction.begin();
+            inventario.setCantidad(nuevaCantidad);
+            inventario.setCoste(costoproducto);
+            inventario.setPrecioventa(precioVenta);
+            inventario.setImpuestoinventario(ivaInventario);
+            //tabla facturas det
+            facDet.setIdfactura(facturaCab);
+            facDet.setIdproducto(inventario);
+            facDet.setIva(ivacompra);
+            facDet.setCantidad(cantidad);
+            facDet.setPreciounitario(costoproducto);
+            
+            //Inset al kardex
+            insertKardex.setFecha(fecha);
+            insertKardex.setIdproducto(inventario);
+            insertKardex.setIntOut("compra");
+            insertKardex.setVentaCompra(1);
+            insertKardex.setUnidadesOriginales(cantidadActual);
+            insertKardex.setUnidadesVendidas(cantidad);
+            
+            entityManager.persist(facDet);
+            entityManager.persist(insertKardex);
+            entityManager.persist(inventario);
+            transaction.commit();;
+
+            System.out.println("Registrado con exito con exito");
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+
+        } finally {
+            entityManager.close();
+        }
+    }
 }
