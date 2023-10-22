@@ -4,6 +4,7 @@
  */
 package com.umgprogra.erp.util;
 
+import com.umgprogra.erp.DAO.Usuario;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,60 +19,32 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class SessionUser implements Serializable{
 
-    /**
-     * @return the idEmpleado
-     */
-    public int getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    /**
-     * @param idEmpleado the idEmpleado to set
-     */
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
 
     /**
      * @return the idUser
      */
-    public int getIdUser() {
-        return idUser;
+    public Usuario getUser() {
+        return user;
     }
 
     /**
-     * @param idUser the idUser to set
+     * @param user the idUser to set
      */
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(Usuario user) {
+        this.user = user;
     }
 
-    /**
-     * @return the idRol
-     */
-    public int getIdRol() {
-        return idRol;
-    }
 
-    /**
-     * @param idRol the idRol to set
-     */
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
-    }
-
-    public SessionUser(int idUser, int idRol, int idEmpleado) {
-        this.idUser = idUser;
-        this.idRol = idRol;
-        this.idEmpleado = idEmpleado;
+    public SessionUser(Usuario user) {
+        this.user = user;
+       
     }
     
     public SessionUser(){
         
     }
     
-    private int idUser;
-    private int idRol;
-    private int idEmpleado;
+    private Usuario user;
+ 
     
 }

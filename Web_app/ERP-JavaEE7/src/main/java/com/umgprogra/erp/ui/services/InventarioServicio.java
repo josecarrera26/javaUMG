@@ -142,8 +142,8 @@ public class InventarioServicio {
     public boolean idRoleUser() {
        boolean flag = false;
         try {
-           int idRole= sessionUser.getIdRol();
-            System.out.println("ESTOY EN INVENTARIOUI ID " + sessionUser.getIdUser() + " ROLE " + sessionUser.getIdRol());
+           int idRole= sessionUser.getUser().getIdrole().getIdrole();
+           // System.out.println("ESTOY EN INVENTARIOUI ID " + sessionUser.getIdUser() + " ROLE " + sessionUser.getIdRol());
             if(idRole==6){
                 flag = true;
             }
