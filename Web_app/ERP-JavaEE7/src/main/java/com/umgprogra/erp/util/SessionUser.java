@@ -19,6 +19,20 @@ import javax.faces.bean.SessionScoped;
 public class SessionUser implements Serializable{
 
     /**
+     * @return the idEmpleado
+     */
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    /**
+     * @param idEmpleado the idEmpleado to set
+     */
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    /**
      * @return the idUser
      */
     public int getIdUser() {
@@ -46,9 +60,10 @@ public class SessionUser implements Serializable{
         this.idRol = idRol;
     }
 
-    public SessionUser(int idUser, int idRol) {
+    public SessionUser(int idUser, int idRol, int idEmpleado) {
         this.idUser = idUser;
         this.idRol = idRol;
+        this.idEmpleado = idEmpleado;
     }
     
     public SessionUser(){
@@ -57,5 +72,6 @@ public class SessionUser implements Serializable{
     
     private int idUser;
     private int idRol;
+    private int idEmpleado;
     
 }
