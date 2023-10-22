@@ -283,6 +283,7 @@ public class FacturaCabUI {
         getUltimaFactura();
     }
 
+    
      @Inject
     private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
     
