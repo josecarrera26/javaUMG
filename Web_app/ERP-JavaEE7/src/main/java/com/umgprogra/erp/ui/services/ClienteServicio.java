@@ -88,6 +88,7 @@ public class ClienteServicio {
         List<Cliente> resultList = new ArrayList<>();
         try {
             Query query = entity.createNamedQuery("Cliente.findAll", Cliente.class);
+            List<Object[]> result = query.getResultList();
             //resultado
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
