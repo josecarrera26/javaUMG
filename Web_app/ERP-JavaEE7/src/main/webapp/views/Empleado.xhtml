@@ -154,7 +154,7 @@
                                 </p:column>
 
                                 <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado}" filterBy="#{empleado.idcargoEmpleado}" filterMatchMode="contains">
-                                    <h:outputText value="#{empleado.idcargoEmpleado}" />
+                                    <h:outputText value="#{empleado.idcargoEmpleado.nombreCargo}" />    
                                 </p:column> 
 
                             </p:dataTable>-
