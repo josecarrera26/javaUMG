@@ -22,6 +22,7 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -181,6 +182,14 @@ public class FacturaDetServicio {
             entityManager.persist(facDet);
             entityManager.persist(insertKardex);
             entityManager.persist(inventario);
+
+//            //obtener el coteo del id producto
+//            String queryString = "SELECT COUNT(k) FROM Kardex k WHERE k.idproducto.idproducto = :idproducto AND k.IntOut = 'compra'";
+//            TypedQuery<Long> query = entityManager.createQuery(queryString, Long.class);
+//            query.setParameter("idproducto", inventario);
+//
+//            Long conteo = query.getSingleResult();
+//            //total en inventario                     
             transaction.commit();;
 
             System.out.println("Registrado con exito con exito");
