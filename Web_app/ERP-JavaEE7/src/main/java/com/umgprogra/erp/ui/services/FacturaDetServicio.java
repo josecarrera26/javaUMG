@@ -53,7 +53,7 @@ public class FacturaDetServicio {
             Facturadet facDet = new Facturadet();
             //para validacion de existacia en las tablas
             Inventario inventario = entityManager.find(Inventario.class, idProducto);
-            Facturacab facturaCab = entityManager.find(Facturacab.class, 1);
+            Facturacab facturaCab = entityManager.find(Facturacab.class, 2);
             //obtenenemos el precio unitario del producto
             double preciounitario = inventario.getPrecioventa();
             //calculo del iva
@@ -151,19 +151,13 @@ public class FacturaDetServicio {
             
             nuevaCantidad = cantidadactual + cantidad;
             double calculoPrecio = margen / 100;
-            double precioVenta = costoproducto / (1 - calculoPrecio);
-            //iva inventario
-            double ivaInventario = (nuevaCantidad * costoproducto) * 0.12;
             
             //cantidad original
             int cantidadActual = inventario.getCantidad();
-            
+  
             //inciamos el insert a la tabla inventario
-            transaction.begin();
-            inventario.setCantidad(nuevaCantidad);
-            inventario.setCoste(costoproducto);
-            inventario.setPrecioventa(precioVenta);
-            inventario.setImpuestoinventario(ivaInventario);
+            transaction.begin();            
+            
             //tabla facturas det
             facDet.setIdfactura(facturaCab);
             facDet.setIdproducto(inventario);
@@ -171,6 +165,8 @@ public class FacturaDetServicio {
             facDet.setCantidad(cantidad);
             facDet.setPreciounitario(costoproducto);
             
+            entityManager.persist(facDet);
+
             //Inset al kardex
             insertKardex.setFecha(fecha);
             insertKardex.setIdproducto(inventario);
@@ -178,18 +174,42 @@ public class FacturaDetServicio {
             insertKardex.setVentaCompra(1);
             insertKardex.setUnidadesOriginales(cantidadActual);
             insertKardex.setUnidadesVendidas(cantidad);
+
+            // calcular el precio de venta
+            //obtener el la suma del precio de compra
+            String queryString = "SELECT SUM(fd.preciounitario) FROM Facturadet fd "
+                    + "WHERE fd.idproducto.idproducto = :idproducto AND "
+                    + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+            TypedQuery<Double> query = entityManager.createQuery(queryString, Double.class);
+
+            query.setParameter("idproducto", idprod); 
+            Double sumaSubtotal = query.getSingleResult();
+
+           // conteo de la cantidad de veces que se ha comprado el producto
+            String queryStringKardex = "SELECT COUNT(fd) FROM Facturadet fd WHERE fd.idproducto.idproducto = :idproducto AND "
+                    + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+            TypedQuery<Long> queryKardex = entityManager.createQuery(queryStringKardex, Long.class);
             
-            entityManager.persist(facDet);
+            queryKardex.setParameter("idproducto", idprod); 
+            Long conteo = queryKardex.getSingleResult();
+            
+            //calculo de precio y costo
+            double costopromedio = sumaSubtotal / conteo;
+            double ventaprecio = (sumaSubtotal / conteo) / (1 - calculoPrecio);
+             //iva inventario
+            double ivaInventario = (nuevaCantidad * costopromedio) * 0.12;
+            
+            
+            //insertar al inventario
+            inventario.setCantidad(nuevaCantidad);
+            inventario.setImpuestoinventario(ivaInventario);
+            inventario.setCoste(costopromedio);
+            inventario.setPrecioventa(ventaprecio);
+
+            //presistir inventario y kardex
             entityManager.persist(insertKardex);
             entityManager.persist(inventario);
-
-//            //obtener el coteo del id producto
-//            String queryString = "SELECT COUNT(k) FROM Kardex k WHERE k.idproducto.idproducto = :idproducto AND k.IntOut = 'compra'";
-//            TypedQuery<Long> query = entityManager.createQuery(queryString, Long.class);
-//            query.setParameter("idproducto", inventario);
-//
-//            Long conteo = query.getSingleResult();
-//            //total en inventario                     
+            
             transaction.commit();;
 
             System.out.println("Registrado con exito con exito");
@@ -200,4 +220,8 @@ public class FacturaDetServicio {
             entityManager.close();
         }
     }
+
+    
+    
+    
 }
