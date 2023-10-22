@@ -37,6 +37,8 @@ public class UsuarioServicio {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             if (Objects.equals(usuario.getUsername(), username) && usuario.getPassword().equals(password)) {
+                SessionUser user = new SessionUser(usuario);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
                 existe = 1;
                 return existe;
 

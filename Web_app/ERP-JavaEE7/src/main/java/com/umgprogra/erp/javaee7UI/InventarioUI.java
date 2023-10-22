@@ -37,18 +37,34 @@ import javax.inject.Inject;
 public class InventarioUI implements Serializable {
 
     /**
-     * @return the sessionUser
+     * @return the flagCom
      */
-    public SessionUser getSessionUser() {
-        return sessionUser;
+    public boolean isFlagCom() {
+        return flagCom;
     }
 
     /**
-     * @param sessionUser the sessionUser to set
+     * @param flagCom the flagCom to set
      */
-    public void setSessionUser(SessionUser sessionUser) {
-        this.sessionUser = sessionUser;
+    public void setFlagCom(boolean flagCom) {
+        this.flagCom = flagCom;
     }
+
+    /**
+     * @return the idRole
+     */
+    public int getIdRole() {
+        return idRole;
+    }
+
+    /**
+     * @param idRole the idRole to set
+     */
+    public void setIdRole(int idRole) {
+        this.idRole = idRole;
+    }
+
+  
 
     /**
      * @return the productoSelec
@@ -581,7 +597,8 @@ public class InventarioUI implements Serializable {
     private int estado;
     //PARA CAMBIOS EN PRODUCTO
     private InventarioUI productoSelec;
-
+    private int idRole;
+    private boolean flagCom;
     @PostConstruct
     public void init() {
         unidades = new ArrayList();
@@ -595,10 +612,9 @@ public class InventarioUI implements Serializable {
         findAllMarcaUi();
         findAllLineaUi();
         findAllProductosUi();
-        pruebaID();
+        idRoleUser();
     }
-    @Inject
-    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
+   
 
     public InventarioUI() {
 
@@ -649,8 +665,8 @@ public class InventarioUI implements Serializable {
         }
     }
 
-    public void actualizarProducto(int index) {
-        System.out.println("Index: " + index);
+    public void actualizarProducto(int idProducto) {
+        System.out.println("Index: " + idProducto);
 //        try {
 //            InventarioServicio inventarioServ = new InventarioServicio();
 //
@@ -676,18 +692,9 @@ public class InventarioUI implements Serializable {
 //        }
     }
 
-    public void pruebaID() {
-
-        //EmpleadoServicio user = new EmpleadoServicio();
-        //EmpleadoUI emp = new EmpleadoUI();
-        //user.findByEmpleadoPassword(emp.getIdEmpleado(), emp.getPassword_empleado());
-        try {
-            System.out.println("ESTOY EN INVENTARIOUI ID " + sessionUser.getIdUser() + " ROLE " + sessionUser.getIdRol());
-
-        } catch (Exception e) {
-            System.out.println("Error en ID" + e.getMessage());
-
-        }
+    public void idRoleUser() {
+           InventarioServicio inventarioServ = new InventarioServicio();
+        flagCom = inventarioServ.idRoleUser();
     }
 
     public void deleteProduct() {

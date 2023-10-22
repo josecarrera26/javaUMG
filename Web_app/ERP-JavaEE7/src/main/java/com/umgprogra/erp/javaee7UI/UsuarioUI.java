@@ -8,7 +8,6 @@ import com.umgprogra.erp.DAO.Usuario;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
 import com.umgprogra.erp.ui.services.UsuarioServicio;
 import com.umgprogra.erp.util.JpaUtil;
-import com.umgprogra.erp.util.SessionUser;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -69,8 +68,7 @@ public class UsuarioUI implements Serializable {
 
             if (existe == 1) {
 
-                //SessionUser user = new SessionUser(usuario.getIdusuario(), usuario.getIdrole().getIdrole());
-                //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
+              
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "Conexion Exitosa",
                         "Gracias!"));

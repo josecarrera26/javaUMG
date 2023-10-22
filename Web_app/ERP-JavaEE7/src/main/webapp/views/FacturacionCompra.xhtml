@@ -53,7 +53,7 @@
         </h:form>
         <h:form id="frmFacturaCab">
             <p:tabView dynamic="false">
-                <p:tab title="Factura Cabecera">
+                <p:tab title="Factura compra">
                     <p:panel id="pnlFacturaCab" header="Registro de nueva factura" style="width: 100%">
                         <div class="card">
                             <div class="ui-fluid">
@@ -126,13 +126,13 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <div class="field">
-                                             <h:outputLabel id="lblnitc" value="NIT" />
+                                            <h:outputLabel id="lblnitc" value="NIT" />
                                             <div style="display: flex; flex-direction: column;">
                                                 <p:inputText id="nit" style="width: 250px;" value="#{facturaCabUI.nit}"   required="true" requiredMessage="nit Requerido" />
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -161,7 +161,11 @@
 
                                 <div class="ui-fluid">
                                     <div class="field">
-                                       
+                                        <!-- agregado por fernando -->
+                                        <h:outputLabel id="lblcosto" value="Costo producto" />
+                                        <div style="display: flex; flex-drection: column">
+                                            <p:inputText id="costo" style="width: 250px;" value="#{facturasDET.costoproducto}"   required="true" requiredMessage="costo Requerido" />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -204,7 +208,7 @@
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <p:commandButton id="btnRegBanco" value="Registrar Factura" actionListener="#{facturasDET.registroFacturaDet()}"
+                                            <p:commandButton id="btnRegBanco" value="Registrar Factura" actionListener="#{facturasDET.registroproducto()}"
                                                              update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
                                         </div>
                                     </div>
@@ -215,7 +219,7 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <div class="field">
-                                            <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.agregarProducto()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />    
+                                            <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasDET.listarproducto()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />    
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +236,7 @@
                         <p:inputText id="totalFac" value= " Q #{facturasDET.totalFac}" style="width: 250px;" disabled="true">Total</p:inputText>
 
 
-                        <p:dataTable id="productos" var="producto" value="#{facturasDET.mostrarListProd()}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
+                        <p:dataTable id="productos" var="producto" value="#{facturasDET.mostrarListCompra()}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
 
 
                             <p:column headerText="Id Producto ">
@@ -244,8 +248,8 @@
                             <p:column headerText="Cantidad">
                                 <h:outputText value="#{producto.cantidad}" />
                             </p:column>
-                            <p:column headerText="Precio Unitario">
-                                <h:outputText value="#{producto.precioUnitario}" />
+                            <p:column headerText="Costo Producto">
+                                <h:outputText value="#{producto.costoproducto}" />
                             </p:column>
                             <p:column headerText="Iva">
                                 <h:outputText value="#{producto.iva}" />
@@ -254,7 +258,7 @@
                                 <h:outputText value="Q. #{producto.subTotal}" />
                             </p:column>
                             <p:column headerText="Acciones">
-                                <p:commandButton icon="pi pi-trash" title="Eliminar" actionListener="#{facturasDET.eliminarProducto(index)}" update="frmFacturaCab"  process="@this" >
+                                <p:commandButton icon="pi pi-trash" title="Eliminar" actionListener="#{facturasDET.eliminarProductoCompra(index)}" update="frmFacturaCab"  process="@this" >
                                     <f:attribute name="index" value="#{rowIndex}"/>
                                 </p:commandButton>
 

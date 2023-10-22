@@ -170,7 +170,7 @@
                                 </p:column>  
                                 
                                 <p:column headerText="Cuenta Contable" sortBy="#{cliente.idcuentacontable}" filterBy="#{cliente.idcuentacontable}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.idcuentacontable}" />
+                                    <h:outputText value="#{cliente.idcuentacontable.nombrecuenta}" />
                                 </p:column> 
 
                             </p:dataTable>
