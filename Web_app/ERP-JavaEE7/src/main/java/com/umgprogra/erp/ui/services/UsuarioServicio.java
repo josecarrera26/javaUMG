@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.json.JsonArray;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -23,7 +24,7 @@ public class UsuarioServicio {
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
     public int findByUsername(String username, String password) {
-
+        int existe = 0;
         try {
 
             Usuario usuario = new Usuario();
@@ -33,70 +34,63 @@ public class UsuarioServicio {
 
             usuario = (Usuario) query2.getSingleResult();
 
-            System.out.println("usuername = " + usuario.getUsername() + " " + " password" + usuario.getPassword());
-
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             if (Objects.equals(usuario.getUsername(), username) && usuario.getPassword().equals(password)) {
-                SessionUser user = new SessionUser(usuario.getIdusuario(),usuario.getIdrole().getIdrole());
+                SessionUser user = new SessionUser(usuario.getIdusuario(), usuario.getIdrole().getIdrole());
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Conexion Exitosa",
-                        "Gracias!"));
-
-                externalContext.redirect("views/MenuPrincipal.xhtml");
-                return 1;
+                existe = 1;
+                return existe;
 
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                        "Nombre o Contraseña Invalida!",
-                        "Por Favor intente Nuevamente!"));
+                existe = 0;
                 return 0;
             }
         } catch (Exception e) {
             System.out.println("Error registrado = " + e.getMessage());
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Username No Existe",
+                    "Por Favor registrese Antes!"));
+            existe = 0;
+            return existe;
         }
-        return 0;
     }
 
     public boolean registrarUsuario(String password, String username) {
 
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-
         boolean registro = false;
 
-        Usuario findusuario = new Usuario();
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
-        Query query2 = entity.createNamedQuery("Usuario.findByUsername", Usuario.class)
+        /* Usuario findusuario = new Usuario();
+
+            Query query2 = entity.createNamedQuery("Usuario.findByUsername", Usuario.class)
                     .setParameter("username", username);
-        
-        findusuario = (Usuario) query2.getSingleResult();
-   
-        if (findusuario.getIdempleado() == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Username ya existe!",
-                    "Por favor ingrese un nuevo username!"));
-        } else {
 
-            Usuario rusuario = new Usuario();
-            
-            rusuario.setUsername(username);
-            rusuario.setPassword(password);
+            findusuario = (Usuario) query2.getSingleResult();
 
-            entity.getTransaction().begin();
-
-            try {
-                entity.persist(rusuario);
-                entity.getTransaction().commit();
-                entity.close();
-                registro = true;
-
-            } catch (Exception e) {
-                entity.getTransaction().rollback();
+            if (findusuario.getUsername().equals(username)) {
                 registro = false;
-            }
+            } else {
+         */
+        Usuario rusuario = new Usuario();
+
+        rusuario.setUsername(username);
+        rusuario.setPassword(password);
+
+        entity.getTransaction().begin();
+
+        try {
+            entity.persist(rusuario);
+            entity.getTransaction().commit();
+            entity.close();
+            registro = true;
+
+        } catch (Exception e) {
+            entity.getTransaction().rollback();
+            registro = false;
         }
         return registro;
     }
-
 }
