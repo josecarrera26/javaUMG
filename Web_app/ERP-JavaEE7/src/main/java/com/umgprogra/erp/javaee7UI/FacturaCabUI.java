@@ -323,7 +323,7 @@ public class FacturaCabUI {
         try{
         FacturasServicio nuevaFactura = new FacturasServicio();
         //System.out.println("Username: " + sessionUser.getIdUser());
-        nuevaFactura.insertarFacturacab(this.plazos_pago, this.idTipoCliente, 0.00, this.tipo_pago, this.nit, this.tipoFactura);
+       // nuevaFactura.insertarFacturacab(this.plazos_pago, this.idTipoCliente, 0.00, this.tipo_pago, this.nit, this.tipoFactura);
         }
         catch (Exception e){
             System.out.println("error: " + e.getMessage());
