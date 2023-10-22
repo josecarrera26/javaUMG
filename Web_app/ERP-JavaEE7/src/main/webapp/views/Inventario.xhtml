@@ -41,10 +41,10 @@
                     <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" url="./Pedidos.xhtml"/>
                     <p:menuitem value="Producto" icon="pi pi-fw pi-box" url="./Inventario.xhtml"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
-                        <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" outcome="./Inventario.xhtml" rendered="#{inventarioUI.flagCom}"/>
-                                    <f:param name="saveProd" value="true" />
+                        <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" outcome="./Inventario.xhtml" rendered="true"/>
+                                    <f:param name="saveProd" value="0" />
                             <p:menuitem value="Editar" icon="pi pi-fw pi-tag" outcome="./Inventario.xhtml" rendered="#{inventarioUI.flagCom}" /> 
-                                        <f:param name="editProd" value="false" />
+                                        <f:param name="editProd" value="1" />
                                 </p:submenu>
                                 <p:submenu label="Tags" icon="pi pi-fw pi-tags">
                                     <p:menuitem value="Marca" icon="pi pi-fw pi-tag" />
@@ -147,6 +147,7 @@
                                                         <div class="col-5 flex align-items-center justify-content-center">
                                                             <div class="ui-fluid">
                                                                 <div class="field">
+                                                                    <h:outputText value="El valor del parámetro es: #{param['saveProd']}" />
                                                                     <h:outputLabel id="idLabelModelo" value="Modelo:" />
                                                                     <p:inputText id="idModelo" value="#{inventarioUI.modelo}" required="true" requiredMessage="Modelo requerido"/>
                                                                 </div>
