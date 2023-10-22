@@ -12,8 +12,11 @@ import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.javaee7UI.InventarioUI;
 import com.umgprogra.erp.util.JpaUtil;
+import com.umgprogra.erp.util.SessionUser;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -22,6 +25,19 @@ import javax.persistence.Query;
  * @author madis
  */
 public class InventarioServicio {
+      /**
+     * @return the sessionUser
+     */
+    public SessionUser getSessionUser() {
+        return sessionUser;
+    }
+
+    /**
+     * @param sessionUser the sessionUser to set
+     */
+    public void setSessionUser(SessionUser sessionUser) {
+        this.sessionUser = sessionUser;
+    }
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
@@ -120,5 +136,22 @@ public class InventarioServicio {
 
         return resultList;
 
+    }
+     @Inject
+    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
+    public boolean idRoleUser() {
+       boolean flag = false;
+        try {
+           int idRole= sessionUser.getIdRol();
+            System.out.println("ESTOY EN INVENTARIOUI ID " + sessionUser.getIdUser() + " ROLE " + sessionUser.getIdRol());
+            if(idRole==6){
+                flag = true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error en IDROLEINVENTARIOSERV" + e.getMessage());
+
+        }
+        return flag;
     }
 }
