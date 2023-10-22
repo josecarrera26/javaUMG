@@ -42,7 +42,7 @@ public class UsuarioServicio {
 
             } else {
                 existe = 0;
-                return 0;
+                return existe;
             }
         } catch (Exception e) {
             System.out.println("Error registrado = " + e.getMessage());
@@ -58,20 +58,9 @@ public class UsuarioServicio {
     public boolean registrarUsuario(String password, String username) {
 
         boolean registro = false;
-
+        
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
-        /* Usuario findusuario = new Usuario();
-
-            Query query2 = entity.createNamedQuery("Usuario.findByUsername", Usuario.class)
-                    .setParameter("username", username);
-
-            findusuario = (Usuario) query2.getSingleResult();
-
-            if (findusuario.getUsername().equals(username)) {
-                registro = false;
-            } else {
-         */
         Usuario rusuario = new Usuario();
 
         rusuario.setUsername(username);

@@ -59,7 +59,20 @@
 
 
         <div id="message">
-
+            
+            
+           <!-- <h:form style="float:right">
+                 <p:card style="width: 30em; margin-right: 10px">
+                    <div class="card">
+                        <h5>Facturas</h5>
+                        <p:graphicImage value="#{graphicImageView.chart}" stream="false"/>
+                        <p:graphicImage value="#{graphicImageView.chartAsByteArray}" stream="false"/>
+                        <p:graphicImage value="#{graphicImageView.chartAsStream}" stream="false"/>
+                    </div>
+                </p:card>
+            </h:form>
+           -->
+           
             <h:form id="form">
 
                 <p:card style="width: 30em; height: 40em">
@@ -81,10 +94,8 @@
                         <span id="slot2"> ---------- 60$ -------| </span>
                         <span id="slot2"> ---------- 100$ -------| </span>
                     </div>
-
                 </p:card>
-
-                <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
+                 
 
                 <div class="layout-footer">
                     <div class="card">
@@ -121,17 +132,15 @@
                                             mejor servicio que usted necesita.
                                         </p>
                                         <p:scrollTop target="parent" threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
-                                    </p:scrollPanel>                            
-                                </div>
-                            </p:tab>
+                                    </p:scrollPanel>   
 
-                            <p:tab title="Contactanos" menuTitle="Options">
-                                <div id="container">
-                                    <span id="slot0"> https://solucionesgt.com </span>
-                                    <span id="slot1"> | </span>
-                                    <span id="slot2"> 2424-2424 </span>
-                                    <span id="slot3"> | </span>
-                                    <span id="slot4"> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                                    <div id="container">
+                                        <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
+                                        <span id="slot1"> | </span>
+                                        <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
+                                        <span id="slot3"> | </span>
+                                        <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                                    </div>
                                 </div>
                             </p:tab>
                         </p:accordionPanel>
