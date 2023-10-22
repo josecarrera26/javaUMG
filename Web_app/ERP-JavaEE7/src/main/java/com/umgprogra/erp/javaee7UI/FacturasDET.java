@@ -167,6 +167,7 @@ public class FacturasDET implements Serializable {
                 if (exito == true) {
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
                     FacesContext.getCurrentInstance().addMessage(null, message);
+                    this.totalFac = 0;
                 }
             }
 
@@ -177,6 +178,10 @@ public class FacturasDET implements Serializable {
         }
 
         // Limpia la lista después de procesar los productos
+        this.cantidad = 0;
+        this.idProducto = 0;
+        this.cantidad = 0;
+        this.totalFac = 0;
         listadoproductos.clear();
     }
 
@@ -288,8 +293,10 @@ public class FacturasDET implements Serializable {
         } finally {
             entityManager.close();
         }
+        this.cantidad = 0;
         this.idProducto = 0;
         this.cantidad = 0;
+        this.totalFac = 0;
 
     }
 
@@ -393,23 +400,30 @@ public class FacturasDET implements Serializable {
             if (listadoproductosCompra.isEmpty()) {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pudo registrar el producto");
                 FacesContext.getCurrentInstance().addMessage(null, message);
-                
+
             } else {
                 for (FacturasDET lista : listadoproductosCompra) {
                     Integer idProd = lista.getIdProducto();
                     Integer cantidadprod = lista.getCantidad();
                     double costo = lista.getCostoproducto();
                     double ivacompra = lista.getIva();
-                    registrofac.registroFacturaCompra(idProd, cantidadprod, costo,ivacompra);
+                    registrofac.registroFacturaCompra(idProd, cantidadprod, costo, ivacompra);
 
                 }
+
             }
+            this.idProducto = 0;
+            this.cantidad = 0;
+            this.costoproducto = 0; 
+            this.totalFac = 0;
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado con exito", "factura compra registrado");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
+        // Limpia la lista después de procesar los productos
+        listadoproductosCompra.clear();
 
     }
 
