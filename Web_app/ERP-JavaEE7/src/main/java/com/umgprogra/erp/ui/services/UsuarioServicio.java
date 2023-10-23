@@ -37,14 +37,14 @@ public class UsuarioServicio {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             if (Objects.equals(usuario.getUsername(), username) && usuario.getPassword().equals(password)) {
-                SessionUser user = new SessionUser(usuario.getIdusuario(), usuario.getIdrole().getIdrole());
+                SessionUser user = new SessionUser(usuario);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
                 existe = 1;
                 return existe;
 
             } else {
                 existe = 0;
-                return 0;
+                return existe;
             }
         } catch (Exception e) {
             System.out.println("Error registrado = " + e.getMessage());
@@ -60,20 +60,9 @@ public class UsuarioServicio {
     public boolean registrarUsuario(String password, String username) {
 
         boolean registro = false;
-
+        
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
-        /* Usuario findusuario = new Usuario();
-
-            Query query2 = entity.createNamedQuery("Usuario.findByUsername", Usuario.class)
-                    .setParameter("username", username);
-
-            findusuario = (Usuario) query2.getSingleResult();
-
-            if (findusuario.getUsername().equals(username)) {
-                registro = false;
-            } else {
-         */
         Usuario rusuario = new Usuario();
 
         rusuario.setUsername(username);

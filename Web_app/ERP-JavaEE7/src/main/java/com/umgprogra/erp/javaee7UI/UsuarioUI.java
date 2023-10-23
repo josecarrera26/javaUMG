@@ -103,7 +103,7 @@ public class UsuarioUI implements Serializable {
 
             if (existe == 1) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Username y Password ya existen!",
+                        "Username o Password ya existen!",
                         "Por favor ingrese un nuevo username o pongase en contacto con el administrador!"));
 
                 System.out.println("Registro ya existe");
