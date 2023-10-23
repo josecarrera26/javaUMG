@@ -23,6 +23,15 @@ public class UsuarioServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
+    public boolean validarABC(Usuario user){
+        boolean flag=false;
+        if(user.getIdrole().getIdrole()==6){
+            flag=true;
+        }
+        return flag;
+    }
+    
+    
     public int findByUsername(String username, String password) {
         int existe = 0;
         try {
@@ -37,8 +46,8 @@ public class UsuarioServicio {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             if (Objects.equals(usuario.getUsername(), username) && usuario.getPassword().equals(password)) {
-                SessionUser user = new SessionUser(usuario);
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("session", user);
+                SessionUser user = new SessionUser(usuario,validarABC(usuario));
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sessionU", user);
                 existe = 1;
                 return existe;
 
