@@ -99,17 +99,6 @@
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " />
 
-                            <h:outputLabel id="lblCuentaCliente" value="Cuenta Contable:" />
-                            <p:inputText id="idCuentaCliente" value="#{clienteUI.idCuentaContable}" required="true" requiredMessage ="El campo no puede estar vacio" />                            
-
-                            <!--<p:outputLabel id="idLabelCuenta" value="CuentaContable"  />
-                            <p:selectOneMenu id="cuentacontable" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione una"
-                                             style="width: 14rem;" panelStyle="width: 15rem" 
-                                             value="#{clienteUI.idCuentaContable}">
-                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                <f:selectItems value="#{clienteUI.cuentaItems}"/>
-                            </p:selectOneMenu>
-                            <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />-->
                         </p:panelGrid >
 
                         <p:commandButton id="RegisterCliente" action="#{clienteUI.saveCliente()}"
