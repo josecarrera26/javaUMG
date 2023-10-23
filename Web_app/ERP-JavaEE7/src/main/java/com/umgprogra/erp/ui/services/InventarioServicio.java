@@ -99,34 +99,34 @@ public class InventarioServicio {
 
     }
 
-    public List<InventarioUI> findAllProducto() {
-        List<InventarioUI> resultList = new ArrayList<>();
+    public List<Inventario> findAllProducto(int tipoConsulta) {
+        List<Inventario> resultList = new ArrayList<>();
         try {
-            Query query = entity.createNamedQuery("Inventario.findByAllProducto");
-            List<Object[]> result = query.getResultList();
-            //resultList = query.getResultList();
-            if (result != null && !result.isEmpty()) {
-                System.out.println("Log#: Resultado de la consulta:");
-                for (Object[] results : result) {
-                    int idProducto = (int) results[0];
-                    String nombrePro = (String) results[1];
-                    int cantidad = (int) results[2];
-                    String tipocom = (String) results[3];
-                    String modelo = (String) results[4];
-                    String unidades = (String) results[5];
-                    double precioV = (double) results[6];
-                    double coste = (double) results[7];
-                    int margenG = (int) results[8];
-                    System.out.println("VALOR DE MARCAC "+ results[9]);
-                    String marca = (String) results[9];
-                    String linea = (String) results[10];
-                    String grupo = (String) results[11];
-                    String prov = (String) results[12];
-                    int estado = (int) results[13];
-                    double impuesto = (double) results[14];
-                    InventarioUI inventario = new InventarioUI(idProducto,nombrePro,cantidad,tipocom,modelo,unidades,precioV,coste,margenG,estado,impuesto,grupo,linea,marca,prov);
-                    resultList.add(inventario);
-                }
+            Query query = entity.createNamedQuery("Inventario.findAll", Inventario.class);
+            //List<Object[]> result = query.getResultList();
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+               // System.out.println("Log#: Resultado de la consulta:");
+                //for (Inventario results : resultList) {
+//                    int idProducto = (int) results[0];
+//                    String nombrePro = (String) results[1];
+//                    int cantidad = (int) results[2];
+//                    String tipocom = (String) results[3];
+//                    String modelo = (String) results[4];
+//                    String unidades = (String) results[5];
+//                    double precioV = (double) results[6];
+//                    double coste = (double) results[7];
+//                    int margenG = (int) results[8];
+//                    //System.out.println("VALOR DE MARCAC "+ results[9]);
+//                    String marca = (String) results[9];
+//                    String linea = (String) results[10];
+//                    String grupo = (String) results[11];
+//                    String prov = (String) results[12];
+//                    int estado = (int) results[13];
+//                    double impuesto = (double) results[14];
+//                    InventarioUI inventario = new InventarioUI(idProducto,nombrePro,cantidad,tipocom,modelo,unidades,precioV,coste,margenG,estado,impuesto,grupo,linea,marca,prov);
+                    //resultList.add(inventario);
+            //    }
             } else {
                 System.out.println("No se encontraron Productos");
             }
@@ -137,8 +137,9 @@ public class InventarioServicio {
         return resultList;
 
     }
+    
      @Inject
-    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
+    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionU");
     public boolean idRoleUser() {
        boolean flag = false;
         try {
