@@ -131,6 +131,9 @@ public class MenuPrincipalUI implements Serializable {
     validaVista("GrupoProducto.xhtml");
     }
     
-
+public void getNombreNit() {
+    Nit nombreNit = new Nit();
+    nombreNit.getNitApi("CF");
+}
     
 }
