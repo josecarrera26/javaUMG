@@ -42,9 +42,9 @@
                     <p:menuitem value="Producto" icon="pi pi-fw pi-box" url="./Inventario.xhtml"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" outcome="./Inventario.xhtml" rendered="true"/>
-                                    <f:param name="saveProd" value="0" />
-                            <p:menuitem value="Editar" icon="pi pi-fw pi-tag" outcome="./Inventario.xhtml" rendered="#{inventarioUI.flagCom}" /> 
-                                        <f:param name="editProd" value="1" />
+                                    
+                        <p:menuitem value="Editar" icon="pi pi-fw pi-tag" outcome="./Inventario.xhtml" rendered="#{sessionU.flag}" /> 
+                                       
                                 </p:submenu>
                                 <p:submenu label="Tags" icon="pi pi-fw pi-tags">
                                     <p:menuitem value="Marca" icon="pi pi-fw pi-tag" />
@@ -249,7 +249,7 @@
 
                                         <p:tab title="Consulta">
 
-                                            <p:dataTable id="products" var="product" value="#{inventarioUI.productos}" rowKey="#{product.codProducto} "
+                                            <p:dataTable id="products" var="product" value="#{inventarioUI.productos}" rowKey="#{product.idproducto} "
                                                          stripedRows="true" selection="#{inventarioUI.productoSelec}"  selectionMode="single" >
                                                 <f:facet name="header">
                                                     <div class="flex justify-content-between align-items-center">
@@ -265,7 +265,7 @@
                                                 </f:facet>
 
                                                 <p:column headerText="Code">
-                                                    <h:outputText value="#{product.codProducto}" />
+                                                    <h:outputText value="#{product.idproducto}" />
                                                 </p:column>
                                                 <p:column headerText="Nombre">
                                                     <h:outputText value="#{product.nombre}" />
@@ -274,31 +274,31 @@
                                                     <h:outputText value="#{product.cantidad}" />
                                                 </p:column>
                                                 <p:column headerText="Tipo comercializacion"   visible="false">
-                                                    <h:outputText value="#{product.tipo_comercializacion} " />
+                                                    <h:outputText value="#{product.tipoComercializacion} " />
                                                 </p:column>
 
                                                 <p:column headerText="Modelo">
                                                     <h:outputText value="#{product.modelo}" />
                                                 </p:column>
                                                 <p:column headerText="Unidad de Medida">
-                                                    <h:outputText value="#{product.unidadMed}" />
+                                                    <h:outputText value="#{product.unidades}" />
                                                 </p:column>
                                                 <p:column headerText="Precio Venta">
-                                                    <h:outputText value="#{product.precio}" />
+                                                    <h:outputText value="#{product.precioventa}" />
                                                 </p:column>
                                                 <p:column headerText="Coste" visible="false">
                                                     <h:outputText value="#{product.coste}" />
                                                 </p:column>
                                                 <p:column headerText="Marca">
-                                                    <h:outputText value="#{product.marcaT}" />
+                                                    <h:outputText value="#{product.idmarca.descripcion}" />
                                                 </p:column>
 
                                                 <p:column headerText="Linea">
-                                                    <h:outputText value="#{product.lineaT}" />
+                                                    <h:outputText value="#{product.idlinea.descripcion}" />
                                                 </p:column>
 
                                                 <p:column headerText="Grupo">
-                                                    <h:outputText value="#{product.grupoT}" />
+                                                    <h:outputText value="#{product.idgrupoproducto.descripcion}" />
                                                 </p:column>
                                             </p:dataTable>
                                             <p:contextMenu for="products" rendered="#{inventarioUI.flagCom}">

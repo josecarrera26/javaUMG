@@ -15,9 +15,24 @@ import javax.faces.bean.SessionScoped;
  * @author madis
  */
 
-@ManagedBean(name="session")
+@ManagedBean(name="sessionU")
 @SessionScoped
+
 public class SessionUser implements Serializable{
+
+    /**
+     * @return the flag
+     */
+    public boolean isFlag() {
+        return flag;
+    }
+
+    /**
+     * @param flag the flag to set
+     */
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 
 
     /**
@@ -35,8 +50,9 @@ public class SessionUser implements Serializable{
     }
 
 
-    public SessionUser(Usuario user) {
+    public SessionUser(Usuario user, boolean flag) {
         this.user = user;
+        this.flag = flag;
        
     }
     
@@ -45,6 +61,10 @@ public class SessionUser implements Serializable{
     }
     
     private Usuario user;
- 
+    private boolean  flag;
+    
+   
+    
+    
     
 }

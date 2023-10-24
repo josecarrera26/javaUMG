@@ -7,6 +7,7 @@ package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.DAO.Grupoproducto;
+import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.DAO.Linea;
 import com.umgprogra.erp.DAO.Marca;
 import com.umgprogra.erp.DAO.Proveedor;
@@ -153,14 +154,14 @@ public class InventarioUI implements Serializable {
     /**
      * @return the productos
      */
-    public List<InventarioUI> getProductos() {
+    public List<Inventario> getProductos() {
         return productos;
     }
 
     /**
      * @param productos the productos to set
      */
-    public void setProductos(List<InventarioUI> productos) {
+    public void setProductos(List<Inventario> productos) {
         this.productos = productos;
     }
 
@@ -589,7 +590,7 @@ public class InventarioUI implements Serializable {
     private int idGrupo;
     private int idLinea;
     //PARA LLENAR LA TABLA EN CONSULTA
-    private List<InventarioUI> productos;
+    private List<Inventario> productos;
     private String marcaT;
     private String lineaT;
     private String grupoT;
@@ -614,7 +615,7 @@ public class InventarioUI implements Serializable {
         findAllProductosUi();
         idRoleUser();
     }
-   
+    
 
     public InventarioUI() {
 
@@ -697,10 +698,7 @@ public class InventarioUI implements Serializable {
         flagCom = inventarioServ.idRoleUser();
     }
 
-    public void deleteProduct() {
-        productos.remove(productoSelec);
-        productoSelec = null;
-    }
+    
 
     //Metodos para obtener el objeto seleccionado en cb
     public Marca getMarcaSeleccionada() {
@@ -811,7 +809,7 @@ public class InventarioUI implements Serializable {
     public void findAllProductosUi() {
         try {
             InventarioServicio inventarioServ = new InventarioServicio();
-            productos = (inventarioServ.findAllProducto());
+            productos = (inventarioServ.findAllProducto(1));
 
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");
