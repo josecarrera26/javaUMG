@@ -1,18 +1,18 @@
 --modulo usuario
 --cargos
-INSERT INTO public.cargo_empleado
+INSERT INTO public.cargoempleado
 (nombre_cargo, salario)
 VALUES('Administrador', 10101010.00);
-INSERT INTO public.cargo_empleado
+INSERT INTO public.cargoempleado
 (nombre_cargo, salario)
 VALUES('Analista de Recursos Humanos', 20202020.00);
-INSERT INTO public.cargo_empleado
+INSERT INTO public.cargoempleado
 (nombre_cargo, salario)
 VALUES('Vendedor', 30303030.00);
-INSERT INTO public.cargo_empleado
+INSERT INTO public.cargoempleado
 (nombre_cargo, salario)
 VALUES('Recolector', 40404040.00);
-INSERT INTO public.cargo_empleado
+INSERT INTO public.cargoempleado
 (nombre_cargo, salario)
 VALUES('Cajero', 50505050.00);
 --roles

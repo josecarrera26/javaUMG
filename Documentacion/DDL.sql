@@ -33,7 +33,7 @@ CREATE TABLE "usuario" (
   "idempleado" integer
 );
 
-CREATE TABLE "cargo_empleado" (
+CREATE TABLE "cargoempleado" (
   "idcargo" Serial PRIMARY KEY,
   "nombre_cargo" varchar,
   "salario" double precision
@@ -144,7 +144,7 @@ ALTER TABLE  "usuario" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("id
 
 ALTER TABLE  "usuario" ADD FOREIGN KEY ("idrole") REFERENCES "roles" ("idrole");
 
-ALTER TABLE  "empleado" ADD FOREIGN KEY ("idcargo_empleado") REFERENCES "cargo_empleado" ("idcargo");
+ALTER TABLE  "empleado" ADD FOREIGN KEY ("idcargo_empleado") REFERENCES "cargoempleado" ("idcargo");
 
 ALTER TABLE "inventario" ADD FOREIGN KEY ("idproveedor") REFERENCES "proveedor" ("idproveedor");
 
@@ -165,7 +165,6 @@ ALTER TABLE "pedido" ADD FOREIGN KEY ("idempleado") REFERENCES "empleado" ("idem
 ALTER TABLE "pedido" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 
 ALTER TABLE "pedido" ADD FOREIGN KEY ("idcliente") REFERENCES "cliente" ("idcliente");
-
 
 ALTER TABLE "kardex" ADD FOREIGN KEY ("idproducto") REFERENCES "inventario" ("idproducto");
 
