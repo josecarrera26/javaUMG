@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Roles implements Serializable {
 
     @OneToMany(mappedBy = "idrole")
+    private Collection<Empleado> empleadoCollection;
+
+    @OneToMany(mappedBy = "idrole")
     private Collection<Usuario> usuarioCollection;
 
     private static final long serialVersionUID = 1L;
@@ -125,6 +128,15 @@ public class Roles implements Serializable {
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<Empleado> getEmpleadoCollection() {
+        return empleadoCollection;
+    }
+
+    public void setEmpleadoCollection(Collection<Empleado> empleadoCollection) {
+        this.empleadoCollection = empleadoCollection;
     }
 
     

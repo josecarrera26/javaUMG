@@ -18,6 +18,8 @@
     <class>com.umgprogra.erp.DAO.Proveedor</class>
     <class>com.umgprogra.erp.DAO.Cuentacontable</class>
     <class>com.umgprogra.erp.DAO.Usuario</class>
+    <class>com.umgprogra.erp.DAO.Cargoempleado_1</class>
+    <class>com.umgprogra.erp.DAO.Cargoempleado</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/prograproyecto"/>

@@ -5,7 +5,7 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Empleado;
-import com.umgprogra.erp.DAO.CargoEmpleado;
+import com.umgprogra.erp.DAO.Cargoempleado;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class EmpleadoServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
     
-  public Boolean saveEmpleado(String pnombre, String papellido, String ptelefono, String pemail, CargoEmpleado pidCargo) {
+  public Boolean saveEmpleado(String pnombre, String papellido, String ptelefono, String pemail, Cargoempleado pidCargo) {
         boolean g = false;
         
         System.out.println( "Estoy en EmpleadoServicio");        

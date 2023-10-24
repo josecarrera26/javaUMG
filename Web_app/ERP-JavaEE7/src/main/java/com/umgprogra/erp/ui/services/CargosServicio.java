@@ -4,7 +4,7 @@
  */
 package com.umgprogra.erp.ui.services;
 
-import com.umgprogra.erp.DAO.CargoEmpleado;
+import com.umgprogra.erp.DAO.Cargoempleado;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class CargosServicio {
 
     public String InsertarCargo(String pNombreCargo, Double pSueldo) {
         try {
-            CargoEmpleado cargo = new CargoEmpleado();
+            Cargoempleado cargo = new Cargoempleado();
             cargo.setNombreCargo(pNombreCargo);
             cargo.setSalario(pSueldo);
 
@@ -34,19 +34,25 @@ public class CargosServicio {
         }
     }
 
-    public List<CargoEmpleado> getAllCargos() {
+    public List<Cargoempleado> getAllCargos() {
 
-        List<CargoEmpleado> cargos = new ArrayList<>();
+        List<Cargoempleado> cargos = new ArrayList<>();
+        cargos = null;
 
-        Query query = entity.createQuery("SELECT c FROM cargo_empleado c");
-        cargos = query.getResultList();
-        return cargos;
-    }
-    
-    public List<CargoEmpleado> getCargoId(int idCargo) {
-        List<CargoEmpleado> resultList = new ArrayList<>();
         try {
-            Query query2 = entity.createNamedQuery("CargoEmpleado.findByIdcargo", CargoEmpleado.class).setParameter("idcargo", idCargo);
+            Query query = entity.createNamedQuery("Cargoempleado.findAll", Cargoempleado.class);
+            cargos = query.getResultList();
+            return cargos;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return cargos;
+        }
+    }
+
+    public List<Cargoempleado> getCargoId(int idCargo) {
+        List<Cargoempleado> resultList = new ArrayList<>();
+        try {
+            Query query2 = entity.createNamedQuery("CargoEmpleado.findByIdcargo", Cargoempleado.class).setParameter("idcargo", idCargo);
             resultList = query2.getResultList();
             if (resultList == null && resultList.isEmpty()) {
                 System.out.println("No se encontraron Cargos con el ID");
@@ -57,12 +63,12 @@ public class CargosServicio {
 
         return resultList;
     }
-    
-    public List<CargoEmpleado> findAllCargo() {
-        List<CargoEmpleado> resultList = new ArrayList<>();
+
+    public List<Cargoempleado> findAllCargo() {
+        List<Cargoempleado> resultList = new ArrayList<>();
         try {
             System.out.println("metodo DB findAllCargo");
-            Query query = entity.createNamedQuery("CargoEmpleado.findAll", CargoEmpleado.class);
+            Query query = entity.createNamedQuery("CargoEmpleado.findAll", Cargoempleado.class);
             //resultado de lista Cargos
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
@@ -76,5 +82,5 @@ public class CargosServicio {
 
         return resultList;
 
-    }    
+    }
 }

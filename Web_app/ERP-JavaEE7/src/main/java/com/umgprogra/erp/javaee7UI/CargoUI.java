@@ -4,7 +4,8 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
-import com.umgprogra.erp.DAO.CargoEmpleado;
+
+import com.umgprogra.erp.DAO.Cargoempleado;
 import com.umgprogra.erp.ui.services.CargosServicio;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +25,14 @@ public class CargoUI {
     /**
      * @return the cargos
      */
-    public List<CargoEmpleado> getCargos() {
+    public List<Cargoempleado> getCargos() {
         return cargos;
     }
 
     /**
      * @param cargos the cargos to set
      */
-    public void setCargos(List<CargoEmpleado> cargos) {
+    public void setCargos(List<Cargoempleado> cargos) {
         this.cargos = cargos;
     }
   /**
@@ -80,7 +81,7 @@ public class CargoUI {
     private String nombre_cargo;
     private Double salario;
     
-    private List<CargoEmpleado> cargos;
+    private List<Cargoempleado> cargos;
 
     
     @PostConstruct
@@ -88,11 +89,11 @@ public class CargoUI {
     listaCargos();
     }
     
-    public String crearCargo(){
+    public void crearCargo(){
     
         CargosServicio nuevoCargo = new CargosServicio();
         
-       return nuevoCargo.InsertarCargo(this.nombre_cargo, this.salario);
+       nuevoCargo.InsertarCargo(this.nombre_cargo, this.salario);
     }
     
     public void listaCargos(){

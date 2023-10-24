@@ -38,6 +38,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empleado.findByEmailEmpleado", query = "SELECT e FROM Empleado e WHERE e.emailEmpleado = :emailEmpleado")})
 public class Empleado implements Serializable {
 
+    @Size(max = 2147483647)
+    @Column(name = "password")
+    private String password;
+    @JoinColumn(name = "idrole", referencedColumnName = "idrole")
+    @ManyToOne
+    private Roles idrole;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +65,7 @@ public class Empleado implements Serializable {
     private String emailEmpleado;
     @JoinColumn(name = "idcargo_empleado", referencedColumnName = "idcargo")
     @ManyToOne
-    private CargoEmpleado idcargoEmpleado;
+    private Cargoempleado idcargoEmpleado;
     @OneToMany(mappedBy = "idempleado")
     private Collection<Usuario> usuarioCollection;
 
@@ -109,11 +116,11 @@ public class Empleado implements Serializable {
         this.emailEmpleado = emailEmpleado;
     }
 
-    public CargoEmpleado getIdcargoEmpleado() {
+    public Cargoempleado getIdcargoEmpleado() {
         return idcargoEmpleado;
     }
 
-    public void setIdcargoEmpleado(CargoEmpleado idcargoEmpleado) {
+    public void setIdcargoEmpleado(Cargoempleado idcargoEmpleado) {
         this.idcargoEmpleado = idcargoEmpleado;
     }
 
@@ -149,6 +156,22 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "com.umgprogra.erp.DAO.Empleado[ idempleado=" + idempleado + " ]";
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Roles getIdrole() {
+        return idrole;
+    }
+
+    public void setIdrole(Roles idrole) {
+        this.idrole = idrole;
     }
     
 }

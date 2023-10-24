@@ -5,7 +5,7 @@
 package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Empleado;
-import com.umgprogra.erp.DAO.CargoEmpleado;
+import com.umgprogra.erp.DAO.Cargoempleado;
 import com.umgprogra.erp.ui.services.EmpleadoServicio;
 import com.umgprogra.erp.ui.services.CargosServicio;
 import java.io.Serializable;
@@ -73,14 +73,14 @@ public class EmpleadoUI implements Serializable {
     /**
      * @return the cargo
      */
-    public CargoEmpleado getCargo() {
+    public Cargoempleado getCargo() {
         return cargo;
     }
 
     /**
      * @param cargo the cargo to set
      */
-    public void setCargo(CargoEmpleado cargo) {
+    public void setCargo(Cargoempleado cargo) {
         this.cargo = cargo;
     }
 
@@ -96,9 +96,9 @@ public class EmpleadoUI implements Serializable {
     private List<Empleado> empleados;
     private List<Empleado> filteredEmpleados;
     private List<SelectItem> empleadoItems;    
-    private List<CargoEmpleado> cargos;
+    private List<Cargoempleado> cargos;
     private List<SelectItem> cargoItems;
-    private CargoEmpleado cargo;
+    private Cargoempleado cargo;
     
     EmpleadoServicio servicio = new EmpleadoServicio();    
 
@@ -261,7 +261,7 @@ public class EmpleadoUI implements Serializable {
             CargosServicio cargoServ = new CargosServicio();
             cargos = cargoServ.findAllCargo();
             cargoItems = new ArrayList<>();
-            for (CargoEmpleado cargoObj : cargos) {
+            for (Cargoempleado cargoObj : cargos) {
                 cargoItems.add(new SelectItem(cargoObj.getIdcargo(), cargoObj.getNombreCargo()));
             }
         } catch (Exception e) {
@@ -269,7 +269,7 @@ public class EmpleadoUI implements Serializable {
         }
     }
 
-    public CargoEmpleado getCargoSeleccionado() {
+    public Cargoempleado getCargoSeleccionado() {
         try {
             CargosServicio cargoServ = new CargosServicio();
             cargo = cargoServ.getCargoId(idCargo).get(0);
