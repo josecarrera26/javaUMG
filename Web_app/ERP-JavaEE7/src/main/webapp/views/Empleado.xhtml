@@ -12,7 +12,7 @@
 
     <h:body>
         
-        <h:form id="formEmpleado" >
+        <h:form>
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
@@ -20,34 +20,33 @@
 
                 <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
                     <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
-                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="./login.xhtml"/>
+                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:8080/ERP-JavaEE7/"/>
                 </p:submenu>
 
 
                 <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
-                    <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" url="./Bancos.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./CuentasContables.xhtml"/>
+                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
                     <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Empleado.xhtml"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" url="./Role.xhtml"/>
-                    </p:submenu>    
+                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.empleados()}"/>
+                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.cargo()}"/>
+                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.roles()}"/>
+                    </p:submenu>
                 </p:submenu>
 
 
                 <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
-                    <p:menuitem value="Cliente" icon="pi pi-fw pi-user" url="./Cliente.xhtml"/>
-                    <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" url="./Facturas.xhtml"/>
-                    <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" url="./Proveedores.xhtml"/>
+                    <p:menuitem value="Cliente" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.cliente()}"/>
+                    <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
+                    <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
                 </p:submenu>
 
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
-                    <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" url="./Pedidos.xhtml"/>
-                    <p:menuitem value="Producto" icon="pi pi-fw pi-box" url="./Inventario.xhtml"/>
-                    <p:submenu label="Tags" icon="pi pi-fw pi-tags">
-                        <p:menuitem value="Marca" icon="pi pi-fw pi-tag"/>
-                        <p:menuitem value="Linea" icon="pi pi-fw pi-tag"/>
-                        <p:menuitem value="Grupo" icon="pi pi-fw pi-tag"/>
+                    <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
+                    <p:submenu label="Producto" icon="pi pi-fw pi-tags">
+                        <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
+
+                        <p:menuitem value="Editar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioE()}" rendered="#{sessionU.flag}" /> 
+
                     </p:submenu>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
