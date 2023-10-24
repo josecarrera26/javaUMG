@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Cuentas Contables</title>
@@ -13,7 +13,7 @@
     </h:head>
 
     <h:body>
-        
+
         <h:form>
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
@@ -33,9 +33,7 @@
                         <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.cargo()}"/>
                         <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.roles()}"/>
                     </p:submenu>
-                </p:submenu>
-
-
+                </p:submenu>       
                 <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
                     <p:menuitem value="Cliente" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.cliente()}"/>
                     <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
@@ -53,43 +51,44 @@
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
             </p:menubar>
-        
-        <p:tabView dynamic="true">
-            <p:growl id="msg"/>
+        </h:form>
+        <h:form>
+            <p:tabView dynamic="true">
+                <p:growl id="msg"/>
                 <!-- seccion de registro de Cuentas Contables -->
                 <p:tab  title="Cuentas Contables">
                     <p:panel id="pnlRegistroCuentas" header="Registro de Cuenta Contable" class="centerPnl" style="width: 40%" >
-                    <div class="card" style="width: 100%">
+                        <div class="card" style="width: 100%">
                             <div class="grid ui-fluid mt-3 floatlabel-demo">
-                               <p:splitter style="height: 150px" styleClass="mb-5">
-                                   <p:splitterPanel styleClass="flex align-items-center justify-content-center">                               
-                                <h5></h5>
-                                <div class="col-12 md:col-6">                                   
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label ui-input-icon-right">                                            
-                                            <p:inputText id="nomCuenta" value="#{cuentasContablesUI.nombreCuenta}" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                                            <p:outputLabel for="@previous" value="Nombre Cuenta" styleClass="ml-4" />
-                                        </span>
-                                    </div>
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label ui-input-icon-right">
-                                           <p:inputText id="tipCuenta" value="#{cuentasContablesUI.tipoCuenta}" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                                           <p:outputLabel for="@previous" value="Tipo Cuenta" />
-                                        </span>
-                                    </div>
-                                </div>   
-                                </p:splitterPanel>
-                                  </p:splitter>
+                                <p:splitter style="height: 150px" styleClass="mb-5">
+                                    <p:splitterPanel styleClass="flex align-items-center justify-content-center">                               
+                                        <h5></h5>
+                                        <div class="col-12 md:col-6">                                   
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="nomCuenta" value="#{cuentasContablesUI.nombreCuenta}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="Nombre Cuenta" styleClass="ml-4" />
+                                                </span>
+                                            </div>
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">
+                                                    <p:inputText id="tipCuenta" value="#{cuentasContablesUI.tipoCuenta}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="Tipo Cuenta" />
+                                                </span>
+                                            </div>
+                                        </div>   
+                                    </p:splitterPanel>
+                                </p:splitter>
                             </div>
                             <p:commandButton id="RegisterCuenta" action="#{cuentasContablesUI.saveCuenta}"
                                              value="Registrar"  update="pnlRegistroCuentas, msg, tablaCuenta" ajax="true" style=" margin-left: 0px" >
                             </p:commandButton>
-                    </div>
-                </p:panel>
-            </p:tab>
-                            <p:tab  title="Consultar Cuenta">  
+                        </div>
+                    </p:panel>
+                </p:tab>
+                <p:tab  title="Consultar Cuenta">  
                     <style>
                         .ui-filter-column .ui-column-customfilter .custom-filter {
                             width: 100%;
@@ -98,51 +97,13 @@
                     </style>
 
                     <div class="card">
-                            <p:dataTable id="tablaCuenta" var="cuentaContable" widgetVar="CuentaContable" filteredValue="#{cuentasContablesUI.filteredCuenta}" value="#{cuentasContablesUI.cuentacontable}">
-
-                                <f:facet name="header">
-                                    <div class="flex align-items-center justify-content-between">
-                                        <span>Lista Cuentas</span>
-                                        <div>
-                                        <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
-                                                     placeholder="Enter keyword" />
-                                        </div>
-                                    </div>
-
-                                </f:facet>
-
-                                <p:column headerText="ID" sortBy="#{cuentaContable.idcuentacontable}" filterBy="#{cuentaContable.idcuentacontable}" filterMatchMode="exact">
-                                    <h:outputText value="#{cuentaContable.idcuentacontable}" />
-                                </p:column>
-
-                                <p:column headerText="Nombre" sortBy="#{cuentaContable.nombrecuenta}" filterBy="#{cuentaContable.nombrecuenta}" filterMatchMode="contains">
-                                    <h:outputText value="#{cuentaContable.nombrecuenta}" />
-                                </p:column>
-
-                                <p:column headerText="Telefono" sortBy="#{cuentaContable.tipocuenta}" filterBy="#{cuentaContable.tipocuenta}" filterMatchMode="contains">
-                                    <h:outputText value="#{cuentaContable.tipocuenta}" />
-                                </p:column>
-
-                            </p:dataTable>
-                    </div> 
-                    </p:tab> 
-           <!-- <p:tab  title="Consultar Cuentas">  
-                    <style>
-                        .ui-filter-column .ui-column-customfilter .custom-filter {
-                            width: 100%;
-                            box-sizing: border-box;
-                        }
-                    </style>
-
-                    <div class="card">
-                        <h5>Column Filtering</h5>
-                        <p:dataTable id="tablaCuenta" var="cuentas" widgetVar="CuentaContable" filteredValue="#{cuentasContablesUI.getFilteredCuenta}" value="#{cuentasContablesUI.getCuentacontable}">
+                        <p:dataTable id="tablaCuenta" var="cuentaContable" widgetVar="CuentaContable" filteredValue="#{cuentasContablesUI.filteredCuenta}" value="#{cuentasContablesUI.cuentacontable}">
 
                             <f:facet name="header">
                                 <div class="flex align-items-center justify-content-between">
                                     <span>Lista Cuentas</span>
                                     <div>
-                                        <p:inputText id="globalFilterCuentas" onkeyup="PF('Cliente').filter()" style="width:10rem"
+                                        <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
                                     </div>
                                 </div>
@@ -163,52 +124,90 @@
 
                         </p:dataTable>
                     </div> 
-            </p:tab>-->            
-        </p:tabView>
+                </p:tab> 
+                <!-- <p:tab  title="Consultar Cuentas">  
+                         <style>
+                             .ui-filter-column .ui-column-customfilter .custom-filter {
+                                 width: 100%;
+                                 box-sizing: border-box;
+                             }
+                         </style>
+     
+                         <div class="card">
+                             <h5>Column Filtering</h5>
+                             <p:dataTable id="tablaCuenta" var="cuentas" widgetVar="CuentaContable" filteredValue="#{cuentasContablesUI.getFilteredCuenta}" value="#{cuentasContablesUI.getCuentacontable}">
+     
+                                 <f:facet name="header">
+                                     <div class="flex align-items-center justify-content-between">
+                                         <span>Lista Cuentas</span>
+                                         <div>
+                                             <p:inputText id="globalFilterCuentas" onkeyup="PF('Cliente').filter()" style="width:10rem"
+                                                          placeholder="Enter keyword" />
+                                         </div>
+                                     </div>
+     
+                                 </f:facet>
+     
+                                 <p:column headerText="ID" sortBy="#{cuentaContable.idcuentacontable}" filterBy="#{cuentaContable.idcuentacontable}" filterMatchMode="exact">
+                                     <h:outputText value="#{cuentaContable.idcuentacontable}" />
+                                 </p:column>
+     
+                                 <p:column headerText="Nombre" sortBy="#{cuentaContable.nombrecuenta}" filterBy="#{cuentaContable.nombrecuenta}" filterMatchMode="contains">
+                                     <h:outputText value="#{cuentaContable.nombrecuenta}" />
+                                 </p:column>
+     
+                                 <p:column headerText="Telefono" sortBy="#{cuentaContable.tipocuenta}" filterBy="#{cuentaContable.tipocuenta}" filterMatchMode="contains">
+                                     <h:outputText value="#{cuentaContable.tipocuenta}" />
+                                 </p:column>
+     
+                             </p:dataTable>
+                         </div> 
+                 </p:tab>-->            
+            </p:tabView>
 
-        <h:form>
-            <p:panel>
-                <div class="layout-footer">
-                    <div>
-                        <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" />
-                    </div>
-                    <p:outputLabel value="Grandes soluciones una experiencia unica para tu negocio"/>
-                    <style>
-                        .custom-scrolltop.ui-scrolltop {
-                            width: 2rem;
-                            height: 2rem;
-                            border-radius: 4px;
-                            outline: 0 none;
-                            background-color: var(--primary-color);
-                        }
-                        .custom-scrolltop.ui-scrolltop:hover {
-                            background-color: var(--primary-color);
-                        }
+            <h:form>
+                <p:panel>
+                    <div class="layout-footer">
+                        <div>
+                            <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" />
+                        </div>
+                        <p:outputLabel value="Grandes soluciones una experiencia unica para tu negocio"/>
+                        <style>
+                            .custom-scrolltop.ui-scrolltop {
+                                width: 2rem;
+                                height: 2rem;
+                                border-radius: 4px;
+                                outline: 0 none;
+                                background-color: var(--primary-color);
+                            }
+                            .custom-scrolltop.ui-scrolltop:hover {
+                                background-color: var(--primary-color);
+                            }
 
-                        .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
-                            font-size: 1rem;
-                            color: var(--primary-color-text);
-                        }
-                    </style>
+                            .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
+                                font-size: 1rem;
+                                color: var(--primary-color-text);
+                            }
+                        </style>
 
-                    <div class="card">
-                        <p>
-                            Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
-                            un servicio de control contable/financiero para su empresa. contamos con 
-                            un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
-                            mejor servicio que usted necesita.
-                        </p>
-                        <div id="container">
-                            <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
-                            <span id="slot1"> | </span>
-                            <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
-                            <span id="slot3"> | </span>
-                            <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                        <div class="card">
+                            <p>
+                                Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
+                                un servicio de control contable/financiero para su empresa. contamos con 
+                                un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
+                                mejor servicio que usted necesita.
+                            </p>
+                            <div id="container">
+                                <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
+                                <span id="slot1"> | </span>
+                                <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
+                                <span id="slot3"> | </span>
+                                <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </p:panel>
+                </p:panel>
+            </h:form>
         </h:form>
-       </h:form>
     </h:body>
 </html>

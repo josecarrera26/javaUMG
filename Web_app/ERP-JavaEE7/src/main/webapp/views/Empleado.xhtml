@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Empleado</title>
@@ -11,7 +11,7 @@
     </h:head>
 
     <h:body>
-        
+
         <h:form>
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
@@ -51,7 +51,8 @@
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
             </p:menubar>
-
+        </h:form>
+        <h:form>
             <p:tabView dynamic="true">
                 <p:growl id="msg"/>
                 <!-- seccion de registro de Cliente -->
@@ -85,18 +86,18 @@
 
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " />    
-                            
-                                <p:outputLabel id="idLabelCargo" value="Cargos"  for="@next"/>
 
-                                <p:selectOneMenu id="cargo" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
-                                                 style="width: 13.3rem;"
-                                                 value="#{empleadoUI.idCargo}">
-                                    <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
-                                    <f:selectItems value="#{empleadoUI.cargoItems}"/>
-                                </p:selectOneMenu>
+                            <p:outputLabel id="idLabelCargo" value="Cargos"  for="@next"/>
+
+                            <p:selectOneMenu id="cargo" class="combo" dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
+                                             style="width: 13.3rem;"
+                                             value="#{empleadoUI.idCargo}">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                                <f:selectItems value="#{empleadoUI.cargoItems}"/>
+                            </p:selectOneMenu>
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " />
-                            
+
                         </p:panelGrid >
 
                         <p:commandButton id="RegisterEmpleado" action="#{empleadoUI.saveEmpleado()}"
@@ -115,47 +116,47 @@
                     </style>
 
                     <div class="card">
-                            <p:dataTable id="tablaEmpleado" var="empleado" widgetVar="Empleado" filteredValue="#{empleadoUI.filteredEmpleados}" value="#{empleadoUI.empleados}">
+                        <p:dataTable id="tablaEmpleado" var="empleado" widgetVar="Empleado" filteredValue="#{empleadoUI.filteredEmpleados}" value="#{empleadoUI.empleados}">
 
-                                <f:facet name="header">
-                                    <div class="flex align-items-center justify-content-between">
-                                        <span>Lista Empleados</span>
-                                        <div>
+                            <f:facet name="header">
+                                <div class="flex align-items-center justify-content-between">
+                                    <span>Lista Empleados</span>
+                                    <div>
                                         <p:inputText id="globalFilter" onkeyup="PF('Empleados').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
-                                        </div>
                                     </div>
+                                </div>
 
-                                </f:facet>
+                            </f:facet>
 
-                                <p:column headerText="ID del Empleado" sortBy="#{empleado.idempleado}" filterBy="#{empleado.idempleado}" filterMatchMode="exact">
-                                    <h:outputText value="#{empleado.idempleado}" />
-                                </p:column>
+                            <p:column headerText="ID del Empleado" sortBy="#{empleado.idempleado}" filterBy="#{empleado.idempleado}" filterMatchMode="exact">
+                                <h:outputText value="#{empleado.idempleado}" />
+                            </p:column>
 
-                                <p:column headerText="Nombre" sortBy="#{empleado.nombreEmpleado}" filterBy="#{empleado.nombreEmpleado}" filterMatchMode="contains">
-                                    <h:outputText value="#{empleado.nombreEmpleado}" />
-                                </p:column>
+                            <p:column headerText="Nombre" sortBy="#{empleado.nombreEmpleado}" filterBy="#{empleado.nombreEmpleado}" filterMatchMode="contains">
+                                <h:outputText value="#{empleado.nombreEmpleado}" />
+                            </p:column>
 
-                                <p:column headerText="Apellido" sortBy="#{empleado.apellidoEmpleado}" filterBy="#{empleado.apellidoEmpleado}" filterMatchMode="contains">
-                                    <h:outputText value="#{empleado.apellidoEmpleado}" />
-                                </p:column>
+                            <p:column headerText="Apellido" sortBy="#{empleado.apellidoEmpleado}" filterBy="#{empleado.apellidoEmpleado}" filterMatchMode="contains">
+                                <h:outputText value="#{empleado.apellidoEmpleado}" />
+                            </p:column>
 
-                                <p:column headerText="Telefono" sortBy="#{empleado.telefonoEmpleado}" filterBy="#{empleado.telefonoEmpleado}" filterMatchMode="contains">
-                                    <h:outputText value="#{empleado.telefonoEmpleado}" />
-                                </p:column>
+                            <p:column headerText="Telefono" sortBy="#{empleado.telefonoEmpleado}" filterBy="#{empleado.telefonoEmpleado}" filterMatchMode="contains">
+                                <h:outputText value="#{empleado.telefonoEmpleado}" />
+                            </p:column>
 
-                                <p:column headerText="Email" sortBy="#{empleado.emailEmpleado}" filterBy="#{empleado.emailEmpleado}" filterMatchMode="contains">
-                                    <h:outputText value="#{empleado.emailEmpleado}" />
-                                </p:column>
+                            <p:column headerText="Email" sortBy="#{empleado.emailEmpleado}" filterBy="#{empleado.emailEmpleado}" filterMatchMode="contains">
+                                <h:outputText value="#{empleado.emailEmpleado}" />
+                            </p:column>
 
-                                <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado}" filterBy="#{empleado.idcargoEmpleado}" filterMatchMode="contains">
-                                    <h:outputText value="#{empleado.idcargoEmpleado.nombreCargo}" />    
-                                </p:column> 
+                            <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado}" filterBy="#{empleado.idcargoEmpleado}" filterMatchMode="contains">
+                                <h:outputText value="#{empleado.idcargoEmpleado.nombreCargo}" />    
+                            </p:column> 
 
-                            </p:dataTable>-
+                        </p:dataTable>-
                     </div> 
-                    </p:tab>                   
- 
+                </p:tab>                   
+
                 <!--<p:tab  title ="Eliminar">
                 
                      seccion de eliminacion de Cliente
@@ -170,50 +171,50 @@
                 </p:tab>
                 -->
             </p:tabView>            
-        
-        <h:form>
-            <p:panel>
-                <div class="layout-footer">
-                    <div>
-                        <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" />
-                    </div>
-                    <p:outputLabel value="Grandes soluciones una experiencia unica para tu negocio"/>
-                    <style>
-                        .custom-scrolltop.ui-scrolltop {
-                            width: 2rem;
-                            height: 2rem;
-                            border-radius: 4px;
-                            outline: 0 none;
-                            background-color: var(--primary-color);
-                        }
-                        .custom-scrolltop.ui-scrolltop:hover {
-                            background-color: var(--primary-color);
-                        }
 
-                        .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
-                            font-size: 1rem;
-                            color: var(--primary-color-text);
-                        }
-                    </style>
+            <h:form>
+                <p:panel>
+                    <div class="layout-footer">
+                        <div>
+                            <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" />
+                        </div>
+                        <p:outputLabel value="Grandes soluciones una experiencia unica para tu negocio"/>
+                        <style>
+                            .custom-scrolltop.ui-scrolltop {
+                                width: 2rem;
+                                height: 2rem;
+                                border-radius: 4px;
+                                outline: 0 none;
+                                background-color: var(--primary-color);
+                            }
+                            .custom-scrolltop.ui-scrolltop:hover {
+                                background-color: var(--primary-color);
+                            }
 
-                    <div class="card">
-                        <p>
-                            Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
-                            un servicio de control contable/financiero para su empresa. contamos con 
-                            un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
-                            mejor servicio que usted necesita.
-                        </p>
-                        <div id="container">
-                            <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
-                            <span id="slot1"> | </span>
-                            <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
-                            <span id="slot3"> | </span>
-                            <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                            .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
+                                font-size: 1rem;
+                                color: var(--primary-color-text);
+                            }
+                        </style>
+
+                        <div class="card">
+                            <p>
+                                Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
+                                un servicio de control contable/financiero para su empresa. contamos con 
+                                un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
+                                mejor servicio que usted necesita.
+                            </p>
+                            <div id="container">
+                                <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
+                                <span id="slot1"> | </span>
+                                <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
+                                <span id="slot3"> | </span>
+                                <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </p:panel>
-        </h:form>
+                </p:panel>
+            </h:form>
         </h:form>
     </h:body>
 </html>
