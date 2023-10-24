@@ -20,6 +20,7 @@ import com.umgprogra.erp.ui.services.ProveedoreServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
@@ -635,6 +636,24 @@ public class InventarioUI implements Serializable {
 
     public InventarioUI() {
 
+    }
+    
+        public List<String> completeText(String query) {
+        String queryLowerCase = query.toLowerCase();
+        List<String> inventarioList = new ArrayList<>();
+//        try {
+            InventarioServicio inventarioServ = new InventarioServicio();
+
+            List<Inventario> inventarios = inventarioServ.findAllProducto(1);
+
+            for (Inventario inventario : inventarios) {
+                inventarioList.add(inventario.getNombre());
+            }
+           
+//        } catch (Exception e) {
+//            System.out.println("COMPLETETEXT " + e.getMessage());
+//        }
+        return  inventarioList.stream().filter(t -> t.toLowerCase().startsWith(queryLowerCase)).collect(Collectors.toList());
     }
 
     public void viewMarcaModal() {

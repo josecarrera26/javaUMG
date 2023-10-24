@@ -55,7 +55,7 @@
 
                                 <h:form id="idFormInventario">
                                     <p:tabView dynamic="false" >
-                                        <p:tab title="New Producto">
+                                        <p:tab title="Editar Producto">
                                             <p:panel id="pnlInventario" header="Registro de productos" class="centerPnl">
                                                 <div class="card">
 
@@ -63,7 +63,7 @@
                                                         <div class="field">
                                                             <h:outputLabel id="lblIdProducto" value="Cod. Producto" />
                                                             <div style="display: flex; flex-direction: column;">
-                                                                <p:inputText id="idProducto" style="width: 250px;" value="#{inventarioUI.codProducto}"   required="true" requiredMessage="Codigo requerido" />
+                                                                <p:autoComplete id="idProducto" style="width: 250px;" value="#{inventarioUI.nombre}"   completeMethod="#{inventarioUI.completeText}" scrollHeight="250" />
                                                             </div>
                                                         </div>
                                                     </div>
