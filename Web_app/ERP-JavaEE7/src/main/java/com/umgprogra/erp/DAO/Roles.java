@@ -31,14 +31,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
     @NamedQuery(name = "Roles.findByIdrole", query = "SELECT r FROM Roles r WHERE r.idrole = :idrole"),
     @NamedQuery(name = "Roles.findByNombreRole", query = "SELECT r FROM Roles r WHERE r.nombreRole = :nombreRole"),
-    @NamedQuery(name = "Roles.findByDescripcion", query = "SELECT r FROM Roles r WHERE r.descripcion = :descripcion")})
+    @NamedQuery(name = "Roles.findByDescripcion", query = "SELECT r FROM Roles r WHERE r.descripcion = :descripcion"),
+    @NamedQuery(name = "Roles.findByAccesos", query = "SELECT r FROM Roles r WHERE r.accesos = :accesos")})
 public class Roles implements Serializable {
-
-    @OneToMany(mappedBy = "idrole")
-    private Collection<Empleado> empleadoCollection;
-
-    @OneToMany(mappedBy = "idrole")
-    private Collection<Usuario> usuarioCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,7 +50,9 @@ public class Roles implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "accesos")
     private String accesos;
-  
+    @OneToMany(mappedBy = "idrole")
+    private Collection<Usuario> usuarioCollection;
+
     public Roles() {
     }
 
@@ -94,7 +91,15 @@ public class Roles implements Serializable {
     public void setAccesos(String accesos) {
         this.accesos = accesos;
     }
- 
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
 
     @Override
     public int hashCode() {
@@ -120,24 +125,5 @@ public class Roles implements Serializable {
     public String toString() {
         return "com.umgprogra.erp.DAO.Roles[ idrole=" + idrole + " ]";
     }
-
-    @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
-
-    @XmlTransient
-    public Collection<Empleado> getEmpleadoCollection() {
-        return empleadoCollection;
-    }
-
-    public void setEmpleadoCollection(Collection<Empleado> empleadoCollection) {
-        this.empleadoCollection = empleadoCollection;
-    }
-
     
 }

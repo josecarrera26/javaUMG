@@ -108,24 +108,6 @@ public class Inventario implements Serializable {
     public Inventario() {
     }
 
-//    public Inventario(Integer idproducto, String nombre, Integer cantidad, String tipoComercializacion, String modelo, String unidades, Double precioventa, Double coste, Integer margenganancia, Integer estado, Double impuestoinventario, Grupoproducto idgrupoproducto, Linea idlinea, Marca idmarca, Proveedor idproveedor) {
-//        this.idproducto = idproducto;
-//        this.nombre = nombre;
-//        this.cantidad = cantidad;
-//        this.tipoComercializacion = tipoComercializacion;
-//        this.modelo = modelo;
-//        this.unidades = unidades;
-//        this.precioventa = precioventa;
-//        this.coste = coste;
-//        this.margenganancia = margenganancia;
-//        this.estado = estado;
-//        this.impuestoinventario = impuestoinventario;
-//        this.idgrupoproducto = idgrupoproducto;
-//        this.idlinea = idlinea;
-//        this.idmarca = idmarca;
-//        this.idproveedor = idproveedor;
-//    }
-
     public Inventario(Integer idproducto) {
         this.idproducto = idproducto;
     }
@@ -309,5 +291,5 @@ public class Inventario implements Serializable {
     public String toString() {
         return "com.umgprogra.erp.DAO.Inventario[ idproducto=" + idproducto + " ]";
     }
-
+    
 }

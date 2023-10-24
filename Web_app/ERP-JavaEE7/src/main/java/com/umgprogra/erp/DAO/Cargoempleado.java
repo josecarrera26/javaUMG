@@ -34,9 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cargoempleado.findBySalario", query = "SELECT c FROM Cargoempleado c WHERE c.salario = :salario")})
 public class Cargoempleado implements Serializable {
 
-    @OneToMany(mappedBy = "idcargoEmpleado")
-    private Collection<Empleado> empleadoCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +46,8 @@ public class Cargoempleado implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "salario")
     private Double salario;
+    @OneToMany(mappedBy = "idcargoEmpleado")
+    private Collection<Empleado> empleadoCollection;
 
     public Cargoempleado() {
     }
@@ -81,6 +80,15 @@ public class Cargoempleado implements Serializable {
         this.salario = salario;
     }
 
+    @XmlTransient
+    public Collection<Empleado> getEmpleadoCollection() {
+        return empleadoCollection;
+    }
+
+    public void setEmpleadoCollection(Collection<Empleado> empleadoCollection) {
+        this.empleadoCollection = empleadoCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -104,15 +112,6 @@ public class Cargoempleado implements Serializable {
     @Override
     public String toString() {
         return "com.umgprogra.erp.DAO.Cargoempleado[ idcargo=" + idcargo + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Empleado> getEmpleadoCollection() {
-        return empleadoCollection;
-    }
-
-    public void setEmpleadoCollection(Collection<Empleado> empleadoCollection) {
-        this.empleadoCollection = empleadoCollection;
     }
     
 }

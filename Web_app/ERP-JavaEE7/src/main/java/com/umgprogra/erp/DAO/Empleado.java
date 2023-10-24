@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author madis
+ * @author josel
  */
 @Entity
 @Table(name = "empleado")
@@ -37,13 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empleado.findByTelefonoEmpleado", query = "SELECT e FROM Empleado e WHERE e.telefonoEmpleado = :telefonoEmpleado"),
     @NamedQuery(name = "Empleado.findByEmailEmpleado", query = "SELECT e FROM Empleado e WHERE e.emailEmpleado = :emailEmpleado")})
 public class Empleado implements Serializable {
-
-    @Size(max = 2147483647)
-    @Column(name = "password")
-    private String password;
-    @JoinColumn(name = "idrole", referencedColumnName = "idrole")
-    @ManyToOne
-    private Roles idrole;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,7 +60,11 @@ public class Empleado implements Serializable {
     @ManyToOne
     private Cargoempleado idcargoEmpleado;
     @OneToMany(mappedBy = "idempleado")
+    private Collection<Pedido> pedidoCollection;
+    @OneToMany(mappedBy = "idempleado")
     private Collection<Usuario> usuarioCollection;
+    @OneToMany(mappedBy = "idempleado")
+    private Collection<Facturacab> facturacabCollection;
 
     public Empleado() {
     }
@@ -125,12 +122,30 @@ public class Empleado implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
+    }
+
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
+    }
+
+    @XmlTransient
     public Collection<Usuario> getUsuarioCollection() {
         return usuarioCollection;
     }
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
+    }
+
+    @XmlTransient
+    public Collection<Facturacab> getFacturacabCollection() {
+        return facturacabCollection;
+    }
+
+    public void setFacturacabCollection(Collection<Facturacab> facturacabCollection) {
+        this.facturacabCollection = facturacabCollection;
     }
 
     @Override
@@ -156,22 +171,6 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "com.umgprogra.erp.DAO.Empleado[ idempleado=" + idempleado + " ]";
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Roles getIdrole() {
-        return idrole;
-    }
-
-    public void setIdrole(Roles idrole) {
-        this.idrole = idrole;
     }
     
 }
