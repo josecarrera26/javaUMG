@@ -5,6 +5,7 @@
 package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Roles;
+import com.umgprogra.erp.ui.services.Nit;
 import com.umgprogra.erp.util.JpaUtil;
 import com.umgprogra.erp.util.SessionUser;
 import javax.faces.bean.ManagedBean;
@@ -129,4 +130,7 @@ public class MenuPrincipalUI implements Serializable {
     public void grupoProducto(){
     validaVista("GrupoProducto.xhtml");
     }
+    
+
+    
 }

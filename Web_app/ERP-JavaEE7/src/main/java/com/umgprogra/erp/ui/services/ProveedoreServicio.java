@@ -73,5 +73,25 @@ public class ProveedoreServicio {
 
         return resultList;
     }
+public List<Proveedor> finderidProveedorById(Integer idProveedor) {
+        List<Proveedor> resultList = new ArrayList<>();
+        try {
+            System.out.println("metodo DB findbyidProveedor");
+            System.out.println("idProveedor" + idProveedor);
+            Query query = entity.createNamedQuery("Cliente.findByIdProveedor", Proveedor.class)
+                .setParameter("idproveedor", idProveedor);
+            //resultado
+            resultList = query.getResultList();
+            if (resultList != null && !resultList.isEmpty()) {
+                System.out.println("Resultado de la consulta:");
+            } else {
+                System.out.println("No se encontraron Cliente");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findbyIdCliente " + e.getMessage());
+        }
+    
+        return resultList;
 
+    }
 }

@@ -96,28 +96,54 @@
                 </p:tab>   
                 <!-- seccion de consulta de registros -->
                 <p:tab  title="Consultar registros">
-                    <p:dataTable id="proveedores" var="product" value="#{proveedoresUI.idProveedor}" rowKey="#{proveedoresUI.idProveedor}"
-                                 selection="" selectionMode="single">
+                    <div class="card">
+                        <p:dataTable id="tablaCliente" var="proveedor" widgetVar="Proveedor" filteredValue="#{proveedoresUI.filteredCliente}" value="#{proveedoresUI.proveedor}">
 
-                        <p:column headerText="ID proveedor">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Nombre">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Referencia Proveedor">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Regimen Proveedor">
-                            <h:outputText value="Direccion" />
-                        </p:column>
-                        <p:column headerText="Telefono">
-                            <h:outputText value="" />
-                        </p:column>
-                        <p:column headerText="Correo Electronico">
-                            <h:outputText value="" />
-                        </p:column>
-                    </p:dataTable>
+                                <f:facet name="header">
+                                    <div class="flex align-items-center justify-content-between">
+                                        <span>Lista Proveedores</span>
+                                        <div>
+                                        <p:inputText id="globalFilter" onkeyup="PF('Proveedor').filter()" style="width:10rem"
+                                                     placeholder="Enter keyword" />
+                                        </div>
+                                    </div>
+
+                                </f:facet>
+
+                            <p:column headerText="ID" sortBy="#{Proveedor.idCuenta}" filterBy="#{proveedoresUI.idCuenta}" filterMatchMode="exact">
+                                    <h:outputText value="#{Proveedor.idCuenta}" />
+                                </p:column>
+
+                            <p:column headerText="Nombre" sortBy="#{Proveedor.nombreProveedor}" filterBy="#{Proveedor.nombreProveedor}" filterMatchMode="contains">
+                                    <h:outputText value="#{Proveedor.nombreProveedor}" />
+                                </p:column>
+
+                            <p:column headerText="Telefono" sortBy="#{Proveedor.direccionProveedor}" filterBy="#{Proveedor.telefonoCliente}" filterMatchMode="contains">
+                                    <h:outputText value="#{Proveedor.telefonoCliente}" />
+                                </p:column>
+
+                                <p:column headerText="Email" sortBy="#{cliente.emailCliente}" filterBy="#{cliente.emailCliente}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.emailCliente}" />
+                                </p:column>
+
+                                <p:column headerText="Nit" sortBy="#{cliente.nit}" filterBy="#{cliente.nit}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.nit}" />
+                                </p:column>
+
+                                <p:column headerText="Direccion" sortBy="#{cliente.direccionCliente}" filterBy="#{cliente.direccionCliente}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.direccionCliente}" />
+                                </p:column>
+                                
+                                <p:column headerText="DPI" sortBy="#{cliente.dpi}" filterBy="#{cliente.dpi}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.dpi}" />
+                                </p:column>  
+                                
+                                <p:column headerText="Cuenta Contable" sortBy="#{cliente.idcuentacontable}" filterBy="#{cliente.idcuentacontable}" filterMatchMode="contains">
+                                    <h:outputText value="#{cliente.idcuentacontable.nombrecuenta}" />
+                                </p:column> 
+
+                            </p:dataTable>
+                    </div> 
 
                 </p:tab>
                 <p:tab  title ="Eliminar">

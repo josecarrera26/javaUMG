@@ -5,21 +5,69 @@
 package com.umgprogra.erp.javaee7UI;
 
 import com.umgprogra.erp.DAO.Cuentacontable;
+import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.ui.services.CuentacontableServicio;
 import com.umgprogra.erp.ui.services.ProveedoreServicio;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 /**
  *
  * @author ferna
  */
+@Named("dtFilterView")
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ProveedoresUI implements Serializable {
+
+    /**
+     * @return the resultados
+     */
+    public List<Proveedor> getResultados() {
+        return resultados;
+    }
+
+    /**
+     * @param resultados the resultados to set
+     */
+    public void setResultados(List<Proveedor> resultados) {
+        this.resultados = resultados;
+    }
+
+    /**
+     * @return the proveedor
+     */
+    public List<Proveedor> getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * @param proveedor the proveedor to set
+     */
+    public void setProveedor(List<Proveedor> proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    /**
+     * @return the filteredCliente
+     */
+    public List<Proveedor> getFilteredCliente() {
+        return filteredProveedor
+;
+    }
+
+    /**
+     * @param filteredCliente the filteredCliente to set
+     */
+    public void setFilteredCliente(List<Proveedor> filteredCliente) {
+        this.filteredProveedor = filteredCliente;
+    }
 
     /**
      * @return the idCuenta
@@ -42,6 +90,11 @@ public class ProveedoresUI implements Serializable {
     private String regimenProvedor;
     private String emailProveedor;
     private Cuentacontable idCuenta;
+    
+    private List<Proveedor> filteredProveedor;
+    private List<Proveedor> proveedor;
+    private List<Proveedor> resultados;
+    ProveedoreServicio servicio = new ProveedoreServicio();
 
     public ProveedoresUI(Integer idProveedor, String nombreProveedor, String direccionProveedor, Integer telefonoProveedor, String regimenProvedor, String emailProveedor) {
         this.idProveedor = idProveedor;
@@ -146,4 +199,14 @@ public class ProveedoresUI implements Serializable {
         return idCuenta;
     }
 
+    
+     public void consultaCliente() {
+//        try {
+//            setResultados(new ArrayList<>());
+//            System.out.println("idCliente buscado" + this.idProveedor);
+//            setResultados(servicio.finderidProveedorById(idProveedor));
+//        } catch (Exception e) {
+//            System.err.println("Error al consultar");
+//        }
+    }
 }
