@@ -24,16 +24,19 @@
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
                 </p:submenu>
 
-                <!-- <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
-                     <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
-                     <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="./login.xhtml"/>
-                 </p:submenu>
-                -->
+                <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
+                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
+                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="./login.xhtml"/>
+                </p:submenu>
+
 
                 <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
-                    <p:menuitem value="Bancos" icon="pi pi-fw pi-money-bill" action="#{menuPrincipalUI.viewProducts}" />
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" url="./CuentasContables.xhtml"/>
-                    <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" actionListener="#{menuPrincipalUI.cuentasContables()}"/>
+                    <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
+                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" url="./Empleado.xhtml"/>
+                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" url="./Cargo.xhtml"/>
+                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" url="./Role.xhtml"/>
+                    </p:submenu>
                 </p:submenu>
 
 
@@ -53,7 +56,6 @@
                     </p:submenu>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
-
             </p:menubar>
         </h:form>
 
