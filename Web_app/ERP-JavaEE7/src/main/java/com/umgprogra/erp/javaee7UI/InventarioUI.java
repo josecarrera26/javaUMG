@@ -28,6 +28,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 /**
  *
@@ -629,10 +631,39 @@ public class InventarioUI implements Serializable {
         findAllProductosUi();
         idRoleUser();
         getUltimoProd();
+        //  viewMarca();
     }
 
     public InventarioUI() {
 
+    }
+
+    public void viewMarcaModal() {
+        try {
+            DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                    .resizable(true)
+                    .build();
+            System.out.println("Se crean las opciones del dialog");
+            PrimeFaces.current().dialog().openDynamic("marca", options, null);
+            System.out.println("Se crean las el dialog");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Se crean las el dialog");
+        }
+    }
+
+    public void viewLineaModal() {
+        try {
+            DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                    .resizable(true)
+                    .build();
+            System.out.println("Se crean las opciones del dialog");
+            PrimeFaces.current().dialog().openDynamic("Linea.xhtml", options, null);
+            System.out.println("Se crean las el dialog");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Se crean las el dialog");
+        }
     }
 
     public InventarioUI(Integer codProducto, String nombre, Integer cantidad, String tipo_comercializacion, String modelo, String unidades, Double precioventa, Double coste, Integer margenganancia, Integer estado, Double impuestoinventario, String idgrupoproducto, String idlinea, String idmarca, String idproveedor) {
@@ -711,15 +742,14 @@ public class InventarioUI implements Serializable {
         InventarioServicio inventarioServ = new InventarioServicio();
         flagCom = inventarioServ.idRoleUser();
     }
-    
-     public void getUltimoProd(){
-        try{
+
+    public void getUltimoProd() {
+        try {
             InventarioServicio inven = new InventarioServicio();
             //Facturacab utimaFactura = new Facturacab();
-            
+
             lastProducto = inven.getLastProducto();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error al consultar ultimo numero de factura");
             System.out.println("Mensaje: " + e.getMessage());
         }
