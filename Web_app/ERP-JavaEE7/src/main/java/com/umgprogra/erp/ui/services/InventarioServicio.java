@@ -143,16 +143,27 @@ public class InventarioServicio {
     public boolean idRoleUser() {
        boolean flag = false;
         try {
-           int idRole= sessionUser.getUser().getIdrole().getIdrole();
+           flag = sessionUser.isFlag();
            // System.out.println("ESTOY EN INVENTARIOUI ID " + sessionUser.getIdUser() + " ROLE " + sessionUser.getIdRol());
-            if(idRole==6){
-                flag = true;
-            }
 
         } catch (Exception e) {
             System.out.println("Error en IDROLEINVENTARIOSERV" + e.getMessage());
 
         }
         return flag;
+    }
+    
+    
+     public int  getLastProducto() {
+       // Object[] ultimaFactura;
+        int  idProd =0;
+        try {
+            Query query = entity.createNamedQuery("Inventario.findUltimoProd");
+            idProd = (int) query.getSingleResult();
+            System.out.println("Este es el ultimo Prod: " + idProd);
+        } catch (Exception e) {
+            System.err.println("Error en getAllFacturas " + e.getMessage());
+        }
+        return idProd;
     }
 }

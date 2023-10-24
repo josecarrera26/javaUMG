@@ -38,6 +38,20 @@ import javax.inject.Inject;
 public class InventarioUI implements Serializable {
 
     /**
+     * @return the lastProducto
+     */
+    public Integer getLastProducto() {
+        return lastProducto;
+    }
+
+    /**
+     * @param lastProducto the lastProducto to set
+     */
+    public void setLastProducto(Integer lastProducto) {
+        this.lastProducto = lastProducto;
+    }
+
+    /**
      * @return the flagCom
      */
     public boolean isFlagCom() {
@@ -64,8 +78,6 @@ public class InventarioUI implements Serializable {
     public void setIdRole(int idRole) {
         this.idRole = idRole;
     }
-
-  
 
     /**
      * @return the productoSelec
@@ -600,6 +612,8 @@ public class InventarioUI implements Serializable {
     private InventarioUI productoSelec;
     private int idRole;
     private boolean flagCom;
+    private Integer lastProducto;
+
     @PostConstruct
     public void init() {
         unidades = new ArrayList();
@@ -614,8 +628,8 @@ public class InventarioUI implements Serializable {
         findAllLineaUi();
         findAllProductosUi();
         idRoleUser();
+        getUltimoProd();
     }
-    
 
     public InventarioUI() {
 
@@ -694,11 +708,22 @@ public class InventarioUI implements Serializable {
     }
 
     public void idRoleUser() {
-           InventarioServicio inventarioServ = new InventarioServicio();
+        InventarioServicio inventarioServ = new InventarioServicio();
         flagCom = inventarioServ.idRoleUser();
     }
-
     
+     public void getUltimoProd(){
+        try{
+            InventarioServicio inven = new InventarioServicio();
+            //Facturacab utimaFactura = new Facturacab();
+            
+            lastProducto = inven.getLastProducto();
+        }
+        catch (Exception e) {
+            System.out.println("Error al consultar ultimo numero de factura");
+            System.out.println("Mensaje: " + e.getMessage());
+        }
+    }
 
     //Metodos para obtener el objeto seleccionado en cb
     public Marca getMarcaSeleccionada() {
