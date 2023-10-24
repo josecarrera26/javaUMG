@@ -212,7 +212,7 @@ public class ClienteUI implements Serializable {
 
     public Cuentacontable getCuentac() {
         CuentacontableServicio cuentaServicio = new CuentacontableServicio();
-        setIdCuenta(cuentaServicio.getCuentacontableId(3));
+        setIdCuenta(cuentaServicio.getCuentacontableId(3)); 
         if (getIdCuenta() != null) {
             if (!idCuenta.getNombrecuenta().equals("Iva por cobrar")) {
                 System.out.println("ERROR AL AGREGAR CUENTA");

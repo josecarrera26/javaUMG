@@ -101,6 +101,47 @@
     
                     </p:panel>
             </p:tab>
+                <p:tab  title="Consultar Role">  
+                    <style>
+                        .ui-filter-column .ui-column-customfilter .custom-filter {
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+                    </style>
+
+                    <div class="card">
+                        <p:dataTable id="tablaEmpleado" var="role" widgetVar="Role" filteredValue="#{rolesUI.getFilteredRoles}" value="#{rolesUI.roles}">
+
+                            <f:facet name="header">
+                                <div class="flex align-items-center justify-content-between">
+                                    <span>Lista Roles</span>
+                                    <div>
+                                        <p:inputText id="globalFilter" onkeyup="PF('Roles').filter()" style="width:10rem"
+                                                     placeholder="Enter keyword" />
+                                    </div>
+                                </div>
+
+                            </f:facet>
+
+                            <p:column headerText="ID del Role" sortBy="#{role.idrole}" filterBy="#{role.idrole}" filterMatchMode="exact">
+                                <h:outputText value="#{role.idrole}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre del Role" sortBy="#{role.nombreRole}" filterBy="#{role.nombreRole}" filterMatchMode="contains">
+                                <h:outputText value="#{role.nombreRole}" />
+                            </p:column>
+
+                            <p:column headerText="Descripción" sortBy="#{role.descripcion}" filterBy="#{role.descripcion}" filterMatchMode="contains">
+                                <h:outputText value="#{role.descripcion}" />
+                            </p:column>
+
+                            <p:column headerText="Acceso" sortBy="#{role.accesos}" filterBy="#{role.accesos}" filterMatchMode="contains">
+                                <h:outputText value="#{role.accesos}" />
+                            </p:column>                            
+
+                        </p:dataTable>-
+                    </div> 
+                </p:tab>                
         </p:tabView>
 
         <div class="layout-footer">

@@ -226,6 +226,7 @@ public class EmpleadoUI implements Serializable {
     @PostConstruct
         public void init() {
         findAllEmpleadoUi();
+        findAllCargoUi();
     }
         
     //public void init() {

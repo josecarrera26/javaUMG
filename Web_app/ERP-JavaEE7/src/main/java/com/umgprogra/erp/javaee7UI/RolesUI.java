@@ -10,16 +10,76 @@ import com.umgprogra.erp.ui.services.RolesServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+import javax.faces.model.SelectItem;
 
 /**
  *
  * @author Miguel Coloma
  */
+@Named("dtFilterView")
 @ManagedBean
 @ViewScoped
 public class RolesUI implements  Serializable{
+
+    /**
+     * @return the rolesItems
+     */
+    public List<SelectItem> getRolesItems() {
+        return rolesItems;
+    }
+
+    /**
+     * @param rolesItems the rolesItems to set
+     */
+    public void setRolesItems(List<SelectItem> rolesItems) {
+        this.rolesItems = rolesItems;
+    }
+
+    /**
+     * @return the resultados
+     */
+    public List<Roles> getResultados() {
+        return resultados;
+    }
+
+    /**
+     * @param resultados the resultados to set
+     */
+    public void setResultados(List<Roles> resultados) {
+        this.resultados = resultados;
+    }
+
+    /**
+     * @return the filteredRoles
+     */
+    public List<Roles> getFilteredRoles() {
+        return filteredRoles;
+    }
+
+    /**
+     * @param filteredRoles the filteredRoles to set
+     */
+    public void setFilteredRoles(List<Roles> filteredRoles) {
+        this.filteredRoles = filteredRoles;
+    }
+
+    /**
+     * @return the accesos
+     */
+    public String getAccesos() {
+        return accesos;
+    }
+
+    /**
+     * @param accesos the accesos to set
+     */
+    public void setAccesos(String accesos) {
+        this.accesos = accesos;
+    }
 
     /**
      * @return the roles
@@ -77,10 +137,11 @@ public class RolesUI implements  Serializable{
         this.descripcion = descripcion;
     }
 
-    public RolesUI(Integer idRole, String nombreRole, String descripcion) {
+    public RolesUI(Integer idRole, String nombreRole, String descripcion, String accesos) {
         this.idRole = idRole;
         this.nombreRole = nombreRole;
         this.descripcion = descripcion;
+        this.accesos = accesos;
     }
     
         public RolesUI(){
@@ -98,7 +159,11 @@ public class RolesUI implements  Serializable{
     private Integer idRole;
     private String nombreRole;
     private String descripcion;
-
+    private String accesos;
+    private List<Roles> resultados;
+    private List<Roles> filteredRoles;
+    private List<SelectItem> rolesItems;
+    
     public RolesUI(List<Roles> roles) {
         this.roles = roles;
     }
@@ -110,12 +175,39 @@ public class RolesUI implements  Serializable{
         try{
          
             RolesServicio nuevoRole = new RolesServicio();
-            nuevoRole.saveRole(this.nombreRole, this.descripcion);
+            nuevoRole.saveRole(this.nombreRole, this.descripcion, this.accesos);
             setRoles(nuevoRole.findAllRoles());
         }
         catch(Exception e){
             System.out.println(e + "Error en save ClienteUI");
         }
     }
+            
+    @PostConstruct
+        public void init() {
+        findAllRolesUi();
+    }            
+ 
+    public void consultaRoles() {
+        try {
+            resultados = new ArrayList<>();
+            System.out.println("idEmpleado buscado" + this.idRole);
+            resultados = servicio.finderRoleById(idRole);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+    } 
     
+    public void findAllRolesUi() {
+        try {
+            RolesServicio rolServ = new RolesServicio();
+            roles = rolServ.findAllRoles();
+            rolesItems = new ArrayList<>();
+            for (Roles role : roles) {
+                rolesItems.add(new SelectItem(role.getIdrole(), role.getNombreRole(), role.getDescripcion()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta empleados clase RolesUI");
+        }
+    }     
 }
