@@ -24,10 +24,14 @@ public class Nit {
      HttpClient httpClient = HttpClients.createDefault();
         
         
-        String rutaDelArchivo = "C:/Users/josel/OneDrive/Documentos/Repositorios/JavaUMG/Web_app/ERP-JavaEE7/src/main/webapp/ignore/parametros.txt";
+        String rutaDelArchivo = "C:/ignore/parametros.txt";
 
         try {
-            
+             // Obtener el directorio actual
+        String directorioActual = System.getProperty("user.dir");
+
+        // Mostrar el directorio actual
+        System.out.println("Directorio actual: " + directorioActual);
             FileReader fileReader = new FileReader(rutaDelArchivo);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             
@@ -44,12 +48,12 @@ public class Nit {
 
             // Cerrar el archivo
             bufferedReader.close();
-            String concatRuta = primeraLinea+nit;
-            HttpGet httpGet = new HttpGet(concatRuta);
+            HttpGet httpGet = new HttpGet(primeraLinea+nit);
             System.out.println(primeraLinea+nit);
-            HttpResponse response = httpClient.execute(httpGet);
             httpGet.addHeader("correo", "devcom");
             httpGet.addHeader("password", "Way2023");
+            
+            HttpResponse response = httpClient.execute(httpGet);
 
             // Verifica si la respuesta es exitosa (código 200)
             if (response.getStatusLine().getStatusCode() == 200) {
