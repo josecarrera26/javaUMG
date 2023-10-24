@@ -9,6 +9,7 @@ import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.ui.services.ClienteServicio;
 import com.umgprogra.erp.ui.services.CuentacontableServicio;
+import com.umgprogra.erp.ui.services.Nit;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class ClienteUI implements Serializable {
     
     private Cuentacontable cuentacontable;
     private Cuentacontable idCuenta;
+    private Nit nombreNit;
     private List<SelectItem> cuentaItems;
     private List<Cuentacontable> cuentas;
     

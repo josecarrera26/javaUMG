@@ -84,6 +84,13 @@ public class Roles implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public String getAccesos() {
+        return accesos;
+    }
+
+    public void setAccesos(String accesos) {
+        this.accesos = accesos;
+    }
  
 
     @Override
@@ -120,12 +127,5 @@ public class Roles implements Serializable {
         this.usuarioCollection = usuarioCollection;
     }
 
-    public String getAccesos() {
-        return accesos;
-    }
-
-    public void setAccesos(String accesos) {
-        this.accesos = accesos;
-    }
     
 }
