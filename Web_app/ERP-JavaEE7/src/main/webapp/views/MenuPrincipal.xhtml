@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Menu Principal</title>
         <link rel="stylesheet" media="screen" href="../resources/css/styleHeader.css" type="text/css" />
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <link rel="icon" href="../resources/images/Logo.png"/>
     </h:head>
 
 
@@ -19,14 +19,14 @@
     <h:body>
 
         <h:form>
-                <p:menubar>
+            <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
                 </p:submenu>
 
                 <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
                     <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
-                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="./login.xhtml"/>
+                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:8080/ERP-JavaEE7/"/>
                 </p:submenu>
 
 
@@ -60,95 +60,60 @@
         </h:form>
 
 
-        <div id="message">
-            
-            
-           <!-- <h:form style="float:right">
-                 <p:card style="width: 30em; margin-right: 10px">
-                    <div class="card">
-                        <h5>Facturas</h5>
-                        <p:graphicImage value="#{graphicImageView.chart}" stream="false"/>
-                        <p:graphicImage value="#{graphicImageView.chartAsByteArray}" stream="false"/>
-                        <p:graphicImage value="#{graphicImageView.chartAsStream}" stream="false"/>
-                    </div>
-                </p:card>
-            </h:form>
-           -->
-           
-            <h:form id="form">
+        <h:form id="form">
 
-                <p:card style="width: 30em; height: 40em">
-                    <f:facet name="header">
-                        <img alt="Logo Header" src="../resources/images/Logo.png"/>
-                    </f:facet>
-                    <f:facet name="title">
-                        GRANDES SOLUCIONES
-                    </f:facet>
-                    <f:facet name="subtitle">
-                        Paquetes de Uso
-                    </f:facet>
 
-                    <div id="container">
-                        <span id="slot0"> PAQUETE BASICO </span>
-                        <span id="slot1"> PAQUETE PREMIUM </span>
-                        <span id="slot2"> PAQUETE GOLDEN</span>
-                        <span id="slot2"> ---------- 30$ -------| </span>
-                        <span id="slot2"> ---------- 60$ -------| </span>
-                        <span id="slot2"> ---------- 100$ -------| </span>
-                    </div>
-                </p:card>
-                 
+            <div class="card">
+                <div class="mt-5">
+                    <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button mr-2" />
+                    <p:commandButton type="button" icon="pi pi-star" styleClass="ui-button-success rounded-button mr-2" />
+                    <p:commandButton type="button" icon="pi pi-cog" styleClass="ui-button-help rounded-button" />
+                </div>
+            </div>
 
+        </h:form>
+        <h:form>
+            <p:panel>
                 <div class="layout-footer">
+                    <div>
+                        <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" />
+                    </div>
+                    <p:outputLabel value="Grandes soluciones una experiencia unica para tu negocio"/>
+                    <style>
+                        .custom-scrolltop.ui-scrolltop {
+                            width: 2rem;
+                            height: 2rem;
+                            border-radius: 4px;
+                            outline: 0 none;
+                            background-color: var(--primary-color);
+                        }
+                        .custom-scrolltop.ui-scrolltop:hover {
+                            background-color: var(--primary-color);
+                        }
+
+                        .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
+                            font-size: 1rem;
+                            color: var(--primary-color-text);
+                        }
+                    </style>
+
                     <div class="card">
-                        <p:accordionPanel widgetVar="basic">
-                            <p:tab title="GRANDES SOLUCIONES (UNA EXPERIENCIA UNICA PARA TU NEGOCIO)">
-
-                                <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" style="float: left" />
-
-                                <style>
-                                    .custom-scrolltop.ui-scrolltop {
-                                        width: 2rem;
-                                        height: 2rem;
-                                        border-radius: 4px;
-                                        outline: 0 none;
-                                        background-color: var(--primary-color);
-                                    }
-                                    .custom-scrolltop.ui-scrolltop:hover {
-                                        background-color: var(--primary-color);
-                                    }
-
-                                    .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
-                                        font-size: 1rem;
-                                        color: var(--primary-color-text);
-                                    }
-                                </style>
-
-                                <div class="card">
-                                    <p:scrollTop />
-                                    <p:scrollPanel style="width: 500px; height: 80px; margin: auto" mode="native">
-                                        <p>
-                                            Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
-                                            un servicio de control contable/financiero para su empresa. contamos con 
-                                            un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
-                                            mejor servicio que usted necesita.
-                                        </p>
-                                        <p:scrollTop target="parent" threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
-                                    </p:scrollPanel>   
-
-                                    <div id="container">
-                                        <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
-                                        <span id="slot1"> | </span>
-                                        <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
-                                        <span id="slot3"> | </span>
-                                        <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
-                                    </div>
-                                </div>
-                            </p:tab>
-                        </p:accordionPanel>
+                        <p>
+                            Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
+                            un servicio de control contable/financiero para su empresa. contamos con 
+                            un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
+                            mejor servicio que usted necesita.
+                        </p>
+                        <div id="container">
+                            <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
+                            <span id="slot1"> | </span>
+                            <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
+                            <span id="slot3"> | </span>
+                            <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
+                        </div>
                     </div>
                 </div>
-            </h:form>
-        </div>
+            </p:panel>
+        </h:form>
     </h:body>   
 </html>

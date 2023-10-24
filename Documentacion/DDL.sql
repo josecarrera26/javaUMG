@@ -51,7 +51,8 @@ CREATE TABLE "empleado" (
 CREATE TABLE "roles" (
   "idrole" Serial PRIMARY KEY,
   "nombre_role" varchar,
-  "descripcion" varchar
+  "descripcion" varchar,
+  "accesos" varchar
 );
 
 CREATE TABLE "marca" (
