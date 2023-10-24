@@ -47,7 +47,7 @@ public class MenuPrincipalUI implements Serializable {
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
     @Inject
-    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
+    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionU");
 
     public void validaVista(String pagina) {
         try {
@@ -72,8 +72,6 @@ public class MenuPrincipalUI implements Serializable {
                 } else {
                     DialogFrameworkOptions options = DialogFrameworkOptions.builder()
                             .resizable(true)
-                            .contentHeight("100%")
-                            .contentWidth("100%")
                             .build();
                     System.out.println("Se crean las opciones del dialog");
                     PrimeFaces.current().dialog().openDynamic("sinacceso", options, null);

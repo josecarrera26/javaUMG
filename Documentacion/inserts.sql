@@ -17,20 +17,23 @@ INSERT INTO public.cargo_empleado
 VALUES('Cajero', 50505050.00);
 --roles
 INSERT INTO public.roles
-(nombre_role, descripcion)
-VALUES('admin', 'desarrollo');
+(nombre_role, descripcion, accesos)
+VALUES('admin', 'desarrollo', 'Cargo.xhtml,Cliente.xhtml,CuentasContables.xhtml,Empleado.xhtml,FacturaDET.xhtml,FacturacionCompra.xhtml,Facturas.xhtml,FacturasCab.xhtml,GrupoProducto.xhtml,Inventario.xhtml,Linea.xhtml,MenuPrincipal.xhtml,Pedidos.xhtml,Proveedores.xhtml,Role.xhtml,footer.xhtml,header.xhtml,mainmenu.xhtml,marca.xhtml,registrarUsuario.xhtml,sinacceso.xhtml');
 INSERT INTO public.roles
-(nombre_role, descripcion)
-VALUES('rrhh', 'Acceso a recursos humanos');
+(nombre_role, descripcion, accesos)
+VALUES('rrhh', 'Acceso a recursos humanos','Cargo.xhtml,Empleado.xhtml,MenuPrincipal.xhtml,Role.xhtml,registrarUsuario.xhtml,sinacceso.xhtml');
 INSERT INTO public.roles
-(nombre_role, descripcion)
-VALUES('ventas', 'Accesos a ventas');
+(nombre_role, descripcion, accesos)
+VALUES('ventas', 'Accesos a ventas','Cliente.xhtml,Facturas.xhtml,Inventario.xhtml,MenuPrincipal.xhtml,Pedidos.xhtml,registrarUsuario.xhtml,sinacceso.xhtml');
 INSERT INTO public.roles
-(nombre_role, descripcion)
-VALUES('recolectores', 'Acceso a recolectores');
+(nombre_role, descripcion, accesos)
+VALUES('recolectores', 'Acceso a recolectores','Bancos.xhtml,Cargo.xhtml,Cliente.xhtml,CuentasContables.xhtml,Empleado.xhtml,FacturaDET.xhtml,FacturacionCompra.xhtml,Facturas.xhtml,FacturasCab.xhtml,GrupoProducto.xhtml,Inventario.xhtml,Linea.xhtml,MenuPrincipal.xhtml,Pedidos.xhtml,Proveedores.xhtml,Role.xhtml,footer.xhtml,header.xhtml,mainmenu.xhtml,marca.xhtml,registrarUsuario.xhtml,sinacceso.xhtml');
 INSERT INTO public.roles
-(nombre_role, descripcion)
-VALUES('cajeros', 'Acceso a cajeros');
+(nombre_role, descripcion, accesos)
+VALUES('cajeros', 'Acceso a cajeros','Cliente.xhtml,CuentasContables.xhtml,FacturacionCompra.xhtml,Facturas.xhtml,GrupoProducto.xhtml,Inventario.xhtml,Linea.xhtml,Pedidos.xhtml,Proveedores.xhtml,registrarUsuario.xhtml,sinacceso.xhtml');
+INSERT INTO public.roles
+(nombre_role, descripcion, accesos)
+VALUES('Gerente', 'Acceso a gerente','Cargo.xhtml,Cliente.xhtml,CuentasContables.xhtml,Empleado.xhtml,FacturaDET.xhtml,FacturacionCompra.xhtml,Facturas.xhtml,FacturasCab.xhtml,GrupoProducto.xhtml,Inventario.xhtml,Linea.xhtml,MenuPrincipal.xhtml,Pedidos.xhtml,Proveedores.xhtml,Role.xhtml,footer.xhtml,header.xhtml,mainmenu.xhtml,marca.xhtml,registrarUsuario.xhtml,sinacceso.xhtml');
 --empleados
 INSERT INTO public.empleado
 (nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
@@ -50,23 +53,25 @@ VALUES('Pedro', 'Chial', '1234567', 'test@test.com', 5);
 INSERT INTO public.empleado
 (nombre_empleado, apellido_empleado, telefono_empleado, email_empleado, idcargo_empleado)
 VALUES('Luis', 'Cano', '1234567', 'test@test.com', 5);
-
-
+--usuario
 INSERT INTO public.usuario
 (username, "password" , idrole. idempleado)
 VALUES('joseC', 'password1', 1, 1);
 INSERT INTO public.usuario
 (username, "password" , idrole. idempleado)
-VALUES('Mikey', 'password2', 1, 2);
+VALUES('Mikey', 'password2', 2, 2);
 INSERT INTO public.usuario
 (username, "password" , idrole. idempleado)
-VALUES('Made', 'password3', 1, 3);
+VALUES('Made', 'password3', 3, 3);
 INSERT INTO public.usuario
 (username, "password" , idrole. idempleado)
-VALUES('HectorC', 'password4', 1, 4);
+VALUES('HectorC', 'password4', 4, 4);
 INSERT INTO public.usuario
 (username, "password" , idrole. idempleado)
-VALUES('PedroC', 'password5', 1, 5);
+VALUES('PedroC', 'password5', 5, 5);
+INSERT INTO public.usuario
+(username, "password" , idrole. idempleado)
+VALUES('Prueba', 'password6', 6, 5);
 
 --Modulo clientes
 --cuentacontable
