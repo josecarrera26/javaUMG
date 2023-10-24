@@ -34,6 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Roles.findByDescripcion", query = "SELECT r FROM Roles r WHERE r.descripcion = :descripcion")})
 public class Roles implements Serializable {
 
+    @Size(max = 2147483647)
+    @Column(name = "accesos")
+    private String accesos;
+
     @OneToMany(mappedBy = "idrole")
     private Collection<Usuario> usuarioCollection;
 
@@ -116,6 +120,14 @@ public class Roles implements Serializable {
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
+    }
+
+    public String getAccesos() {
+        return accesos;
+    }
+
+    public void setAccesos(String accesos) {
+        this.accesos = accesos;
     }
     
 }
