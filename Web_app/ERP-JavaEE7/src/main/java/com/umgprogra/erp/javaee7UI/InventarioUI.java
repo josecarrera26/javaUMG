@@ -17,19 +17,18 @@ import com.umgprogra.erp.ui.services.InventarioServicio;
 import com.umgprogra.erp.ui.services.LineaServicio;
 import com.umgprogra.erp.ui.services.MarcaServicio;
 import com.umgprogra.erp.ui.services.ProveedoreServicio;
-import com.umgprogra.erp.util.SessionUser;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+
 import javax.faces.model.SelectItem;
-import javax.inject.Inject;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
+
 
 /**
  *
@@ -644,7 +643,7 @@ public class InventarioUI implements Serializable {
                     .resizable(true)
                     .build();
             System.out.println("Se crean las opciones del dialog");
-            PrimeFaces.current().dialog().openDynamic("marca", options, null);
+            PrimeFaces.current().dialog().openDynamic("marca.xhtml", options, null);
             System.out.println("Se crean las el dialog");
         } catch (Exception e) {
             System.out.println(e.getMessage());

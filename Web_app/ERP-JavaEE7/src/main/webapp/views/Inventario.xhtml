@@ -56,7 +56,10 @@
 
                                 </p:menubar>
                                 </h:form>
-
+        <p:menubar>              
+            <p:menuitem value="Nueva Linea" icon="pi pi-fw pi-plus" actionListener="#{inventarioUI.viewLineaModal()}"/>
+            <p:menuitem value="Nueva marca" icon="pi pi-fw pi-plus" actionListener="#{inventarioUI.viewMarcaModal()}"/>            
+        </p:menubar>
 
                                 <h:form id="idFormInventario">
                                     <p:tabView dynamic="false" >
@@ -187,7 +190,6 @@
                                                                         <f:selectItem itemLabel="Seleccione una" itemValue=""/>
                                                                         <f:selectItems value="#{inventarioUI.marcaItems}"/>
                                                                     </p:selectOneMenu>
-                                                                    <p:commandButton icon="pi pi-search" action="#{inventarioUI.viewMarcaModal()}" styleClass="rounded-button ui-button-success" />
                                                                 </div>
 
                                                             </div>
@@ -206,7 +208,6 @@
                                                                     <f:selectItem itemLabel="Seleccione una" itemValue=""/>
                                                                     <f:selectItems value="#{inventarioUI.lineaItems}"/>
                                                                 </p:selectOneMenu>
-                                                                <p:commandButton icon="pi pi-search" action="#{inventarioUI.viewLineaModal()}" styleClass="rounded-button ui-button-success" />
 
                                                             </div>
                                                         </div>
