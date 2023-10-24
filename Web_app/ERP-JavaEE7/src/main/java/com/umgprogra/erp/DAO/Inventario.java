@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
             + " INNER JOIN Linea l on i.idlinea = l.idlinea "
             + " INNER JOIN Grupoproducto g on i.idgrupoproducto = g.idgrupoproducto "
             + " INNER JOIN Proveedor p on i.idproveedor = p.idproveedor"),
+    @NamedQuery(name = "Inventario.findUltimoProd", query = "SELECT MAX(i.idproducto) + 1  FROM Inventario i"),
     @NamedQuery(name = "Inventario.findByNombre", query = "SELECT i FROM Inventario i WHERE i.nombre = :nombre"),
     @NamedQuery(name = "Inventario.findByCantidad", query = "SELECT i FROM Inventario i WHERE i.cantidad = :cantidad"),
     @NamedQuery(name = "Inventario.findByTipoComercializacion", query = "SELECT i FROM Inventario i WHERE i.tipoComercializacion = :tipoComercializacion"),
