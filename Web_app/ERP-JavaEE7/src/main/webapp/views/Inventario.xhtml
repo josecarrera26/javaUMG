@@ -147,7 +147,6 @@
                                                         <div class="col-5 flex align-items-center justify-content-center">
                                                             <div class="ui-fluid">
                                                                 <div class="field">
-                                                                    <h:outputText value="El valor del parámetro es: #{param['saveProd']}" />
                                                                     <h:outputLabel id="idLabelModelo" value="Modelo:" />
                                                                     <p:inputText id="idModelo" value="#{inventarioUI.modelo}" required="true" requiredMessage="Modelo requerido"/>
                                                                 </div>
@@ -188,7 +187,7 @@
                                                                         <f:selectItem itemLabel="Seleccione una" itemValue=""/>
                                                                         <f:selectItems value="#{inventarioUI.marcaItems}"/>
                                                                     </p:selectOneMenu>
-                                                                    <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                                                                    <p:commandButton icon="pi pi-search" action="#{inventarioUI.viewMarcaModal()}" styleClass="rounded-button ui-button-success" />
                                                                 </div>
 
                                                             </div>
@@ -207,7 +206,7 @@
                                                                     <f:selectItem itemLabel="Seleccione una" itemValue=""/>
                                                                     <f:selectItems value="#{inventarioUI.lineaItems}"/>
                                                                 </p:selectOneMenu>
-                                                                <p:commandButton icon="pi pi-search" action="#{dFview.viewResponsive()}" styleClass="rounded-button ui-button-success" />
+                                                                <p:commandButton icon="pi pi-search" action="#{inventarioUI.viewLineaModal()}" styleClass="rounded-button ui-button-success" />
 
                                                             </div>
                                                         </div>
