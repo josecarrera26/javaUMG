@@ -4,13 +4,19 @@
  */
 package com.umgprogra.erp.ui.services;
 
+import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.util.JpaUtil;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -18,7 +24,17 @@ import javax.persistence.Query;
  *
  * @author josel
  */
+
+@ManagedBean
+@SessionScoped
 public class FacturasServicio {
+
+    @PostConstruct
+    public void init() {
+        listadoClientes();
+        getLastFactura();
+    }
+
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
     public int  getLastFactura() {
@@ -39,25 +55,30 @@ public class FacturasServicio {
 
     public String insertarFacturacab(Integer pPlazoPagos, Integer pIDEmpleado, Integer pTipoCliente, Double pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-             LocalDateTime ahora = LocalDateTime.now();
-             Date fecha =new SimpleDateFormat("dd/MM/yyyy").parse(dtf.format(ahora)); 
-            Empleado idEmpleado = new Empleado();
-            idEmpleado.setIdempleado(pIDEmpleado);
-            Facturacab facturacabecera = new Facturacab();
-            facturacabecera.setFechaRegistro(fecha);
-            facturacabecera.setPlazosPago(pPlazoPagos);
-            facturacabecera.setIdempleado(idEmpleado);
-            facturacabecera.setIdtipocliente(pTipoCliente);
-            facturacabecera.setEstadofac(1);
-            facturacabecera.setTotal(pTotal);
-            facturacabecera.setIdtipopago(pTipoPago);
-            facturacabecera.setNit(nit);
-            facturacabecera.setIdtipofactura(pTipoFactura);
+    Integer tipoFactura = 2;
+                //preparacion de ingreso de fecha
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime ahora = LocalDateTime.now();
+                String fechaString = dtf.format(ahora);
+                Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
 
-            entity.getTransaction().begin();
-            entity.persist(facturacabecera);
-            entity.getTransaction().commit();
+                Empleado empleado = entity.find(Empleado.class, pIDEmpleado);
+                
+                Facturacab facturacabecera = new Facturacab();
+                
+                facturacabecera.setFechaRegistro(fecha);
+                facturacabecera.setPlazosPago(pPlazoPagos);
+                facturacabecera.setIdempleado(empleado);
+                facturacabecera.setIdtipocliente(pTipoCliente);
+                facturacabecera.setEstadofac(1);
+                facturacabecera.setTotal(pTotal);
+                facturacabecera.setIdtipopago(pTipoPago);
+                facturacabecera.setNit(nit);
+                facturacabecera.setIdtipofactura(tipoFactura);
+
+                entity.getTransaction().begin();
+                entity.persist(facturacabecera);
+                entity.getTransaction().commit();
 
             return "FacturaCab Guardada Numero de factura";
         } catch (Exception e) {
@@ -66,6 +87,22 @@ public class FacturasServicio {
         }
     }
     
-  
+
+    //mostrar id del cliete
+    public List<Cliente> listadoClientes() {
+        EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
+
+        List<Cliente> resultado = new ArrayList<>();
+        //query para obtener el resutado
+        Query query = entity.createNamedQuery("Cliente.findAll", Cliente.class);
+
+        //obtenemos el resultado de la lista
+        resultado = query.getResultList();
+
+        return resultado;
+
+    }
+
+
 
 }

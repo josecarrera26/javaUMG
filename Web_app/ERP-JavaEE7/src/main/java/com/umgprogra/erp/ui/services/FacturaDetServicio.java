@@ -32,7 +32,7 @@ import javax.persistence.TypedQuery;
 @SessionScoped
 public class FacturaDetServicio {
 
-    public boolean registroFacturaDet(Integer cantidad, Integer idProducto) throws ParseException {
+    public boolean registroFacturaDet(Integer cantidad, Integer idProducto, double totalfac) throws ParseException {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -44,16 +44,20 @@ public class FacturaDetServicio {
         Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
         
         try {
-            //obtenemos el id de la factura
-            FacturasServicio noFac = new FacturasServicio();
-            Integer numfac = noFac.getLastFactura();
-            
+
+            // Crear una consulta JPQL para obtener el máximo ID de factura
+            TypedQuery<Integer> query = entityManager.createQuery(
+                    "SELECT MAX(f.idfactura) FROM Facturacab f", Integer.class);
+
+            // Ejecutar la consulta y obtener el resultado
+            Integer maxIdFactura = query.getSingleResult();
+
             transaction.begin();
             // Crear una instancia de Facturadet
             Facturadet facDet = new Facturadet();
             //para validacion de existacia en las tablas
             Inventario inventario = entityManager.find(Inventario.class, idProducto);
-            Facturacab facturaCab = entityManager.find(Facturacab.class, 1);
+            Facturacab facturaCab = entityManager.find(Facturacab.class,  maxIdFactura);
             //obtenenemos el precio unitario del producto
             double preciounitario = inventario.getPrecioventa();
             //calculo del iva
@@ -73,13 +77,15 @@ public class FacturaDetServicio {
                 insertarkardex.setIntOut("venta");
                 insertarkardex.setFecha(fecha);
                 
+                facturaCab.setTotal(totalfac);
                 //insertamos los datos al detalle de la factura
                 facDet.setIdfactura(facturaCab);
                 facDet.setCantidad(cantidad);
                 facDet.setPreciounitario(preciounitario);
                 facDet.setIva(iva);
-
                 facDet.setIdproducto(inventario);
+                
+                
                 // Actualizar el inventario
                 inventario.setCantidad(cantidadActual - cantidad);
 

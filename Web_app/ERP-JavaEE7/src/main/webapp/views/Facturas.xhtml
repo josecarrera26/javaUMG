@@ -92,12 +92,13 @@
                                 <div class="ui-fluid">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                             <p:outputLabel id="lblTipoCliente" value="Tipo Cliente"  for="@next"/>
-                                            <p:selectOneMenu id="tipoCliente" class="combo" value="#{facturaCabUI.idTipoCliente}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
-                                                <f:selectItem itemLabel="Select One" itemValue=""/>
-                                                <f:selectItems value="#{facturaCabUI.plazosPago}"/>
-                                            </p:selectOneMenu>
-                                            
+                                             <p:outputLabel id="lblNomCliente" value="Nombre Cliente "  for="@next"/>
+                                            <br/>
+                                            <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturaCabUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
+                                                             style="width: 13rem;" panelStyle="width: 15rem">
+                                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                                                <f:selectItems value="#{facturaCabUI.mostrarNombreCliente}" var="cliente" itemLabel="#{cliente.nombreCliente}" itemValue="#{cliente.idcliente}" />
+                                            </p:selectOneMenu> 
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- 
                         <div class="card">
 
                             <div class="grid">
@@ -171,6 +172,7 @@
 
                             </div>
                         </div>
+                        -->
 
                         <div class="card">
 
@@ -208,8 +210,12 @@
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <p:commandButton id="btnRegBanco" value="Registrar Factura" actionListener="#{facturasDET.registroFacturaDet()}"
-                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                                            <p:commandButton id="btnRegBanco" value="Registrar Factura" 
+                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" >
+                                                 <f:actionListener binding="#{facturaCabUI.insertFacturaCab()}" />
+                                                <f:actionListener binding="#{facturasDET.registroFacturaDet()}" />
+                                               
+                                                </p:commandButton>
                                         </div>
                                     </div>
                                 </div>

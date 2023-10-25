@@ -50,6 +50,20 @@ public class FacturasDET implements Serializable {
         this.totalFac = totalFac;
         this.costoproducto = costoproducto;
     }
+    
+    public FacturasDET() {
+    }
+
+    
+
+    public List<FacturasDET> getListadoproductos() {
+        return listadoproductos;
+    }
+
+    public void setListadoproductos(List<FacturasDET> listadoproductos) {
+        this.listadoproductos = listadoproductos;
+    }
+    
 
     public List<FacturasDET> getListadoproductosCompra() {
         return listadoproductosCompra;
@@ -89,9 +103,6 @@ public class FacturasDET implements Serializable {
 
     public void setListidItems(List<SelectItem> listidItems) {
         this.listidItems = listidItems;
-    }
-
-    public FacturasDET() {
     }
 
     //getter y setter
@@ -151,7 +162,7 @@ public class FacturasDET implements Serializable {
 
     }
 
-    //funciones 
+    //registrar factura venta
     public void registroFacturaDet() {
         FacturaDetServicio registroFac = new FacturaDetServicio();
         boolean exito = false;
@@ -163,7 +174,7 @@ public class FacturasDET implements Serializable {
                 for (FacturasDET lista : listadoproductos) {
                     Integer idProd = lista.getIdProducto();
                     Integer cantidadprod = lista.getCantidad();
-                    exito = registroFac.registroFacturaDet(cantidadprod, idProd);
+                    exito = registroFac.registroFacturaDet(cantidadprod, idProd, totalFac);
 
                 }
                 if (exito == true) {
@@ -203,7 +214,7 @@ public class FacturasDET implements Serializable {
             listadoproductos.remove(index); // Elimina el producto de la lista
 
             // Actualiza totalFac después de eliminar el producto
-            totalFac = totalFac - subtotalAEliminar;
+            this.totalFac = totalFac - subtotalAEliminar;
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto eliminado con éxito."));
         } else {
@@ -211,7 +222,7 @@ public class FacturasDET implements Serializable {
         }
     }
 
-    //listado de id producto
+    //listado de del nombre del producto 
     public void mostrarIdProd() {
 
         FacturaDetServicio idprod = new FacturaDetServicio();
@@ -227,7 +238,7 @@ public class FacturasDET implements Serializable {
         }
 
     }
-
+     //agregar productos a la lista venta
     public void agregarProducto() {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
 
@@ -298,11 +309,10 @@ public class FacturasDET implements Serializable {
         this.cantidad = 0;
         this.idProducto = 0;
         this.cantidad = 0;
-        this.totalFac = 0;
 
     }
 
-    //metodos para el registro de producto.
+    //metodos para el registro de producto compra
     public void listarproducto() {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
 
@@ -392,7 +402,9 @@ public class FacturasDET implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el producto."));
         }
     }
-
+    
+    
+    //registro factura compra
     public void registroproducto() {
 
         FacturaDetServicio registrofac = new FacturaDetServicio();
@@ -404,6 +416,8 @@ public class FacturasDET implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, message);
 
             } else {
+
+                
                 for (FacturasDET lista : listadoproductosCompra) {
                     Integer idProd = lista.getIdProducto();
                     Integer cantidadprod = lista.getCantidad();

@@ -4,7 +4,10 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
+import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.DAO.Empleado;
+import com.umgprogra.erp.DAO.Inventario;
+import com.umgprogra.erp.ui.services.FacturaDetServicio;
 import com.umgprogra.erp.ui.services.FacturasServicio;
 import com.umgprogra.erp.util.SessionUser;
 import java.util.ArrayList;
@@ -174,18 +177,15 @@ public class FacturaCabUI {
         this.idEmpleado = idEmpleado;
     }
 
-    /**
-     * @return the idTipoCliente
-     */
-    public Integer getIdTipoCliente() {
-        return idTipoCliente;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
     /**
-     * @param idTipoCliente the idTipoCliente to set
+     * @return the idTipoCliente
      */
-    public void setIdTipoCliente(Integer idTipoCliente) {
-        this.idTipoCliente = idTipoCliente;
+    public void setIdCliente(Integer idCliente) { 
+        this.idCliente = idCliente;
     }
 
     /**
@@ -256,13 +256,67 @@ public class FacturaCabUI {
      */
     public void setTipoFactura(Integer tipoFactura) {
         this.tipoFactura = tipoFactura;
+        
     }
 
+    public List<Cliente> getMostrarNombreCliente() {
+        return mostrarNombreCliente;
+    }
+
+    public void setMostrarNombreCliente(List<Cliente> mostrarNombreCliente) {
+        this.mostrarNombreCliente = mostrarNombreCliente;
+    }
+
+    public List<SelectItem> getListidItems() {
+        return listidItems;
+    }
+
+    public void setListidItems(List<SelectItem> listidItems) {
+        this.listidItems = listidItems;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+    
+    
+    
+
+    public FacturaCabUI(Integer idFacturaCab, Date fecha_registro, Integer plazos_pago, Integer idEmpleado, Integer idCliente, String estado_factura, Double total, Integer tipo_pago, String nit, Integer tipoFactura, List<Empleado> empleados, List<SelectItem> empleadoItems, List<SelectItem> plazosPago, List<SelectItem> tipoPago, List<SelectItem> tipoFacturaList, Integer lastFactura, String nombreCliente) {
+        this.idFacturaCab = idFacturaCab;
+        this.fecha_registro = fecha_registro;
+        this.plazos_pago = plazos_pago;
+        this.idEmpleado = idEmpleado;
+        this.idCliente = idCliente;
+        this.estado_factura = estado_factura;
+        this.total = total;
+        this.tipo_pago = tipo_pago;
+        this.nit = nit;
+        this.tipoFactura = tipoFactura;
+        this.empleados = empleados;
+        this.empleadoItems = empleadoItems;
+        this.plazosPago = plazosPago;
+        this.tipoPago = tipoPago;
+        this.tipoFacturaList = tipoFacturaList;
+        this.lastFactura = lastFactura;
+        this.nombreCliente = nombreCliente;
+    }
+    //constructor vacio
+    public FacturaCabUI() {
+    }
+    
+    
+    
+    private String nombreCliente; 
     private Integer idFacturaCab;
     private Date fecha_registro;
     private Integer plazos_pago;
     private Integer idEmpleado;
-    private Integer idTipoCliente;
+    private Integer idCliente;
     private String estado_factura;
     private Double total;
     private Integer tipo_pago;
@@ -274,8 +328,10 @@ public class FacturaCabUI {
     private List<SelectItem> tipoPago;
     private List<SelectItem> tipoFacturaList;
     private Integer lastFactura;
+    private List<Cliente> mostrarNombreCliente;
+    private List<SelectItem> listidItems;
     
-        @PostConstruct
+    @PostConstruct
     public void init() {
         MenuPrincipalUI login = new MenuPrincipalUI();
         login.validarUsuario();
@@ -283,11 +339,21 @@ public class FacturaCabUI {
         pagos();
         tipoFactura();
         getUltimaFactura();
+        mostrarNombreCliente();
     }
 
      @Inject
-    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("session");
+    private SessionUser sessionUser = (SessionUser) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("sessionU");
     
+    public void insertFacturaYRegistro() {
+        FacturasDET facturasDET = new FacturasDET();         
+        insertFacturaCab();
+        facturasDET.agregarProducto();
+        facturasDET.registroFacturaDet();
+    }
+
+     
+     
     public void plazosPago(){
         plazosPago = new ArrayList();
         plazosPago.add(new SelectItem(1,"Pago unico"));
@@ -324,12 +390,31 @@ public class FacturaCabUI {
     public void insertFacturaCab() {
         try{
         FacturasServicio nuevaFactura = new FacturasServicio();
-        //System.out.println("Username: " + sessionUser.getIdUser());
-       // nuevaFactura.insertarFacturacab(this.plazos_pago, this.idTipoCliente, 0.00, this.tipo_pago, this.nit, this.tipoFactura);
+        System.out.println("Username: " + sessionUser.getUser());
+        
+        nuevaFactura.insertarFacturacab(this.plazos_pago, sessionUser.getUser().getIdusuario(), this.idCliente, 0.00, this.tipo_pago, this.nit, this.tipoFactura);
         }
         catch (Exception e){
             System.out.println("error: " + e.getMessage());
         }
     }
+    
+    //mostrar nombre del cliete 
+        public void mostrarNombreCliente() {
+
+        FacturasServicio nombrecliente = new FacturasServicio();
+        mostrarNombreCliente = nombrecliente.listadoClientes();
+        try {
+
+            for (Cliente cliente : mostrarNombreCliente) {
+                listidItems.add(new SelectItem(cliente.getIdcliente(), cliente.getNombreCliente()));
+
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta cliente DAO");
+        }
+
+    }
+
 
 }

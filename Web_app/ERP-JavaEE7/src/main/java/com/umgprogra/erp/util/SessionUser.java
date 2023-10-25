@@ -62,9 +62,5 @@ public class SessionUser implements Serializable{
     
     private Usuario user;
     private boolean  flag;
-    
-   
-    
-    
-    
+       
 }
