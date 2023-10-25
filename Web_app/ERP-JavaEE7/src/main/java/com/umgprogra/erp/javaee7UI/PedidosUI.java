@@ -19,7 +19,6 @@ import javax.faces.model.SelectItem;
  *
  * @author josel
  */
-
 @ManagedBean
 @SessionScoped
 public class PedidosUI {
@@ -180,47 +179,46 @@ public class PedidosUI {
     private Integer idProducto;
     private Integer idCliente;
     private String estado;
-    
+
     private Integer ultimoPedido;
-    
+
     private List<Empleado> empleados;
     private List<SelectItem> empleadosItem;
-    
-    public PedidosUI(){
+
+    public PedidosUI() {
     }
-    
+
     @PostConstruct
     public void init() {
-    obtenerUltimaFactura();
-    findAllEmpleados();
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
+        obtenerUltimaFactura();
+        findAllEmpleados();
     }
-    
-    public void obtenerUltimaFactura(){
-     try{
+
+    public void obtenerUltimaFactura() {
+        try {
             Pedidos pedido = new Pedidos();
             ultimoPedido = pedido.getLastPedido();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error al consultar ultimo numero de factura");
             System.out.println("Mensaje: " + e.getMessage());
         }
     }
-    
-    public void findAllEmpleados(){
-    
-    try {
-        EmpleadoServicio empleadoServicio = new EmpleadoServicio();
+
+    public void findAllEmpleados() {
+
+        try {
+            EmpleadoServicio empleadoServicio = new EmpleadoServicio();
             empleados = empleadoServicio.findAllEmpleados();
             empleadosItem = new ArrayList<>();
-        
-        for (Empleado empleadoobj : getEmpleados()){
-                getEmpleadosItem().add(new SelectItem(empleadoobj.getIdempleado(),empleadoobj.getNombreEmpleado()));
+
+            for (Empleado empleadoobj : getEmpleados()) {
+                getEmpleadosItem().add(new SelectItem(empleadoobj.getIdempleado(), empleadoobj.getNombreEmpleado()));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al consultar clase Empleado " + e.getMessage());
         }
-    }
-    catch (Exception e) {
-        System.out.println("Error al consultar clase Empleado " + e.getMessage());
-    }
-    
+
     }
 }
-

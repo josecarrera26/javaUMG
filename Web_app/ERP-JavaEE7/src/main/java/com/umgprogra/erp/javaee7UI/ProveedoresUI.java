@@ -11,6 +11,7 @@ import com.umgprogra.erp.ui.services.ProveedoreServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -58,8 +59,7 @@ public class ProveedoresUI implements Serializable {
      * @return the filteredCliente
      */
     public List<Proveedor> getFilteredCliente() {
-        return filteredProveedor
-;
+        return filteredProveedor;
     }
 
     /**
@@ -90,7 +90,7 @@ public class ProveedoresUI implements Serializable {
     private String regimenProvedor;
     private String emailProveedor;
     private Cuentacontable idCuenta;
-    
+
     private List<Proveedor> filteredProveedor;
     private List<Proveedor> proveedor;
     private List<Proveedor> resultados;
@@ -178,7 +178,7 @@ public class ProveedoresUI implements Serializable {
                 // Error: muestra un mensaje de error
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el proveedor");
                 FacesContext.getCurrentInstance().addMessage(null, message);
-                  System.out.println("ERROR SAVE proveedor   ui  ");
+                System.out.println("ERROR SAVE proveedor   ui  ");
             }
 
         } catch (Exception e) {
@@ -186,21 +186,26 @@ public class ProveedoresUI implements Serializable {
         }
 
     }
-    
-    public Cuentacontable getCuenta(){
+
+    public Cuentacontable getCuenta() {
         CuentacontableServicio cuentaServicio = new CuentacontableServicio();
-        idCuenta= cuentaServicio.getCuentacontableId(1);
-        if(idCuenta!=null){
-            if(!idCuenta.getNombrecuenta().equals("Cuentas por pagar")){
-                 System.out.println("ERROR AL AGREGAR CUENTA");
-                 idCuenta=null;
+        idCuenta = cuentaServicio.getCuentacontableId(1);
+        if (idCuenta != null) {
+            if (!idCuenta.getNombrecuenta().equals("Cuentas por pagar")) {
+                System.out.println("ERROR AL AGREGAR CUENTA");
+                idCuenta = null;
             }
         }
         return idCuenta;
     }
 
-    
-     public void consultaCliente() {
+    @PostConstruct
+    public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
+    }
+
+    public void consultaCliente() {
 //        try {
 //            setResultados(new ArrayList<>());
 //            System.out.println("idCliente buscado" + this.idProveedor);
