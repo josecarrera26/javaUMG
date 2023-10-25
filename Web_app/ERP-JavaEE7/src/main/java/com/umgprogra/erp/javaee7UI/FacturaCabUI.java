@@ -423,7 +423,7 @@ public class FacturaCabUI implements Serializable {
     public void insertFacturaCab() {
         try {
             FacturasDET validador = new FacturasDET();
-            double num = validador.;
+            double num = validador.getSubTotal();
             System.out.println("valor total " + num);
             FacturasServicio nuevaFactura = new FacturasServicio();
             System.out.println("Username: " + sessionUser.getUser());
