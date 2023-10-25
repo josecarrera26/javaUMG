@@ -167,7 +167,7 @@ public class MenuPrincipalUI implements Serializable {
             if (sessionUser.getUser() == null) {
                 System.out.println("Usuario no incio sesion.");
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                externalContext.redirect("http://localhost:8080/ERP-JavaEE7");
+                externalContext.redirect("../");
             }
             else{
                 this.username = sessionUser.getUser().getUsername();
