@@ -52,7 +52,8 @@ public class CargosServicio {
     public List<Cargoempleado> getCargoId(int idCargo) {
         List<Cargoempleado> resultList = new ArrayList<>();
         try {
-            Query query2 = entity.createNamedQuery("CargoEmpleado.findByIdcargo", Cargoempleado.class).setParameter("idcargo", idCargo);
+            Query query2 = entity.createNamedQuery("Cargoempleado.findByIdcargo", Cargoempleado.class)
+                    .setParameter("idcargo", idCargo);
             resultList = query2.getResultList();
             if (resultList == null && resultList.isEmpty()) {
                 System.out.println("No se encontraron Cargos con el ID");
@@ -68,7 +69,7 @@ public class CargosServicio {
         List<Cargoempleado> resultList = new ArrayList<>();
         try {
             System.out.println("metodo DB findAllCargo");
-            Query query = entity.createNamedQuery("CargoEmpleado.findAll", Cargoempleado.class);
+            Query query = entity.createNamedQuery("Cargoempleado.findAll", Cargoempleado.class);
             //resultado de lista Cargos
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
