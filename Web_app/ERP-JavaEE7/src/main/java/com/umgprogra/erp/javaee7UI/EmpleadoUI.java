@@ -96,12 +96,12 @@ public class EmpleadoUI implements Serializable {
     private List<Empleado> resultados;
     private List<Empleado> empleados;
     private List<Empleado> filteredEmpleados;
-    private List<SelectItem> empleadoItems;    
+    private List<SelectItem> empleadoItems;
     private List<Cargoempleado> cargos;
     private List<SelectItem> cargoItems;
     private Cargoempleado cargo;
-    
-    EmpleadoServicio servicio = new EmpleadoServicio();    
+
+    EmpleadoServicio servicio = new EmpleadoServicio();
 
     //Constructor de Empleado
     public EmpleadoUI(Integer idEmpleado, String nombre_empleado, String apellido_empleado, String telefono_empleado, String email_empleado, String password_empleado, String idcargo) {
@@ -113,6 +113,7 @@ public class EmpleadoUI implements Serializable {
         this.password_empleado = password_empleado;
         this.cargoT = idcargo;
     }
+
     public EmpleadoUI() {
 
     }
@@ -191,8 +192,7 @@ public class EmpleadoUI implements Serializable {
      */
     public void setFilteredEmpleados(List<Empleado> filteredEmpleados) {
         this.filteredEmpleados = filteredEmpleados;
-    }    
-   
+    }
 
     public List<Empleado> getEmpleados() {
         return empleados;
@@ -213,27 +213,28 @@ public class EmpleadoUI implements Serializable {
     public void saveEmpleado() {
         try {
             EmpleadoServicio nuevoEmpleado = new EmpleadoServicio();
-            
+
             if (nuevoEmpleado.saveEmpleado(nombreEmpleado, apellido_empleado, telefono_empleado, email_empleado, getCargoSeleccionado())) {
                 System.err.println("Estoy en CargoUITRUE");
             } else {
                 System.err.println("Estoy en EmpleadoUIFalse");
-            }   
+            }
         } catch (Exception e) {
             System.out.println(e + "Error en save EmpleadoUI");
         }
     }
-    
+
     @PostConstruct
-        public void init() {
+    public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
         findAllEmpleadoUi();
         findAllCargoUi();
     }
-        
+
     //public void init() {
     //    mostrarURLactual();
     //}
-    
     public void consultaEmpelado() {
         try {
             resultados = new ArrayList<>();
@@ -243,7 +244,7 @@ public class EmpleadoUI implements Serializable {
             System.err.println("Error al consultar");
         }
     }
-    
+
     public void findAllEmpleadoUi() {
         try {
             EmpleadoServicio empleadoServ = new EmpleadoServicio();
@@ -255,9 +256,9 @@ public class EmpleadoUI implements Serializable {
         } catch (Exception e) {
             System.out.println(e + "Error en consulta empleados clase EmpleadoUI");
         }
-    }    
-    
-        public void findAllCargoUi() {
+    }
+
+    public void findAllCargoUi() {
         try {
             CargosServicio cargoServ = new CargosServicio();
             cargos = cargoServ.findAllCargo();
@@ -278,8 +279,8 @@ public class EmpleadoUI implements Serializable {
             System.err.println("Error al consultar");
         }
         return cargo;
-    }        
-    
+    }
+
 //    public void GetEmpleado() {
 //        try {
 //
@@ -294,12 +295,11 @@ public class EmpleadoUI implements Serializable {
 //                    "Por Favor intente mas tarde!"));
 //        }
 //    }
-    
-    public void mostrarURLactual(){
-    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    public void mostrarURLactual() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
-    String currentURL = request.getRequestURL().toString();
-   
+        String currentURL = request.getRequestURL().toString();
+
         System.out.println(currentURL);
     }
 }

@@ -27,7 +27,7 @@ import javax.inject.Named;
 @ManagedBean
 @ViewScoped
 public class ClienteUI implements Serializable {
- 
+
     private Integer idCliente;
     private String nombreCliente;
     private String telefonoCliente;
@@ -39,17 +39,17 @@ public class ClienteUI implements Serializable {
     private List<SelectItem> clienteItem;
     private List<Cliente> cliente;
     private List<Cliente> filteredCliente;
-    
+
     private Cuentacontable cuentacontable;
     private Cuentacontable idCuenta;
     private Nit nombreNit;
     private List<SelectItem> cuentaItems;
     private List<Cuentacontable> cuentas;
-    
+
     private String idCuentaContable;
-    
+
     ClienteServicio servicio = new ClienteServicio();
-       
+
 //Constructor de Cliente
     public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente, String idcuenta) {
         this.idCliente = idCliente;
@@ -66,7 +66,7 @@ public class ClienteUI implements Serializable {
     public ClienteUI() {
 
     }
-    
+
     /**
      * @return the idCuentaContable
      */
@@ -80,7 +80,7 @@ public class ClienteUI implements Serializable {
     public void setIdCuentaContable(String idCuentaContable) {
         this.idCuentaContable = idCuentaContable;
     }
-    
+
     /**
      * @return the cuentaItem
      */
@@ -214,7 +214,7 @@ public class ClienteUI implements Serializable {
 
     public Cuentacontable getCuentac() {
         CuentacontableServicio cuentaServicio = new CuentacontableServicio();
-        setIdCuenta(cuentaServicio.getCuentacontableId(3)); 
+        setIdCuenta(cuentaServicio.getCuentacontableId(3));
         if (getIdCuenta() != null) {
             if (!idCuenta.getNombrecuenta().equals("Iva por cobrar")) {
                 System.out.println("ERROR AL AGREGAR CUENTA");
@@ -237,6 +237,8 @@ public class ClienteUI implements Serializable {
 
     @PostConstruct
     public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
         findAllClienteUi();
     }
 
@@ -262,8 +264,8 @@ public class ClienteUI implements Serializable {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");
         }
     }
-    
-        public void findAllCuentaUi() {
+
+    public void findAllCuentaUi() {
         try {
             CuentacontableServicio cuentaServ = new CuentacontableServicio();
             cuentas = cuentaServ.findAllCuenta();
@@ -274,6 +276,6 @@ public class ClienteUI implements Serializable {
         } catch (Exception e) {
             System.out.println(e + "Error en consulta cuentas clase CuentasContablesUI");
         }
-    }       
+    }
 
 }

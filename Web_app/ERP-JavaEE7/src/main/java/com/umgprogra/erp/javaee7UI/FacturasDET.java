@@ -50,6 +50,22 @@ public class FacturasDET implements Serializable {
         this.totalFac = totalFac;
         this.costoproducto = costoproducto;
     }
+    
+    
+    
+    public FacturasDET() {
+    }
+
+    
+
+    public List<FacturasDET> getListadoproductos() {
+        return listadoproductos;
+    }
+
+    public void setListadoproductos(List<FacturasDET> listadoproductos) {
+        this.listadoproductos = listadoproductos;
+    }
+    
 
     public List<FacturasDET> getListadoproductosCompra() {
         return listadoproductosCompra;
@@ -89,9 +105,6 @@ public class FacturasDET implements Serializable {
 
     public void setListidItems(List<SelectItem> listidItems) {
         this.listidItems = listidItems;
-    }
-
-    public FacturasDET() {
     }
 
     //getter y setter
@@ -145,11 +158,13 @@ public class FacturasDET implements Serializable {
 
     @PostConstruct
     public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
         mostrarIdProd();
 
     }
 
-    //funciones 
+    //registrar factura venta
     public void registroFacturaDet() {
         FacturaDetServicio registroFac = new FacturaDetServicio();
         boolean exito = false;
@@ -161,7 +176,7 @@ public class FacturasDET implements Serializable {
                 for (FacturasDET lista : listadoproductos) {
                     Integer idProd = lista.getIdProducto();
                     Integer cantidadprod = lista.getCantidad();
-                    exito = registroFac.registroFacturaDet(cantidadprod, idProd);
+                    exito = registroFac.registroFacturaDet(cantidadprod, idProd, totalFac);
 
                 }
                 if (exito == true) {
@@ -201,7 +216,7 @@ public class FacturasDET implements Serializable {
             listadoproductos.remove(index); // Elimina el producto de la lista
 
             // Actualiza totalFac después de eliminar el producto
-            totalFac = totalFac - subtotalAEliminar;
+            this.totalFac = totalFac - subtotalAEliminar;
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto eliminado con éxito."));
         } else {
@@ -209,7 +224,7 @@ public class FacturasDET implements Serializable {
         }
     }
 
-    //listado de id producto
+    //listado de del nombre del producto 
     public void mostrarIdProd() {
 
         FacturaDetServicio idprod = new FacturaDetServicio();
@@ -225,7 +240,7 @@ public class FacturasDET implements Serializable {
         }
 
     }
-
+     //agregar productos a la lista venta
     public void agregarProducto() {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
 
@@ -296,11 +311,48 @@ public class FacturasDET implements Serializable {
         this.cantidad = 0;
         this.idProducto = 0;
         this.cantidad = 0;
-        this.totalFac = 0;
 
     }
 
-    //metodos para el registro de producto.
+        //REGISTRO DE FACTURA COMPRA
+    public void registroproducto() {
+
+        FacturaDetServicio registrofac = new FacturaDetServicio();
+
+        try {
+
+            if (listadoproductosCompra.isEmpty()) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pudo registrar el producto");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
+            } else {
+
+                for (FacturasDET lista : listadoproductosCompra) {
+                    Integer idProd = lista.getIdProducto();
+                    Integer cantidadprod = lista.getCantidad();
+                    double costo = lista.getCostoproducto();
+                    double ivacompra = lista.getIva();
+                    registrofac.registroFacturaCompra(idProd, cantidadprod, costo, ivacompra);
+                }
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado con exito", "factura compra registrado");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+            this.idProducto = 0;
+            this.cantidad = 0;
+            this.costoproducto = 0;
+            this.totalFac = 0;
+
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        // Limpia la lista después de procesar los productos
+        listadoproductosCompra.clear();
+
+    }
+    
+    
+    //metodos para el registro en la lista comrpra
     public void listarproducto() {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
 
@@ -390,40 +442,21 @@ public class FacturasDET implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el producto."));
         }
     }
+    
+    
 
-    public void registroproducto() {
+    public boolean validacionlistaventa() {
+        boolean exito = true;
 
-        FacturaDetServicio registrofac = new FacturaDetServicio();
+        if (listadoproductos.size() == 0) {
+            //si esta vacio la lista
+            System.out.println("tamnio dentro de if" + listadoproductos.size());
+            exito = false;
 
-        try {
-
-            if (listadoproductosCompra.isEmpty()) {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pudo registrar el producto");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-
-            } else {
-                for (FacturasDET lista : listadoproductosCompra) {
-                    Integer idProd = lista.getIdProducto();
-                    Integer cantidadprod = lista.getCantidad();
-                    double costo = lista.getCostoproducto();
-                    double ivacompra = lista.getIva();
-                    registrofac.registroFacturaCompra(idProd, cantidadprod, costo, ivacompra);
-
-                }
-
-            }
-            this.idProducto = 0;
-            this.cantidad = 0;
-            this.costoproducto = 0; 
-            this.totalFac = 0;
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado con exito", "factura compra registrado");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        } catch (Exception e) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
-            FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        // Limpia la lista después de procesar los productos
-        listadoproductosCompra.clear();
+        System.out.println("tamnio fuera del if" + listadoproductos.size());
+
+        return exito;
 
     }
 

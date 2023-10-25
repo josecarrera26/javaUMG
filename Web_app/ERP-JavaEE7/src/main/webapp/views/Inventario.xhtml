@@ -49,6 +49,15 @@
                     </p:submenu>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
+                <f:facet name="options">
+                    <div class="mr-2">
+                        <i class="pi pi-fw pi-user"/>
+                        <p:outputLabel value="#{menuPrincipalUI.username}"/>
+                        <p:outputLabel value="      "/>
+                        <p:outputLabel value="      "/>
+                        <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{menuPrincipalUI.logout()}" id="btnLogout"/>
+                    </div>
+                </f:facet>
             </p:menubar>
         </h:form>
         <p:menubar>              
@@ -251,7 +260,6 @@
                                                         <div>
                                                             <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
                                                             <p:columnToggler datasource="products" trigger="toggler">
-                                                                <p:ajax />
                                                             </p:columnToggler>
                                                         </div>
                                                     </div>

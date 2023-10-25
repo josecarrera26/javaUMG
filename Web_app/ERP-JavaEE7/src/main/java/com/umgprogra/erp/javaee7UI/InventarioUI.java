@@ -28,6 +28,7 @@ import javax.faces.bean.ViewScoped;
 
 import javax.faces.model.SelectItem;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DialogFrameworkOptions;
 
 /**
@@ -614,6 +615,7 @@ public class InventarioUI implements Serializable {
     private int idRole;
     private boolean flagCom;
     private Integer lastProducto;
+    private int codProdAux;
 
     @PostConstruct
     public void init() {
@@ -638,7 +640,7 @@ public class InventarioUI implements Serializable {
     }
 
     public List<String> completeText(String query) {
-       // String queryLowerCase = query.toLowerCase();
+        // String queryLowerCase = query.toLowerCase();
         List<String> inventarioList = new ArrayList<>();
 
         try {
@@ -648,13 +650,35 @@ public class InventarioUI implements Serializable {
             List<Inventario> inventarios = inventarioServ.findProductoID(idBusqueda);
 
             for (Inventario inventario : inventarios) {
-                inventarioList.add(String.valueOf(inventario.getIdproducto())); 
+                inventarioList.add(String.valueOf(inventario.getNombre()));
+                 codProducto = inventario.getIdproducto();
+                 tipo_comercializacion = inventario.getTipoComercializacion();
+                 margen_Ganancia = inventario.getMargenganancia();
+                 modelo = inventario.getModelo();
+                 unidadMed = inventario.getUnidades();
+                 marca = inventario.getIdmarca();
             }
         } catch (NumberFormatException e) {
-           e.getMessage();
+            e.getMessage();
         }
 
         return inventarioList;
+    }
+
+    public void cambiarNombre(SelectEvent event) {
+        try {
+            String valorSeleccionado = (String) event.getObject();
+
+            nombre = valorSeleccionado;
+            //codProducto = codProdAux;
+        } catch (Exception e) {
+            System.out.println("ENTRE AL AJAX");
+            e.getMessage();
+        }
+    }
+
+    public void onItemSelect(SelectEvent<String> event) {
+        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Country Selected", event.getObject()));
     }
 
     public void viewMarcaModal() {
@@ -886,7 +910,7 @@ public class InventarioUI implements Serializable {
             productos = (inventarioServ.findAllProducto());
 
         } catch (Exception e) {
-            System.out.println(e + "Error en consulta marcas clase ClienteUI");
+            System.out.println(e + "Error en consulta marcas");
         }
     }
 
