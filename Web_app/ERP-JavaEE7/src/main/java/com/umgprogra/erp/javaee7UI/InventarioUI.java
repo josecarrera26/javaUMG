@@ -30,7 +30,6 @@ import javax.faces.model.SelectItem;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
 
-
 /**
  *
  * @author madis
@@ -637,23 +636,25 @@ public class InventarioUI implements Serializable {
     public InventarioUI() {
 
     }
-    
-        public List<String> completeText(String query) {
-        String queryLowerCase = query.toLowerCase();
-        List<String> inventarioList = new ArrayList<>();
-//        try {
-            InventarioServicio inventarioServ = new InventarioServicio();
 
-            List<Inventario> inventarios = inventarioServ.findAllProducto(1);
+    public List<String> completeText(String query) {
+       // String queryLowerCase = query.toLowerCase();
+        List<String> inventarioList = new ArrayList<>();
+
+        try {
+            int idBusqueda = Integer.parseInt(query);
+
+            InventarioServicio inventarioServ = new InventarioServicio();
+            List<Inventario> inventarios = inventarioServ.findProductoID(idBusqueda);
 
             for (Inventario inventario : inventarios) {
-                inventarioList.add(inventario.getNombre());
+                inventarioList.add(String.valueOf(inventario.getIdproducto())); 
             }
-           
-//        } catch (Exception e) {
-//            System.out.println("COMPLETETEXT " + e.getMessage());
-//        }
-        return  inventarioList.stream().filter(t -> t.toLowerCase().startsWith(queryLowerCase)).collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+           e.getMessage();
+        }
+
+        return inventarioList;
     }
 
     public void viewMarcaModal() {
@@ -882,7 +883,7 @@ public class InventarioUI implements Serializable {
     public void findAllProductosUi() {
         try {
             InventarioServicio inventarioServ = new InventarioServicio();
-            productos = (inventarioServ.findAllProducto(1));
+            productos = (inventarioServ.findAllProducto());
 
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase ClienteUI");

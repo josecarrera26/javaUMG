@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
+     @NamedQuery(name = "Inventario.findByIdProducto", query = "SELECT i FROM Inventario i WHERE i.idproducto = :idproducto"),
     @NamedQuery(name = "Inventario.findByAllProducto", query = "SELECT i.idproducto, i.nombre, i.cantidad, i.tipoComercializacion, i.modelo, "
             + " i.unidades, i.precioventa, i.coste, i.margenganancia, m.descripcion, l.descripcion, g.descripcion, "
             + " p.nombreProveedor, i.estado, i.impuestoinventario "
