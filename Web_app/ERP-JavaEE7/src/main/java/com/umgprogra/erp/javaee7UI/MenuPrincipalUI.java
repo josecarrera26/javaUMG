@@ -13,12 +13,13 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,6 +29,20 @@ import javax.persistence.EntityManager;
 @ViewScoped
 public class MenuPrincipalUI implements Serializable {
 
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    private String username;
     /**
      * @return the sessionUser
      */
@@ -56,10 +71,10 @@ public class MenuPrincipalUI implements Serializable {
             Integer usuario = sessionUser.getUser().getIdrole().getIdrole();
             String role = sessionUser.getUser().getIdrole().getAccesos();
             String nuevaPagina = pagina;
-            
+
             System.out.println("role: " + role);
             System.out.println("idRole: " + usuario);
-            
+
             if (usuario == 1) {
                 externalContext.redirect(nuevaPagina);
             } else {
@@ -83,61 +98,83 @@ public class MenuPrincipalUI implements Serializable {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    public void cuentaContable (){
-    validaVista("CuentasContables.xhtml");
+
+    public void cuentaContable() {
+        validaVista("CuentasContables.xhtml");
+    }
+
+    public void empleados() {
+        validaVista("Empleado.xhtml");
+    }
+
+    public void cargo() {
+        validaVista("Cargo.xhtml");
+    }
+
+    public void roles() {
+        validaVista("Role.xhtml");
+    }
+
+    public void cliente() {
+        validaVista("Cliente.xhtml");
+    }
+
+    public void facturas() {
+        validaVista("Facturas.xhtml");
+    }
+
+    public void proveedores() {
+        validaVista("Proveedores.xhtml");
+    }
+
+    public void pedidos() {
+        validaVista("Pedidos.xhtml");
+    }
+
+    public void inventarioR() {
+        validaVista("Inventario.xhtml");
+    }
+
+    public void inventarioE() {
+        validaVista("editarProducto.xhtml");
+    }
+
+    public void marca() {
+        validaVista("marca.xhtml");
+    }
+
+    public void linea() {
+        validaVista("Linea.xhtml");
+    }
+
+    public void grupoProducto() {
+        validaVista("GrupoProducto.xhtml");
+    }
+
+    public void getNombreNit() {
+        Nit nombreNit = new Nit();
+        nombreNit.getNitApi("CF");
+    }
+
+    @PostConstruct
+    public void init() {
+        validarUsuario();
+    }
+
+    public void validarUsuario() {
+        
+        try {
+            if (sessionUser.getUser() == null) {
+                System.out.println("Usuario no incio sesion.");
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                externalContext.redirect("http://localhost:8080/ERP-JavaEE7");
             }
-    
-    public void empleados (){
-    validaVista("Empleado.xhtml");
+            else{
+                this.username = sessionUser.getUser().getUsername();
             }
-    
-    public void cargo (){
-    validaVista("Cargo.xhtml");
-            }
-    
-    public void roles(){
-    validaVista("Role.xhtml");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+
+        }
     }
-    
-    public void cliente(){
-    validaVista("Cliente.xhtml");
-    }
-    
-    public void facturas(){
-    validaVista("Facturas.xhtml");
-    }
-    
-    public void proveedores(){
-    validaVista("Proveedores.xhtml");
-    }
-    
-    public void pedidos(){
-    validaVista("Pedidos.xhtml");
-    }
-    
-    public void inventarioR(){
-    validaVista("Inventario.xhtml");
-    }
-    
-     public void inventarioE(){
-    validaVista("editarProducto.xhtml");
-    }
-    
-    public void marca(){
-    validaVista("marca.xhtml");
-    }
-    
-    public void linea(){
-    validaVista("Linea.xhtml");
-    }
-    
-    public void grupoProducto(){
-    validaVista("GrupoProducto.xhtml");
-    }
-    
-public void getNombreNit() {
-    Nit nombreNit = new Nit();
-    nombreNit.getNitApi("CF");
-}
-    
 }

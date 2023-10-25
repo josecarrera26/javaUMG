@@ -86,6 +86,8 @@ public class CargoUI {
     
     @PostConstruct
     public void init() {
+    MenuPrincipalUI login = new MenuPrincipalUI();
+    login.validarUsuario();
     listaCargos();
     }
     
