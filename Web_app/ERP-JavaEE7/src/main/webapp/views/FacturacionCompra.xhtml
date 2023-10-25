@@ -92,11 +92,13 @@
                                 <div class="ui-fluid">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                             <p:outputLabel id="lblTipoCliente" value="Tipo Cliente"  for="@next"/>
-                                            <p:selectOneMenu id="tipoCliente" class="combo" value="#{facturaCabUI.idTipoCliente}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
-                                                <f:selectItem itemLabel="Select One" itemValue=""/>
-                                                <f:selectItems value="#{facturaCabUI.plazosPago}"/>
-                                            </p:selectOneMenu>
+                                             <p:outputLabel id="lblTipoCliente" value="Nombre Proveedor"  for="@next"/>
+                                              <br/>
+                                            <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturaCabUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
+                                                             style="width: 13rem;" panelStyle="width: 15rem">
+                                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                                                <f:selectItems value="#{facturaCabUI.mostrarNombreCliente}" var="cliente" itemLabel="#{cliente.nombreCliente}" itemValue="#{cliente.idcliente}" />
+                                            </p:selectOneMenu> 
                                             
                                         </div>
                                     </div>
@@ -144,37 +146,35 @@
                         <div class="card">
 
                             <div class="grid">
+
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <h:outputLabel id="lbltipoFactura" value="Tipo Factura" />
-                                            <div style="display: flex; flex-direction: column;">
-                                                <p:selectOneMenu id="Tipofactura" class="combo" label="Seleccione uno"
-                                                                 style="width: 15rem;" panelStyle="width: 15rem" 
-                                                                 value="#{facturaCabUI.tipo_pago}">
-                                                    <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                                    <f:selectItems value="#{facturaCabUI.tipoFacturaList}"/>
-                                                </p:selectOneMenu>
+                                            <div class="field">
+                                                <!-- agregado por fernando -->
+                                                <h:outputLabel id="lblcosto" value="Costo producto" />
+                                                <div style="display: flex; flex-drection: column">
+                                                    <p:inputText id="costo" style="width: 250px;" value="#{facturasDET.costoproducto}"   required="true" requiredMessage="costo Requerido" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+                                
+                                 
                                 <div class="col-2">
                                     <p:divider layout="vertical"> </p:divider>
                                 </div>
+                                  
 
                                 <div class="ui-fluid">
-                                    <div class="field">
-                                        <!-- agregado por fernando -->
-                                        <h:outputLabel id="lblcosto" value="Costo producto" />
-                                        <div style="display: flex; flex-drection: column">
-                                            <p:inputText id="costo" style="width: 250px;" value="#{facturasDET.costoproducto}"   required="true" requiredMessage="costo Requerido" />
-                                        </div>
+                         
                                     </div>
                                 </div>
 
                             </div>
-                        </div>
+                       
 
                         <div class="card">
 
@@ -212,8 +212,12 @@
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <p:commandButton id="btnRegBanco" value="Registrar Factura" actionListener="#{facturasDET.registroproducto()}"
-                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                                            <p:commandButton id="btnRegBanco" value="Registrar Factura" 
+                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" >
+                                                 <f:actionListener binding="#{facturaCabUI.insertFacturaCab()}" />
+                                                 <f:actionListener binding="#{facturasDET.registroproducto()}" />
+                                               
+                                                </p:commandButton>
                                         </div>
                                     </div>
                                 </div>

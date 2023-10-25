@@ -55,30 +55,30 @@ public class FacturasServicio {
 
     public String insertarFacturacab(Integer pPlazoPagos, Integer pIDEmpleado, Integer pTipoCliente, Double pTotal, Integer pTipoPago, String nit, Integer pTipoFactura) {
         try {
-    Integer tipoFactura = 2;
-                //preparacion de ingreso de fecha
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDateTime ahora = LocalDateTime.now();
-                String fechaString = dtf.format(ahora);
-                Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
+            
+            //preparacion de ingreso de fecha
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime ahora = LocalDateTime.now();
+            String fechaString = dtf.format(ahora);
+            Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
 
-                Empleado empleado = entity.find(Empleado.class, pIDEmpleado);
-                
-                Facturacab facturacabecera = new Facturacab();
-                
-                facturacabecera.setFechaRegistro(fecha);
-                facturacabecera.setPlazosPago(pPlazoPagos);
-                facturacabecera.setIdempleado(empleado);
-                facturacabecera.setIdtipocliente(pTipoCliente);
-                facturacabecera.setEstadofac(1);
-                facturacabecera.setTotal(pTotal);
-                facturacabecera.setIdtipopago(pTipoPago);
-                facturacabecera.setNit(nit);
-                facturacabecera.setIdtipofactura(tipoFactura);
+            Empleado empleado = entity.find(Empleado.class, pIDEmpleado);
 
-                entity.getTransaction().begin();
-                entity.persist(facturacabecera);
-                entity.getTransaction().commit();
+            Facturacab facturacabecera = new Facturacab();
+
+            facturacabecera.setFechaRegistro(fecha);
+            facturacabecera.setPlazosPago(pPlazoPagos);
+            facturacabecera.setIdempleado(empleado);
+            facturacabecera.setIdtipocliente(pTipoCliente);
+            facturacabecera.setEstadofac(1);
+            facturacabecera.setTotal(pTotal);
+            facturacabecera.setIdtipopago(pTipoPago);
+            facturacabecera.setNit(nit);
+            
+
+            entity.getTransaction().begin();
+            entity.persist(facturacabecera);
+            entity.getTransaction().commit();
 
             return "FacturaCab Guardada Numero de factura";
         } catch (Exception e) {
@@ -86,7 +86,7 @@ public class FacturasServicio {
             return "Error Mensaje: " + e.toString();
         }
     }
-    
+
 
     //mostrar id del cliete
     public List<Cliente> listadoClientes() {

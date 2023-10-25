@@ -314,7 +314,45 @@ public class FacturasDET implements Serializable {
 
     }
 
-    //metodos para el registro de producto compra
+        //REGISTRO DE FACTURA COMPRA
+    public void registroproducto() {
+
+        FacturaDetServicio registrofac = new FacturaDetServicio();
+
+        try {
+
+            if (listadoproductosCompra.isEmpty()) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pudo registrar el producto");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
+            } else {
+
+                for (FacturasDET lista : listadoproductosCompra) {
+                    Integer idProd = lista.getIdProducto();
+                    Integer cantidadprod = lista.getCantidad();
+                    double costo = lista.getCostoproducto();
+                    double ivacompra = lista.getIva();
+                    registrofac.registroFacturaCompra(idProd, cantidadprod, costo, ivacompra);
+                }
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado con exito", "factura compra registrado");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+            this.idProducto = 0;
+            this.cantidad = 0;
+            this.costoproducto = 0;
+            this.totalFac = 0;
+
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        // Limpia la lista después de procesar los productos
+        listadoproductosCompra.clear();
+
+    }
+    
+    
+    //metodos para el registro en la lista comrpra
     public void listarproducto() {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
 
@@ -406,48 +444,11 @@ public class FacturasDET implements Serializable {
     }
     
     
-    //registro factura compra
-    public void registroproducto() {
 
-        FacturaDetServicio registrofac = new FacturaDetServicio();
-
-        try {
-
-            if (listadoproductosCompra.isEmpty()) {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pudo registrar el producto");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-
-            } else {
-
-                
-                for (FacturasDET lista : listadoproductosCompra) {
-                    Integer idProd = lista.getIdProducto();
-                    Integer cantidadprod = lista.getCantidad();
-                    double costo = lista.getCostoproducto();
-                    double ivacompra = lista.getIva();
-                    registrofac.registroFacturaCompra(idProd, cantidadprod, costo, ivacompra);
-
-                }
-
-            }
-            this.idProducto = 0;
-            this.cantidad = 0;
-            this.costoproducto = 0; 
-            this.totalFac = 0;
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado con exito", "factura compra registrado");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        } catch (Exception e) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-        // Limpia la lista después de procesar los productos
-        listadoproductosCompra.clear();
-
-    }
     public boolean validacionlistaventa() {
         boolean exito = true;
 
-        if (listadoproductos.size()  ==0 ) {
+        if (listadoproductos.size() == 0) {
             //si esta vacio la lista
             System.out.println("tamnio dentro de if" + listadoproductos.size());
             exito = false;
