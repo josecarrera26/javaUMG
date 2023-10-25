@@ -145,6 +145,8 @@ public class FacturasDET implements Serializable {
 
     @PostConstruct
     public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
         mostrarIdProd();
 
     }

@@ -277,6 +277,8 @@ public class FacturaCabUI {
     
         @PostConstruct
     public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
         plazosPago();
         pagos();
         tipoFactura();

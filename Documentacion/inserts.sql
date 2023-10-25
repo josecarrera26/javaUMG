@@ -55,22 +55,22 @@ INSERT INTO public.empleado
 VALUES('Luis', 'Cano', '1234567', 'test@test.com', 5);
 --usuario
 INSERT INTO public.usuario
-(username, "password" , idrole. idempleado)
+(username, "password" , idrole, idempleado)
 VALUES('joseC', 'password1', 1, 1);
 INSERT INTO public.usuario
-(username, "password" , idrole. idempleado)
+(username, "password" , idrole, idempleado)
 VALUES('Mikey', 'password2', 2, 2);
 INSERT INTO public.usuario
-(username, "password" , idrole. idempleado)
+(username, "password" , idrole, idempleado)
 VALUES('Made', 'password3', 3, 3);
 INSERT INTO public.usuario
-(username, "password" , idrole. idempleado)
+(username, "password" , idrole, idempleado)
 VALUES('HectorC', 'password4', 4, 4);
 INSERT INTO public.usuario
-(username, "password" , idrole. idempleado)
+(username, "password" , idrole, idempleado)
 VALUES('PedroC', 'password5', 5, 5);
 INSERT INTO public.usuario
-(username, "password" , idrole. idempleado)
+(username, "password" , idrole, idempleado)
 VALUES('Prueba', 'password6', 6, 5);
 
 --Modulo clientes

@@ -23,7 +23,7 @@ import javax.inject.Named;
 @Named("dtFilterView")
 @ManagedBean
 @ViewScoped
-public class CuentasContablesUI implements  Serializable {
+public class CuentasContablesUI implements Serializable {
 
     /**
      * @return the resultados
@@ -86,8 +86,8 @@ public class CuentasContablesUI implements  Serializable {
         this.nombreCuenta = nombreCuenta;
         this.tipoCuenta = tipoCuenta;
     }
-    
-        CuentacontableServicio servicio = new CuentacontableServicio();
+
+    CuentacontableServicio servicio = new CuentacontableServicio();
 
     public Integer getIdCuenta() {
         return idCuenta;
@@ -113,45 +113,46 @@ public class CuentasContablesUI implements  Serializable {
         this.tipoCuenta = tipoCuenta;
     }
 
-
     private Integer idCuenta;
     private String nombreCuenta;
     private String tipoCuenta;
     private List<Cuentacontable> resultados;
     private List<SelectItem> cuentaItem;
-    private List<Cuentacontable> cuentacontable; 
+    private List<Cuentacontable> cuentacontable;
     private List<Cuentacontable> filteredCuenta;
-    
-    public CuentasContablesUI(){
+
+    public CuentasContablesUI() {
     }
-    
-    public void saveCuenta(){
-        try{
-         
+
+    public void saveCuenta() {
+        try {
+
             CuentacontableServicio nuevaCuenta = new CuentacontableServicio();
             nuevaCuenta.saveCuenta(this.nombreCuenta, this.tipoCuenta);
             cuentacontable = nuevaCuenta.findAllCuenta();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e + "Error en save CuentasContablesUI");
         }
     }
-        
-           @PostConstruct
-    public void init() 
-        {findAllCuentasContablesUi();
-                }
-    
-        public void consultaCuentas(){
-            try{
-                resultados = new ArrayList<>();
-                System.out.println("idCuenta buscado" + this.idCuenta);
-                resultados = servicio.finderCuentaById(idCuenta);
-            }catch(Exception e){
-                System.err.println("Error al consultar");
-            }
+
+    @PostConstruct
+    public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
+        findAllCuentasContablesUi();
+    }
+
+    public void consultaCuentas() {
+        try {
+            resultados = new ArrayList<>();
+            System.out.println("idCuenta buscado" + this.idCuenta);
+            resultados = servicio.finderCuentaById(idCuenta);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
         }
-        public void findAllCuentasContablesUi() {
+    }
+
+    public void findAllCuentasContablesUi() {
         try {
             CuentacontableServicio cuentaServ = new CuentacontableServicio();
             cuentacontable = cuentaServ.findAllCuenta();
