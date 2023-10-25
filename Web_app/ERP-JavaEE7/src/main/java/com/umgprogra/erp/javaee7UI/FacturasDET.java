@@ -52,6 +52,7 @@ public class FacturasDET implements Serializable {
     }
     
     
+    
     public FacturasDET() {
     }
 
@@ -446,12 +447,13 @@ public class FacturasDET implements Serializable {
     public boolean validacionlistaventa() {
         boolean exito = true;
 
-        if (listadoproductosCompra.isEmpty()) {
+        if (listadoproductos.size()  ==0 ) {
             //si esta vacio la lista
+            System.out.println("tamnio dentro de if" + listadoproductos.size());
             exito = false;
-            return exito;
 
         }
+        System.out.println("tamnio fuera del if" + listadoproductos.size());
 
         return exito;
 
