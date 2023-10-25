@@ -184,7 +184,7 @@ public class MenuPrincipalUI implements Serializable {
             System.out.println("El usuario " + this.username + " se deloggeo.");
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("sessionU");
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            externalContext.redirect("http://localhost:8080/ERP-JavaEE7");
+            externalContext.redirect("../");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
 
