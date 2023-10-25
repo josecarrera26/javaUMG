@@ -615,6 +615,7 @@ public class InventarioUI implements Serializable {
     private int idRole;
     private boolean flagCom;
     private Integer lastProducto;
+    private int codProdAux;
 
     @PostConstruct
     public void init() {
@@ -649,7 +650,13 @@ public class InventarioUI implements Serializable {
             List<Inventario> inventarios = inventarioServ.findProductoID(idBusqueda);
 
             for (Inventario inventario : inventarios) {
-                inventarioList.add(String.valueOf(inventario.getNombre() + ", Modelo: " + inventario.getModelo()));
+                inventarioList.add(String.valueOf(inventario.getNombre()));
+                 codProducto = inventario.getIdproducto();
+                 tipo_comercializacion = inventario.getTipoComercializacion();
+                 margen_Ganancia = inventario.getMargenganancia();
+                 modelo = inventario.getModelo();
+                 unidadMed = inventario.getUnidades();
+                 marca = inventario.getIdmarca();
             }
         } catch (NumberFormatException e) {
             e.getMessage();
@@ -659,11 +666,19 @@ public class InventarioUI implements Serializable {
     }
 
     public void cambiarNombre(SelectEvent event) {
-        //Obtener el valor seleccionado en idProducto
-        String valorSeleccionado = (String) event.getObject();
+        try {
+            String valorSeleccionado = (String) event.getObject();
 
-        // Establecer el valor seleccionado en el campo descripcion
-        nombre = valorSeleccionado;
+            nombre = valorSeleccionado;
+            //codProducto = codProdAux;
+        } catch (Exception e) {
+            System.out.println("ENTRE AL AJAX");
+            e.getMessage();
+        }
+    }
+
+    public void onItemSelect(SelectEvent<String> event) {
+        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Country Selected", event.getObject()));
     }
 
     public void viewMarcaModal() {
@@ -899,5 +914,4 @@ public class InventarioUI implements Serializable {
         }
     }
 
-   
 }
