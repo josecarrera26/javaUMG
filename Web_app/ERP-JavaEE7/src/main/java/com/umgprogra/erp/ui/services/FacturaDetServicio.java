@@ -51,7 +51,6 @@ public class FacturaDetServicio {
 
             // Ejecutar la consulta y obtener el resultado
             Integer maxIdFactura = query.getSingleResult();
-
             transaction.begin();
             // Crear una instancia de Facturadet
             Facturadet facDet = new Facturadet();

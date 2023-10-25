@@ -51,6 +51,7 @@ public class FacturasDET implements Serializable {
         this.costoproducto = costoproducto;
     }
     
+    
     public FacturasDET() {
     }
 
@@ -440,6 +441,19 @@ public class FacturasDET implements Serializable {
         }
         // Limpia la lista después de procesar los productos
         listadoproductosCompra.clear();
+
+    }
+    public boolean validacionlistaventa() {
+        boolean exito = true;
+
+        if (listadoproductosCompra.isEmpty()) {
+            //si esta vacio la lista
+            exito = false;
+            return exito;
+
+        }
+
+        return exito;
 
     }
 
