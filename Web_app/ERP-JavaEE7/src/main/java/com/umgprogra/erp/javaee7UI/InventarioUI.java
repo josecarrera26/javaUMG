@@ -28,6 +28,7 @@ import javax.faces.bean.ViewScoped;
 
 import javax.faces.model.SelectItem;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DialogFrameworkOptions;
 
 /**
@@ -638,7 +639,7 @@ public class InventarioUI implements Serializable {
     }
 
     public List<String> completeText(String query) {
-       // String queryLowerCase = query.toLowerCase();
+        // String queryLowerCase = query.toLowerCase();
         List<String> inventarioList = new ArrayList<>();
 
         try {
@@ -648,13 +649,21 @@ public class InventarioUI implements Serializable {
             List<Inventario> inventarios = inventarioServ.findProductoID(idBusqueda);
 
             for (Inventario inventario : inventarios) {
-                inventarioList.add(String.valueOf(inventario.getIdproducto())); 
+                inventarioList.add(String.valueOf(inventario.getNombre() + ", Modelo: " + inventario.getModelo()));
             }
         } catch (NumberFormatException e) {
-           e.getMessage();
+            e.getMessage();
         }
 
         return inventarioList;
+    }
+
+    public void cambiarNombre(SelectEvent event) {
+        //Obtener el valor seleccionado en idProducto
+        String valorSeleccionado = (String) event.getObject();
+
+        // Establecer el valor seleccionado en el campo descripcion
+        nombre = valorSeleccionado;
     }
 
     public void viewMarcaModal() {
@@ -886,8 +895,9 @@ public class InventarioUI implements Serializable {
             productos = (inventarioServ.findAllProducto());
 
         } catch (Exception e) {
-            System.out.println(e + "Error en consulta marcas clase ClienteUI");
+            System.out.println(e + "Error en consulta marcas");
         }
     }
 
+   
 }
