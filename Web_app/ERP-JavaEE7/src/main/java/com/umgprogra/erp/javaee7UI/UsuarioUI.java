@@ -14,6 +14,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 
 /**
@@ -107,6 +109,7 @@ public class UsuarioUI implements Serializable {
                         "Para iniciar sesion por favor regrese a Iniciar Sesion!"));
 
                 System.out.println("Registro Exitoso");
+                PrimeFaces.current().dialog().closeDynamic("registrarUsuario");
                 return 1;
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -144,5 +147,14 @@ public class UsuarioUI implements Serializable {
         String[] partes = currentURL.split("/");
         String ultimaParteURL = partes[partes.length - 1];
         return ultimaParteURL;
+    }
+    
+    public void registrarseFRM(){
+    DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                            .resizable(true)
+                            .build();
+                    System.out.println("Se crean las opciones del dialog");
+                    PrimeFaces.current().dialog().openDynamic("registrarUsuario", options, null);
+                    System.out.println("Se crean las el dialog");
     }
 }
