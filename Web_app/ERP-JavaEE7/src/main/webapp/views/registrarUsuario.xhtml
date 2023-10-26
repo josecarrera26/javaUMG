@@ -17,25 +17,12 @@
     </h:head>
 
     <h:body>
-
-        <h:form>
-            <p:menubar>
-                <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
-                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:38080/ERP-JavaEE7"/>
-                </p:submenu>      
-            </p:menubar>
-
-        </h:form>
-
         <h:form id="formRegistroUsuario">
-
-            <p:tabView dynamic="true">
-                <p:growl id="msg"   />
-
+                <p:growl id="msgReg"   />
                 <p:tab  title="Registrarse">
+                    <center>
                     <p:panel id="pnlRegistroUsuario" header="Registrarse" class="centerPnl" >
                         <p:panelGrid id="pnlGridUsr" layout="grid" columns="2" style="width: 100%" >
-
                             <h:outputLabel id="lblusr" value="Username" />
                             <p:inputText id="usernameUsr" value="#{usuarioUI.username}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
 
@@ -43,58 +30,13 @@
                             <p:inputText id="passwordUsr" value="#{usuarioUI.password}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
                         </p:panelGrid >
 
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2" class="centerPnlGrid"  >
-                            <p:commandButton id="btnRegEmp" value="Registrar Usuario" actionListener ="#{usuarioUI.registroUsuario()}"
-                                             update="formRegistroUsuario ,msg,pnlRegistroUsuario" icon="pi pi-check" styleClass="rounded-button" />
+                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="1" >
+                            <p:commandButton id="btnRegEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Registrar Usuario" actionListener ="#{usuarioUI.registroUsuario()}"
+                                             icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
                     </p:panel > 
+                    </center>
                 </p:tab>               
-            </p:tabView>
-        </h:form>
-
-
-        <h:form>
-            <p:panel>
-                <div class="layout-footer">
-                    <div>
-                        <img src="../resources/images/Logo proyecto umg2.png" width="85" height="80" alt="Imagen Logo" />
-                    </div>
-                    <p:outputLabel value="Grandes soluciones una experiencia unica para tu negocio"/>
-                    <style>
-                        .custom-scrolltop.ui-scrolltop {
-                            width: 2rem;
-                            height: 2rem;
-                            border-radius: 4px;
-                            outline: 0 none;
-                            background-color: var(--primary-color);
-                        }
-                        .custom-scrolltop.ui-scrolltop:hover {
-                            background-color: var(--primary-color);
-                        }
-
-                        .custom-scrolltop.ui-scrolltop .ui-scrolltop-icon {
-                            font-size: 1rem;
-                            color: var(--primary-color-text);
-                        }
-                    </style>
-
-                    <div class="card">
-                        <p>
-                            Somos una empresa dedicada al desarrollo de ERP con la finalidad de ofrecer
-                            un servicio de control contable/financiero para su empresa. contamos con 
-                            un eqruipo de personal competente para entender su giro de negocio y ofrecerle el 
-                            mejor servicio que usted necesita.
-                        </p>
-                        <div id="container">
-                            <span id="slot0"> <i class=" pi pi-google"/> <a href="https://solucionesgt.com"> Visita Nuestra Pagina </a> </span>
-                            <span id="slot1"> | </span>
-                            <span id="slot2"> <i class=" pi pi-phone"/> 2424-2424 </span>
-                            <span id="slot3"> | </span>
-                            <span id="slot4"> <i class=" pi pi-comments"/> <a href="https://contactanos-bb5c1708-2a19-4226-9e0a-e08124cd220e@email.devit.software"> Escribenos </a> </span>
-                        </div>
-                    </div>
-                </div>
-            </p:panel>
         </h:form>
     </h:body>
 </html>

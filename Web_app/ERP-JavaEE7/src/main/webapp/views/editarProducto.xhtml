@@ -7,7 +7,7 @@
         <title>Inventario</title>
         <h:outputStylesheet library="css" name="inventario.css"/>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <link rel="icon" href="../../resources/images/Logo.png"/>
     </h:head>
     <h:body id="inventario">
 
@@ -41,6 +41,7 @@
 
                     </p:submenu>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
+                </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
                         <i class="pi pi-fw pi-user"/>
@@ -50,7 +51,6 @@
                         <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{menuPrincipalUI.logout()}" id="btnLogout"/>
                     </div>
                 </f:facet>
-                </p:submenu>
             </p:menubar>
         </h:form>
 
