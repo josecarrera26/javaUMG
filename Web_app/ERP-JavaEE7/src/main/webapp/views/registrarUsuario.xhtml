@@ -18,9 +18,9 @@
 
     <h:body>
         <h:form id="formRegistroUsuario">
-                <p:growl id="msgReg"   />
-                <p:tab  title="Registrarse">
-                    <center>
+            <p:growl id="msgReg"   />
+            <p:tab  title="Registrarse">
+                <center>
                     <p:panel id="pnlRegistroUsuario" header="Registrarse" class="centerPnl" >
                         <p:panelGrid id="pnlGridUsr" layout="grid" columns="2" style="width: 100%" >
                             <h:outputLabel id="lblusr" value="Username" />
@@ -28,15 +28,28 @@
 
                             <h:outputLabel id="lblpassUsr" value="Contraseña" />
                             <p:inputText id="passwordUsr" value="#{usuarioUI.password}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
+
+                            <h:outputLabel id="lblRole" value="Role" />
+                            <p:selectOneMenu id="role" class="combo" value="#{usuarioUI.role}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 100%">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItems value="#{usuarioUI.todosRolesItems}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel id="lblEmpleado" value="Empleado" />
+                            <p:selectOneMenu id="empleado" class="combo" value="#{usuarioUI.idEmpleado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 100%">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItems value="#{usuarioUI.empleadosItems}"/>
+                            </p:selectOneMenu>
                         </p:panelGrid >
 
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="1" >
+                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2">
                             <p:commandButton id="btnRegEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Registrar Usuario" actionListener ="#{usuarioUI.registroUsuario()}"
+                                             icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnActualizarEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Registrar Usuario" actionListener ="#{usuarioUI.actualizarUsuario()}"
                                              icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
                     </p:panel > 
-                    </center>
-                </p:tab>               
+                </center>
+            </p:tab>               
         </h:form>
     </h:body>
 </html>
