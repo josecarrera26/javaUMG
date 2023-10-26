@@ -332,7 +332,7 @@ public class FacturaCabUI implements Serializable {
         MenuPrincipalUI login = new MenuPrincipalUI();
         login.validarUsuario();
         plazosPago();
-        pagos();
+       // pagos();
         tipoFactura();
         getUltimaFactura();
         mostrarNombreCliente();
@@ -343,7 +343,7 @@ public class FacturaCabUI implements Serializable {
 
     public void insertFacturaYRegistro() {
         FacturasDET facturasDET = new FacturasDET();
-        insertFacturaCab();
+//        insertFacturaCab();
         facturasDET.agregarProducto();
         facturasDET.registroFacturaDet();
     }
@@ -355,7 +355,7 @@ public class FacturaCabUI implements Serializable {
         plazosPago.add(new SelectItem(3, "3 pagos"));
     }
 
-    public void pagos() {
+    public void tipopagos() {
         tipoPago = new ArrayList();
         tipoPago.add(new SelectItem(1, "Efectivo"));
         tipoPago.add(new SelectItem(2, "Tarjeta"));
@@ -419,19 +419,20 @@ public class FacturaCabUI implements Serializable {
         }
 
     }
-
-    public void insertFacturaCab() {
-        try {
-            FacturasDET validador = new FacturasDET();
-            double num = validador.getSubTotal();
-            System.out.println("valor total " + num);
-            FacturasServicio nuevaFactura = new FacturasServicio();
-            System.out.println("Username: " + sessionUser.getUser());
-            
-            nuevaFactura.insertarFacturacab(this.plazos_pago, sessionUser.getUser().getIdusuario(), this.idCliente, 0.00, this.tipo_pago, this.nit, this.tipoFactura);
-                
-        } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
-        }
-    }
+/////////////////////////////////////
+    
+//    public void insertFacturaCab() {
+//        try {
+//            FacturasDET validador = new FacturasDET();
+//            double num = validador.getSubTotal();
+//            System.out.println("valor total " + num);
+//            FacturasServicio nuevaFactura = new FacturasServicio();
+//            System.out.println("Username: " + sessionUser.getUser());
+//            
+//            nuevaFactura.insertarFacturacab(this.plazos_pago, sessionUser.getUser().getIdusuario(), this.idCliente, 0.00, this.tipo_pago, this.nit, this.tipoFactura);
+//                
+//        } catch (Exception e) {
+//            System.out.println("error: " + e.getMessage());
+//        }
+//    }
 }
