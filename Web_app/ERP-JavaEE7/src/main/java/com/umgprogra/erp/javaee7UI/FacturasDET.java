@@ -54,6 +54,7 @@ public class FacturasDET implements Serializable {
     
     
     public FacturasDET() {
+        
     }
 
     

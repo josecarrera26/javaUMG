@@ -44,7 +44,9 @@
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2">
                             <p:commandButton id="btnRegEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Registrar Usuario" actionListener ="#{usuarioUI.registroUsuario()}"
                                              icon="pi pi-check" styleClass="rounded-button" />
-                            <p:commandButton id="btnActualizarEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Registrar Usuario" actionListener ="#{usuarioUI.actualizarUsuario()}"
+                            <p:commandButton id="btnActualizarEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Actualizar Usuario" actionListener ="#{usuarioUI.actualizarUsuario()}"
+                                             icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnGeneraReporte" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Generar reporte Usuario" actionListener ="#{reporte.generarReporte}"
                                              icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
                     </p:panel > 
