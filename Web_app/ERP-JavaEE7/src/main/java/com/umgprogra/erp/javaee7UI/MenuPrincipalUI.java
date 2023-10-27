@@ -122,6 +122,10 @@ public class MenuPrincipalUI implements Serializable {
     public void facturas() {
         validaVista("Facturas.xhtml");
     }
+    
+    public void facturasCompra() {
+        validaVista("FacturacionCompra.xhtml");
+    }
 
     public void proveedores() {
         validaVista("Proveedores.xhtml");

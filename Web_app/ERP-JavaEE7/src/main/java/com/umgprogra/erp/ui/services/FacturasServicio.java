@@ -62,7 +62,7 @@ public class FacturasServicio {
         return idFac;
     }
 
-    public int insertarFacturacab(Integer pPlazoPagos, Integer pTipoCliente, double pTotal, Integer pTipoPago, String nit) {
+    public int insertarFacturacab(Integer pPlazoPagos, Integer pTipoCliente, double pTotal, Integer pTipoPago, String nit, int tipoFac) {
         int idFactura = 0;
 
         try {
@@ -84,7 +84,7 @@ public class FacturasServicio {
             facturacabecera.setTotal(pTotal);
             facturacabecera.setIdtipopago(pTipoPago);
             facturacabecera.setNit(nit);
-            facturacabecera.setIdtipofactura(2);
+            facturacabecera.setIdtipofactura(tipoFac);
 
             entity.getTransaction().begin();
             entity.persist(facturacabecera);
@@ -163,6 +163,96 @@ public class FacturasServicio {
         return flag;
 
     }
+
+    //metodo para registrar la factura compra
+    public boolean registroDBDetalleCompra(int idFactura, List<FacturasCVUI> producto) throws ParseException {
+        //preparacion de ingreso de fecha
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime ahora = LocalDateTime.now();
+        String fechaString = dtf.format(ahora);
+
+        Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
+        boolean flag = false;
+
+        try {
+            Facturacab facturaCab = entity.find(Facturacab.class, idFactura);
+            for (FacturasCVUI lista : producto) {
+                Inventario inventario = entity.find(Inventario.class, lista.getIdProducto());
+
+                Integer nuevaCantidad = 0;
+                Integer cantidadactual = inventario.getCantidad();
+
+                //calculamos el precio de venta
+                double margen = inventario.getMargenganancia();
+
+                nuevaCantidad = cantidadactual + inventario.getCantidad();
+                double calculoPrecio = margen / 100;
+
+                //cantidad original
+                int cantidadActual = inventario.getCantidad();
+
+                //inciamos el insert a las tablas
+                //tabla facturas det
+                Facturadet facDet = new Facturadet();
+                facDet.setIdfactura(facturaCab);
+                facDet.setIdproducto(inventario);
+                facDet.setIva(lista.getIva());
+                facDet.setCantidad(lista.getCantidad());
+                facDet.setPreciounitario(lista.getCostoproducto());
+
+                entity.persist(facDet);
+
+                //Inset al kardex
+                Kardex insertKardex = new Kardex();
+                insertKardex.setFecha(fecha);
+                insertKardex.setIdproducto(inventario);
+                insertKardex.setIntOut("compra");
+                insertKardex.setVentaCompra(1);
+                insertKardex.setUnidadesOriginales(cantidadActual);
+                insertKardex.setUnidadesVendidas(lista.getCantidad());
+                // calcular el precio de venta
+                //obtener el la suma del precio de compra
+                String queryString = "SELECT SUM(fd.preciounitario) FROM Facturadet fd "
+                        + "WHERE fd.idproducto.idproducto = :idproducto AND "
+                        + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+                TypedQuery<Double> query = entity.createQuery(queryString, Double.class);
+
+                query.setParameter("idproducto", lista.getIdProducto());
+                Double sumaSubtotal = query.getSingleResult();
+
+                // conteo de la cantidad de veces que se ha comprado el producto
+                String queryStringKardex = "SELECT COUNT(fd) FROM Facturadet fd WHERE fd.idproducto.idproducto = :idproducto AND "
+                        + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+                TypedQuery<Long> queryKardex = entity.createQuery(queryStringKardex, Long.class);
+
+                queryKardex.setParameter("idproducto", lista.getIdProducto());
+                Long conteo = queryKardex.getSingleResult();
+
+                //calculo de precio y costo
+                double costopromedio = sumaSubtotal / conteo;
+                double ventaprecio = (sumaSubtotal / conteo) / (1 - calculoPrecio);
+                //iva inventario
+                double ivaInventario = (nuevaCantidad * costopromedio) * 0.12;
+
+                //insertar al inventario
+                inventario.setCantidad(nuevaCantidad);
+                inventario.setImpuestoinventario(ivaInventario);
+                inventario.setCoste(costopromedio);
+                inventario.setPrecioventa(ventaprecio);
+                entity.getTransaction().begin();
+                entity.persist(insertKardex);
+                entity.persist(inventario);
+                entity.getTransaction().commit();
+
+                System.out.println("Registrado con exito con exito");
+            }
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            flag = false;
+        }
+        return flag;
+    }
     //mostrar id del cliete
 
     public List<Cliente> listadoClientes() {
@@ -214,15 +304,14 @@ public class FacturasServicio {
                     System.out.println("ESTOY EN el if si existe el prdd en tabla ");
                     System.out.println("el tama;o de la lista es " + listaProdVenta.size());
                     totalFac = totalFac + subTotal;
-                    
+
                     // si existe entonces remplazamos el valor existente en la lista
-                    
                     int x = indexListTabla(idProducto, listaProdVenta);
-                    
+
                     existenciaprod.setCantidad(existenciaprod.getCantidad() + cantidad);
                     existenciaprod.setIva((existenciaprod.getCantidad() * existenciaprod.getPrecioUnitario()) * 0.12);
                     existenciaprod.setSubTotalD((existenciaprod.getCantidad() * existenciaprod.getPrecioUnitario()) + existenciaprod.getIva());
-                    
+
                     listaProdVenta.set(x, existenciaprod);
                     actualizarListYTotal = new FacturasCVUI(totalFac, listaProdVenta);
                     System.out.println("Suma de producto Exito");
@@ -258,6 +347,70 @@ public class FacturasServicio {
 
     }
 
+    //agregar productos a la lista venta
+    public FacturasCVUI agregarProductoCompra(int idProducto, int cantidad, double totalFac, double costo, List<FacturasCVUI> listaProdCompra) {
+        // List<FacturasCVUI> actualizarListYTotal = listaProdVenta;
+        System.out.println("ESTOY EN agregarProducto COn ID " + idProducto);
+        System.out.println("el tama;o de la lista es " + listaProdCompra.size());
+        FacturasCVUI actualizarListYTotal = null;
+        try {
+
+            //para validacion de existacia en las tablas
+            Inventario inventario = entity.find(Inventario.class, idProducto);
+
+            if (costo > 0 && cantidad != 0) {
+                //obtenenemos el precio unitario del producto
+                String nombreProd = inventario.getNombre();
+                //calculo del iva
+                double iva = (costo * cantidad) * 0.12;
+                //calculo del subtotal
+                double subTotal = (costo * cantidad) + iva;
+
+                FacturasCVUI existenciaprod = ProductoExistenteTablaLocal(idProducto, listaProdCompra);
+
+                //si ya existe el producto en la tabla local ingresa a este if
+                if (existenciaprod != null) {
+                    System.out.println("ESTOY EN el if si existe el prdd en tabla ");
+                    System.out.println("el tama;o de la lista es " + listaProdCompra.size());
+                    totalFac = totalFac + subTotal;
+
+                    // si existe entonces remplazamos el valor existente en la lista
+                    int x = indexListTabla(idProducto, listaProdCompra);
+
+                    existenciaprod.setCantidad(existenciaprod.getCantidad() + cantidad);
+                    existenciaprod.setIva((existenciaprod.getCantidad() * existenciaprod.getCostoproducto()) * 0.12);
+                    existenciaprod.setSubTotalD((existenciaprod.getCantidad() * existenciaprod.getCostoproducto()) + existenciaprod.getIva());
+
+                    listaProdCompra.set(x, existenciaprod);
+                    actualizarListYTotal = new FacturasCVUI(totalFac, listaProdCompra);
+                    System.out.println("Suma de producto Exito");
+                    // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suma de producto", "exito."));
+                }
+                //si el producto no esta en la lista lo insertamos como un nuevo registro
+                if (existenciaprod == null) {
+                    System.out.println("ESTOY en el if donde no existe el idProd en tabla ");
+                    System.out.println("el tama;o de la lista es " + listaProdCompra.size());
+                    totalFac = totalFac + subTotal;
+                    listaProdCompra.add(new FacturasCVUI(cantidad, iva, idProducto, subTotal, nombreProd, costo));
+                    actualizarListYTotal = new FacturasCVUI(totalFac, listaProdCompra);
+                    System.out.println("Agregado producto nuevo a la lista");
+//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "agregado a la lista", "Producto insertado con éxito."));
+                }
+
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "valor invalido o falta de inventario", "No se pudo insertar el producto."));
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR EN facturasServ agregar a tablaLocal " + e.getMessage());
+//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "No se pudo insertar el producto."));
+
+        }
+        return actualizarListYTotal;
+
+    }
+
     FacturasCVUI ProductoExistenteTablaLocal(int idProducto, List<FacturasCVUI> listaProdVenta) {
         //buscamos si el producto ya se encuentra en la lista
         FacturasCVUI productosV = null;
@@ -266,24 +419,24 @@ public class FacturasServicio {
         System.out.println("el tama;o de la lista es " + listaProdVenta.size());
         for (FacturasCVUI producto : listaProdVenta) {
             if (producto.getIdProducto() == idProducto) {
-               
+
                 productosV = producto;
                 break;
             }
         }
         return productosV;
     }
-    
-    int indexListTabla(int idProducto, List<FacturasCVUI> listaProdVenta){
+
+    int indexListTabla(int idProducto, List<FacturasCVUI> listaProdVenta) {
         int index = 0;
         for (FacturasCVUI producto : listaProdVenta) {
             if (producto.getIdProducto() == idProducto) {
-               
+
                 break;
             }
             index++;
         }
-         System.out.println("El producto se encuentra en el indice: " + index);
+        System.out.println("El producto se encuentra en el indice: " + index);
         return index;
     }
 }

@@ -33,6 +33,20 @@ import javax.inject.Inject;
 public class FacturasCVUI implements Serializable {
 
     /**
+     * @return the costoproducto
+     */
+    public double getCostoproducto() {
+        return costoproducto;
+    }
+
+    /**
+     * @param costoproducto the costoproducto to set
+     */
+    public void setCostoproducto(double costoproducto) {
+        this.costoproducto = costoproducto;
+    }
+
+    /**
      * @return the listaActualizada
      */
     public List<FacturasCVUI> getListaActualizada() {
@@ -404,7 +418,10 @@ public class FacturasCVUI implements Serializable {
     private double totalFac;
     private double subTotal;
 
-    
+    //VARIABLES PARA FACTURACOMPRA
+    private double costoproducto;
+    private int tipoFactura;
+
     @PostConstruct
     public void init() {
         MenuPrincipalUI login = new MenuPrincipalUI();
@@ -414,15 +431,16 @@ public class FacturasCVUI implements Serializable {
         getUltimaFactura();
         getProductosAll();
         getClienteCB();
+        this.costoproducto=0;
         listaActualizada = new ArrayList<FacturasCVUI>();
     }
     ///PRUEBAS
     private List<FacturasCVUI> listaActualizada;//lista para tabla local
 
-    public FacturasCVUI(){
-        
+    public FacturasCVUI() {
+
     }
-    
+
     //constructor para TablaventaDetalle
     public FacturasCVUI(Integer cantidad, double precioUnitario, double iva, Integer idProducto, double subTotalD, String nombreProducto) {
         this.cantidad = cantidad;
@@ -431,6 +449,16 @@ public class FacturasCVUI implements Serializable {
         this.idProducto = idProducto;
         this.subTotalD = subTotalD;
         this.nombreProducto = nombreProducto;
+    }
+
+    //constructor paraTablaCompraDetalle
+    public FacturasCVUI(Integer cantidad, double iva, Integer idProducto, double subTotalD, String nombreProducto, double costoproducto) {
+        this.cantidad = cantidad;
+        this.iva = iva;
+        this.idProducto = idProducto;
+        this.subTotalD = subTotalD;
+        this.nombreProducto = nombreProducto;
+        this.costoproducto = costoproducto;
     }
 
     public FacturasCVUI(double totalFac, List<FacturasCVUI> listaActualizada) {
@@ -452,13 +480,12 @@ public class FacturasCVUI implements Serializable {
         tipoPago.add(new SelectItem(2, "Tarjeta"));
     }
 
-    
-        public void getProductosAll() {
+    public void getProductosAll() {
         try {
             InventarioServicio inventarioServ = new InventarioServicio();
             productos = (inventarioServ.findAllProducto());
             productosItems = new ArrayList<>();
-             for (Inventario inven : productos) {
+            for (Inventario inven : productos) {
                 productosItems.add(new SelectItem(inven.getIdproducto(), inven.getNombre()));
 
             }
@@ -467,14 +494,12 @@ public class FacturasCVUI implements Serializable {
         }
     }
 
-    
-    
-     public void getClienteCB() {
+    public void getClienteCB() {
         try {
-              ClienteServicio clienteL = new ClienteServicio();
+            ClienteServicio clienteL = new ClienteServicio();
             clientes = clienteL.findAllCliente();
             clienteItems = new ArrayList<>();
-             for (Cliente cliente : clientes) {
+            for (Cliente cliente : clientes) {
                 clienteItems.add(new SelectItem(cliente.getIdcliente(), cliente.getNombreCliente()));
 
             }
@@ -499,9 +524,17 @@ public class FacturasCVUI implements Serializable {
 
     //METODOS PARA LA TABLALOCAL
     public void agregarProducto() {
-        
+
         FacturasServicio fac = new FacturasServicio();
         FacturasCVUI prodTabla = fac.agregarProducto(this.idProducto, this.cantidad, this.totalFac, listaActualizada);
+        listaActualizada = prodTabla.getListaActualizada();
+        totalFac = prodTabla.getTotalFac();
+    }
+
+    public void agregarProductoC() {
+        System.out.println("AGREGRA A LSITA");
+        FacturasServicio fac = new FacturasServicio();
+        FacturasCVUI prodTabla = fac.agregarProductoCompra(this.idProducto, this.cantidad, this.totalFac, this.costoproducto, listaActualizada);
         listaActualizada = prodTabla.getListaActualizada();
         totalFac = prodTabla.getTotalFac();
     }
@@ -523,12 +556,16 @@ public class FacturasCVUI implements Serializable {
     //METODO PARA GUARDAR FACTURAS
     public void insertFacturaC() {
         try {
-
+            if (listaActualizada.get(0).getCostoproducto() != 0) {
+                this.tipoFactura = 1;
+            } else {
+                this.tipoFactura = 2;
+            }
             System.out.println("valor total " + subTotal);
             FacturasServicio nuevaFactura = new FacturasServicio();
             if (!listaActualizada.isEmpty()) {
-                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, this.totalFac, this.tipo_pago, this.nit);
-                if ( idFacturaCab!= 0) {
+                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, this.totalFac, this.tipo_pago, this.nit, this.tipoFactura);
+                if (idFacturaCab != 0) {
                     //registradetalle
                     if (nuevaFactura.registroFacturaDet(idFacturaCab, listaActualizada)) {
                         //mensaje de todo tegistrado
@@ -557,6 +594,46 @@ public class FacturasCVUI implements Serializable {
         }
     }
 
-   
+    //METODO PARA GUARDAR FACTURAS
+    public void insertFacturaCOmpra() {
+        try {
+
+            System.out.println("valor total " + subTotal);
+            FacturasServicio nuevaFactura = new FacturasServicio();
+            if (!listaActualizada.isEmpty()) {
+                if (listaActualizada.get(0).getCostoproducto() != 0) {
+                    this.tipoFactura = 1;
+                } else {
+                    this.tipoFactura = 2;
+                }
+                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, this.totalFac, this.tipo_pago, this.nit, this.tipoFactura);
+                if (idFacturaCab != 0) {
+                    //registradetalle
+                    if (nuevaFactura.registroDBDetalleCompra(idFacturaCab, listaActualizada)) {
+                        //mensaje de todo tegistrado
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        this.setTotalFac(0);
+                        // Limpia la lista después de procesar los productos
+                        this.cantidad = 0;
+                        this.idProducto = 0;
+                        this.cantidad = 0;
+                        this.setTotalFac(0);
+                        listaActualizada.clear();
+                    }
+                } else {
+                    //nose pudo guardar facturaCab
+                }
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pude registar factura");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            System.out.println("error:  SAVE FACTURA " + e.getMessage());
+        }
+    }
 
 }
