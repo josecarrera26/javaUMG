@@ -57,18 +57,57 @@
                 <p:growl id="msg"/>
                 <!-- seccion de registro de Cliente -->
                 <p:tab  title="Nuevo Cliente">
-                    <p:panel id="pnlRegistroCliente" >
-
-                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 100%"> 
+                    <p:panel id="pnlRegistroCliente" header="Registro de Cliente" class="centerPnl" style="width: 40%"> 
+                        <div class="card" style="width: 100%">
+                            <div class="grid ui-fluid mt-3 floatlabel-demo">
+                                <p:splitter style="height: 420px" styleClass="mb-5">
+                                    <p:splitterPanel styleClass="flex align-items-center justify-content-center">  
+                                        <h:outputLabel id="lblNomCliente" value="Ingrese Nit y seleccione el nombre" />
+                                        <h5></h5>
+                                        <p:autoComplete id="nombre" style="width: 500px;" value="#{clienteUI.nombreCliente}"   completeMethod="#{clienteUI.completeText}" scrollHeight="250" >
+                                            <p:ajax event="itemSelect" listener="#{clienteUI.cambiarNombre}" update="Nit"/>
+                                        </p:autoComplete>                                        
+                                        <h5></h5>
+                                        <div class="col-12 md:col-6">                                   
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="Nit" value="#{clienteUI.nitCliente}" required="true" disabled="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="Nit de Cliente" styleClass="ml-4" />
+                                                </span>
+                                            </div>
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="TelCliente" value="#{clienteUI.telefonoCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="Teléfono" styleClass="ml-4" />
+                                                </span>
+                                            </div>
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="EmailCliente" value="#{clienteUI.emailCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="Email" styleClass="ml-4" />
+                                                </span>
+                                            </div>
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="direCliente" value="#{clienteUI.direccionCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="Dirección" styleClass="ml-4" />
+                                                </span>
+                                            </div>
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="dpiCliente" value="#{clienteUI.dpiCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="DPI" styleClass="ml-4" />
+                                                </span>
+                                            </div>
                             
-                            
-                                <p:autoComplete id="nombre" style="width: 250px;" value="#{clienteUI.nombreCliente}"   completeMethod="#{clienteUI.completeText}" scrollHeight="250" >
-                                    <p:ajax event="itemSelect" listener="#{clienteUI.cambiarNombre}" update="Nit"/>
-                                </p:autoComplete>
-                            
-                            <h:outputLabel id="lblNitCliente" value=" Nit:" />
+                            <!--<h:outputLabel id="lblNitCliente" value=" Nit:" />
                             <p:inputText id="Nit" value="#{clienteUI.nitCliente}" required="true" disabled="true" requiredMessage ="El campo no puede estar vacio" /> 
-
+                            
                             <h:outputLabel value=" " />  
                             <h:outputLabel value=" " />                              
 
@@ -80,7 +119,7 @@
 
                             <h:outputLabel id="lblEmailCliente" value=" Email:" />
                             <p:inputText id="EmailCliente" value="#{clienteUI.emailCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />                               
-
+                            
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " />
 
@@ -94,14 +133,15 @@
                             <p:inputText id="dpiCliente" value="#{clienteUI.dpiCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />
                             
                             <h:outputLabel value=" " />
-                            <h:outputLabel value=" " />
-
-                        </p:panelGrid >
-
+                            <h:outputLabel value=" " />-->
+                            </div>
+                            </p:splitterPanel>
+                                </p:splitter>
+                            </div>
                         <p:commandButton id="RegisterCliente" action="#{clienteUI.saveCliente()}"
-                                         value="Registrar Cliente" update="pnlRegistroCliente, msg, tablaCliente" ajax="true"  style=" margin-left: 600px" >
+                                         value="Registrar Cliente" update="pnlRegistroCliente, msg, tablaCliente" ajax="true"  style=" margin-left: 0px" >
                         </p:commandButton>
-
+                            </div>
                     </p:panel > 
 
                 </p:tab>
