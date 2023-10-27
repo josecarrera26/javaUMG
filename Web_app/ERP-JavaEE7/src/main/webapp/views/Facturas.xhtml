@@ -94,7 +94,7 @@
                                         <div class="field">
                                              <p:outputLabel id="lblNomCliente" value="Nombre Cliente "  for="@next"/>
                                             <br/>
-                                            <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturaCabUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
+                                            <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturasCVUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
                                                              style="width: 13rem;" panelStyle="width: 15rem">
                                                 <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
                                                 <f:selectItems value="#{facturasCVUI.clienteItems}" />
@@ -177,12 +177,9 @@
                                 <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                            <p:commandButton id="btnSaveFactura" value="Registrar Factura" 
-                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" >
-                                                 <f:actionListener binding="#{facturaCabUI.insertFacturaCab()}" />
-                                                <f:actionListener binding="#{facturasDET.registroFacturaDet()}" />
-                                               
-                                                </p:commandButton>
+                                            <p:commandButton id="btnSaveFactura" value="Registrar Factura" action="#{facturasCVUI.insertFacturaC()}"
+                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                                                
                                         </div>
                                     </div>
                                 </div>
@@ -204,8 +201,8 @@
 
                     <p:panel id="pnlFacturaDet" header="Detalle de factura" >
                         <p:growl id="msg"/>
-                        <p:inputText id="totalFac" value= " Q #{facturasDET.totalFac}" style="width: 250px;" disabled="true">Total Factura  </p:inputText>
-                        <p:dataTable id="productos" var="producto" value="#{facturasDET.mostrarListProd()}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
+                        <p:inputText id="totalFac" value= " Q #{facturasCVUI.totalFac}" style="width: 250px;" disabled="true">Total Factura  </p:inputText>
+                        <p:dataTable id="productos" var="producto" value="#{facturasCVUI.listaActualizada}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
 
 
                             <p:column headerText="Id Producto ">
@@ -224,10 +221,10 @@
                                 <h:outputText value="#{producto.iva}" />
                             </p:column>
                             <p:column headerText="Sub Total">
-                                <h:outputText value="#{producto.subTotal}" />
+                                <h:outputText value="#{producto.subTotalD}" />
                             </p:column>
                             <p:column headerText="Acciones">
-                                <p:commandButton icon="pi pi-trash" title="Eliminar" actionListener="#{facturasDET.eliminarProducto(index)}" update="frmFacturaCab"  process="@this" >
+                                <p:commandButton icon="pi pi-trash" title="Eliminar" actionListener="#{facturasCVUI.eliminarProductoTablaLocal(index)}" update="frmFacturaCab"  process="@this" >
                                     <f:attribute name="index" value="#{rowIndex}"/>
                                 </p:commandButton>
                             </p:column>

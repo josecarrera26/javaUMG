@@ -7,14 +7,19 @@ package com.umgprogra.erp.javaee7UI;
 import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Inventario;
+import com.umgprogra.erp.ui.services.ClienteServicio;
 import com.umgprogra.erp.ui.services.FacturasServicio;
+import com.umgprogra.erp.ui.services.InventarioServicio;
 import com.umgprogra.erp.util.SessionUser;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
@@ -24,7 +29,7 @@ import javax.inject.Inject;
  * @author madis
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FacturasCVUI implements Serializable {
 
     /**
@@ -373,8 +378,8 @@ public class FacturasCVUI implements Serializable {
     private List<SelectItem> clienteItems;
     private List<SelectItem> plazosPago;
     private List<SelectItem> tipoPago;
-    private List<Inventario> productos;
-    private List<SelectItem> productosItems;
+    private List<Inventario> productos;//lista para llenar cb
+    private List<SelectItem> productosItems;//lista que llena cb
 
     private int idFacturaCab;
     private Date fecha_registro;
@@ -390,8 +395,7 @@ public class FacturasCVUI implements Serializable {
     private int cantidad;
     //captura la ultima factura
     private int lastFactura;
-    
-    
+
     //variables de facturaDET
     private double precioUnitario;
     private double iva;
@@ -399,15 +403,28 @@ public class FacturasCVUI implements Serializable {
     private double subTotalD;
     private double totalFac;
     private double subTotal;
-    
-    ///PRUEBAS
-    
-    private List<FacturasCVUI> listaActualizada;
-    
-    
 
+    
+    @PostConstruct
+    public void init() {
+        MenuPrincipalUI login = new MenuPrincipalUI();
+        login.validarUsuario();
+        plazosPago();
+        tipopagos();
+        getUltimaFactura();
+        getProductosAll();
+        getClienteCB();
+        listaActualizada = new ArrayList<FacturasCVUI>();
+    }
+    ///PRUEBAS
+    private List<FacturasCVUI> listaActualizada;//lista para tabla local
+
+    public FacturasCVUI(){
+        
+    }
+    
     //constructor para TablaventaDetalle
-   public FacturasCVUI(Integer cantidad, double precioUnitario, double iva, Integer idProducto, double subTotalD, String nombreProducto) {
+    public FacturasCVUI(Integer cantidad, double precioUnitario, double iva, Integer idProducto, double subTotalD, String nombreProducto) {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.iva = iva;
@@ -415,13 +432,11 @@ public class FacturasCVUI implements Serializable {
         this.subTotalD = subTotalD;
         this.nombreProducto = nombreProducto;
     }
-   
-   public FacturasCVUI(double totalFac, List<FacturasCVUI> listaActualizada) {
+
+    public FacturasCVUI(double totalFac, List<FacturasCVUI> listaActualizada) {
         this.totalFac = totalFac;
         this.listaActualizada = listaActualizada;
     }
-   
-  
 
     //METODOS PARA LLEVAR LOS CBS
     public void plazosPago() {
@@ -436,37 +451,36 @@ public class FacturasCVUI implements Serializable {
         tipoPago.add(new SelectItem(1, "Efectivo"));
         tipoPago.add(new SelectItem(2, "Tarjeta"));
     }
+
     
-    public void getProductosAll() {
-
-        FacturasServicio prod = new FacturasServicio();
-        setProductos(prod.listadoProductos());
+        public void getProductosAll() {
         try {
-
-            for (Inventario inventario : getProductos()) {
-                productosItems.add(new SelectItem(inventario.getIdproducto(), inventario.getNombre()));
+            InventarioServicio inventarioServ = new InventarioServicio();
+            productos = (inventarioServ.findAllProducto());
+            productosItems = new ArrayList<>();
+             for (Inventario inven : productos) {
+                productosItems.add(new SelectItem(inven.getIdproducto(), inven.getNombre()));
 
             }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta para llenar lista de productos FacturasCVUI");
         }
-
     }
 
-    public void getClienteCB() {
-
-        FacturasServicio facturaServ = new FacturasServicio();
-        clientes = facturaServ.listadoClientes();
+    
+    
+     public void getClienteCB() {
         try {
-
-            for (Cliente cliente : clientes) {
+              ClienteServicio clienteL = new ClienteServicio();
+            clientes = clienteL.findAllCliente();
+            clienteItems = new ArrayList<>();
+             for (Cliente cliente : clientes) {
                 clienteItems.add(new SelectItem(cliente.getIdcliente(), cliente.getNombreCliente()));
 
             }
         } catch (Exception e) {
             System.out.println(e + "Error en llenar CB Cliente FacturaCab");
         }
-
     }
 
     //METODO PARA LLENAR EL IDFACTURA(SIRVE SOLO PARA LA VISTA)
@@ -482,64 +496,67 @@ public class FacturasCVUI implements Serializable {
             System.out.println("Mensaje: " + e.getMessage());
         }
     }
-    
+
     //METODOS PARA LA TABLALOCAL
-    public void agregarProducto(){
+    public void agregarProducto() {
+        
         FacturasServicio fac = new FacturasServicio();
         FacturasCVUI prodTabla = fac.agregarProducto(this.idProducto, this.cantidad, this.totalFac, listaActualizada);
         listaActualizada = prodTabla.getListaActualizada();
         totalFac = prodTabla.getTotalFac();
     }
-    
-    
-    
-    
-    //METODO PARA GUARDAR FACTURAS
-     public void insertFacturaCab() {
-        try {
-            System.out.println("valor total " + subTotal);
-            FacturasServicio nuevaFactura = new FacturasServicio();
-            nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, 0.00, this.tipo_pago, this.nit);
-                
-        } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
+
+    public void eliminarProductoTablaLocal(int index) {
+        if (index >= 0 && index < listaActualizada.size()) {
+            double subtotalAEliminar = listaActualizada.get(index).subTotal; // Obtén el subtotal del producto que se va a eliminar
+            listaActualizada.remove(index); // Elimina el producto de la lista
+
+            // Actualiza totalFac después de eliminar el producto
+            this.totalFac = totalFac - subtotalAEliminar;
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Producto eliminado con éxito."));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo eliminar el producto."));
         }
     }
-     
-      //registrar factura venta
-//    public void registroFacturaDet() {
-//        //FacturaDetServicio registroFac = new FacturaDetServicio();
-//        boolean exito = false;
-//        try {
-//            if (listadoproductos.isEmpty()) {
-//                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pudo registrar el producto");
-//                FacesContext.getCurrentInstance().addMessage(null, message);
-//            } else {
-//                for (FacturasDET lista : listadoproductos) {
-//                    Integer idProd = lista.getIdProducto();
-//                    Integer cantidadprod = lista.getCantidad();
-//                    exito = registroFac.registroFacturaDet(cantidadprod, idProd, getTotalFac());
-//
-//                }
-//                if (exito == true) {
-//                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
-//                    FacesContext.getCurrentInstance().addMessage(null, message);
-//                    this.setTotalFac(0);
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-//
-//        }
-//
-//        // Limpia la lista después de procesar los productos
-//        this.cantidad = 0;
-//        this.idProducto = 0;
-//        this.cantidad = 0;
-//        this.setTotalFac(0);
-//        listadoproductos.clear();
-//    }
+
+    //METODO PARA GUARDAR FACTURAS
+    public void insertFacturaC() {
+        try {
+
+            System.out.println("valor total " + subTotal);
+            FacturasServicio nuevaFactura = new FacturasServicio();
+            if (!listaActualizada.isEmpty()) {
+                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, this.totalFac, this.tipo_pago, this.nit);
+                if ( idFacturaCab!= 0) {
+                    //registradetalle
+                    if (nuevaFactura.registroFacturaDet(idFacturaCab, listaActualizada)) {
+                        //mensaje de todo tegistrado
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "Todos los productos registrados con éxito");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        this.setTotalFac(0);
+                        // Limpia la lista después de procesar los productos
+                        this.cantidad = 0;
+                        this.idProducto = 0;
+                        this.cantidad = 0;
+                        this.setTotalFac(0);
+                        listaActualizada.clear();
+                    }
+                } else {
+                    //nose pudo guardar facturaCab
+                }
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Listado vacio", "No se pude registar factura");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el producto");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            System.out.println("error:  SAVE FACTURA " + e.getMessage());
+        }
+    }
+
+   
 
 }
