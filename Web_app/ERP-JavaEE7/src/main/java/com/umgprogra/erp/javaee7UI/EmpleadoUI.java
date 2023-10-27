@@ -16,8 +16,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletRequest;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  *

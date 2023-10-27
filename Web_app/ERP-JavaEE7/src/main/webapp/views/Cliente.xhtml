@@ -52,22 +52,25 @@
                 </f:facet>
             </p:menubar>
         </h:form>
-
+        <h:form>
             <p:tabView dynamic="true">
                 <p:growl id="msg"/>
                 <!-- seccion de registro de Cliente -->
                 <p:tab  title="Nuevo Cliente">
                     <p:panel id="pnlRegistroCliente" >
-                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 65%">                           
 
-                            <h:outputLabel value=" " />
-                            <h:outputLabel value=" " />                               
+                        <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 100%"> 
+                            
+                            
+                                <p:autoComplete id="nombre" style="width: 250px;" value="#{clienteUI.nombreCliente}"   completeMethod="#{clienteUI.completeText}" scrollHeight="250" >
+                                    <p:ajax event="itemSelect" listener="#{clienteUI.cambiarNombre}" update="Nit"/>
+                                </p:autoComplete>
+                            
+                            <h:outputLabel id="lblNitCliente" value=" Nit:" />
+                            <p:inputText id="Nit" value="#{clienteUI.nitCliente}" required="true" disabled="true" requiredMessage ="El campo no puede estar vacio" /> 
 
-                            <h:outputLabel id="lblNomCliente" value=" Nombre del Cliente:" />
-                            <p:inputText id="nomCliente" value="#{clienteUI.nombreCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />     
-
-                            <h:outputLabel value=" " />
-                            <h:outputLabel value=" " />
+                            <h:outputLabel value=" " />  
+                            <h:outputLabel value=" " />                              
 
                             <h:outputLabel id="lblTelCliente" value=" Teléfono:" />
                             <p:inputText id="TelCliente" value="#{clienteUI.telefonoCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />     
@@ -77,12 +80,6 @@
 
                             <h:outputLabel id="lblEmailCliente" value=" Email:" />
                             <p:inputText id="EmailCliente" value="#{clienteUI.emailCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />                               
-
-                            <h:outputLabel value=" " />
-                            <h:outputLabel value=" " />
-
-                            <h:outputLabel id="lblnitCliente" value=" Nit:" />
-                            <p:inputText id="nitCliente" value="#{clienteUI.nitCliente}" required="true" requiredMessage ="El campo no puede estar vacio" /> 
 
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " />
@@ -180,7 +177,7 @@
                 </p:tab>
                 -->
             </p:tabView>
-
+            </h:form>
         <h:form>
             <p:panel>
                 <div class="layout-footer">

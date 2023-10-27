@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -27,6 +28,35 @@ import javax.inject.Named;
 @ManagedBean
 @ViewScoped
 public class ClienteUI implements Serializable {
+
+    /**
+     * @return the results
+     */
+    public List<Nit> getResults() {
+        return results;
+    }
+
+    /**
+     * @param results the results to set
+     */
+    public void setResults(List<Nit> results) {
+        this.results = results;
+    }
+
+
+    /**
+     * @return the nombreNit
+     */
+    public String getNombreNit() {
+        return nombreNit;
+    }
+
+    /**
+     * @param nombreNit the nombreNit to set
+     */
+    public void setNombreNit(String nombreNit) {
+        this.nombreNit = nombreNit;
+    }
 
     private Integer idCliente;
     private String nombreCliente;
@@ -42,13 +72,15 @@ public class ClienteUI implements Serializable {
 
     private Cuentacontable cuentacontable;
     private Cuentacontable idCuenta;
-    private Nit nombreNit;
+    private String nombreNit;
+    private List<Nit> results;
     private List<SelectItem> cuentaItems;
     private List<Cuentacontable> cuentas;
 
     private String idCuentaContable;
 
     ClienteServicio servicio = new ClienteServicio();
+    Nit service = new Nit();
 
 //Constructor de Cliente
     public ClienteUI(Integer idCliente, String nombreCliente, String telefonoCliente, String emailCliente, String nitCliente, String direccionCliente, String dpiCliente, String idcuenta) {
@@ -251,6 +283,15 @@ public class ClienteUI implements Serializable {
             System.err.println("Error al consultar");
         }
     }
+    
+    public void consultaNombreNit() {
+        try {
+            results = new ArrayList<>();
+            System.out.println("nitCliente buscado" + this.nitCliente);
+        } catch (Exception e) {
+            System.err.println("Error al consultar");
+        }
+    }
 
     public void findAllClienteUi() {
         try {
@@ -277,5 +318,39 @@ public class ClienteUI implements Serializable {
             System.out.println(e + "Error en consulta cuentas clase CuentasContablesUI");
         }
     }
+    
+    public List<String> completeText(String query) {
+        // String queryLowerCase = query.toLowerCase();
+        List<String> nitList = new ArrayList<>();
+
+        try {
+            int idBusqueda = Integer.parseInt(query);
+
+            Nit nitServ = new Nit();
+            String nit = nitServ.getNitApi(query);
+            nitList.add(nit);
+            nitCliente = query;
+        } catch (NumberFormatException e) {
+            e.getMessage();
+        }
+
+        return nitList;
+    }
+    
+    public void cambiarNombre(SelectEvent event) {
+        try {
+            String valorSeleccionado = (String) event.getObject();
+
+            nombreCliente = valorSeleccionado;
+            //codProducto = codProdAux;
+        } catch (Exception e) {
+            System.out.println("ENTRE AL AJAX");
+            e.getMessage();
+        }
+    }
+    
+//    public void getnombreNit(Nit nitCliente){
+//        System.out.println("Nombre en base al nit" + nombreCliente);
+//    }
 
 }
