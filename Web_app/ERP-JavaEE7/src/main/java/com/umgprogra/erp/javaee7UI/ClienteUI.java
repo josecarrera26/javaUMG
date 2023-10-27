@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -315,6 +316,36 @@ public class ClienteUI implements Serializable {
             }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta cuentas clase CuentasContablesUI");
+        }
+    }
+    
+    public List<String> completeText(String query) {
+        // String queryLowerCase = query.toLowerCase();
+        List<String> nitList = new ArrayList<>();
+
+        try {
+            int idBusqueda = Integer.parseInt(query);
+
+            Nit nitServ = new Nit();
+            String nit = nitServ.getNitApi(query);
+            nitList.add(nit);
+            nitCliente = query;
+        } catch (NumberFormatException e) {
+            e.getMessage();
+        }
+
+        return nitList;
+    }
+    
+    public void cambiarNombre(SelectEvent event) {
+        try {
+            String valorSeleccionado = (String) event.getObject();
+
+            nombreCliente = valorSeleccionado;
+            //codProducto = codProdAux;
+        } catch (Exception e) {
+            System.out.println("ENTRE AL AJAX");
+            e.getMessage();
         }
     }
     

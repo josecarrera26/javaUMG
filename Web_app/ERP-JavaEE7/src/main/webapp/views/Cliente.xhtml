@@ -61,12 +61,15 @@
 
                         <p:panelGrid id="pnlGridClientId" layout="grid" columns="4" style="width: 100%"> 
                             
-                            <h:outputLabel value=" " />
+                            
+                                <p:autoComplete id="nombre" style="width: 250px;" value="#{clienteUI.nombreCliente}"   completeMethod="#{clienteUI.completeText}" scrollHeight="250" >
+                                    <p:ajax event="itemSelect" listener="#{clienteUI.cambiarNombre}" update="Nit"/>
+                                </p:autoComplete>
+                            
+                            <h:outputLabel id="lblNitCliente" value=" Nit:" />
+                            <p:inputText id="Nit" value="#{clienteUI.nitCliente}" required="true" disabled="true" requiredMessage ="El campo no puede estar vacio" /> 
 
-                            <h:outputLabel id="lblnitCliente" value=" Nit:" />
-                            <p:inputText id="nitCliente" value="#{clienteUI.nitCliente}" required="true" requiredMessage ="El campo no puede estar vacio" />
-                            <p:commandButton type="button" icon="pi pi-search" styleClass="rounded-button ui-button-success" />
-
+                            <h:outputLabel value=" " />  
                             <h:outputLabel value=" " />                              
 
                             <h:outputLabel id="lblTelCliente" value=" Teléfono:" />

@@ -81,7 +81,7 @@ public class Nit {
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return e.getMessage();
+            return "No existe";
         }
     }
 }
