@@ -5,6 +5,9 @@
 
     <h:head>
         <title>Clientes</title>
+        <link type="text/css"
+              href="${facesContext.externalContext.requestContextPath}/resources/css/styleCliente.css"
+              rel="stylesheet" />
         <link rel="icon" href="../../resources/images/Logo.png"/>
         <h:outputStylesheet library="css" name="styleCliente.css"/>
     </h:head>
@@ -64,7 +67,7 @@
                                     <p:splitterPanel styleClass="flex align-items-center justify-content-center">  
                                         <h:outputLabel id="lblNomCliente" value="Ingrese Nit y seleccione el nombre" />
                                         <h5></h5>
-                                        <p:autoComplete id="nombre" style="width: 500px;" value="#{clienteUI.nombreCliente}"   completeMethod="#{clienteUI.completeText}" scrollHeight="250" >
+                                        <p:autoComplete id="nombre" style="width: 100%" value="#{clienteUI.nombreCliente}"   completeMethod="#{clienteUI.completeText}" scrollHeight="250" >
                                             <p:ajax event="itemSelect" listener="#{clienteUI.cambiarNombre}" update="Nit"/>
                                         </p:autoComplete>                                        
                                         <h5></h5>
