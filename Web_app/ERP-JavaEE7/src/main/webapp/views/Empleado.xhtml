@@ -11,7 +11,6 @@
     </h:head>
 
     <h:body>
-
         <h:form>
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
@@ -25,21 +24,16 @@
                         <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.roles()}"/>
                     </p:submenu>
                 </p:submenu>
-
-
                 <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
                     <p:menuitem value="Cliente" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.cliente()}"/>
                     <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
                     <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
                 </p:submenu>
-
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
                     <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
-
                         <p:menuitem value="Editar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioE()}" rendered="#{sessionU.flag}" /> 
-
                     </p:submenu>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
@@ -54,6 +48,10 @@
                 </f:facet>
             </p:menubar>
         </h:form>
+        <p:menubar>
+            <p:menuitem id="registrar" action="#{usuarioUI.registrarseFRM()}"
+                             value="Registrar Usuario" icon="pi pi-user-plus"/>
+        </p:menubar>
         <h:form>
             <p:tabView dynamic="true">
                 <p:growl id="msg"/>
@@ -159,19 +157,6 @@
                     </div> 
                 </p:tab>                   
 
-                <!--<p:tab  title ="Eliminar">
-                
-                     seccion de eliminacion de Cliente
-               
-                    <p:panel id="pnlElimCliente" header="Eliminar cliente">
-                        <h:outputLabel id="lblElimCliente" value="Ingrese el ID" />
-                        <span class="ui-input-icon-left">
-                            <i class="pi pi-search" />
-                            <p:inputText id="eliminacionCliente" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                        </span>
-                    </p:panel>
-                </p:tab>
-                -->
             </p:tabView>            
 
             <h:form>

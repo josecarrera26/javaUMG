@@ -8,10 +8,10 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
+        <link rel="icon" href="./resources/images/Logo.png"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>Login</title>
         <link rel="stylesheet" media="screen" href="../resources/css/styleHeader.css" type="text/css" />
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
 
     <h:body>
@@ -23,39 +23,44 @@
 
 
         <h:form id="loginForm">
-            <p:growl id="msg" showDetail="true" life="5000" />
+            <p:growl id="msgLogin" showDetail="true" life="5000" />
+            <center>
+                <p:panel id="loginPnl" header="Inicio de Sesion"
+                         style= "width: 500px; height: 600px; margin: auto">
+                    <h:panelGrid id="loginPanel" columns="3" cellpadding="10">
+                        <p:spacer/>
+                        <center>
+                            <h:outputText value="Username" />
+                            <p:spacer/>
+                            <p:spacer/>
+                            <p:inputText id="username" value="#{usuarioUI.username}"></p:inputText>
+                            <p:spacer/>
+                            <p:spacer/>
+                            <h:outputText value="Password" />
+                            <p:spacer/>
+                            <p:spacer/>
+                            <p:password id="password" value="#{usuarioUI.password}" toggleMask="true" redisplay="true"/>
+                            <p:message for="password"></p:message>   
+                        </center>
 
-            <p:panel id="loginPnl" header="Inicio de Sesion"
-                     style= "width: 500px; height: 600px; margin: auto">
-                <h:panelGrid id="loginPanel" columns="2" cellpadding="10">
-                    <h:outputText value="Username" />
-                    <p:inputText id="username" value="#{usuarioUI.username}"></p:inputText>
-                    <p:spacer/>
-                    <p:spacer/>
-                    <h:outputText value="Password" />
-                    <p:password id="password" value="#{usuarioUI.password}" toggleMask="true" redisplay="true"/>
-                    <p:message for="password"></p:message>   
-                </h:panelGrid>
+                    </h:panelGrid>
 
-                <h:panelGrid columns="2" cellpadding="10" width="100%">
+                    <h:panelGrid columns="2" cellpadding="10" width="100%">
+                        <center>
+                            <p:commandButton id="loginButton" action="#{usuarioUI.GetUsuario}"
+                                             value="Iniciar Sesion" update="loginForm,msgLogin,loginPnl,loginPanel" ajax="true" style="float: left; margin-left: 150px" icon="pi pi-user">
+                            </p:commandButton>
+                        </center>
+                    </h:panelGrid>
 
-                    <p:commandButton id="loginButton" action="#{usuarioUI.GetUsuario}"
-                                     value="Iniciar Sesion" update="loginForm,msg,loginPnl,loginPanel" ajax="true" style="float: left; margin-left: 150px" icon="pi pi-user">
-                    </p:commandButton>
+                    <center>
+                        <div class="contenedor" style="margin-left: 150px">
+                            <p:graphicImage name="Logo.png" library="images" styleClass="logo" style="margin-right: 120px;width: 100px"/>
+                        </div>
+                    </center>
 
-                    <p:spacer/>
-                    <p:spacer/>
-
-                </h:panelGrid>
-
-                <center>
-                    <div class="contenedor" style="margin-left: 150px">
-                        <p:graphicImage name="Logo.png" library="images" styleClass="logo" style="margin-right: 120px;width: 100px"/>
-                    </div>
-                </center>
-
-            </p:panel>
-
+                </p:panel>
+            </center>
         </h:form>
     </h:body>
 </html>
