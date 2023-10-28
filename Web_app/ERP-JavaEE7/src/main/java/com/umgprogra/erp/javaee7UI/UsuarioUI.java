@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -30,6 +31,7 @@ import org.primefaces.model.DialogFrameworkOptions;
  * @author hccon
  */
 @ManagedBean
+@ViewScoped
 @SessionScoped
 public class UsuarioUI implements Serializable {
 
@@ -268,7 +270,7 @@ public class UsuarioUI implements Serializable {
                 .contentWidth("100%")
                 .resizeObserver(true)
                 .resizeObserverCenter(true)
-                .resizable(false)
+                .resizable(true)
                 .styleClass("max-w-screen")
                 .iframeStyleClass("max-w-screen")
                 .build();

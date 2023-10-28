@@ -7,6 +7,7 @@ package com.umgprogra.erp.ui.services;
 import com.umgprogra.erp.DAO.Cuentacontable;
 import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.DAO.Proveedor;
+import com.umgprogra.erp.javaee7UI.ProveedoresUI;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ProveedoreServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public boolean registrarProveedor(String nombreProv, String direccionProv, Integer telefonoProv, String regimenProv, String emailProv, Cuentacontable idCuenta ) {
+    public boolean registrarProveedor(String nombreProv, String direccionProv, Integer telefonoProv, String regimenProv, String emailProv, Cuentacontable idCuenta) {
         boolean exito = false;  // Inicialmente, asumimos que la operación fallará
 
         try {
@@ -73,13 +74,14 @@ public class ProveedoreServicio {
 
         return resultList;
     }
-public List<Proveedor> finderidProveedorById(Integer idProveedor) {
+
+    public List<Proveedor> finderidProveedorById(Integer idProveedor) {
         List<Proveedor> resultList = new ArrayList<>();
         try {
             System.out.println("metodo DB findbyidProveedor");
             System.out.println("idProveedor" + idProveedor);
             Query query = entity.createNamedQuery("Cliente.findByIdProveedor", Proveedor.class)
-                .setParameter("idproveedor", idProveedor);
+                    .setParameter("idproveedor", idProveedor);
             //resultado
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
@@ -90,8 +92,34 @@ public List<Proveedor> finderidProveedorById(Integer idProveedor) {
         } catch (Exception e) {
             System.err.println("Error en findbyIdCliente " + e.getMessage());
         }
-    
+
         return resultList;
 
+    }
+
+    public void actualizarProveedor(String nombre, String direccion, Integer telefono, String regimen, String email, Cuentacontable cuenataContable, String estado) {
+        Proveedor proveedor = new Proveedor();
+        String telefonoProveedorStr = telefono.toString();
+        Query query = entity.createNamedQuery("Proveedor.findByNombreProveedor", Proveedor.class)
+                .setParameter("nombreProveedor", nombre);
+
+        proveedor = (Proveedor) query.getSingleResult();
+
+        Integer idProveedor = proveedor.getIdproveedor();
+
+        Proveedor updateProveedor = new Proveedor();
+
+        updateProveedor.setIdproveedor(idProveedor);
+        updateProveedor.setNombreProveedor(nombre);
+        updateProveedor.setDireccion(direccion);
+        updateProveedor.setTelefono(telefonoProveedorStr);
+        updateProveedor.setRegimenProveedor(regimen);
+        updateProveedor.setEmailProveedor(email);
+        updateProveedor.setIdcuentacontable(cuenataContable);
+        updateProveedor.setEstado(estado);
+        entity.getTransaction().begin();
+        entity.merge(updateProveedor);
+        entity.getTransaction().commit();
+        System.out.println("Proveedor actualizado");
     }
 }

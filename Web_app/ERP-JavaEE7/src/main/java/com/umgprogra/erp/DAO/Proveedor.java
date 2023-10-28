@@ -40,6 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proveedor.findByEmailProveedor", query = "SELECT p FROM Proveedor p WHERE p.emailProveedor = :emailProveedor")})
 public class Proveedor implements Serializable {
 
+    @Size(max = 2147483647)
+    @Column(name = "estado")
+    private String estado;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -167,6 +171,14 @@ public class Proveedor implements Serializable {
     @Override
     public String toString() {
         return "com.umgprogra.erp.DAO.Proveedor[ idproveedor=" + idproveedor + " ]";
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

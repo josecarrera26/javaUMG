@@ -13,43 +13,37 @@
 
     <h:body>
 
-        <h:form>
+                <h:form>
             <p:menubar>
-                <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                </p:submenu>
-                <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
-                    <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.roles()}"/>
-                    </p:submenu>
+                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+
+                <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
+                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
-
-                <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
+                <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
                     <p:menuitem value="Cliente" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.cliente()}"/>
-                    <p:menuitem value="Factura Venta" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
-                    <p:menuitem value="Factura Compra" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturasCompra()}"/>
-                    <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
+                    <p:menuitem value="Factura Venta" icon="pi pi-fw pi-file-export" actionListener="#{menuPrincipalUI.facturas()}"/>
+                    <p:menuitem value="Factura Compra" icon="pi pi-fw pi-file-import" actionListener="#{menuPrincipalUI.facturasCompra()}"/>
                 </p:submenu>
 
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
                     <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
-
                         <p:menuitem value="Editar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioE()}" rendered="#{sessionU.flag}" /> 
-
                     </p:submenu>
+                    <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
                         <i class="pi pi-fw pi-user"/>
                         <p:outputLabel value="      "/>
-                        <p:outputLabel value="#{menuPrincipalUI.username}"/>
+                        <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="      "/>
                         <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{menuPrincipalUI.logout()}" id="btnLogout"/>

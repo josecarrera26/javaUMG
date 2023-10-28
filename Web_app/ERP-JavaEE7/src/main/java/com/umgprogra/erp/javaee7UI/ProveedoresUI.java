@@ -198,6 +198,12 @@ public class ProveedoresUI implements Serializable {
         }
         return idCuenta;
     }
+    
+    public void updateProveedor(){
+        ProveedoreServicio actualizarProveedor = new ProveedoreServicio();
+        actualizarProveedor.actualizarProveedor(this.nombreProveedor, this.direccionProveedor, this.telefonoProveedor, this.regimenProvedor, this.emailProveedor, getCuenta(), "Activo");
+
+    }
 
     @PostConstruct
     public void init() {
@@ -206,12 +212,5 @@ public class ProveedoresUI implements Serializable {
     }
 
     public void consultaCliente() {
-//        try {
-//            setResultados(new ArrayList<>());
-//            System.out.println("idCliente buscado" + this.idProveedor);
-//            setResultados(servicio.finderidProveedorById(idProveedor));
-//        } catch (Exception e) {
-//            System.err.println("Error al consultar");
-//        }
     }
 }
