@@ -11,7 +11,7 @@
     </h:head>
     <h:body id="inventario">
 
-       <h:form>
+        <h:form>
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
@@ -55,7 +55,10 @@
                 </f:facet>
             </p:menubar>
         </h:form>
-
+        <p:menubar>
+            <p:menuitem id="cambiarEstadoProd" action="#{inventarioUI.eliminarProducto()}"
+                        value="Eliminar Producto" icon="pi pi-user-plus" rendered="#{sessionU.flag}"/>
+        </p:menubar>
 
         <h:form id="idFormInventario">
             <p:tabView dynamic="false" >
@@ -65,7 +68,7 @@
 
                             <div class="ui-fluid">
                                 <div class="field">
-                                    
+
                                     <h:outputLabel id="lblIdProducto" value="Buscar producto (ingrese Codigo)" />
                                     <div style="display: flex; flex-direction: column;">
                                         <p:autoComplete id="descripcion" style="width: 250px;" value="#{inventarioUI.nombre}"   completeMethod="#{inventarioUI.completeText}" scrollHeight="250" >

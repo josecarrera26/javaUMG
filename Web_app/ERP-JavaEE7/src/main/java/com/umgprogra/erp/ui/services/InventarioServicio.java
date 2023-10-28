@@ -75,8 +75,23 @@ public class InventarioServicio {
         }
         return g;
     }
-    
-      public Boolean EditarProducto(String nombre, String tipoComercializacion, String modelo, String unidadM, double coste, int margenGanancia, Marca idmarca, Linea idlinea, Grupoproducto idgrupoproducto, Proveedor idproveedor, Cuentacontable idCuenta, double precio,int estado, int codProducto, double impuesto_Inventario, int cantidad) {
+
+    public boolean eliminarProd(int estado, int idProd) {
+        boolean g = false;
+        try {
+            Inventario inventario = entity.find(Inventario.class, idProd);
+            inventario.setEstado(estado);
+            entity.getTransaction().begin();
+            entity.merge(inventario);
+            entity.getTransaction().commit();
+            g = true;
+        } catch (Exception e) {
+            g = false;
+        }
+        return g;
+    }
+
+    public Boolean EditarProducto(String nombre, String tipoComercializacion, String modelo, String unidadM, double coste, int margenGanancia, Marca idmarca, Linea idlinea, Grupoproducto idgrupoproducto, Proveedor idproveedor, Cuentacontable idCuenta, double precio, int estado, int codProducto, double impuesto_Inventario, int cantidad) {
         boolean g = false;
         try {
             Inventario inventario = entity.find(Inventario.class, codProducto);

@@ -1,0 +1,63 @@
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Eliminar Producto</title>
+        <link rel="stylesheet" media="screen" href="../resources/css/styleHeader.css" type="text/css" />
+        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <link 
+            href="${facesContext.externalContext.requestContextPath}/resources/css/styleFernando.css"
+            rel="stylesheet" />
+    </h:head>
+
+    <h:body>
+        <h:form id="formEliminarProd">
+            <p:growl id="msgReg"   />
+            <p:tab  title="Eliminar">
+                <center>
+                    <p:panel id="pnlEliminarProd" header="Eliminar Producto" class="centerPnl" >
+                        <p:panelGrid id="pnlGridProdE" layout="grid" columns="2" style="width: 100%" >
+                            <div class="card">
+
+                                <div class="ui-fluid">
+                                    <div class="field">
+
+                                        <h:outputLabel id="lblIdProducto" value="Buscar producto (ingrese Codigo)" />
+                                        <div style="display: flex; flex-direction: column;">
+                                            <p:autoComplete id="descripcion" style="width: 250px;" value="#{inventarioUI.nombre}"   completeMethod="#{inventarioUI.completeText}" scrollHeight="250" >
+                                                <p:ajax event="itemSelect" listener="#{inventarioUI.cambiarNombre}" update="idProducto"/>
+                                            </p:autoComplete>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="grid">
+                                    <div class="col-5 flex align-items-center justify-content-center">
+                                        <div class="ui-fluid">
+                                            <div class="field">
+                                                <h:outputLabel id="lblIdDes" value="Codigo Producto" />
+                                                <p:inputText id="idProducto" value="#{inventarioUI.codProducto}" disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:panelGrid >
+
+                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2">
+                            <p:commandButton id="btnRegEmp" update="formEliminarProd,msgReg,pnlEliminarProd" value="Eliminar Producto" actionListener ="#{inventarioUI.eliminarProductoDB()}"
+                                             icon="pi pi-check" styleClass="rounded-button" />
+                        </p:panelGrid>
+                    </p:panel > 
+                </center>
+            </p:tab>               
+        </h:form>
+    </h:body>
+</html>
