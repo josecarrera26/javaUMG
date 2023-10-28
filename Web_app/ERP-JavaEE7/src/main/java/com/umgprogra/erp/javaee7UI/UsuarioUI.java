@@ -34,6 +34,20 @@ import org.primefaces.model.DialogFrameworkOptions;
 public class UsuarioUI implements Serializable {
 
     /**
+     * @return the estadoEmpleado
+     */
+    public String getEstadoEmpleado() {
+        return estadoEmpleado;
+    }
+
+    /**
+     * @param estadoEmpleado the estadoEmpleado to set
+     */
+    public void setEstadoEmpleado(String estadoEmpleado) {
+        this.estadoEmpleado = estadoEmpleado;
+    }
+
+    /**
      * @return the todosRolesItems
      */
     public List<SelectItem> getTodosRolesItems() {
@@ -123,6 +137,7 @@ public class UsuarioUI implements Serializable {
     private String password;
     private Integer role;
     private Integer idEmpleado;
+    private String estadoEmpleado;
 
     private List<Roles> roles;
     private List<SelectItem> todosRolesItems;
@@ -246,8 +261,18 @@ public class UsuarioUI implements Serializable {
 
     public void registrarseFRM() {
         DialogFrameworkOptions options = DialogFrameworkOptions.builder()
-                .resizable(true)
+                 .modal(true)
+                .fitViewport(true)
+                .responsive(true)
+                .width("900px")
+                .contentWidth("100%")
+                .resizeObserver(true)
+                .resizeObserverCenter(true)
+                .resizable(false)
+                .styleClass("max-w-screen")
+                .iframeStyleClass("max-w-screen")
                 .build();
+        
         System.out.println("Se crean las opciones del dialog");
         PrimeFaces.current().dialog().openDynamic("registrarUsuario", options, null);
         System.out.println("Se crean las el dialog");
@@ -296,7 +321,7 @@ public class UsuarioUI implements Serializable {
     
     public void actualizarUsuario(){
     UsuarioServicio actualizar = new UsuarioServicio();
-    actualizar.actualizarUsuario(this.password, this.username, this.role, this.idEmpleado);
+    actualizar.actualizarUsuario(this.password, this.username, this.role, this.idEmpleado, this.estadoEmpleado);
     PrimeFaces.current().dialog().closeDynamic("registrarUsuario");
     }
 }

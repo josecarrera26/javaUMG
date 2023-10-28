@@ -8,6 +8,7 @@ import com.umgprogra.erp.DAO.Cargoempleado;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -15,6 +16,7 @@ import javax.persistence.Query;
  *
  * @author josel
  */
+@ViewScoped
 public class CargosServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -29,6 +31,31 @@ public class CargosServicio {
             entity.persist(cargo);
             entity.getTransaction().commit();
             return "Cargo creado Exitosamente";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+    
+    public String updateCargo(String pNombreCargo, Double pSueldo) {
+        try {
+            
+            Cargoempleado cargoQuery = new Cargoempleado();
+            Cargoempleado cargo = new Cargoempleado();
+             Query query2 = entity.createNamedQuery("Cargoempleado.findByNombreCargo", Cargoempleado.class)
+                    .setParameter("nombreCargo", pNombreCargo);
+
+            cargoQuery = (Cargoempleado) query2.getSingleResult();
+            
+            Integer idCargo = cargoQuery.getIdcargo();
+                        
+            cargo = entity.find(Cargoempleado.class, idCargo);
+            
+            cargo.setSalario(pSueldo);
+
+            entity.getTransaction().begin();
+            entity.merge(cargo);
+            entity.getTransaction().commit();
+            return "Cargo actualizado Exitosamente";
         } catch (Exception e) {
             return e.getMessage();
         }

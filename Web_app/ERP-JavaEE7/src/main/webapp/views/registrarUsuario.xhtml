@@ -39,6 +39,12 @@
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItems value="#{usuarioUI.empleadosItems}"/>
                             </p:selectOneMenu>
+                            <h:outputLabel id="lblEstado" value="Estado" />
+                            <p:selectOneMenu id="estado" class="combo" value="#{usuarioUI.estadoEmpleado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 100%">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                            </p:selectOneMenu>
                         </p:panelGrid >
 
                         <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2">

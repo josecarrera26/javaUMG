@@ -60,6 +60,7 @@
                 <h:form id="frmCargo">
                     <p:tabView dynamic="true">
                         <p:tab title="Nuevo Cargo">
+                            <center>
                             <p:panel id="pnlCargo" header="Registar cargo" style="width: 100%">
 
                                 <div class="card">
@@ -86,17 +87,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
-                                    <p:commandButton id="btnRegistro" value="Registar" action="#{cargoUI.crearCargo()}" style="width: 50%"
-                                                     update="pnlCargo"  />
-                                </p:panelGrid>
-
+                                
+                                    <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
+                                        <p:commandButton id="btnRegistro" value="Registar" action="#{cargoUI.crearCargo()}" style="width: 50%"
+                                                         update="pnlCargo,dtCargos"  />
+                                        <p:commandButton id="btnActualizar" value="Actualizar" action="#{cargoUI.updateCargo()}" style="width: 50%"
+                                                         update="pnlCargo, dtCargos"  />
+                                    </p:panelGrid>
+                                
                             </p:panel>
+                            </center>
                             <p:dataTable id="dtCargos" var="cargos" value="#{cargoUI.cargos}" rowKey="#{cargoUI.idCargo}" selectionMode="single">
                                 <f:facet name="header">
                                     Cargos
                                 </f:facet>
-                                <p:column headerText="Codigo Cargo">
+                                <p:column headerText="Codigo Cargo" sortBy="cargos.idcargo">
                                     <h:outputText value="#{cargos.idcargo}" />
                                 </p:column>
                                 <p:column headerText="Nombre del Cargo">
@@ -104,7 +109,7 @@
                                 </p:column>
                                 <p:column headerText="Salario Q">
                                     <h:outputText value="#{cargos.salario}">
-                                    <f:convertNumber pattern="#,##0.00" />
+                                        <f:convertNumber pattern="#,##0.00" />
                                     </h:outputText>
                                 </p:column>
                             </p:dataTable>
