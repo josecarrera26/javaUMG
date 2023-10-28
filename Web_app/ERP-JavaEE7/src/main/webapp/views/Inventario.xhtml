@@ -11,18 +11,11 @@
     </h:head>
     <h:body id="inventario">
 
-        <h:form>
+       <h:form>
             <p:menubar>
                 <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
                     <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
                 </p:submenu>
-
-                <p:submenu label="Usuarios" icon="pi pi-fw pi-user">
-                    <p:menuitem value="Registrarse" icon="pi pi-fw pi-user-plus" url="./registrarUsuario.xhtml"/>
-                    <p:menuitem value="Iniciar Sesion" icon="pi pi-fw pi-user-minus" url="http://localhost:8080/ERP-JavaEE7/"/>
-                </p:submenu>
-
-
                 <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
                     <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
                     <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
@@ -35,7 +28,8 @@
 
                 <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
                     <p:menuitem value="Cliente" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.cliente()}"/>
-                    <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
+                    <p:menuitem value="Factura Venta" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
+                    <p:menuitem value="Factura Compra" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturasCompra()}"/>
                     <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
                 </p:submenu>
 
@@ -52,11 +46,12 @@
                 <f:facet name="options">
                     <div class="mr-2">
                         <i class="pi pi-fw pi-user"/>
+                        <p:outputLabel value="      "/>
                         <p:outputLabel value="#{menuPrincipalUI.username}"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="      "/>
                         <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{menuPrincipalUI.logout()}" id="btnLogout"/>
-                    </div>
+                    </div>          
                 </f:facet>
             </p:menubar>
         </h:form>

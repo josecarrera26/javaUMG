@@ -30,7 +30,8 @@
 
                 <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
                     <p:menuitem value="Cliente" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.cliente()}"/>
-                    <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
+                    <p:menuitem value="Factura Venta" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
+                    <p:menuitem value="Factura Compra" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturasCompra()}"/>
                     <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
                 </p:submenu>
 
@@ -47,11 +48,12 @@
                 <f:facet name="options">
                     <div class="mr-2">
                         <i class="pi pi-fw pi-user"/>
+                        <p:outputLabel value="      "/>
                         <p:outputLabel value="#{menuPrincipalUI.username}"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="      "/>
                         <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{menuPrincipalUI.logout()}" id="btnLogout"/>
-                    </div>
+                    </div>          
                 </f:facet>
             </p:menubar>
         </h:form>
