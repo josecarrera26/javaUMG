@@ -10,6 +10,7 @@ import com.umgprogra.erp.DAO.Facturacab;
 import com.umgprogra.erp.DAO.Facturadet;
 import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.DAO.Kardex;
+import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.javaee7UI.FacturasCVUI;
 import com.umgprogra.erp.util.JpaUtil;
 import com.umgprogra.erp.util.SessionUser;
@@ -166,7 +167,7 @@ public class FacturasServicio {
 
     //metodo para registrar la factura compra
     public boolean registroDBDetalleCompra(int idFactura, List<FacturasCVUI> producto) throws ParseException {
-         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
         //preparacion de ingreso de fecha
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime ahora = LocalDateTime.now();
@@ -176,13 +177,13 @@ public class FacturasServicio {
         boolean flag = false;
 
         try {
-        
+
             TypedQuery<Integer> queryIdFac = entityManager.createQuery(
                     "SELECT MAX(f.idfactura) FROM Facturacab f", Integer.class);
 
             // Ejecutar la consulta y obtener el resultado
             Integer maxIdFactura = queryIdFac.getSingleResult();
-            
+
             Facturacab facturaCab = entity.find(Facturacab.class, idFactura);
             for (FacturasCVUI lista : producto) {
                 Inventario inventario = entity.find(Inventario.class, lista.getIdProducto());
@@ -198,7 +199,7 @@ public class FacturasServicio {
 
                 //cantidad original
                 int cantidadActual = inventario.getCantidad();
-                
+
                 entity.getTransaction().begin();
 
                 //inciamos el insert a las tablas
@@ -222,10 +223,10 @@ public class FacturasServicio {
                 insertKardex.setUnidadesVendidas(lista.getCantidad());
                 // calcular el precio de venta
                 //obtener el la suma del precio de compra
-               String queryString = "SELECT SUM(fd.preciounitario) FROM Facturadet fd "
-                    + "WHERE fd.idproducto.idproducto = :idproducto AND "
-                    + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
-                
+                String queryString = "SELECT SUM(fd.preciounitario) FROM Facturadet fd "
+                        + "WHERE fd.idproducto.idproducto = :idproducto AND "
+                        + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+
                 TypedQuery<Double> query = entity.createQuery(queryString, Double.class);
 
                 query.setParameter("idproducto", lista.getIdProducto());
@@ -233,7 +234,7 @@ public class FacturasServicio {
 
                 // conteo de la cantidad de veces que se ha comprado el producto
                 String queryStringKardex = "SELECT COUNT(fd) FROM Facturadet fd WHERE fd.idproducto.idproducto = :idproducto AND "
-                    + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+                        + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
                 TypedQuery<Long> queryKardex = entity.createQuery(queryStringKardex, Long.class);
 
                 queryKardex.setParameter("idproducto", lista.getIdProducto());
@@ -248,11 +249,10 @@ public class FacturasServicio {
                 //iva inventario
                 double ivaInventario = (nuevaCantidad * costopromedio) * 0.12;
 
-
                 inventario.setImpuestoinventario(ivaInventario);
                 inventario.setCoste(costopromedio);
                 inventario.setPrecioventa(ventaprecio);
-                
+
                 entity.persist(insertKardex);
                 entity.persist(inventario);
                 entity.getTransaction().commit();
@@ -452,4 +452,54 @@ public class FacturasServicio {
         System.out.println("El producto se encuentra en el indice: " + index);
         return index;
     }
+
+    //lista de proveedores
+    public List<Proveedor> findIdAndName() {
+        List<Proveedor> resultList = new ArrayList<>();
+        try {
+            Query query = entity.createNamedQuery("Proveedor.findIdAndName");
+            List<Object[]> result = query.getResultList();
+            if (result != null && !result.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+                for (Object[] results : result) {
+                    int idProveedor = (int) results[0];
+                    String nombreProveedor = (String) results[1];
+                    Proveedor proveedor = new Proveedor(idProveedor, nombreProveedor);
+                    resultList.add(proveedor);
+                }
+            } else {
+                System.out.println("No se encontraron Proveedores");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findAllPro " + e.getMessage());
+        }
+
+        return resultList;
+
+    }
+    //lista de productos
+    public List<Inventario> findIdAndNameProd() {
+        List<Inventario> resultList = new ArrayList<>();
+        try {
+            Query query = entity.createNamedQuery("Inventario.findIdAndNombre");
+            List<Object[]> result = query.getResultList();
+            if (result != null && !result.isEmpty()) {
+                System.out.println("Log#: Resultado de la consulta:");
+                for (Object[] results : result) {
+                    int idProducto = (int) results[0];
+                    String nombreproducto = (String) results[1];
+                    Inventario inventario = new Inventario(idProducto, nombreproducto);
+                    resultList.add(inventario);
+                }
+            } else {
+                System.out.println("No se encontraron Proveedores");
+            }
+        } catch (Exception e) {
+            System.err.println("Error en findAllPro " + e.getMessage());
+        }
+
+        return resultList;
+
+    }
+    
 }

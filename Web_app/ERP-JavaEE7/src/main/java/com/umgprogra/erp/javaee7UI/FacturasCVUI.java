@@ -7,6 +7,7 @@ package com.umgprogra.erp.javaee7UI;
 import com.umgprogra.erp.DAO.Cliente;
 import com.umgprogra.erp.DAO.Empleado;
 import com.umgprogra.erp.DAO.Inventario;
+import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.ui.services.ClienteServicio;
 import com.umgprogra.erp.ui.services.FacturasServicio;
 import com.umgprogra.erp.ui.services.InventarioServicio;
@@ -382,11 +383,38 @@ public class FacturasCVUI implements Serializable {
         this.lastFactura = lastFactura;
     }
 
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public List<SelectItem> getProveedorItems() {
+        return proveedorItems;
+    }
+
+    public void setProveedorItems(List<SelectItem> proveedorItems) {
+        this.proveedorItems = proveedorItems;
+    }
+
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(List<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+    
+    
+
     //FACTURACABVARIABLES
     //variables para llenarCBS
     private String nombreCliente;
     private int plazos_pago;
     private int idCliente;
+    private int idProveedor;
     private int tipo_pago;
     private List<Cliente> clientes;
     private List<SelectItem> clienteItems;
@@ -394,6 +422,8 @@ public class FacturasCVUI implements Serializable {
     private List<SelectItem> tipoPago;
     private List<Inventario> productos;//lista para llenar cb
     private List<SelectItem> productosItems;//lista que llena cb
+    private List<SelectItem> proveedorItems;
+    private List<Proveedor> proveedores; 
 
     private int idFacturaCab;
     private Date fecha_registro;
@@ -421,6 +451,7 @@ public class FacturasCVUI implements Serializable {
     //VARIABLES PARA FACTURACOMPRA
     private double costoproducto;
     private int tipoFactura;
+    
 
     @PostConstruct
     public void init() {
@@ -431,6 +462,7 @@ public class FacturasCVUI implements Serializable {
         getUltimaFactura();
         getProductosAll();
         getClienteCB();
+        findIdAndNameProvUi();
         this.costoproducto=0;
         listaActualizada = new ArrayList<FacturasCVUI>();
     }
@@ -482,8 +514,8 @@ public class FacturasCVUI implements Serializable {
 
     public void getProductosAll() {
         try {
-            InventarioServicio inventarioServ = new InventarioServicio();
-            productos = (inventarioServ.findAllProducto());
+            FacturasServicio prodServ = new FacturasServicio();
+            productos = (prodServ.findIdAndNameProd());
             productosItems = new ArrayList<>();
             for (Inventario inven : productos) {
                 productosItems.add(new SelectItem(inven.getIdproducto(), inven.getNombre()));
@@ -507,6 +539,20 @@ public class FacturasCVUI implements Serializable {
             System.out.println(e + "Error en llenar CB Cliente FacturaCab");
         }
     }
+    
+        public void findIdAndNameProvUi() {
+        try {
+            FacturasServicio provServ = new FacturasServicio();
+            proveedores = provServ.findIdAndName();
+            proveedorItems = new ArrayList<>();
+            for (Proveedor prov : proveedores) {
+                proveedorItems.add(new SelectItem(prov.getIdproveedor(), prov.getNombreProveedor()));
+            }
+        } catch (Exception e) {
+            System.out.println(e + "Error en consulta proveedor en clase InventarioUI");
+        }
+    }
+
 
     //METODO PARA LLENAR EL IDFACTURA(SIRVE SOLO PARA LA VISTA)
     public void getUltimaFactura() {
@@ -606,7 +652,7 @@ public class FacturasCVUI implements Serializable {
                 } else {
                     this.tipoFactura = 2;
                 }
-                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, this.totalFac, this.tipo_pago, this.nit, this.tipoFactura);
+                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idProveedor, this.totalFac, this.tipo_pago, this.nit, this.tipoFactura);
                 if (idFacturaCab != 0) {
                     //registradetalle
                     if (nuevaFactura.registroDBDetalleCompra(idFacturaCab, listaActualizada)) {

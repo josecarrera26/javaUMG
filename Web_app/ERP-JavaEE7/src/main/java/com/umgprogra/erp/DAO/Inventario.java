@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "inventario")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Inventario.findIdAndNombre", query = "SELECT i.idproducto, i.nombre FROM Inventario i"),
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
      @NamedQuery(name = "Inventario.findByIdProducto", query = "SELECT i FROM Inventario i WHERE i.idproducto = :idproducto"),
     @NamedQuery(name = "Inventario.findByAllProducto", query = "SELECT i.idproducto, i.nombre, i.cantidad, i.tipoComercializacion, i.modelo, "
@@ -267,6 +268,12 @@ public class Inventario implements Serializable {
     public void setIdproveedor(Proveedor idproveedor) {
         this.idproveedor = idproveedor;
     }
+
+    public Inventario(Integer idproducto, String nombre) {
+        this.idproducto = idproducto;
+        this.nombre = nombre;
+    }
+    
 
     @Override
     public int hashCode() {
