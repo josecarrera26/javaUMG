@@ -5,9 +5,7 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Cuentacontable;
-import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.DAO.Proveedor;
-import com.umgprogra.erp.javaee7UI.ProveedoresUI;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,7 @@ public class ProveedoreServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public boolean registrarProveedor(String nombreProv, String direccionProv, Integer telefonoProv, String regimenProv, String emailProv, Cuentacontable idCuenta) {
+    public boolean registrarProveedor(String nombreProv, String direccionProv, Integer telefonoProv, String regimenProv, String emailProv, Cuentacontable idCuenta, String estado) {
         boolean exito = false;  // Inicialmente, asumimos que la operación fallará
 
         try {
@@ -38,6 +36,7 @@ public class ProveedoreServicio {
             prov.setNombreProveedor(nombreProv);
             prov.setRegimenProveedor(regimenProv);
             prov.setTelefono(telefonoProveedorStr);
+            prov.setEstado(estado);
 
             // Iniciar la transacción
             entity.getTransaction().begin();
@@ -121,5 +120,18 @@ public class ProveedoreServicio {
         entity.merge(updateProveedor);
         entity.getTransaction().commit();
         System.out.println("Proveedor actualizado");
+    }
+
+    public List<Proveedor> findProveedores() {
+        List<Proveedor> proveedoresList = new ArrayList<>();
+
+        try {
+            Query query = entity.createNamedQuery("Proveedor.findAll", Proveedor.class);
+            proveedoresList = query.getResultList();
+            return proveedoresList;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
     }
 }

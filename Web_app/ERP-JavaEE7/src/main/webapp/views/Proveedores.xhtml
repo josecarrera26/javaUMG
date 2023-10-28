@@ -4,7 +4,9 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Registro de proveedores</title>
+        <title>Proveedores</title>
+        <h:outputStylesheet library="css" name="inventario.css"/>
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
         <link rel="icon" href="../../resources/images/Logo.png"/>
 
         <link type="text/css"
@@ -67,7 +69,7 @@
                             <p:inputText id="nomProveedor" value="#{proveedoresUI.nombreProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />
 
                             <p:outputLabel for="lblRegProv" value="Regimen de proveedor"/>
-                            <p:selectOneMenu id="lblRegProv" value="#{proveedoresUI.regimenProvedor}" style="width: 312px;" >
+                            <p:selectOneMenu id="lblRegProv" value="#{proveedoresUI.regimenProvedor}" style="width: 53%" >
                                 <f:selectItem itemLabel="" itemValue=""/>
                                 <f:selectItem itemLabel="Pequeño contribuyente" itemValue="Pequeño contribuyente" />
                                 <f:selectItem itemLabel="Regimen opcional simplificado" itemValue="Regimen opcional simplificado"/>
@@ -83,6 +85,12 @@
                             <h:outputLabel id="lblEmailProv" value="Correo Electronico" />
                             <p:inputText id="emainProveedor" value="#{proveedoresUI.emailProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
                             
+                            <h:outputLabel id="lblEstado" value="Estado" style="width: 100%"/>
+                            <p:selectOneMenu id="estado" class="combo" value="#{proveedoresUI.estado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 53%">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                            </p:selectOneMenu>
                         </p:panelGrid >
 
 
@@ -92,14 +100,14 @@
                             <p:commandButton id="btnUpdateProv" value="Actualizar" actionListener ="#{proveedoresUI.updateProveedor()}"
                                              update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
-
+                        
                     </p:panel > 
 
                 </p:tab>   
                 <!-- seccion de consulta de registros -->
                 <p:tab  title="Consultar registros">
                     <div class="card">
-                        <p:dataTable id="tablaCliente" var="proveedor" widgetVar="Proveedor" filteredValue="#{proveedoresUI.filteredCliente}" value="#{proveedoresUI.proveedor}">
+                        <p:dataTable id="tablaCliente" var="proveedor" widgetVar="Proveedor" filteredValue="#{proveedoresUI.filteredProveedor}" value="#{proveedoresUI.proveedor}" sortBy="#{proveedor.idproveedor}">
 
                                 <f:facet name="header">
                                     <div class="flex align-items-center justify-content-between">
@@ -112,77 +120,43 @@
 
                                 </f:facet>
 
-                            <p:column headerText="ID" sortBy="#{Proveedor.idCuenta}" filterBy="#{proveedoresUI.idCuenta}" filterMatchMode="exact">
-                                    <h:outputText value="#{Proveedor.idCuenta}" />
+                            <p:column headerText="ID" sortBy="#{proveedor.idproveedor}" filterBy="#{proveedor.idproveedor}" filterMatchMode="exact">
+                                    <h:outputText value="#{proveedor.idproveedor}" />
                                 </p:column>
 
-                            <p:column headerText="Nombre" sortBy="#{Proveedor.nombreProveedor}" filterBy="#{Proveedor.nombreProveedor}" filterMatchMode="contains">
-                                    <h:outputText value="#{Proveedor.nombreProveedor}" />
+                            <p:column headerText="Nombre" sortBy="#{proveedor.nombreProveedor}" filterBy="#{proveedor.nombreProveedor}" filterMatchMode="contains">
+                                    <h:outputText value="#{proveedor.nombreProveedor}" />
                                 </p:column>
 
-                            <p:column headerText="Telefono" sortBy="#{Proveedor.direccionProveedor}" filterBy="#{Proveedor.telefonoCliente}" filterMatchMode="contains">
-                                    <h:outputText value="#{Proveedor.telefonoCliente}" />
+                            <p:column headerText="Direccion" sortBy="#{proveedor.idproveedor}" filterBy="#{proveedor.idproveedor}" filterMatchMode="contains">
+                                    <h:outputText value="#{proveedor.idproveedor}" />
                                 </p:column>
 
-                                <p:column headerText="Email" sortBy="#{cliente.emailCliente}" filterBy="#{cliente.emailCliente}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.emailCliente}" />
+                            <p:column headerText="Telefono" sortBy="#{proveedor.telefono}" filterBy="#{proveedor.telefono}" filterMatchMode="contains">
+                                    <h:outputText value="#{proveedor.telefono}" />
                                 </p:column>
 
-                                <p:column headerText="Nit" sortBy="#{cliente.nit}" filterBy="#{cliente.nit}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.nit}" />
+                            <p:column headerText="Regimen" sortBy="#{proveedor.regimenProveedor}" filterBy="#{proveedor.regimenProveedor}" filterMatchMode="contains">
+                                    <h:outputText value="#{proveedor.regimenProveedor}" />
                                 </p:column>
 
-                                <p:column headerText="Direccion" sortBy="#{cliente.direccionCliente}" filterBy="#{cliente.direccionCliente}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.direccionCliente}" />
+                            <p:column headerText="Email" sortBy="#{proveedor.emailProveedor}" filterBy="#{proveedor.emailProveedor}" filterMatchMode="contains">
+                                    <h:outputText value="#{proveedor.emailProveedor}" />
                                 </p:column>
                                 
-                                <p:column headerText="DPI" sortBy="#{cliente.dpi}" filterBy="#{cliente.dpi}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.dpi}" />
+                            <p:column headerText="Cuenta Contable" sortBy="#{proveedor.idcuentacontable.nombrecuenta}" filterBy="#{proveedor.idcuentacontable.nombrecuenta}" filterMatchMode="contains">
+                                    <h:outputText value="#{proveedor.idcuentacontable.nombrecuenta}" />
                                 </p:column>  
-                                
-                                <p:column headerText="Cuenta Contable" sortBy="#{cliente.idcuentacontable}" filterBy="#{cliente.idcuentacontable}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.idcuentacontable.nombrecuenta}" />
-                                </p:column> 
+                            <p:column headerText="Estado" sortBy="#{proveedor.estado}" filterBy="#{proveedor.estado}" filterMatchMode="contains">
+                                    <h:outputText value="#{proveedor.estado}" />
+                                </p:column>  
+                               
 
                             </p:dataTable>
                     </div> 
 
                 </p:tab>
-                <p:tab  title ="Eliminar">
-                    <!-- seccion de eliminacion-->
-                    <p:panel id="pnlElimProveedor" header="Eliminar proveedor de los registros" style="width: 70%" >
 
-                        <h:outputLabel id="lblElimProv" value="Ingrese el ID" />
-                        <span class="ui-input-icon-left">
-                            <i class="pi pi-search" />
-                            <p:inputText id="eliminacionProv" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                        </span>
-
-                        <p:panelGrid id ="pnlGridElim" layout="grid" columns="1" style="width: 100%">
-
-                            <p:commandButton id="btnElimProv" value="Eliminar" update="pnlElimProveedor, msg" style="width: 30%; margin-left: 05px; margin-top: 50px;" icon="pi pi-times" styleClass="rounded-button ui-button-danger" />
-                        </p:panelGrid>
-
-                    </p:panel>
-                </p:tab>
-
-                <!-- Seccion de modificacion-->
-                <p:tab title="Modificar" >
-                    <p:panel id="pnlModificar" header="Buscar el Proveedor para realizar cambios" style="width: 70%;">
-
-                        <h:outputLabel id="lblModProv" value="Ingrese el ID" />
-                        <span class="ui-input-icon-left">
-                            <i class="pi pi-search" />
-                            <p:inputText id="modficiacionProv" value="" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                        </span>
-
-                        <p:panelGrid id="pnlBtnMod" layout="grid" columns="1" style="width: 100%">
-                            <!-- Botón para ejecutar la acción para actualización -->
-                            <p:commandButton id="btnActualizarProv" value="Buscar" actionListener="#{cPacientes.cargarPacienteParaModificar(idPaciente)}" style="width: 20%; margin-left: 05px; margin-top: 30px;"
-                                             update="pnlModificar,msg"  icon="pi pi-search" styleClass="rounded-button ui-button-success"  />
-                        </p:panelGrid>
-                    </p:panel>
-                </p:tab>
             </p:tabView>
         </h:form>
 

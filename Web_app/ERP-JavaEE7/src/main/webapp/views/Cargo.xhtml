@@ -14,13 +14,13 @@
 
         <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -57,53 +57,55 @@
                     <p:tabView dynamic="true">
                         <p:tab title="Nuevo Cargo">
                             <center>
-                            <p:panel id="pnlCargo" header="Registar cargo" style="width: 100%">
+                                <p:panel id="pnlCargo" header="Registar cargo" style="width: 100%">
 
-                                <div class="card">
-                                    <div class="grid">
-                                        <div class="col-5 flex align-items-center justify-content-center">
-                                            <div class="ui-fluid">
-                                                <div class="field">
-                                                    <h:outputLabel id="lblNombreCargo" value="Nombre" for="txtNombreCargo"/>
-                                                    <p:inputText id="txtNombreCargo" value="#{cargoUI.nombre_cargo}" required="true" requiredMessage="Descripcion requerida" />
+                                    <div class="card">
+                                        <div class="grid">
+                                            <div class="col-5 flex align-items-center justify-content-center">
+                                                <div class="ui-fluid">
+                                                    <div class="field">
+                                                        <h:outputLabel id="lblNombreCargo" value="Nombre" for="txtNombreCargo"/>
+                                                        <p:inputText id="txtNombreCargo" value="#{cargoUI.nombre_cargo}" required="true" requiredMessage="Descripcion requerida" />
+
+                                                    </div>
 
                                                 </div>
-
                                             </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <p:divider layout="vertical"> </p:divider>
-                                        </div>
+                                            <div class="col-2">
+                                                <p:divider layout="vertical"> </p:divider>
+                                            </div>
 
-                                        <div class="ui-fluid">
-                                            <div class="field">
-                                                <h:outputLabel id="lblSalario" value="Salario" for="txtSalario"/>
-                                                <p:inputNumber id="txtSalario" value="#{cargoUI.salario}" modifyValueOnWheel="true" />
+                                            <div class="ui-fluid">
+                                                <div class="field">
+                                                    <h:outputLabel id="lblSalario" value="Salario" for="txtSalario"/>
+                                                    <p:inputNumber id="txtSalario" value="#{cargoUI.salario}" modifyValueOnWheel="true" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
+
                                     <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
                                         <p:commandButton id="btnRegistro" value="Registar" action="#{cargoUI.crearCargo()}" style="width: 50%"
                                                          update="pnlCargo,dtCargos"  />
                                         <p:commandButton id="btnActualizar" value="Actualizar" action="#{cargoUI.updateCargo()}" style="width: 50%"
                                                          update="pnlCargo, dtCargos"  />
                                     </p:panelGrid>
-                                
-                            </p:panel>
+
+                                </p:panel>
                             </center>
+                        </p:tab>
+                        <p:tab title="Consulta Cargo">
                             <p:dataTable id="dtCargos" var="cargos" value="#{cargoUI.cargos}" rowKey="#{cargoUI.idCargo}" selectionMode="single">
                                 <f:facet name="header">
                                     Cargos
                                 </f:facet>
-                                <p:column headerText="Codigo Cargo" sortBy="cargos.idcargo">
+                                <p:column headerText="Codigo Cargo" sortBy="#{cargos.idcargo}" filterBy="#{cargos.idcargo}">
                                     <h:outputText value="#{cargos.idcargo}" />
                                 </p:column>
-                                <p:column headerText="Nombre del Cargo">
+                                <p:column headerText="Nombre del Cargo" filterBy="#{cargos.nombreCargo}" sortBy="#{cargos.nombreCargo}">
                                     <h:outputText value="#{cargos.nombreCargo}" />
                                 </p:column>
-                                <p:column headerText="Salario Q">
+                                <p:column headerText="Salario Q" filterBy="#{cargos.salario}" sortBy="#{cargos.salario}">
                                     <h:outputText value="#{cargos.salario}">
                                         <f:convertNumber pattern="#,##0.00" />
                                     </h:outputText>
