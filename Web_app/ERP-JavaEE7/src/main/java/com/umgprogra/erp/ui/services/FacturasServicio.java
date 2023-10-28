@@ -166,6 +166,7 @@ public class FacturasServicio {
 
     //metodo para registrar la factura compra
     public boolean registroDBDetalleCompra(int idFactura, List<FacturasCVUI> producto) throws ParseException {
+         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
         //preparacion de ingreso de fecha
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime ahora = LocalDateTime.now();
@@ -175,6 +176,13 @@ public class FacturasServicio {
         boolean flag = false;
 
         try {
+        
+            TypedQuery<Integer> queryIdFac = entityManager.createQuery(
+                    "SELECT MAX(f.idfactura) FROM Facturacab f", Integer.class);
+
+            // Ejecutar la consulta y obtener el resultado
+            Integer maxIdFactura = queryIdFac.getSingleResult();
+            
             Facturacab facturaCab = entity.find(Facturacab.class, idFactura);
             for (FacturasCVUI lista : producto) {
                 Inventario inventario = entity.find(Inventario.class, lista.getIdProducto());
@@ -185,11 +193,13 @@ public class FacturasServicio {
                 //calculamos el precio de venta
                 double margen = inventario.getMargenganancia();
 
-                nuevaCantidad = cantidadactual + inventario.getCantidad();
+                nuevaCantidad = lista.getCantidad() + inventario.getCantidad();
                 double calculoPrecio = margen / 100;
 
                 //cantidad original
                 int cantidadActual = inventario.getCantidad();
+                
+                entity.getTransaction().begin();
 
                 //inciamos el insert a las tablas
                 //tabla facturas det
@@ -207,14 +217,15 @@ public class FacturasServicio {
                 insertKardex.setFecha(fecha);
                 insertKardex.setIdproducto(inventario);
                 insertKardex.setIntOut("compra");
-                insertKardex.setVentaCompra(1);
+                insertKardex.setVentaCompra(maxIdFactura);
                 insertKardex.setUnidadesOriginales(cantidadActual);
                 insertKardex.setUnidadesVendidas(lista.getCantidad());
                 // calcular el precio de venta
                 //obtener el la suma del precio de compra
-                String queryString = "SELECT SUM(fd.preciounitario) FROM Facturadet fd "
-                        + "WHERE fd.idproducto.idproducto = :idproducto AND "
-                        + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+               String queryString = "SELECT SUM(fd.preciounitario) FROM Facturadet fd "
+                    + "WHERE fd.idproducto.idproducto = :idproducto AND "
+                    + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+                
                 TypedQuery<Double> query = entity.createQuery(queryString, Double.class);
 
                 query.setParameter("idproducto", lista.getIdProducto());
@@ -222,11 +233,14 @@ public class FacturasServicio {
 
                 // conteo de la cantidad de veces que se ha comprado el producto
                 String queryStringKardex = "SELECT COUNT(fd) FROM Facturadet fd WHERE fd.idproducto.idproducto = :idproducto AND "
-                        + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
+                    + "EXISTS (SELECT fc FROM Facturacab fc WHERE fc.idtipofactura = 1 AND fc.idfactura = fd.idfactura.idfactura)";
                 TypedQuery<Long> queryKardex = entity.createQuery(queryStringKardex, Long.class);
 
                 queryKardex.setParameter("idproducto", lista.getIdProducto());
                 Long conteo = queryKardex.getSingleResult();
+
+                //insertar al inventario
+                inventario.setCantidad(nuevaCantidad);
 
                 //calculo de precio y costo
                 double costopromedio = sumaSubtotal / conteo;
@@ -234,12 +248,11 @@ public class FacturasServicio {
                 //iva inventario
                 double ivaInventario = (nuevaCantidad * costopromedio) * 0.12;
 
-                //insertar al inventario
-                inventario.setCantidad(nuevaCantidad);
+
                 inventario.setImpuestoinventario(ivaInventario);
                 inventario.setCoste(costopromedio);
                 inventario.setPrecioventa(ventaprecio);
-                entity.getTransaction().begin();
+                
                 entity.persist(insertKardex);
                 entity.persist(inventario);
                 entity.getTransaction().commit();
