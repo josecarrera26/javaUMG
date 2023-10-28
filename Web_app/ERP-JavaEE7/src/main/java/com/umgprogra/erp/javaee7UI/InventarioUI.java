@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import javax.faces.model.SelectItem;
 import org.primefaces.PrimeFaces;
@@ -38,6 +40,20 @@ import org.primefaces.model.DialogFrameworkOptions;
 @ManagedBean
 @ViewScoped
 public class InventarioUI implements Serializable {
+
+    /**
+     * @return the filteredProd
+     */
+    public List<Inventario> getFilteredProd() {
+        return filteredProd;
+    }
+
+    /**
+     * @param filteredProd the filteredProd to set
+     */
+    public void setFilteredProd(List<Inventario> filteredProd) {
+        this.filteredProd = filteredProd;
+    }
 
     /**
      * @return the lastProducto
@@ -570,6 +586,8 @@ public class InventarioUI implements Serializable {
     public void setLineaItems(List<SelectItem> lineaItems) {
         this.lineaItems = lineaItems;
     }
+    
+    private List<Inventario> filteredProd;
 
     private int codProducto;
     private String nombre;
@@ -638,6 +656,26 @@ public class InventarioUI implements Serializable {
     public InventarioUI() {
 
     }
+    
+     public void eliminarProducto() {
+        DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+               .modal(true)
+                .fitViewport(true)
+                .responsive(true)
+                .width("900px")
+                .contentWidth("100%")
+                .resizeObserver(true)
+                .resizeObserverCenter(true)
+                .resizable(false)
+                .styleClass("max-w-screen")
+                .iframeStyleClass("max-w-screen")
+                .build();
+        System.out.println("Se crean las opciones del dialog");
+        PrimeFaces.current().dialog().openDynamic("EliminarProd", options, null);
+        System.out.println("Se crean las el dialog");
+    }
+     
+     
 
     public List<String> completeText(String query) {
         // String queryLowerCase = query.toLowerCase();
@@ -715,9 +753,7 @@ public class InventarioUI implements Serializable {
         }
     }
 
-    public void onItemSelect(SelectEvent<String> event) {
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Country Selected", event.getObject()));
-    }
+ 
 
     public void viewMarcaModal() {
         try {
@@ -763,6 +799,18 @@ public class InventarioUI implements Serializable {
         this.lineaT = idlinea;
         this.marcaT = idmarca;
         this.proveedorT = idproveedor;
+    }
+    
+    public void eliminarProductoDB(){
+        InventarioServicio inventarioServ = new InventarioServicio();
+        estado = 0;
+        if(inventarioServ.eliminarProd(this.estado, this.codProducto)){
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Eliminado");
+            FacesContext.getCurrentInstance().addMessage("msgReg", mensaje);
+        }else {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Error al eliminar");
+            FacesContext.getCurrentInstance().addMessage("msgReg", mensaje);
+        }
     }
 
     public void EditarProducto() {

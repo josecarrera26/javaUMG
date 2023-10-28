@@ -142,6 +142,10 @@ public class MenuPrincipalUI implements Serializable {
     public void inventarioE() {
         validaVista("editarProducto.xhtml");
     }
+    
+    public void EliminarProd() {
+        validaVista("EliminarProd.xhtml");
+    }
 
     public void marca() {
         validaVista("marca.xhtml");
