@@ -53,15 +53,27 @@
         <h:form id="frmKardex">
 
 
-            <p:panel id="pnlgrafica" header="Graficas" class="centerPnl" >
-            <h:form>
-                <p:chart type="bar" model="#{kardex.barModel}" style="height:300px"/>
-            </h:form>
+            <p:panel id="pnlgrafica" header="Graficos" class="centerPnl" >
+                <h:form>
+                    <p:chart type="bar" model="#{kardex.barModelKardexCompra}" style="height:300px">
+                    </p:chart>
 
-            <h:form>
-                <p:chart type="bar" model="#{kardex.barModelKardex}" style="height:300px">
-                </p:chart>
-            </h:form>
+                    <p:chart type="bar" model="#{kardex.barModelKardexVenta}" style="height:300px">
+                    </p:chart>
+                </h:form>
+
+                <h:form>
+                    <h:outputLabel id="lblDirecProv" value="Total de unidades vendidas y compradas" style="text-align: center; line-height: 2;" />
+                    <br></br>
+                    <br></br>
+                    <p:chart type="pie" model="#{kardex.modeloCircular}" style="height:300px">
+                        <p:inputText id="totalcompra" value= " #{kardex.resultadosCompra}" style="width: 250px;" disabled="true">Compras  </p:inputText>
+                        <p:inputText id="totalventa" value= " #{kardex.resultadosVenta}" style="width: 250px;" disabled="true">Ventas  </p:inputText>
+
+                    </p:chart>
+                </h:form>
+
+
 
 
             </p:panel>

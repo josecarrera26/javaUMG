@@ -15,29 +15,60 @@ import javax.persistence.TypedQuery;
  */
 public class KardexServicio {
     EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
-    
-     public List<Object[]> sumUnidadesCompradasPorIdProducto() {
+ 
+    public List<Object[]> sumUnidadesCompradasPorIdProducto() {
         TypedQuery<Object[]> query = entityManager.createQuery(
-            "SELECT k.idproducto.idproducto, SUM(k.unidadesVendidas) " +
-            "FROM Kardex k " +
-            "WHERE k.intOut = 'compra' " +
-            "GROUP BY k.idproducto.idproducto",
-            Object[].class
+                "SELECT k.idproducto.idproducto, SUM(k.unidadesVendidas) "
+                + "FROM Kardex k "
+                + "WHERE k.intOut = 'compra' "
+                + "GROUP BY k.idproducto.idproducto "
+                + "ORDER BY SUM(k.unidadesVendidas) DESC", // Ordena por la suma en orden descendente
+                Object[].class
         );
+
+        query.setMaxResults(8); // Limita los resultados a los 8 primeros productos más vendidos
 
         return query.getResultList();
     }
-     
+
     public List<Object[]> sumUnidadesVendidasPorIdProducto() {
         TypedQuery<Object[]> query = entityManager.createQuery(
                 "SELECT k.idproducto.idproducto, SUM(k.unidadesVendidas) "
                 + "FROM Kardex k "
                 + "WHERE k.intOut = 'venta' "
-                + "GROUP BY k.idproducto.idproducto",
+                + "GROUP BY k.idproducto.idproducto "
+                + "ORDER BY SUM(k.unidadesVendidas) DESC", // Ordena por la suma en orden descendente
                 Object[].class
         );
 
+        query.setMaxResults(8); // Limita los resultados a los 8 productos más vendidos
+
         return query.getResultList();
+    }
+
+    //para grafico cirular 
+    public Long sumUnidadesCompradas() {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT SUM(k.unidadesVendidas) "
+                + "FROM Kardex k "
+                + "WHERE k.intOut = 'compra'",
+                Long.class
+        );
+
+        Long totalUnidadesCompradas = query.getSingleResult();
+        return totalUnidadesCompradas != null ? totalUnidadesCompradas : 0;
+    }
+
+    public Long sumTotalUnidadesVendidas() {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT SUM(k.unidadesVendidas) "
+                + "FROM Kardex k "
+                + "WHERE k.intOut = 'venta'",
+                Long.class
+        );
+
+        Long totalUnidadesVendidas = query.getSingleResult();
+        return totalUnidadesVendidas != null ? totalUnidadesVendidas : 0;
     }
 
 }

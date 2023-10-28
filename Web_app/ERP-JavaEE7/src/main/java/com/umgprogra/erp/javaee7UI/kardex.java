@@ -1,5 +1,4 @@
 package com.umgprogra.erp.javaee7UI;
-import com.umgprogra.erp.DAO.Facturadet;
 import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.ui.services.KardexServicio;
 import com.umgprogra.erp.util.JpaUtil;
@@ -11,64 +10,94 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean
 @ViewScoped
 public class kardex implements Serializable{
-    
-    
-    public BarChartModel getBarModel() {
-        return barModel;
+
+    public BarChartModel getBarModelKardexVenta() {
+        return barModelKardexVenta;
     }
 
-    public void setBarModel(BarChartModel barModel) {
-        this.barModel = barModel;
+    public void setBarModelKardexVenta(BarChartModel barModelKardexVenta) {
+        this.barModelKardexVenta = barModelKardexVenta;
+    }
+
+    public BarChartModel getBarModelKardexCompra() {
+        return barModelKardexCompra;
+    }
+
+    public void setBarModelKardexCompra(BarChartModel barModelKardexCompra) {
+        this.barModelKardexCompra = barModelKardexCompra;
+    }
+
+    public PieChartModel getModeloCircular() {
+        return modeloCircular;
+    }
+
+    public void setModeloCircular(PieChartModel modeloCircular) {
+        this.modeloCircular = modeloCircular;
+    }
+
+    public Long getResultadosVenta() {
+        return resultadosVenta;
+    }
+
+    public void setResultadosVenta(Long resultadosVenta) {
+        this.resultadosVenta = resultadosVenta;
+    }
+
+    public Long getResultadosCompra() {
+        return resultadosCompra;
+    }
+
+    public void setResultadosCompra(Long resultadosCompra) {
+        this.resultadosCompra = resultadosCompra;
     }
     
-
-    public BarChartModel getBarModelKardex() {
-        return barModelKardex;
-    }
-
-    public void setBarModelKardex(BarChartModel barModelKardex) {
-        this.barModelKardex = barModelKardex;
-    }
     
 
-    private BarChartModel barModel;
-    private BarChartModel barModelKardex;
+    @Override
+    public String toString() {
+        return "kardex{" + "barModelKardexVenta=" + barModelKardexVenta + ", barModelKardexCompra=" + barModelKardexCompra + '}';
+    }
+    
+    
+    
+
+    //para el grafico de barras 
+    private BarChartModel barModelKardexVenta;
+    private BarChartModel barModelKardexCompra;
+
+    //para el gradico circultar
+    private PieChartModel modeloCircular;
+
+    private Long resultadosVenta;
+    private Long resultadosCompra;
 
     @PostConstruct
     public void init() {
-        createBarModel();
+
+        barModelKardexCompra = new BarChartModel();
+        barModelKardexVenta = new BarChartModel();
+        modeloCircular = new PieChartModel();
         createBarModelKardex();
-        
+        cargarDatosGraficoCircular();
     }
 
-
-    private void createBarModel() {
+    // Método para cargar datos en el modelo del gráfico circular
+    private void cargarDatosGraficoCircular() {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        KardexServicio servicio = new KardexServicio();
+        resultadosVenta = servicio.sumTotalUnidadesVendidas();
+        resultadosCompra = servicio.sumUnidadesCompradas();
 
-        barModel = new BarChartModel();
-        ChartSeries productos = new ChartSeries();
-
-        // Recupera los datos y configura la serie
-        TypedQuery<Facturadet> query = entityManager.createQuery("SELECT f FROM Facturadet f", Facturadet.class);
-        Iterable<Facturadet> facturaDetList = query.getResultList();
-
-        for (Facturadet facturaDet : facturaDetList) {
-            productos.set(facturaDet.getIdproducto().getNombre(), facturaDet.getCantidad());
-        }
-
-        barModel.addSeries(productos);
-
-        // Configuración adicional del gráfico
-        barModel.setTitle("Total de ventas y compras");
-        barModel.setLegendPosition("ne");
+        modeloCircular.set("Unidades Vendidas", resultadosVenta);
+        modeloCircular.set("Unidades Compradas", resultadosCompra);
     }
-    
 
 
     private void createBarModelKardex() {
@@ -81,17 +110,21 @@ public class kardex implements Serializable{
         List<Object[]> ventaResultList = venta.sumUnidadesVendidasPorIdProducto();
 
         // Inicializar el modelo del gráfico de barras
-        barModelKardex = new BarChartModel();
+        barModelKardexCompra = new BarChartModel();
+
+        // Crear una serie para compras y ventas
         ChartSeries registrosCompra = new ChartSeries();
-        registrosCompra.setLabel("Compras"); 
+        registrosCompra.setLabel("Compras");
+
         ChartSeries registrosVenta = new ChartSeries();
-        registrosVenta.setLabel("Ventas"); 
+        registrosVenta.setLabel("Ventas");
 
         for (Object[] result : compraResultList) {
             Integer idProducto = (Integer) result[0];
             Long unidadesCompradas = (Long) result[1];
             Inventario producto = entityManager.find(Inventario.class, idProducto);
             String nombreProducto = producto.getNombre();
+
             registrosCompra.set(nombreProducto, unidadesCompradas);
         }
 
@@ -100,15 +133,34 @@ public class kardex implements Serializable{
             Long unidadesVendidas = (Long) result[1];
             Inventario producto = entityManager.find(Inventario.class, idProducto);
             String nombreProducto = producto.getNombre();
+
+            // Agregar un elemento a la serie con el nombre del producto
             registrosVenta.set(nombreProducto, unidadesVendidas);
         }
 
         // Agregar series al modelo del gráfico
-        barModelKardex.addSeries(registrosCompra);
-        barModelKardex.addSeries(registrosVenta);
+        barModelKardexCompra.addSeries(registrosCompra);
+        barModelKardexVenta.addSeries(registrosVenta);
 
-        // Configurar el título y posición de la leyenda
-        barModelKardex.setTitle("Ventas y compras por producto");
-        barModelKardex.setLegendPosition("ne");
+        // Configurar el título y posición de la leyenda de compra
+        barModelKardexCompra.setTitle("Top 8 Productos mas comprados");
+        barModelKardexCompra.setLegendPosition("ne");
+
+        // Configurar etiquetas en el eje X
+        Axis xAxis = barModelKardexCompra.getAxis(AxisType.X);
+        xAxis.setLabel("Productos comprados");
+        xAxis.setTickAngle(-30);
+        
+        
+        // Configurar el título y posición de la leyenda de venta
+        barModelKardexVenta.setTitle("Top 8 Productos mas vendidos");
+        barModelKardexVenta.setLegendPosition("ne");
+        
+        Axis xAxisCompra = barModelKardexVenta.getAxis(AxisType.X);
+        xAxisCompra.setLabel("Productos vendidos");
+        xAxisCompra.setTickAngle(-30);
+
     }
+
+
 }
