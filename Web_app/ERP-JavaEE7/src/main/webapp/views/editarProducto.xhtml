@@ -67,7 +67,7 @@
                                     <h:outputLabel id="lblIdProducto" value="Buscar producto (ingrese Codigo)" />
                                     <div style="display: flex; flex-direction: column;">
                                         <p:autoComplete id="descripcion" style="width: 250px;" value="#{inventarioUI.nombre}"   completeMethod="#{inventarioUI.completeText}" scrollHeight="250" >
-                                            <p:ajax event="itemSelect" listener="#{inventarioUI.cambiarNombre}" update="marca,idProducto,unidadMed,tipoComercializacion,idMargen,idModelo"/>
+                                            <p:ajax event="itemSelect" listener="#{inventarioUI.cambiarNombre}" update="linea,grupo,proveedor,marca,idProducto,unidadMed,tipoComercializacion,idMargen,idModelo"/>
                                         </p:autoComplete>
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@
 
 
                         <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
-                            <p:commandButton id="btnActualizar" value="Actualizar" action="#{inventarioUI.actualizarProducto(idProducto)}" style="width: 50%"
+                            <p:commandButton id="btnActualizar" value="Actualizar" action="#{inventarioUI.EditarProducto()}" style="width: 50%"
                                              update="pnlInventario"/>
                         </p:panelGrid>
 

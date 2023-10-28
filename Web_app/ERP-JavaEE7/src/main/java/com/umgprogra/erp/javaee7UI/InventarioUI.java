@@ -656,7 +656,17 @@ public class InventarioUI implements Serializable {
                  margen_Ganancia = inventario.getMargenganancia();
                  modelo = inventario.getModelo();
                  unidadMed = inventario.getUnidades();
-                 marca = inventario.getIdmarca();
+                // marca = inventario.getIdmarca();
+                 idProveedor = inventario.getIdproveedor().getIdproveedor();
+                 idMarca = inventario.getIdmarca().getIdmarca();
+                 idLinea = inventario.getIdlinea().getIdlinea();
+                 idGrupo = inventario.getIdgrupoproducto().getIdgrupoproducto();
+                 cantidad = inventario.getCantidad();
+                 precio = inventario.getPrecioventa();
+                 coste = inventario.getCoste();
+                 estado = inventario.getEstado();
+                 impuesto_Inventario = inventario.getImpuestoinventario();
+                
             }
         } catch (NumberFormatException e) {
             e.getMessage();
@@ -664,6 +674,34 @@ public class InventarioUI implements Serializable {
 
         return inventarioList;
     }
+    
+      public void saveProducto() {
+        try {
+            InventarioServicio inventarioServ = new InventarioServicio();
+
+//            System.err.println("Marca: " +  getMarcaSeleccionada());
+//            System.err.println("Linea: " +  getLineaSeleccionada());
+//            System.err.println("Proveedor: " +  getProveedorSeleccionado());
+//            System.err.println("Grupo: " +  getGrupoSeleccionado());
+//              System.err.println("Medida: " +  unidadMed);
+            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta())) {
+                System.err.println("Estoy en ProdUITRUE");
+                // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
+                //Agrega el mensaje al componente <p:growl>
+                //  FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+            } else {
+                System.err.println("Estoy en InventarioUIFALSE");
+                //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Registro no guardado");
+                // Agrega el mensaje al componente <p:growl>
+                //   FacesContext.getCurrentInstance().addMessage("messages", mensaje);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e + "Error en save MarcaUI");
+        }
+    }
+    
+  
 
     public void cambiarNombre(SelectEvent event) {
         try {
@@ -727,7 +765,7 @@ public class InventarioUI implements Serializable {
         this.proveedorT = idproveedor;
     }
 
-    public void saveProducto() {
+    public void EditarProducto() {
 
         try {
             InventarioServicio inventarioServ = new InventarioServicio();
@@ -737,8 +775,8 @@ public class InventarioUI implements Serializable {
 //            System.err.println("Proveedor: " +  getProveedorSeleccionado());
 //            System.err.println("Grupo: " +  getGrupoSeleccionado());
 //              System.err.println("Medida: " +  unidadMed);
-            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta())) {
-                System.err.println("Estoy en ProdUITRUE");
+            if (inventarioServ.EditarProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta(),  precio, estado,codProducto,impuesto_Inventario, cantidad)) {
+                System.err.println("Estoy en ProdEditarUITRUE");
                 // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
                 //Agrega el mensaje al componente <p:growl>
                 //  FacesContext.getCurrentInstance().addMessage("messages", mensaje);
@@ -754,32 +792,7 @@ public class InventarioUI implements Serializable {
         }
     }
 
-    public void actualizarProducto(int idProducto) {
-        System.out.println("Index: " + idProducto);
-//        try {
-//            InventarioServicio inventarioServ = new InventarioServicio();
-//
-////            System.err.println("Marca: " +  getMarcaSeleccionada());
-////            System.err.println("Linea: " +  getLineaSeleccionada());
-////            System.err.println("Proveedor: " +  getProveedorSeleccionado());
-////            System.err.println("Grupo: " +  getGrupoSeleccionado());
-////              System.err.println("Medida: " +  unidadMed);
-//            if (inventarioServ.saveProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta())) {
-//                System.err.println("Estoy en ProdUITRUE");
-//                // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
-//                //Agrega el mensaje al componente <p:growl>
-//                //  FacesContext.getCurrentInstance().addMessage("messages", mensaje);
-//            } else {
-//                System.err.println("Estoy en InventarioUIFALSE");
-//                //  FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Registro no guardado");
-//                // Agrega el mensaje al componente <p:growl>
-//                //   FacesContext.getCurrentInstance().addMessage("messages", mensaje);
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println(e + "Error en save MarcaUI");
-//        }
-    }
+  
 
     public void idRoleUser() {
         InventarioServicio inventarioServ = new InventarioServicio();

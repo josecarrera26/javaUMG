@@ -75,6 +75,40 @@ public class InventarioServicio {
         }
         return g;
     }
+    
+      public Boolean EditarProducto(String nombre, String tipoComercializacion, String modelo, String unidadM, double coste, int margenGanancia, Marca idmarca, Linea idlinea, Grupoproducto idgrupoproducto, Proveedor idproveedor, Cuentacontable idCuenta, double precio,int estado, int codProducto, double impuesto_Inventario, int cantidad) {
+        boolean g = false;
+        try {
+            Inventario inventario = entity.find(Inventario.class, codProducto);
+            System.out.println("name" + nombre);
+            System.out.println("idMarca" + idmarca);
+            System.out.println("idLinea" + idlinea);
+            System.out.println("idGrupo" + idgrupoproducto);
+            System.out.println("idProveedor" + idproveedor);
+            inventario.setNombre(nombre);
+            inventario.setCantidad(cantidad);
+            inventario.setTipoComercializacion(tipoComercializacion);
+            inventario.setModelo(modelo);
+            inventario.setUnidades(unidadM);
+            inventario.setPrecioventa(precio);
+            inventario.setCoste(coste);
+            inventario.setMargenganancia(margenGanancia);
+            inventario.setIdmarca(idmarca);
+            inventario.setIdlinea(idlinea);
+            inventario.setIdgrupoproducto(idgrupoproducto);
+            inventario.setIdproveedor(idproveedor);
+            inventario.setEstado(estado);
+            inventario.setIdcuentacontable(idCuenta);
+            inventario.setImpuestoinventario(impuesto_Inventario);
+            entity.getTransaction().begin();
+            entity.persist(inventario);
+            entity.getTransaction().commit();
+            g = true;
+        } catch (Exception e) {
+            System.out.println(e + "Error en Editar producto");
+        }
+        return g;
+    }
 
     public List<Proveedor> findIdAndName() {
         List<Proveedor> resultList = new ArrayList<>();
