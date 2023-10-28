@@ -53,6 +53,32 @@ public class ClienteServicio {
         return g;
     }
   
+      public void actualizarCliente(String pnombre, String ptelefono, String pemail, String pnit, String pdireccion, String pdpi, String idCuenta) {
+        try {
+            Cliente queryCliente = new Cliente();
+            Cliente updateCliente = new Cliente();
+            Query query2 = entity.createNamedQuery("Cliente.findByNombreCliente", Cliente.class)
+                    .setParameter("Nombre", pnombre);
+            System.out.println("nombre: " + pnombre);
+            queryCliente = (Cliente) query2.getSingleResult();
+            
+            Integer idCliente = queryCliente.getIdcliente();
+            
+            updateCliente = entity.find(Cliente.class, idCliente);        
+            System.out.println("ID: " + idCliente);
+            updateCliente.setTelefonoCliente(ptelefono);
+            updateCliente.setEmailCliente(pemail);
+            updateCliente.setDireccionCliente(pdireccion);
+            
+            entity.getTransaction().begin();
+            entity.persist(updateCliente);
+            entity.getTransaction().commit();
+            System.out.println("cliente actualizado");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+      }
+  
       public void getCliente() {
         Cliente cliente = new Cliente();
         Query query2 = entity.createNamedQuery("Cliente.findAll", Cliente.class);

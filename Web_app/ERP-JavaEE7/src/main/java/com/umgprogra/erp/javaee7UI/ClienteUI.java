@@ -15,9 +15,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -27,6 +29,7 @@ import org.primefaces.event.SelectEvent;
 @Named("dtFilterView")
 @ManagedBean
 @ViewScoped
+@SessionScoped
 public class ClienteUI implements Serializable {
 
     /**
@@ -272,6 +275,7 @@ public class ClienteUI implements Serializable {
         MenuPrincipalUI login = new MenuPrincipalUI();
         login.validarUsuario();
         findAllClienteUi();
+        actualizarCliente();
     }
 
     public void consultaCliente() {
@@ -347,6 +351,11 @@ public class ClienteUI implements Serializable {
             System.out.println("ENTRE AL AJAX");
             e.getMessage();
         }
+    }
+    
+    public void actualizarCliente() {
+        ClienteServicio actualizar = new ClienteServicio();
+        actualizar.actualizarCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente, this.idCuentaContable);
     }
     
 //    public void getnombreNit(Nit nitCliente){

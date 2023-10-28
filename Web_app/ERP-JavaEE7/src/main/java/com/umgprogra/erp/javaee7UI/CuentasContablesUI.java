@@ -13,8 +13,10 @@ import com.umgprogra.erp.DAO.Cuentacontable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -23,6 +25,7 @@ import javax.inject.Named;
 @Named("dtFilterView")
 @ManagedBean
 @ViewScoped
+@SessionScoped
 public class CuentasContablesUI implements Serializable {
 
     /**
@@ -163,5 +166,10 @@ public class CuentasContablesUI implements Serializable {
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas clase CuentasContablesUI");
         }
+    }
+    public void actualizarCuenta() {
+        CuentacontableServicio actualizar = new CuentacontableServicio();
+        actualizar.actualizarCuenta(this.nombreCuenta, this.tipoCuenta);
+        PrimeFaces.current().dialog().closeDynamic("registrarCuenta");
     }
 }
