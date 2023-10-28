@@ -101,7 +101,7 @@ public class InventarioServicio {
             inventario.setIdcuentacontable(idCuenta);
             inventario.setImpuestoinventario(impuesto_Inventario);
             entity.getTransaction().begin();
-            entity.persist(inventario);
+            entity.merge(inventario);
             entity.getTransaction().commit();
             g = true;
         } catch (Exception e) {
