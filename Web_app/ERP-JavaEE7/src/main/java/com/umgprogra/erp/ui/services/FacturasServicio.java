@@ -328,7 +328,7 @@ public class FacturasServicio {
                     listaProdVenta.set(x, existenciaprod);
                     actualizarListYTotal = new FacturasCVUI(totalFac, listaProdVenta);
                     System.out.println("Suma de producto Exito");
-                    // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suma de producto", "exito."));
+                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suma de producto", "exito."));
                 }
                 if (existenciaprod != null && cantidadInventario <= existenciaprod.getCantidad() + cantidad) {
                     System.out.println("Falta de inventario ERROR");
@@ -343,7 +343,7 @@ public class FacturasServicio {
                     listaProdVenta.add(new FacturasCVUI(cantidad, preciounitario, iva, idProducto, subTotal, nombreProd));
                     actualizarListYTotal = new FacturasCVUI(totalFac, listaProdVenta);
                     System.out.println("Agregado producto nuevo a la lista");
-//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "agregado a la lista", "Producto insertado con éxito."));
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "agregado a la lista", "Producto insertado con éxito."));
                 }
 
             } else {
@@ -353,7 +353,7 @@ public class FacturasServicio {
 
         } catch (Exception e) {
             System.out.println("ERROR EN facturasServ agregar a tablaLocal " + e.getMessage());
-//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "No se pudo insertar el producto."));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "No se pudo insertar el producto."));
 
         }
         return actualizarListYTotal;
@@ -397,7 +397,7 @@ public class FacturasServicio {
                     listaProdCompra.set(x, existenciaprod);
                     actualizarListYTotal = new FacturasCVUI(totalFac, listaProdCompra);
                     System.out.println("Suma de producto Exito");
-                    // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suma de producto", "exito."));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suma de producto", "exito."));
                 }
                 //si el producto no esta en la lista lo insertamos como un nuevo registro
                 if (existenciaprod == null) {
@@ -407,7 +407,7 @@ public class FacturasServicio {
                     listaProdCompra.add(new FacturasCVUI(cantidad, iva, idProducto, subTotal, nombreProd, costo));
                     actualizarListYTotal = new FacturasCVUI(totalFac, listaProdCompra);
                     System.out.println("Agregado producto nuevo a la lista");
-//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "agregado a la lista", "Producto insertado con éxito."));
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "agregado a la lista", "Producto insertado con éxito."));
                 }
 
             } else {
@@ -417,7 +417,7 @@ public class FacturasServicio {
 
         } catch (Exception e) {
             System.out.println("ERROR EN facturasServ agregar a tablaLocal " + e.getMessage());
-//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "No se pudo insertar el producto."));
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "No se pudo insertar el producto."));
 
         }
         return actualizarListYTotal;
