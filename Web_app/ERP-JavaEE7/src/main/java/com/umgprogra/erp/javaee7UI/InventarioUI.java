@@ -17,9 +17,15 @@ import com.umgprogra.erp.ui.services.InventarioServicio;
 import com.umgprogra.erp.ui.services.LineaServicio;
 import com.umgprogra.erp.ui.services.MarcaServicio;
 import com.umgprogra.erp.ui.services.ProveedoreServicio;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -27,8 +33,19 @@ import javax.faces.bean.ManagedBean;
 
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DialogFrameworkOptions;
@@ -586,7 +603,7 @@ public class InventarioUI implements Serializable {
     public void setLineaItems(List<SelectItem> lineaItems) {
         this.lineaItems = lineaItems;
     }
-    
+
     private List<Inventario> filteredProd;
 
     private int codProducto;
@@ -656,10 +673,10 @@ public class InventarioUI implements Serializable {
     public InventarioUI() {
 
     }
-    
-     public void eliminarProducto() {
+
+    public void eliminarProducto() {
         DialogFrameworkOptions options = DialogFrameworkOptions.builder()
-               .modal(true)
+                .modal(true)
                 .fitViewport(true)
                 .responsive(true)
                 .width("900px")
@@ -674,8 +691,6 @@ public class InventarioUI implements Serializable {
         PrimeFaces.current().dialog().openDynamic("EliminarProd", options, null);
         System.out.println("Se crean las el dialog");
     }
-     
-     
 
     public List<String> completeText(String query) {
         // String queryLowerCase = query.toLowerCase();
@@ -689,22 +704,22 @@ public class InventarioUI implements Serializable {
 
             for (Inventario inventario : inventarios) {
                 inventarioList.add(String.valueOf(inventario.getNombre()));
-                 codProducto = inventario.getIdproducto();
-                 tipo_comercializacion = inventario.getTipoComercializacion();
-                 margen_Ganancia = inventario.getMargenganancia();
-                 modelo = inventario.getModelo();
-                 unidadMed = inventario.getUnidades();
+                codProducto = inventario.getIdproducto();
+                tipo_comercializacion = inventario.getTipoComercializacion();
+                margen_Ganancia = inventario.getMargenganancia();
+                modelo = inventario.getModelo();
+                unidadMed = inventario.getUnidades();
                 // marca = inventario.getIdmarca();
-                 idProveedor = inventario.getIdproveedor().getIdproveedor();
-                 idMarca = inventario.getIdmarca().getIdmarca();
-                 idLinea = inventario.getIdlinea().getIdlinea();
-                 idGrupo = inventario.getIdgrupoproducto().getIdgrupoproducto();
-                 cantidad = inventario.getCantidad();
-                 precio = inventario.getPrecioventa();
-                 coste = inventario.getCoste();
-                 estado = inventario.getEstado();
-                 impuesto_Inventario = inventario.getImpuestoinventario();
-                
+                idProveedor = inventario.getIdproveedor().getIdproveedor();
+                idMarca = inventario.getIdmarca().getIdmarca();
+                idLinea = inventario.getIdlinea().getIdlinea();
+                idGrupo = inventario.getIdgrupoproducto().getIdgrupoproducto();
+                cantidad = inventario.getCantidad();
+                precio = inventario.getPrecioventa();
+                coste = inventario.getCoste();
+                estado = inventario.getEstado();
+                impuesto_Inventario = inventario.getImpuestoinventario();
+
             }
         } catch (NumberFormatException e) {
             e.getMessage();
@@ -712,8 +727,43 @@ public class InventarioUI implements Serializable {
 
         return inventarioList;
     }
-    
-      public void saveProducto() {
+
+   
+
+    public void generarReporte(ActionEvent pActionEvent) {
+        System.out.println("Ingresa generarReporte");
+        try {
+            Locale locale = new Locale("es", "GT");
+            Map<String, Object> masterParams = new HashMap<>();
+            masterParams.put(JRParameter.REPORT_LOCALE, locale);
+            String reportPath = this.getRealPath("/reportes/ReporteProductos.jasper");
+            String logoPath = this.getRealPath("/resources/imagenes/logo.png");
+            masterParams.put("logo", logoPath);
+            //resultados, es la fuente de datos que resulta de la query a la db.
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath,
+                    masterParams, new JRBeanCollectionDataSource(productos));
+            HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            httpServletResponse.addHeader("Content-disposition", "attachment;filename = reporte.pdf");
+            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+//revisar.
+            JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (IOException | JRException e) {
+            System.err.println("Error al generar reporte web " + e.getMessage());
+        }
+    }
+
+    /**
+     * metodo para tener el path absoluto de un directorio
+     *
+     * @param pUbicacion
+     * @return
+     */
+    private String getRealPath(String pUbicacion) {
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath(pUbicacion);
+    }
+
+    public void saveProducto() {
         try {
             InventarioServicio inventarioServ = new InventarioServicio();
 
@@ -738,8 +788,6 @@ public class InventarioUI implements Serializable {
             System.out.println(e + "Error en save MarcaUI");
         }
     }
-    
-  
 
     public void cambiarNombre(SelectEvent event) {
         try {
@@ -752,8 +800,6 @@ public class InventarioUI implements Serializable {
             e.getMessage();
         }
     }
-
- 
 
     public void viewMarcaModal() {
         try {
@@ -800,14 +846,14 @@ public class InventarioUI implements Serializable {
         this.marcaT = idmarca;
         this.proveedorT = idproveedor;
     }
-    
-    public void eliminarProductoDB(){
+
+    public void eliminarProductoDB() {
         InventarioServicio inventarioServ = new InventarioServicio();
         estado = 0;
-        if(inventarioServ.eliminarProd(this.estado, this.codProducto)){
+        if (inventarioServ.eliminarProd(this.estado, this.codProducto)) {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Producto Eliminado");
             FacesContext.getCurrentInstance().addMessage("msgReg", mensaje);
-        }else {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Error al eliminar");
             FacesContext.getCurrentInstance().addMessage("msgReg", mensaje);
         }
@@ -823,7 +869,7 @@ public class InventarioUI implements Serializable {
 //            System.err.println("Proveedor: " +  getProveedorSeleccionado());
 //            System.err.println("Grupo: " +  getGrupoSeleccionado());
 //              System.err.println("Medida: " +  unidadMed);
-            if (inventarioServ.EditarProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta(),  precio, estado,codProducto,impuesto_Inventario, cantidad)) {
+            if (inventarioServ.EditarProducto(nombre, tipo_comercializacion, modelo, unidadMed, coste, margen_Ganancia, getMarcaSeleccionada(), getLineaSeleccionada(), getGrupoSeleccionado(), getProveedorSeleccionado(), getCuenta(), precio, estado, codProducto, impuesto_Inventario, cantidad)) {
                 System.err.println("Estoy en ProdEditarUITRUE");
                 // FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro guardado");
                 //Agrega el mensaje al componente <p:growl>
@@ -839,8 +885,6 @@ public class InventarioUI implements Serializable {
             System.out.println(e + "Error en save MarcaUI");
         }
     }
-
-  
 
     public void idRoleUser() {
         InventarioServicio inventarioServ = new InventarioServicio();

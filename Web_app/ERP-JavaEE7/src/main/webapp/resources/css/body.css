@@ -1,0 +1,6 @@
+body {
+    background-image: url('./resources/images/fondoApp.jpg');
+    background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+}
+

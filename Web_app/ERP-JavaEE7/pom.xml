@@ -124,16 +124,17 @@
             <artifactId>json</artifactId>
             <version>20230618</version>
         </dependency>
+        <!-- JasperReports -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.20.6</version>
+            <version>6.17.0</version>
         </dependency>
-        
+        <!-- JasperReports Font Extensions (Optional) -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports-fonts</artifactId>
-            <version>6.0.0</version>
+            <version>6.17.0</version>
         </dependency>
     </dependencies>
 
