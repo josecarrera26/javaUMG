@@ -117,7 +117,7 @@ public class UsuarioServicio {
 
             Usuario updateUsuario = new Usuario();
 
-            updateUsuario.setIdusuario(13);
+            updateUsuario.setIdusuario(idUsuario);
             updateUsuario.setUsername(username);
             updateUsuario.setPassword(password);
             updateUsuario.setIdrole(role);
