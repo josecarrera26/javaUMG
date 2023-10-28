@@ -83,7 +83,11 @@
                                 </p:splitter>
                             </div>
                             <p:commandButton id="RegisterCuenta" action="#{cuentasContablesUI.saveCuenta}"
-                                             value="Registrar"  update="pnlRegistroCuentas, msg, tablaCuenta" ajax="true" style=" margin-left: 0px" >
+                                             value="Registrar Cuenta"  update="pnlRegistroCuentas, msg, tablaCuenta" ajax="true" style=" margin-left: 0px" >
+                            </p:commandButton>
+                            <h5></h5>
+                            <p:commandButton id="ActualizarCuenta" action="#{cuentasContablesUI.actualizarCuenta()}"
+                                             value="Actualizar Cuenta"  update="pnlRegistroCuentas, msg, tablaCuenta" ajax="true" style=" margin-left: 0px" >
                             </p:commandButton>
                         </div>
                     </p:panel>

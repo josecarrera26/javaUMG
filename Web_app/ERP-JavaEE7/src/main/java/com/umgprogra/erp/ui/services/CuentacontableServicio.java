@@ -56,6 +56,36 @@ public class CuentacontableServicio {
         return g;
     }
   
+public void actualizarCuenta(String pnombre, String ptipocuenta) {
+        try {
+            System.out.println("usuario: " + pnombre);
+            Cuentacontable cuenta = new Cuentacontable();
+
+            Query query2 = entity.createNamedQuery("Cuentacontable.findByNombrecuenta", Cuentacontable.class)
+                    .setParameter("nombre", pnombre);
+
+            cuenta = (Cuentacontable) query2.getSingleResult();
+            
+            Integer idCuenta = cuenta.getIdcuentacontable();
+            
+            System.out.println("Usuario por consulta " + idCuenta);
+
+            Cuentacontable updateCuenta = new Cuentacontable();
+            System.out.println("IDCuenta" + idCuenta);
+            System.out.println("nombre de Cuenta Contable" + pnombre);
+            System.out.println("Tipo de Cuenta" + ptipocuenta);
+            updateCuenta.setIdcuentacontable(idCuenta);
+            updateCuenta.setNombrecuenta(ptipocuenta);
+            updateCuenta.setTipocuenta(ptipocuenta);            
+            entity.getTransaction().begin();
+            entity.merge(updateCuenta);
+            entity.getTransaction().commit();
+            System.out.println("Cuenta actualizada");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }  
+  
       public List<Cuentacontable> findAllCuenta() {
         List<Cuentacontable> resultList = new ArrayList<>();
         try {
