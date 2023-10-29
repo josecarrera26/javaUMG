@@ -271,9 +271,12 @@ public class ClienteUI implements Serializable {
     }
     
     public void actualizarCliente() {
+        try {
             ClienteServicio actualizar = new ClienteServicio();
             actualizar.actualizarCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente, getCuentac());
- 
+        } catch (Exception e) {
+            System.out.println(e + "Error en update ClienteUI");
+        }
     }
 
     @PostConstruct

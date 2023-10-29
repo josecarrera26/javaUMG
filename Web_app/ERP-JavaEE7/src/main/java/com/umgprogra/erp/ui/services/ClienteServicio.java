@@ -56,8 +56,8 @@ public class ClienteServicio {
       public void actualizarCliente(String pnombre, String ptelefono, String pemail, String pnit, String pdireccion, String pdpi, Cuentacontable idCuentacont) {
             Cliente queryCliente = new Cliente();
             Cliente updateCliente = new Cliente();
-            Query query2 = entity.createNamedQuery("Cliente.findByNombreCliente", Cliente.class)
-                    .setParameter("nombreCliente", pnombre);
+            Query query2 = entity.createNamedQuery("Cliente.findByNit", Cliente.class)
+                    .setParameter("nit", pnit);
             
             queryCliente = (Cliente) query2.getSingleResult();
             
