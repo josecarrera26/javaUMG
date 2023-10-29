@@ -240,6 +240,15 @@ public class EmpleadoUI implements Serializable {
             System.out.println(e + "Error en save EmpleadoUI");
         }
     }
+    
+    public void actualizarEmpleado() {
+        try {
+        EmpleadoServicio actualizar = new EmpleadoServicio();
+        actualizar.actualizarEmpleado(this.nombreEmpleado, this.apellido_empleado, this.telefono_empleado, this.email_empleado, getCargoSeleccionado(), this.estadoempleado);
+        } catch (Exception e) {
+            System.out.println(e + "Error en update EmpleadoUI");
+        }
+    }
 
     @PostConstruct
     public void init() {

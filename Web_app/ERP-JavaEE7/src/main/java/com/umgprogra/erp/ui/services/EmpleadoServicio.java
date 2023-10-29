@@ -48,7 +48,36 @@ public class EmpleadoServicio {
             System.err.println("Error al guardar Empleado " + e.getMessage());           
         }
         return g;
-    }    
+    }   
+  
+public void actualizarEmpleado(String pnombre, String papellido, String ptelefono, String pemail, Cargoempleado pidCargo, String pestado) {
+            Empleado queryEmpleado = new Empleado();
+            Empleado updateEmpleado = new Empleado();
+            Query query2 = entity.createNamedQuery("Empleado.findByTelefonoEmpleado", Empleado.class)
+                    .setParameter("telefonoEmpleado", ptelefono);
+            
+            queryEmpleado = (Empleado) query2.getSingleResult();
+            
+            Integer idEmpleado = queryEmpleado.getIdempleado();
+                       
+            System.out.println("Nombre del empleadod" + pnombre);
+            System.out.println("Apellido del empleado" + papellido);
+            System.out.println("Telefono" + ptelefono);
+            System.out.println("Email" + pemail);
+            System.out.println("ID Cargo" + pidCargo);
+            System.out.println("Estado" + pestado);
+            updateEmpleado.setIdempleado(idEmpleado);
+            updateEmpleado.setNombreEmpleado(pnombre);
+            updateEmpleado.setApellidoEmpleado(papellido);
+            updateEmpleado.setTelefonoEmpleado(ptelefono);
+            updateEmpleado.setEmailEmpleado(pemail);
+            updateEmpleado.setIdcargoEmpleado(pidCargo);
+            updateEmpleado.setEstado(pestado);
+            entity.getTransaction().begin();
+            entity.merge(updateEmpleado);
+            entity.getTransaction().commit();
+            System.out.println("Empleado actualizado");
+      }  
 
       public void getEmpleado() {
         Empleado empleado = new Empleado();
