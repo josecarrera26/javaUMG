@@ -100,6 +100,25 @@ public class MenuPrincipalUI implements Serializable {
         }
     }
 
+    public void modalNuevo(String pagina) {
+        DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                .modal(true)
+                .fitViewport(true)
+                .responsive(true)
+                .width("1000px")
+                .contentWidth("100%")
+                .resizeObserver(true)
+                .resizeObserverCenter(true)
+                .resizable(true)
+                .styleClass("max-w-screen")
+                .iframeStyleClass("max-w-screen")
+                .build();
+        System.out.println("Se crean las opciones del dialog");
+        PrimeFaces.current().dialog().openDynamic(pagina, options, null);
+        System.out.println("Se crean las el dialog");
+
+    }
+
     public void cuentaContable() {
         validaVista("CuentasContables.xhtml");
     }
@@ -158,6 +177,22 @@ public class MenuPrincipalUI implements Serializable {
 
     public void grupoProducto() {
         validaVista("GrupoProducto.xhtml");
+    }
+
+    public void Cliente_Flujo() {
+        modalNuevo("Cliente_Flujo.xhtml");
+    }
+
+    public void Proveedor_Flujo() {
+        modalNuevo("Proveedores_Flujo.xhtml");
+    }
+
+    public void Facturas_Flujo() {
+        modalNuevo("Facturas_Flujo.xhtml");
+    }
+
+    public void FacturasCompra_Flujo() {
+        modalNuevo("FacturacionCompra_Flujo.xhtml");
     }
 
     public void getNombreNit() {
