@@ -59,12 +59,14 @@
                                              icon="pi pi-check" styleClass="rounded-button" />
                             <p:commandButton id="btnActualizarEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Actualizar" actionListener ="#{usuarioUI.actualizarUsuario()}"
                                              icon="pi pi-check" styleClass="rounded-button" />
-                            <p:commandButton id="btnGeneraReporte" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Generar reporte Usuario" actionListener ="#{reporte.generarReporte}"
-                                             icon="pi pi-check" styleClass="rounded-button" ajax="false" />
                         </p:panelGrid>
                     </p:panel > 
                 </center>
             </p:tab>               
+        </h:form>
+        <h:form>
+            <p:commandButton id="btnGeneraReporte" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Generar reporte Usuario" actionListener ="#{reporte.generarReporte}"
+                             icon="pi pi-check" styleClass="rounded-button" ajax="false" />
         </h:form>
     </h:body>
 </html>
