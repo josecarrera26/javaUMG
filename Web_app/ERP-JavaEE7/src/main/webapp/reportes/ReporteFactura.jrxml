@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteUsuario" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d1c9b3bf-1ee4-4619-99bf-dfa37704b6b5">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -109,13 +109,14 @@
 	<field name="idtransaccion" class="java.lang.Integer"/>
 	<field name="cantidad" class="java.lang.Integer"/>
 	<field name="idproducto.nombre" class="java.lang.Object"/>
+	<field name="preciounitario" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="106" splitType="Stretch">
+		<band height="132" splitType="Stretch">
 			<staticText>
-				<reportElement x="179" y="48" width="190" height="30" uuid="94990178-db5c-45f7-9aa2-daf7e6d420f0"/>
+				<reportElement style="table 1_CH" x="179" y="48" width="204" height="32" uuid="94990178-db5c-45f7-9aa2-daf7e6d420f0"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
@@ -145,8 +146,8 @@
 	<pageHeader>
 		<band height="42" splitType="Stretch">
 			<staticText>
-				<reportElement x="219" y="12" width="136" height="30" uuid="31eb780e-f5e4-44ed-8a5a-fa37791a2745"/>
-				<textElement>
+				<reportElement style="table 1_TH" x="219" y="12" width="136" height="30" uuid="31eb780e-f5e4-44ed-8a5a-fa37791a2745"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16"/>
 				</textElement>
 				<text><![CDATA[Detalle Reporte]]></text>
@@ -156,38 +157,44 @@
 	<columnHeader>
 		<band height="50">
 			<rectangle>
-				<reportElement x="72" y="23" width="117" height="27" uuid="131350d8-8a07-4600-85be-9e587f9c26ea"/>
+				<reportElement style="table 1_CH" x="32" y="23" width="117" height="27" uuid="131350d8-8a07-4600-85be-9e587f9c26ea"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="189" y="23" width="152" height="27" uuid="ddfcdd0e-94ec-4917-a186-0aa0e47a4638"/>
+				<reportElement style="table 1_CH" x="149" y="23" width="152" height="27" uuid="ddfcdd0e-94ec-4917-a186-0aa0e47a4638"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="341" y="23" width="116" height="27" uuid="2dd7c54c-ffae-4970-a59d-26d71c23ca4f"/>
+				<reportElement style="table 1_CH" x="300" y="23" width="116" height="27" uuid="2dd7c54c-ffae-4970-a59d-26d71c23ca4f"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="72" y="23" width="117" height="27" uuid="5f9f9f23-5f6a-4cc4-a362-ef52352a71ed"/>
+				<reportElement style="table 1_CH" mode="Opaque" x="32" y="23" width="117" height="27" uuid="5f9f9f23-5f6a-4cc4-a362-ef52352a71ed"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[ID TRANSACCION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="190" y="23" width="149" height="27" uuid="ee30b7ed-b11c-48df-a6e5-4d02e3daa533"/>
+				<reportElement x="149" y="23" width="150" height="27" uuid="ee30b7ed-b11c-48df-a6e5-4d02e3daa533"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRODUCTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="340" y="23" width="117" height="27" uuid="4c40a919-00fe-4a4a-aca2-24ef9affc6b2"/>
+				<reportElement x="298" y="23" width="117" height="27" uuid="4c40a919-00fe-4a4a-aca2-24ef9affc6b2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[CANTIDAD]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement style="table 1_CH" x="417" y="23" width="116" height="27" uuid="37f43dfb-da29-40b5-8139-b4c986299dab"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="241" y="1" width="100" height="20" uuid="a6684d07-de1b-4036-baae-4cbbf7e64195"/>
-				<text><![CDATA[idproducto.nombre]]></text>
+				<reportElement x="416" y="23" width="117" height="27" uuid="64d9ad40-772b-4d51-aa3b-0831f491d1a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO UNITARIO]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -195,32 +202,53 @@
 		<band height="29" splitType="Stretch">
 			<elementGroup/>
 			<rectangle>
-				<reportElement x="72" y="0" width="117" height="27" uuid="5d3fcf9e-4071-4794-96ac-d3e3811fde1f"/>
+				<reportElement style="table 1_TH" x="32" y="0" width="117" height="27" uuid="5d3fcf9e-4071-4794-96ac-d3e3811fde1f"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="190" y="0" width="151" height="27" uuid="e54987bc-641b-49eb-ad29-d6380a30786d"/>
+				<reportElement style="table 1_TH" x="150" y="0" width="149" height="27" uuid="e54987bc-641b-49eb-ad29-d6380a30786d"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="341" y="0" width="116" height="27" uuid="929872d5-de5e-4a9c-b942-cf65a077e22b"/>
+				<reportElement style="table 1_TH" x="300" y="0" width="116" height="27" uuid="929872d5-de5e-4a9c-b942-cf65a077e22b"/>
 			</rectangle>
 			<textField>
-				<reportElement x="72" y="0" width="118" height="27" uuid="2f1a0160-b6d7-495d-8d4d-b969191a550f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{idtransaccion}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="341" y="0" width="116" height="27" uuid="4ee2cd89-d660-4807-bd16-28ba6e6a17b9"/>
+				<reportElement x="301" y="0" width="114" height="29" uuid="4ee2cd89-d660-4807-bd16-28ba6e6a17b9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="190" y="0" width="149" height="27" uuid="92b269a2-f50f-4986-93cc-2fa3e6e57b66"/>
+				<reportElement x="33" y="2" width="117" height="27" uuid="2f1a0160-b6d7-495d-8d4d-b969191a550f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idtransaccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="150" height="27" uuid="92b269a2-f50f-4986-93cc-2fa3e6e57b66"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[""+$F{idproducto.nombre}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement style="table 1_TH" x="417" y="0" width="116" height="27" uuid="ba17b4cc-33a7-4cdc-85b6-5fc14769bf90"/>
+			</rectangle>
+			<textField>
+				<reportElement x="417" y="2" width="116" height="25" uuid="d53e0af2-490d-42f8-9271-c3350f04e970"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{preciounitario}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="238" y="39" width="101" height="15" forecolor="#0033FF" uuid="2f34ed41-5f1b-4232-89ee-154bd34089f6"/>
+				<text><![CDATA[Grandes Soluciones S.A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="39" width="103" height="15" forecolor="#0033FF" uuid="f7c71a5f-474a-452a-aac7-132b98a541dd"/>
+				<text><![CDATA[2323-2323]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="459" y="39" width="96" height="15" uuid="9332cad7-a406-49ac-8310-a46b6ba3cf8d"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 </jasperReport>
