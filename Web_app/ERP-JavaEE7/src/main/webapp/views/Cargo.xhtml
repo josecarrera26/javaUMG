@@ -14,43 +14,39 @@
 
         <h:form>
             <p:menubar>
-                <p:submenu label="Opciones Menu" icon="pi pi-fw pi-home">
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                </p:submenu>
-                <p:submenu label="Contabilidad" icon="pi pi-fw pi-briefcase">
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wrench" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
-                    <p:submenu label="Empleados" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-user-minus" actionListener="#{menuPrincipalUI.roles()}"/>
-                    </p:submenu>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+
+                <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
-
-                <p:submenu label="Facturacion" icon="pi pi-fw pi-envelope">
+                <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
                     <p:menuitem value="Cliente" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.cliente()}"/>
-                    <p:menuitem value="Facturas" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.facturas()}"/>
-                    <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
+                    <p:menuitem value="Factura Venta" icon="pi pi-fw pi-file-export" actionListener="#{menuPrincipalUI.facturas()}"/>
+                    <p:menuitem value="Factura Compra" icon="pi pi-fw pi-file-import" actionListener="#{menuPrincipalUI.facturasCompra()}"/>
                 </p:submenu>
 
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
                     <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
-
                         <p:menuitem value="Editar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioE()}" rendered="#{sessionU.flag}" /> 
-
                     </p:submenu>
+                    <p:menuitem value="Proveedores" icon="pi pi-fw pi-user" actionListener="#{menuPrincipalUI.proveedores()}"/>
                     <p:menuitem value="Kardex" icon="pi pi-fw pi-box" url="./kardex.xhtml"/>
                 </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
                         <i class="pi pi-fw pi-user"/>
-                        <p:outputLabel value="#{menuPrincipalUI.username}"/>
+                        <p:outputLabel value="      "/>
+                        <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="      "/>
                         <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" action="#{menuPrincipalUI.logout()}" id="btnLogout"/>
-                    </div>
+                    </div>          
                 </f:facet>
             </p:menubar>
         </h:form>
@@ -60,51 +56,58 @@
                 <h:form id="frmCargo">
                     <p:tabView dynamic="true">
                         <p:tab title="Nuevo Cargo">
-                            <p:panel id="pnlCargo" header="Registar cargo" style="width: 100%">
+                            <center>
+                                <p:panel id="pnlCargo" header="Registar cargo" style="width: 100%">
 
-                                <div class="card">
-                                    <div class="grid">
-                                        <div class="col-5 flex align-items-center justify-content-center">
-                                            <div class="ui-fluid">
-                                                <div class="field">
-                                                    <h:outputLabel id="lblNombreCargo" value="Nombre" for="txtNombreCargo"/>
-                                                    <p:inputText id="txtNombreCargo" value="#{cargoUI.nombre_cargo}" required="true" requiredMessage="Descripcion requerida" />
+                                    <div class="card">
+                                        <div class="grid">
+                                            <div class="col-5 flex align-items-center justify-content-center">
+                                                <div class="ui-fluid">
+                                                    <div class="field">
+                                                        <h:outputLabel id="lblNombreCargo" value="Nombre" for="txtNombreCargo"/>
+                                                        <p:inputText id="txtNombreCargo" value="#{cargoUI.nombre_cargo}" required="true" requiredMessage="Descripcion requerida" />
+
+                                                    </div>
 
                                                 </div>
-
                                             </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <p:divider layout="vertical"> </p:divider>
-                                        </div>
+                                            <div class="col-2">
+                                                <p:divider layout="vertical"> </p:divider>
+                                            </div>
 
-                                        <div class="ui-fluid">
-                                            <div class="field">
-                                                <h:outputLabel id="lblSalario" value="Salario" for="txtSalario"/>
-                                                <p:inputNumber id="txtSalario" value="#{cargoUI.salario}" modifyValueOnWheel="true" />
+                                            <div class="ui-fluid">
+                                                <div class="field">
+                                                    <h:outputLabel id="lblSalario" value="Salario" for="txtSalario"/>
+                                                    <p:inputNumber id="txtSalario" value="#{cargoUI.salario}" modifyValueOnWheel="true" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
-                                    <p:commandButton id="btnRegistro" value="Registar" action="#{cargoUI.crearCargo()}" style="width: 50%"
-                                                     update="pnlCargo"  />
-                                </p:panelGrid>
 
-                            </p:panel>
+                                    <p:panelGrid id="pnlBtn" layout="grid" columns="2" style="width: 100%">
+                                        <p:commandButton id="btnRegistro" value="Registar" action="#{cargoUI.crearCargo()}" style="width: 50%"
+                                                         update="pnlCargo,dtCargos"  />
+                                        <p:commandButton id="btnActualizar" value="Actualizar" action="#{cargoUI.updateCargo()}" style="width: 50%"
+                                                         update="pnlCargo, dtCargos"  />
+                                    </p:panelGrid>
+
+                                </p:panel>
+                            </center>
+                        </p:tab>
+                        <p:tab title="Consulta Cargo">
                             <p:dataTable id="dtCargos" var="cargos" value="#{cargoUI.cargos}" rowKey="#{cargoUI.idCargo}" selectionMode="single">
                                 <f:facet name="header">
                                     Cargos
                                 </f:facet>
-                                <p:column headerText="Codigo Cargo">
+                                <p:column headerText="Codigo Cargo" sortBy="#{cargos.idcargo}" filterBy="#{cargos.idcargo}">
                                     <h:outputText value="#{cargos.idcargo}" />
                                 </p:column>
-                                <p:column headerText="Nombre del Cargo">
+                                <p:column headerText="Nombre del Cargo" filterBy="#{cargos.nombreCargo}" sortBy="#{cargos.nombreCargo}">
                                     <h:outputText value="#{cargos.nombreCargo}" />
                                 </p:column>
-                                <p:column headerText="Salario Q">
+                                <p:column headerText="Salario Q" filterBy="#{cargos.salario}" sortBy="#{cargos.salario}">
                                     <h:outputText value="#{cargos.salario}">
-                                    <f:convertNumber pattern="#,##0.00" />
+                                        <f:convertNumber pattern="#,##0.00" />
                                     </h:outputText>
                                 </p:column>
                             </p:dataTable>

@@ -4,7 +4,6 @@
  */
 package com.umgprogra.erp.javaee7UI;
 
-import com.umgprogra.erp.DAO.Roles;
 import com.umgprogra.erp.ui.services.Nit;
 import com.umgprogra.erp.util.JpaUtil;
 import com.umgprogra.erp.util.SessionUser;
@@ -19,6 +18,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -43,6 +43,7 @@ public class MenuPrincipalUI implements Serializable {
         this.username = username;
     }
     private String username;
+
     /**
      * @return the sessionUser
      */
@@ -122,7 +123,7 @@ public class MenuPrincipalUI implements Serializable {
     public void facturas() {
         validaVista("Facturas.xhtml");
     }
-    
+
     public void facturasCompra() {
         validaVista("FacturacionCompra.xhtml");
     }
@@ -142,7 +143,7 @@ public class MenuPrincipalUI implements Serializable {
     public void inventarioE() {
         validaVista("editarProducto.xhtml");
     }
-    
+
     public void EliminarProd() {
         validaVista("EliminarProd.xhtml");
     }
@@ -167,17 +168,17 @@ public class MenuPrincipalUI implements Serializable {
     @PostConstruct
     public void init() {
         validarUsuario();
+        validarAcceso();
     }
 
     public void validarUsuario() {
-        
+
         try {
             if (sessionUser.getUser() == null) {
                 System.out.println("Usuario no incio sesion.");
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
                 externalContext.redirect("../");
-            }
-            else{
+            } else {
                 this.username = sessionUser.getUser().getUsername();
             }
         } catch (Exception e) {
@@ -185,9 +186,41 @@ public class MenuPrincipalUI implements Serializable {
 
         }
     }
-    
-    public void logout(){
-        
+
+    public void validarAcceso() {
+        try {
+
+            Integer usuario = sessionUser.getUser().getIdrole().getIdrole();
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String currentURL = request.getRequestURL().toString();
+            System.out.println("link actual: " + currentURL);
+            String[] partesURL = currentURL.split("/");
+            String xhtmlActual = partesURL[partesURL.length - 1];
+            System.out.println("pagina actual: " + xhtmlActual);
+            String acceos = sessionUser.getUser().getIdrole().getAccesos();
+            String[] accesosSplit = acceos.split(",");
+            boolean encontrado = false;
+
+            for (String acceso : accesosSplit) {
+                if (acceso.trim().equals(xhtmlActual)) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            System.out.println("tiene acceso? " + encontrado);
+            if (usuario != 1 && !"MenuPrincipal.xhtml".equals(xhtmlActual) && !encontrado && !"kardex.xhtml".equals(xhtmlActual)) {
+
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                externalContext.redirect("sinacceso.xhtml");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void logout() {
+
         try {
             System.out.println("El usuario " + this.username + " se deloggeo.");
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("sessionU");
@@ -197,6 +230,6 @@ public class MenuPrincipalUI implements Serializable {
             System.out.println("Error: " + e.getMessage());
 
         }
-    
+
     }
 }

@@ -42,8 +42,10 @@ public class UsuarioServicio {
                     .setParameter("username", username);
 
             usuario = (Usuario) query2.getSingleResult();
+            
+            System.out.println("Estado del usuario " + usuario.getEstado());
 
-            if (Objects.equals(usuario.getUsername(), username) && usuario.getPassword().equals(password)) {
+            if (Objects.equals(usuario.getUsername(), username) && usuario.getPassword().equals(password) && "Activo".equals(usuario.getEstado())) {
                 SessionUser user = new SessionUser(usuario, validarABC(usuario));
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sessionU", user);
                 existe = 1;
@@ -82,6 +84,7 @@ public class UsuarioServicio {
         rusuario.setPassword(password);
         rusuario.setIdrole(role);
         rusuario.setIdempleado(empleado);
+        rusuario.setEstado("Activo");
 
         entity.getTransaction().begin();
 
@@ -98,7 +101,7 @@ public class UsuarioServicio {
         return registro;
     }
 
-    public void actualizarUsuario(String password, String username, Integer idrole, Integer idempleado) {
+    public void actualizarUsuario(String password, String username, Integer idrole, Integer idempleado, String estadoEmpleado) {
         try {
             Roles role = entity.find(Roles.class, idrole);
             Empleado empleado = entity.find(Empleado.class, idempleado);
@@ -117,11 +120,12 @@ public class UsuarioServicio {
 
             Usuario updateUsuario = new Usuario();
 
-            updateUsuario.setIdusuario(13);
+            updateUsuario.setIdusuario(idUsuario);
             updateUsuario.setUsername(username);
             updateUsuario.setPassword(password);
             updateUsuario.setIdrole(role);
             updateUsuario.setIdempleado(empleado);
+            updateUsuario.setEstado(estadoEmpleado);
             entity.getTransaction().begin();
             entity.merge(updateUsuario);
             entity.getTransaction().commit();

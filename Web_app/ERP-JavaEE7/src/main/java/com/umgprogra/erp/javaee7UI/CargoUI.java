@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -20,6 +21,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
+@SessionScoped
 public class CargoUI {
 
     /**
@@ -96,6 +98,13 @@ public class CargoUI {
         CargosServicio nuevoCargo = new CargosServicio();
         
        nuevoCargo.InsertarCargo(this.nombre_cargo, this.salario);
+    }
+    
+    public void updateCargo(){
+    
+        CargosServicio nuevoCargo = new CargosServicio();
+        
+       nuevoCargo.updateCargo(this.nombre_cargo, this.salario);
     }
     
     public void listaCargos(){

@@ -28,6 +28,34 @@ import javax.inject.Named;
 public class ProveedoresUI implements Serializable {
 
     /**
+     * @return the filteredProveedor
+     */
+    public List<Proveedor> getFilteredProveedor() {
+        return filteredProveedor;
+    }
+
+    /**
+     * @param filteredProveedor the filteredProveedor to set
+     */
+    public void setFilteredProveedor(List<Proveedor> filteredProveedor) {
+        this.filteredProveedor = filteredProveedor;
+    }
+
+    /**
+     * @return the Estado
+     */
+    public String getEstado() {
+        return Estado;
+    }
+
+    /**
+     * @param Estado the Estado to set
+     */
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
+
+    /**
      * @return the resultados
      */
     public List<Proveedor> getResultados() {
@@ -56,20 +84,6 @@ public class ProveedoresUI implements Serializable {
     }
 
     /**
-     * @return the filteredCliente
-     */
-    public List<Proveedor> getFilteredCliente() {
-        return filteredProveedor;
-    }
-
-    /**
-     * @param filteredCliente the filteredCliente to set
-     */
-    public void setFilteredCliente(List<Proveedor> filteredCliente) {
-        this.filteredProveedor = filteredCliente;
-    }
-
-    /**
      * @return the idCuenta
      */
     public Cuentacontable getIdCuenta() {
@@ -90,6 +104,7 @@ public class ProveedoresUI implements Serializable {
     private String regimenProvedor;
     private String emailProveedor;
     private Cuentacontable idCuenta;
+    private String Estado;
 
     private List<Proveedor> filteredProveedor;
     private List<Proveedor> proveedor;
@@ -162,7 +177,7 @@ public class ProveedoresUI implements Serializable {
 
         try {
             ProveedoreServicio reg = new ProveedoreServicio();
-            boolean exito = reg.registrarProveedor(this.nombreProveedor, this.direccionProveedor, this.telefonoProveedor, this.regimenProvedor, this.emailProveedor, getCuenta());
+            boolean exito = reg.registrarProveedor(this.nombreProveedor, this.direccionProveedor, this.telefonoProveedor, this.regimenProvedor, this.emailProveedor, getCuenta(), "Activo");
 
             if (exito) {
                 // Éxito: muestra un mensaje de éxito
@@ -198,20 +213,21 @@ public class ProveedoresUI implements Serializable {
         }
         return idCuenta;
     }
+    
+    public void updateProveedor(){
+        ProveedoreServicio actualizarProveedor = new ProveedoreServicio();
+        actualizarProveedor.actualizarProveedor(this.nombreProveedor, this.direccionProveedor, this.telefonoProveedor, this.regimenProvedor, this.emailProveedor, getCuenta(), this.Estado);
 
+    }
+    public void consultaCliente() {
+        ProveedoreServicio proveedorServicio = new ProveedoreServicio();
+        proveedor = proveedorServicio.findProveedores();
+    }
+    
     @PostConstruct
     public void init() {
         MenuPrincipalUI login = new MenuPrincipalUI();
         login.validarUsuario();
-    }
-
-    public void consultaCliente() {
-//        try {
-//            setResultados(new ArrayList<>());
-//            System.out.println("idCliente buscado" + this.idProveedor);
-//            setResultados(servicio.finderidProveedorById(idProveedor));
-//        } catch (Exception e) {
-//            System.err.println("Error al consultar");
-//        }
+        consultaCliente();
     }
 }

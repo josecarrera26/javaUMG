@@ -44,6 +44,31 @@ public class RolesServicio {
         return g; 
     }
     
+        public String updateRole(String pnombrerole, String pdescripcion, String paccesos) {
+        try {            
+            Roles roleQuery = new Roles();
+            Roles role = new Roles();
+             Query query2 = entity.createNamedQuery("Roles.findByNombreRole", Roles.class)
+                    .setParameter("nombreRole", pnombrerole);
+
+            roleQuery = (Roles) query2.getSingleResult();
+            
+            Integer idRole = roleQuery.getIdrole();                      
+            
+            role.setIdrole(idRole);
+            role.setNombreRole(pnombrerole);
+            role.setDescripcion(pdescripcion);
+            role.setAccesos(paccesos);
+
+            entity.getTransaction().begin();
+            entity.merge(role);
+            entity.getTransaction().commit();
+            return "Role actualizado Exitosamente";
+        } catch (Exception e) {
+            return e.getMessage();
+        }   
+    }
+    
     public void getRole() {
         Roles rol = new Roles();
         Query query2 = entity.createNamedQuery("Roles.findAll", Roles.class);

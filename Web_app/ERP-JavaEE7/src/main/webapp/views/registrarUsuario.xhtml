@@ -8,7 +8,7 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Registrarse</title>
+        <title>Administrar Usuario </title>
         <link rel="stylesheet" media="screen" href="../resources/css/styleHeader.css" type="text/css" />
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
         <link 
@@ -21,30 +21,36 @@
             <p:growl id="msgReg"   />
             <p:tab  title="Registrarse">
                 <center>
-                    <p:panel id="pnlRegistroUsuario" header="Registrarse" class="centerPnl" >
+                    <p:panel id="pnlRegistroUsuario" class="centerPnl" >
                         <p:panelGrid id="pnlGridUsr" layout="grid" columns="2" style="width: 100%" >
                             <h:outputLabel id="lblusr" value="Username" />
-                            <p:inputText id="usernameUsr" value="#{usuarioUI.username}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
+                            <p:inputText id="usernameUsr" value="#{usuarioUI.username}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 100%" />     
 
-                            <h:outputLabel id="lblpassUsr" value="Contraseña" />
-                            <p:inputText id="passwordUsr" value="#{usuarioUI.password}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
+                            <h:outputLabel id="lblpassUsr" value="Contraseña" style="width: 100%"/>
+                            <p:inputText id="passwordUsr" value="#{usuarioUI.password}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 100%" />     
 
-                            <h:outputLabel id="lblRole" value="Role" />
+                            <h:outputLabel id="lblRole" value="Role" style="width: 100%"/>
                             <p:selectOneMenu id="role" class="combo" value="#{usuarioUI.role}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 100%">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItems value="#{usuarioUI.todosRolesItems}"/>
                             </p:selectOneMenu>
-                            <h:outputLabel id="lblEmpleado" value="Empleado" />
-                            <p:selectOneMenu id="empleado" class="combo" value="#{usuarioUI.idEmpleado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 100%">
+                            <h:outputLabel id="lblEmpleado" value="Empleado" style="width: 100%"/>
+                            <p:selectOneMenu id="empleado" class="combo" value="#{usuarioUI.idEmpleado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 100%" >
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItems value="#{usuarioUI.empleadosItems}"/>
                             </p:selectOneMenu>
+                            <h:outputLabel id="lblEstado" value="Estado" style="width: 100%"/>
+                            <p:selectOneMenu id="estado" class="combo" value="#{usuarioUI.estadoEmpleado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 100%">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                            </p:selectOneMenu>
                         </p:panelGrid >
 
-                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="2">
-                            <p:commandButton id="btnRegEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Registrar Usuario" actionListener ="#{usuarioUI.registroUsuario()}"
+                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="3">
+                            <p:commandButton id="btnRegEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Registrar" actionListener ="#{usuarioUI.registroUsuario()}"
                                              icon="pi pi-check" styleClass="rounded-button" />
-                            <p:commandButton id="btnActualizarEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Actualizar Usuario" actionListener ="#{usuarioUI.actualizarUsuario()}"
+                            <p:commandButton id="btnActualizarEmp" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Actualizar" actionListener ="#{usuarioUI.actualizarUsuario()}"
                                              icon="pi pi-check" styleClass="rounded-button" />
                             <p:commandButton id="btnGeneraReporte" update="formRegistroUsuario,msgReg,pnlRegistroUsuario" value="Generar reporte Usuario" actionListener ="#{reporte.generarReporte}"
                                              icon="pi pi-check" styleClass="rounded-button" ajax="false" />

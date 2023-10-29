@@ -170,18 +170,27 @@ public class RolesUI implements  Serializable{
     private List<Roles> roles;
     
         RolesServicio servicio = new RolesServicio();
-    
-            public void saveRole(){
-        try{
-         
+
+    public void saveRole() {
+        try {
+
             RolesServicio nuevoRole = new RolesServicio();
             nuevoRole.saveRole(this.nombreRole, this.descripcion, this.accesos);
             setRoles(nuevoRole.findAllRoles());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e + "Error en save ClienteUI");
         }
     }
+     
+    public void updateRole() {
+        try {
+        RolesServicio newRole = new RolesServicio();
+        newRole.updateRole(this.nombreRole, this.descripcion, this.accesos);
+        
+        } catch (Exception e) {
+            System.out.println(e + "Error en updateRole RolesUI");
+        }
+    }   
             
     @PostConstruct
         public void init() {

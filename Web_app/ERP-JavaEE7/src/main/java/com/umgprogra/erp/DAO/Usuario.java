@@ -34,6 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByusrid", query = "SELECT u.idusuario FROM Usuario u WHERE u.username = :username")})
 public class Usuario implements Serializable {
 
+    @Size(max = 2147483647)
+    @Column(name = "estado")
+    private String estado;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,6 +127,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "com.umgprogra.erp.DAO.Usuario[ idusuario=" + idusuario + " ]";
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

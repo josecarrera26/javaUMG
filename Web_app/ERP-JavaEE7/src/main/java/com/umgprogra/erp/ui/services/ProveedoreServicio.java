@@ -5,7 +5,6 @@
 package com.umgprogra.erp.ui.services;
 
 import com.umgprogra.erp.DAO.Cuentacontable;
-import com.umgprogra.erp.DAO.Grupoproducto;
 import com.umgprogra.erp.DAO.Proveedor;
 import com.umgprogra.erp.util.JpaUtil;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class ProveedoreServicio {
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
-    public boolean registrarProveedor(String nombreProv, String direccionProv, Integer telefonoProv, String regimenProv, String emailProv, Cuentacontable idCuenta ) {
+    public boolean registrarProveedor(String nombreProv, String direccionProv, Integer telefonoProv, String regimenProv, String emailProv, Cuentacontable idCuenta, String estado) {
         boolean exito = false;  // Inicialmente, asumimos que la operación fallará
 
         try {
@@ -37,6 +36,7 @@ public class ProveedoreServicio {
             prov.setNombreProveedor(nombreProv);
             prov.setRegimenProveedor(regimenProv);
             prov.setTelefono(telefonoProveedorStr);
+            prov.setEstado(estado);
 
             // Iniciar la transacción
             entity.getTransaction().begin();
@@ -73,13 +73,14 @@ public class ProveedoreServicio {
 
         return resultList;
     }
-public List<Proveedor> finderidProveedorById(Integer idProveedor) {
+
+    public List<Proveedor> finderidProveedorById(Integer idProveedor) {
         List<Proveedor> resultList = new ArrayList<>();
         try {
             System.out.println("metodo DB findbyidProveedor");
             System.out.println("idProveedor" + idProveedor);
             Query query = entity.createNamedQuery("Cliente.findByIdProveedor", Proveedor.class)
-                .setParameter("idproveedor", idProveedor);
+                    .setParameter("idproveedor", idProveedor);
             //resultado
             resultList = query.getResultList();
             if (resultList != null && !resultList.isEmpty()) {
@@ -90,8 +91,47 @@ public List<Proveedor> finderidProveedorById(Integer idProveedor) {
         } catch (Exception e) {
             System.err.println("Error en findbyIdCliente " + e.getMessage());
         }
-    
+
         return resultList;
 
+    }
+
+    public void actualizarProveedor(String nombre, String direccion, Integer telefono, String regimen, String email, Cuentacontable cuenataContable, String estado) {
+        Proveedor proveedor = new Proveedor();
+        String telefonoProveedorStr = telefono.toString();
+        Query query = entity.createNamedQuery("Proveedor.findByNombreProveedor", Proveedor.class)
+                .setParameter("nombreProveedor", nombre);
+
+        proveedor = (Proveedor) query.getSingleResult();
+
+        Integer idProveedor = proveedor.getIdproveedor();
+
+        Proveedor updateProveedor = new Proveedor();
+
+        updateProveedor.setIdproveedor(idProveedor);
+        updateProveedor.setNombreProveedor(nombre);
+        updateProveedor.setDireccion(direccion);
+        updateProveedor.setTelefono(telefonoProveedorStr);
+        updateProveedor.setRegimenProveedor(regimen);
+        updateProveedor.setEmailProveedor(email);
+        updateProveedor.setIdcuentacontable(cuenataContable);
+        updateProveedor.setEstado(estado);
+        entity.getTransaction().begin();
+        entity.merge(updateProveedor);
+        entity.getTransaction().commit();
+        System.out.println("Proveedor actualizado");
+    }
+
+    public List<Proveedor> findProveedores() {
+        List<Proveedor> proveedoresList = new ArrayList<>();
+
+        try {
+            Query query = entity.createNamedQuery("Proveedor.findAll", Proveedor.class);
+            proveedoresList = query.getResultList();
+            return proveedoresList;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
     }
 }
