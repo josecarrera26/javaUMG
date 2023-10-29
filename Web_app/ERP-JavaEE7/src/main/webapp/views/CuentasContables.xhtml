@@ -14,15 +14,15 @@
 
     <h:body>
 
-                <h:form>
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -109,6 +109,10 @@
                                     <div>
                                         <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
+
+                                        <p:commandButton id="btnGeneraReporteCuentas"  value="Generar reporte Cuentas" actionListener ="#{reporteCuentas.generarReporte}"
+                                                         icon="pi pi-check" styleClass="rounded-button" ajax="false" />
+
                                     </div>
                                 </div>
 

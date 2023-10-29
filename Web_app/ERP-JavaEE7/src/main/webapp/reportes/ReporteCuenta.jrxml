@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="162eb190-0f21-4f35-846e-c7a8f071c2d8">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<field name="idcuentacontable" class="java.lang.Integer"/>
+	<field name="nombrecuenta" class="java.lang.String"/>
+	<field name="tipocuenta" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="158" y="16" width="222" height="43" uuid="61cf850d-e107-4642-bc8a-327af8fb3a1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuentas Contables]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="16" width="100" height="20" uuid="9016b753-6f08-450a-b522-0f447133cca9"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="455" y="39" width="100" height="20" uuid="834b9dfe-a745-4787-8caf-4dc8240c08af"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="196" y="0" width="164" height="35" uuid="e0d5a457-7469-445e-b077-c007b5bfc6de"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle Reporte]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="63" splitType="Stretch">
+			<rectangle>
+				<reportElement x="85" y="32" width="113" height="31" uuid="5437dd6a-33d2-4c3a-b45f-bf78185b07b0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="85" y="43" width="113" height="20" uuid="34fa168d-5b65-4bae-9dad-c57c2b4c4324"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id Cuenta]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="198" y="32" width="113" height="31" uuid="33171ec9-1e3f-46a7-8a3c-7fe0bd544dab"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="199" y="43" width="111" height="20" uuid="b5a3a02d-1056-45be-a8ac-503783cab623"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Cuenta]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="311" y="32" width="113" height="31" uuid="99c3c18f-4fd0-4c3c-8d77-36d0d9cbfe57"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="311" y="43" width="113" height="20" uuid="2143acb6-4042-46d0-8989-20b0efe67ed0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Cuenta]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<rectangle>
+				<reportElement x="85" y="0" width="113" height="31" uuid="c5bc2dda-338c-44e9-9c13-c832202fd8a9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="197" y="0" width="113" height="31" uuid="9377cd79-e23c-42e1-8ce5-1c85c8113b9d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="311" y="0" width="113" height="31" uuid="906b5300-8f9d-43e2-af9e-5f6db2759af5"/>
+			</rectangle>
+			<textField>
+				<reportElement x="85" y="0" width="114" height="31" uuid="061d6045-a236-432e-b4f0-114d2a55e16c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idcuentacontable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="0" width="111" height="31" uuid="40ca3d11-ff03-4e20-8d67-97191351cbce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombrecuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="0" width="113" height="31" uuid="1af29f44-a0a1-46a8-beed-1b4df394771b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipocuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -13,15 +13,15 @@
 
     <h:body>
 
-                <h:form>
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -54,7 +54,10 @@
         <h:form id="frmFacturaCab">
             <p:tabView dynamic="false">
                 <p:tab title="Facturacion">
-                    <p:panel id="pnlFacturaCab" header="Registro de nueva factura" style="width: 100%">
+                    <p:panel id="pnlFacturaCab" header="Registro de nueva factura" style="width: 100%" > 
+                        
+                        
+                        
                         <div class="card">
                             <div class="ui-fluid">
                                 <div class="field">
@@ -88,7 +91,7 @@
                                 <div class="ui-fluid">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                             <p:outputLabel id="lblNomCliente" value="Nombre Cliente "  for="@next"/>
+                                            <p:outputLabel id="lblNomCliente" value="Nombre Cliente "  for="@next"/>
                                             <br/>
                                             <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturasCVUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
                                                              style="width: 13rem;" panelStyle="width: 15rem">
@@ -104,22 +107,22 @@
 
                         <div class="card">
                             <div class="grid">
-                               <div class="col-5 flex align-items-center justify-content-center">
+                                <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                           <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
-                                        <br/>
-                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
-                                                         style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{facturasCVUI.tipo_pago}">
-                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{facturasCVUI.tipoPago}"/>
-                                        </p:selectOneMenu>
+                                            <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
+                                            <br/>
+                                            <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
+                                                             style="width: 14rem;" panelStyle="width: 15rem" 
+                                                             value="#{facturasCVUI.tipo_pago}">
+                                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                <f:selectItems value="#{facturasCVUI.tipoPago}"/>
+                                            </p:selectOneMenu>
 
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-2">
                                     <p:divider layout="vertical"> </p:divider>
                                 </div>
@@ -127,13 +130,13 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <div class="field">
-                                              <h:outputLabel id="lblCant" value="Cantidad de Producto" />
-                                        <br/>
+                                            <h:outputLabel id="lblCant" value="Cantidad de Producto" />
+                                            <br/>
                                             <p:inputText id="cantProd" value="#{facturasCVUI.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 250px;" /> 
 
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -160,7 +163,7 @@
                                 </div>
                                 <div class="ui-fluid">
                                     <div class="field">
-                                      
+
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +176,7 @@
                                         <div class="field">
                                             <p:commandButton id="btnSaveFactura" value="Registrar Factura" action="#{facturasCVUI.insertFacturaC()}"
                                                              update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
-                                                
+
                                         </div>
                                     </div>
                                 </div>
