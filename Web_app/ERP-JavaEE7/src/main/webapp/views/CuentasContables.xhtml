@@ -116,6 +116,10 @@
                                     <div>
                                         <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
+
+                                        <p:commandButton id="btnGeneraReporteCuentas"  value="Generar reporte Cuentas" actionListener ="#{reporteCuentas.generarReporte}"
+                                                         icon="pi pi-check" styleClass="rounded-button" ajax="false" />
+
                                     </div>
                                 </div>
 

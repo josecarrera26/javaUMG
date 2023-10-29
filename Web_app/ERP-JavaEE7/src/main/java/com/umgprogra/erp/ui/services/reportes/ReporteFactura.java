@@ -4,18 +4,17 @@
  */
 package com.umgprogra.erp.ui.services.reportes;
 
-import static com.lowagie.text.pdf.PdfName.op;
-import com.umgprogra.erp.DAO.Usuario;
+import com.umgprogra.erp.DAO.Facturacab;
+import com.umgprogra.erp.DAO.Facturadet;
 import com.umgprogra.erp.util.JpaUtil;
 import java.io.IOException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
@@ -23,23 +22,23 @@ import javax.persistence.Query;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
- * @author josel
+ * @author hccon
  */
+
 @ManagedBean
 @ViewScoped
-public class Reporte implements Serializable {
+public class ReporteFactura implements Serializable{
+    
 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
@@ -47,21 +46,17 @@ public class Reporte implements Serializable {
         System.out.println("Ingresa generarReporte");
         try {
 
-            List<Usuario> resultados = null;
+            List<Facturadet> resultados = null;
 
-            Query query2 = entity.createNamedQuery("Usuario.findAll", Usuario.class);
+            Query query2 = entity.createNamedQuery("Facturadet.findAll", Facturadet.class);
 
             resultados = query2.getResultList();
-
-            for (Usuario usuario : resultados) {
-                System.out.println("usuarios: " + usuario.getUsername() + usuario.getPassword() + usuario.getIdusuario() + usuario.getIdrole());
-            }
 
             Locale locale = new Locale("es", "GT");
             Map<String, Object> masterParams = new HashMap<>();
             masterParams.put(JRParameter.REPORT_LOCALE, locale);
 
-            String reportPath = this.getRealPath("reportes/ReporteUsuario.jasper");
+            String reportPath = this.getRealPath("reportes/ReporteFactura.jasper");
             System.out.println("ruta del reporte: " + reportPath);
 
             JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportPath);
@@ -75,7 +70,7 @@ public class Reporte implements Serializable {
             System.out.println("si llena el reporte con los parametros");
             
             HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteUsuarios.pdf");
+            httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteFactura.pdf");
             httpServletResponse.setContentType("application/pdf");
             
             ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
