@@ -728,8 +728,6 @@ public class InventarioUI implements Serializable {
         return inventarioList;
     }
 
-   
-
     public void generarReporte(ActionEvent pActionEvent) {
         System.out.println("Ingresa generarReporte");
         try {
@@ -1011,9 +1009,16 @@ public class InventarioUI implements Serializable {
 
     public void findAllProductosUi() {
         try {
-            InventarioServicio inventarioServ = new InventarioServicio();
-            productos = (inventarioServ.findAllProducto());
+            List<Inventario> productosActivos;
 
+            InventarioServicio inventarioServ = new InventarioServicio();
+            productosActivos = (inventarioServ.findAllProducto());
+            for (Inventario act: productosActivos) {
+                if (act.getEstado()==1) {
+                    productos.add(act);
+                }
+
+            }
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas");
         }
