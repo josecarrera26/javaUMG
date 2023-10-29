@@ -57,7 +57,7 @@ public class ClienteServicio {
             Cliente queryCliente = new Cliente();
             Cliente updateCliente = new Cliente();
             Query query2 = entity.createNamedQuery("Cliente.findByNombreCliente", Cliente.class)
-                    .setParameter("Nombre", pnombre);
+                    .setParameter("nombreCliente", pnombre);
             
             queryCliente = (Cliente) query2.getSingleResult();
             
