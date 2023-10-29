@@ -1,0 +1,195 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Facturas</title>
+        <h:outputStylesheet library="css" name="inventario.css"/>
+        <h:outputStylesheet library="css" name="styleFernando.css"/>
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+        <link rel="icon" href="../../resources/images/Logo.png"/>
+    </h:head>
+
+    <h:body>
+        <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;" rendered="false"/>
+        <h:form id="frmFacturaCab">
+            <p:tabView dynamic="false">
+                <p:tab title="Facturacion">
+                    <p:panel id="pnlFacturaCab" header="Registro de nueva factura" style="width: 100%">
+                        <div class="card">
+                            <div class="ui-fluid">
+                                <div class="field">
+                                    <h:outputLabel id="lblnoFac" value="No.Factura" />
+                                    <div style="display: flex; flex-direction: column;">
+                                        <p:inputText id="noFac" value="#{facturasCVUI.lastFactura}" style="width: 250px;" disabled="true"></p:inputText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <p:outputLabel id="lblPlazoPago" value="Plazo de pagos"  for="@next"/>
+                                            <p:selectOneMenu id="proveedor" class="combo" value="#{facturasCVUI.plazos_pago}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno">
+                                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                                <f:selectItems value="#{facturasCVUI.plazosPago}"/>
+                                            </p:selectOneMenu>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                             <p:outputLabel id="lblNomCliente" value="Nombre Cliente "  for="@next"/>
+                                            <br/>
+                                            <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturasCVUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
+                                                             style="width: 13rem;" panelStyle="width: 15rem">
+                                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                                                <f:selectItems value="#{facturasCVUI.clienteItems}" />
+                                            </p:selectOneMenu> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="grid">
+                               <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                           <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
+                                        <br/>
+                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
+                                                         style="width: 14rem;" panelStyle="width: 15rem" 
+                                                         value="#{facturasCVUI.tipo_pago}">
+                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                            <f:selectItems value="#{facturasCVUI.tipoPago}"/>
+                                        </p:selectOneMenu>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <div class="field">
+                                              <h:outputLabel id="lblCant" value="Cantidad de Producto" />
+                                        <br/>
+                                            <p:inputText id="cantProd" value="#{facturasCVUI.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 250px;" /> 
+
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <h:outputLabel id="lblIdProd" value="Nombre del Producto" for="@next"/>
+                                            <br/>
+                                            <p:selectOneMenu id="nombreproducto" label="Selecione uno" value="#{facturasCVUI.idProducto}" required="true" requiredMessage ="El campo no puede estar vacio"
+                                                             style="width: 13rem;" panelStyle="width: 15rem">
+                                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                                                <f:selectItems value="#{facturasCVUI.productosItems}" />
+                                            </p:selectOneMenu>
+                                            <p:linkButton outcome="Inventario" icon="pi pi-plus"  target="_blank">
+                                            </p:linkButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="grid">
+                                <div class="col-5 flex align-items-center justify-content-center">
+                                    <div class="ui-fluid">
+                                        <div class="field">
+                                            <p:commandButton id="btnSaveFactura" value="Registrar Factura" action="#{facturasCVUI.insertFacturaC()}"
+                                                             update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button" />
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p:divider layout="vertical"> </p:divider>
+                                </div>
+                                <div class="ui-fluid">
+                                    <div class="field">
+                                        <div class="field">
+                                            <p:commandButton id="btnagre" value="Agregar Producto" actionListener="#{facturasCVUI.agregarProducto()}" update="pnlFacturaDet, msg" icon="pi pi-check" styleClass="rounded-button"  />    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </p:panel>
+
+                    <p:panel id="pnlFacturaDet" header="Detalle de factura" >
+                        <p:growl id="msg"/>
+                        <p:inputText id="totalFac" value= " Q #{facturasCVUI.totalFac}" style="width: 250px;" disabled="true">Total Factura  </p:inputText>
+                        <p:dataTable id="productos" var="producto" value="#{facturasCVUI.listaActualizada}" rowKey="#{producto.idProducto}" selection="" selectionMode="single"> 
+
+
+                            <p:column headerText="Id Producto ">
+                                <h:outputText value="#{producto.idProducto}" />
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{producto.nombreProducto}" />
+                            </p:column>
+                            <p:column headerText="Cantidad">
+                                <h:outputText value="#{producto.cantidad}" />
+                            </p:column>
+                            <p:column headerText="Precio Unitario">
+                                <h:outputText value="#{producto.precioUnitario}" />
+                            </p:column>
+                            <p:column headerText="Iva">
+                                <h:outputText value="#{producto.iva}" />
+                            </p:column>
+                            <p:column headerText="Sub Total">
+                                <h:outputText value="#{producto.subTotalD}" />
+                            </p:column>
+                            <p:column headerText="Acciones">
+                                <p:commandButton icon="pi pi-trash" title="Eliminar" actionListener="#{facturasCVUI.eliminarProductoTablaLocal(index)}" update="frmFacturaCab"  process="@this" >
+                                    <f:attribute name="index" value="#{rowIndex}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+
+</html>

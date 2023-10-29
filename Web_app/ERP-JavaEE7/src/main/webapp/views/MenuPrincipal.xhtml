@@ -10,23 +10,28 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Menu Principal</title>
         <link rel="stylesheet" media="screen" href="../resources/css/styleHeader.css" type="text/css" />
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
         <link rel="icon" href="../resources/images/Logo.png"/>
     </h:head>
-
-
-
-
+<style>
+body {
+  background-image: url('./../resources/images/fondoApp.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+    </style>
     <h:body>
 
         <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -46,7 +51,7 @@
                 </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
-                        <i class="pi pi-fw pi-user"/>
+                        <i class="pi pi-fw pi-user" style="color: white;"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;"/>
                         <p:outputLabel value="      "/>
@@ -56,8 +61,53 @@
                 </f:facet>
             </p:menubar>
         </h:form>
+        <div class="card">
 
+            <div class="grid">
+                <div class="col-5 flex align-items-center justify-content-center">
+                    <p:card style="width: 25em">
+                        <f:facet name="header">
+                            <img alt="user header" src="../resources/images/Sale.png"/>
+                        </f:facet>
+                        <f:facet name="title">
+                            Nueva venta
+                        </f:facet>
+                        <f:facet name="subtitle">
+                            ERP nueva venta
+                        </f:facet>
 
+                        <p>Creacion de nueva venta para clientes.</p>
+
+                        <f:facet name="footer">
+                            <center>
+                                <p:commandButton icon="pi pi-cart-plus" value="Venta Cliente" actionListener="#{menuPrincipalUI.Cliente_Flujo}"/>
+                            </center>
+                        </f:facet>
+                    </p:card>
+                </div>
+                <div class="col-5 flex align-items-center justify-content-center">
+                    <p:card style="width: 40em">
+                        <f:facet name="header">
+                            <img alt="user header" src="../resources/images/compras.png"/>
+                        </f:facet>
+                        <f:facet name="title">
+                            Nueva Compra
+                        </f:facet>
+                        <f:facet name="subtitle">
+                            ERP nueva compra
+                        </f:facet>
+
+                        <p>Creacion de nueva Compra para proveedores.</p>
+
+                        <f:facet name="footer">
+                            <center>
+                                <p:commandButton icon="pi pi-briefcase" value="Compra Proveedor" actionListener="#{menuPrincipalUI.Proveedor_Flujo()}"/>
+                            </center>
+                        </f:facet>
+                    </p:card>
+                </div>
+            </div>
+        </div>
         <h:form id="form">
         </h:form>
         <h:form>
