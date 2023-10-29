@@ -62,6 +62,7 @@ public class ClienteServicio {
             queryCliente = (Cliente) query2.getSingleResult();
             
             Integer idCliente = queryCliente.getIdcliente();
+            
             System.out.println("nombre del cliente" + pnombre);
             System.out.println("Telefono" + ptelefono);
             System.out.println("Email" + pemail);

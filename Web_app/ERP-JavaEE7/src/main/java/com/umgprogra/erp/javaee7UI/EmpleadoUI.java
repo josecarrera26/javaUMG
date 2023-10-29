@@ -32,6 +32,20 @@ import javax.servlet.http.HttpServletRequest;
 public class EmpleadoUI implements Serializable {
 
     /**
+     * @return the estadoempleado
+     */
+    public String getEstadoempleado() {
+        return estadoempleado;
+    }
+
+    /**
+     * @param estadoempleado the estadoempleado to set
+     */
+    public void setEstadoempleado(String estadoempleado) {
+        this.estadoempleado = estadoempleado;
+    }
+
+    /**
      * @return the cargoItems
      */
     public List<SelectItem> getCargoItems() {
@@ -94,6 +108,7 @@ public class EmpleadoUI implements Serializable {
     private String email_empleado;
     private String password_empleado;
     private String cargoT;
+    private String estadoempleado;
     private int idCargo;
     private List<Empleado> resultados;
     private List<Empleado> empleados;

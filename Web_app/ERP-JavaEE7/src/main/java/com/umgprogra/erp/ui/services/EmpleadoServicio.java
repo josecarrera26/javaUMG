@@ -37,6 +37,7 @@ public class EmpleadoServicio {
             emplea.setTelefonoEmpleado(ptelefono);
             emplea.setEmailEmpleado(pemail);
             emplea.setIdcargoEmpleado(pidCargo);
+            emplea.setEstado("Activo");
             entity.getTransaction().begin();
             entity.persist(emplea);
             entity.getTransaction().commit();            

@@ -87,6 +87,16 @@
 
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " />    
+                            
+                            <h:outputLabel id="lblEstadoEmp" value="Estado" style="width: 100%"/>
+                            <p:selectOneMenu id="estadoEplead" class="combo" value="#{empleadoUI.estadoempleado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 13.3rem;">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                            </p:selectOneMenu>
+                            
+                            <h:outputLabel value=" " />
+                            <h:outputLabel value=" " /> 
 
                             <p:outputLabel id="idLabelCargo" value="Cargos"  for="@next"/>
 
@@ -152,8 +162,12 @@
                             <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado.nombreCargo}" filterBy="#{empleado.idcargoEmpleado.nombreCargo}" filterMatchMode="contains">
                                 <h:outputText value="#{empleado.idcargoEmpleado.nombreCargo}" />    
                             </p:column> 
+                            
+                            <p:column headerText="Estado" sortBy="#{empleado.estado}" filterBy="#{empleado.estado}" filterMatchMode="contains">
+                                <h:outputText value="#{empleado.estado}" />    
+                            </p:column> 
 
-                        </p:dataTable>-
+                        </p:dataTable>
                     </div> 
                 </p:tab>                   
 

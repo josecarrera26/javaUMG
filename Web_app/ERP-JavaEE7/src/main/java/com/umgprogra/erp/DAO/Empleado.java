@@ -38,9 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empleado.findByEmailEmpleado", query = "SELECT e FROM Empleado e WHERE e.emailEmpleado = :emailEmpleado")})
 public class Empleado implements Serializable {
 
-    @Size(max = 2147483647)
-    @Column(name = "estado")
-    private String estado;
+
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,6 +55,9 @@ public class Empleado implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "telefono_empleado")
     private String telefonoEmpleado;
+    @Size(max = 2147483647)
+    @Column(name = "estado")
+    private String estado;
     @Size(max = 2147483647)
     @Column(name = "email_empleado")
     private String emailEmpleado;
