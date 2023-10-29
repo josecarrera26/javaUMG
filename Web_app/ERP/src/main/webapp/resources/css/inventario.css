@@ -1,9 +1,0 @@
-#inventario {
-    width: 1024px;
-    margin: 10 auto;
-}
-
-.combo {
-    flex-grow: 1; /* El combo ocupa todo el espacio disponible */
-    margin-right: 0px; /* Espacio entre el combo y el botón */
-}

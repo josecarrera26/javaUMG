@@ -8,7 +8,7 @@
         <h:outputStylesheet library="css" name="inventario.css"/>
         <h:outputStylesheet library="css" name="styleFernando.css"/>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
-        <link rel="icon" href="../../resources/images/Logo.png"/>
+        <link rel="icon" href="./../resources/images/Logo.png"/>
     </h:head>
     <style>
         body {
@@ -38,7 +38,6 @@
                 </p:submenu>
 
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
-                    <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
                         <p:menuitem value="Editar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioE()}" rendered="#{sessionU.flag}" /> 
@@ -62,9 +61,11 @@
             <p:tabView dynamic="false">
                 <p:tab title="Facturacion">
                     <p:panel id="pnlFacturaCab" header="Registro de nueva factura" style="width: 100%" > 
-                        
-                        
-                        
+
+                        <p:commandButton id="btnGeneraReporteFacturas"  value="Generar reporte Facturas" actionListener ="#{reporteFactura.generarReporte(pActionEvent)}"
+                                         icon="pi pi-check" styleClass="rounded-button" ajax="false" />
+
+
                         <div class="card">
                             <div class="ui-fluid">
                                 <div class="field">

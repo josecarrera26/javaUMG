@@ -7,7 +7,7 @@
         <title>Empleado</title>
         <h:outputStylesheet library="css" name="styleCargo.css"/>
         <h:outputStylesheet library="css" name="style.css"/>
-        <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
+        <link rel="icon" href="./../resources/images/Logo.png"/>
     </h:head>
     <style>
         body {
@@ -36,7 +36,6 @@
                 </p:submenu>
 
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
-                    <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
                         <p:menuitem value="Editar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioE()}" rendered="#{sessionU.flag}" /> 

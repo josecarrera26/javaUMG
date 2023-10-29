@@ -7,7 +7,7 @@
         <title>Inventario</title>
         <h:outputStylesheet library="css" name="inventario.css"/>
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
-        <link rel="icon" href="../../resources/images/Logo.png"/>
+        <link rel="icon" href="./../resources/images/Logo.png"/>
     </h:head>
     <style>
         body {
@@ -42,7 +42,6 @@
                 </p:submenu>
 
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
-                    <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
 

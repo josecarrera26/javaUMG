@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="logo" class="java.lang.String"/>
 	<field name="idfactura" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -26,6 +27,10 @@
 				<reportElement x="339" y="48" width="100" height="20" uuid="0593b14e-51b6-483b-996e-de4b7365cfe8"/>
 				<textFieldExpression><![CDATA[$F{idfactura}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="40" y="19" width="68" height="49" uuid="b16df3de-ff4e-452e-8517-4eeae7d47917"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

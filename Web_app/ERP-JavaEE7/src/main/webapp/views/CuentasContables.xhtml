@@ -9,7 +9,7 @@
               href="${facesContext.externalContext.requestContextPath}/resources/css/styleCliente.css"
               rel="stylesheet" />
         <h:outputStylesheet library="css" name="styleCliente.css"/>
-        <link rel="icon" href="../../resources/images/Logo.png"/>
+        <link rel="icon" href="./../resources/images/Logo.png"/>
     </h:head>
     <style>
         body {
@@ -39,7 +39,6 @@
                 </p:submenu>
 
                 <p:submenu label="Inventario" icon="pi pi-fw pi-truck">
-                    <p:menuitem value="Pedidos" icon="pi pi-fw pi-file" actionListener="#{menuPrincipalUI.pedidos()}"/>
                     <p:submenu label="Producto" icon="pi pi-fw pi-tags">
                         <p:menuitem value="Registrar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioR()}" rendered="true"/>
                         <p:menuitem value="Editar" icon="pi pi-fw pi-tag" actionListener="#{menuPrincipalUI.inventarioE()}" rendered="#{sessionU.flag}" /> 
@@ -117,7 +116,7 @@
                                         <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
 
-                                        <p:commandButton id="btnGeneraReporteCuentas"  value="Generar reporte Cuentas" actionListener ="#{reporteCuentas.generarReporte}"
+                                        <p:commandButton id="btnGeneraReporteCuentas"  value="Generar reporte Cuentas" actionListener ="#{reporteCuentas.generarReporte(pActionEvent)}"
                                                          icon="pi pi-check" styleClass="rounded-button" ajax="false" />
 
                                     </div>
