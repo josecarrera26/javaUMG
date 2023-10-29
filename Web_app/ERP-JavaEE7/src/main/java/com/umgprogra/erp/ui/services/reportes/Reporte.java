@@ -4,6 +4,7 @@
  */
 package com.umgprogra.erp.ui.services.reportes;
 
+import static com.lowagie.text.pdf.PdfName.op;
 import com.umgprogra.erp.DAO.Usuario;
 import com.umgprogra.erp.util.JpaUtil;
 import java.io.IOException;
@@ -22,11 +23,15 @@ import javax.persistence.Query;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -41,35 +46,44 @@ public class Reporte implements Serializable {
     public void generarReporte(ActionEvent pActionEvent) {
         System.out.println("Ingresa generarReporte");
         try {
-            List<Usuario> resultados = null;
 
+            List<Usuario> resultados = null;
 
             Query query2 = entity.createNamedQuery("Usuario.findAll", Usuario.class);
 
             resultados = query2.getResultList();
-            
-            for (Usuario usuario: resultados){
-                System.out.println("usuarios: " + usuario.getUsername());
+
+            for (Usuario usuario : resultados) {
+                System.out.println("usuarios: " + usuario.getUsername() + usuario.getPassword() + usuario.getIdusuario() + usuario.getIdrole());
             }
-            
+
             Locale locale = new Locale("es", "GT");
             Map<String, Object> masterParams = new HashMap<>();
             masterParams.put(JRParameter.REPORT_LOCALE, locale);
+
             String reportPath = this.getRealPath("reportes/ReporteUsuario.jasper");
             System.out.println("ruta del reporte: " + reportPath);
+
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportPath);
+
             String logoPath = this.getRealPath("resources/images/Logo.png");
             System.out.println("ruta del logo: " + logoPath);
             masterParams.put("logo", logoPath);
 
             //resultados, es la fuente de datos que resulta de la query a la db.
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, masterParams, new JRBeanCollectionDataSource(resultados));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, masterParams, new JRBeanCollectionDataSource(resultados));
             System.out.println("si llena el reporte con los parametros");
+            
             HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
             httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporte.pdf");
+            httpServletResponse.setContentType("application/pdf");
+            
             ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+            
             //revisar.
             JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
             FacesContext.getCurrentInstance().responseComplete();
+            
         } catch (IOException | JRException e) {
             System.err.println("Error al generar reporte web " + e.getMessage());
         }
