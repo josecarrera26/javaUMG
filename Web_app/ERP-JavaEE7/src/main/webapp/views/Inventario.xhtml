@@ -306,6 +306,9 @@
                         <p:column headerText="Grupo" sortBy="#{product.idgrupoproducto.descripcion}" filterBy="#{product.idgrupoproducto.descripcion}" filterMatchMode="contains">
                             <h:outputText value="#{product.idgrupoproducto.descripcion}" />
                         </p:column>
+                        <p:column headerText="Grupo" sortBy="#{product.estado}" filterBy="#{product.estado}" filterMatchMode="contains">
+                            <h:outputText value="#{product.estado}" />
+                        </p:column>
                     </p:dataTable>
                 </p:tab>
 

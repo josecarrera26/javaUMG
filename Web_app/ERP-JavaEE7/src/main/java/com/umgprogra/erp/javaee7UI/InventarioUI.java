@@ -1009,16 +1009,9 @@ public class InventarioUI implements Serializable {
 
     public void findAllProductosUi() {
         try {
-            List<Inventario> productosActivos;
-
             InventarioServicio inventarioServ = new InventarioServicio();
-            productosActivos = (inventarioServ.findAllProducto());
-            for (Inventario act: productosActivos) {
-                if (act.getEstado()==1) {
-                    productos.add(act);
-                }
-
-            }
+            productos = inventarioServ.findAllProducto();
+            
         } catch (Exception e) {
             System.out.println(e + "Error en consulta marcas");
         }
