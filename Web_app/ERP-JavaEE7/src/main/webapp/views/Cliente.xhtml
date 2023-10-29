@@ -8,8 +8,8 @@
         <link type="text/css"
               href="${facesContext.externalContext.requestContextPath}/resources/css/styleCliente.css"
               rel="stylesheet" />
-        <link rel="icon" href="../../resources/images/Logo.png"/>
         <h:outputStylesheet library="css" name="styleCliente.css"/>
+        <link rel="icon" href="../../resources/images/Logo.png"/>
     </h:head>
 
     <h:body>
@@ -110,8 +110,8 @@
                             <p:commandButton id="RegisterCliente" action="#{clienteUI.saveCliente()}"
                                              value="Registrar Cliente" update="pnlRegistroCliente, msg, tablaCliente" ajax="true"  style=" margin-left: 0px" >
                             </p:commandButton>
-                            <!--<h5></h5>
-                            <p:commandButton id="ActualizarCliente" action="#{clienteUI.actualizarCliente()}"
+                            <h5></h5>
+                            <!--<p:commandButton id="ActualizarCliente" action="#{clienteUI.actualizarCliente()}"
                                              value="Actualizar Cliente" update="pnlRegistroCliente, msg, tablaCliente" ajax="true"  style=" margin-left: 0px" >
                             </p:commandButton>-->
                         </div>
@@ -199,6 +199,13 @@
                                             <h5></h5>
                                             <div class="field">
                                                 <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="NitCliente" value="#{clienteUI.nitCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="Nit de Cliente" styleClass="ml-4" />
+                                                </span>
+                                            </div>
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
                                                     <p:inputText id="EmailClient" value="#{clienteUI.emailCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
                                                     <p:outputLabel for="@previous" value="Email" styleClass="ml-4" />
                                                 </span>
@@ -209,7 +216,14 @@
                                                     <p:inputText id="direcCliente" value="#{clienteUI.direccionCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
                                                     <p:outputLabel for="@previous" value="Dirección" styleClass="ml-4" />
                                                 </span>
-                                            </div>                          
+                                            </div>
+                                            <h5></h5>
+                                            <div class="field">
+                                                <span class="ui-float-label ui-input-icon-right">                                            
+                                                    <p:inputText id="dpiClient" value="#{clienteUI.dpiCliente}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                    <p:outputLabel for="@previous" value="DPI" styleClass="ml-4" />
+                                                </span>
+                                            </div>  
                                         </div>
                                     </p:splitterPanel>
                                 </p:splitter>

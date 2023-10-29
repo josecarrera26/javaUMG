@@ -53,30 +53,34 @@ public class ClienteServicio {
         return g;
     }
   
-      public void actualizarCliente(String pnombre, String ptelefono, String pemail, String pnit, String pdireccion, String pdpi, String idCuenta) {
-        try {
+      public void actualizarCliente(String pnombre, String ptelefono, String pemail, String pnit, String pdireccion, String pdpi, Cuentacontable idCuentacont) {
             Cliente queryCliente = new Cliente();
             Cliente updateCliente = new Cliente();
             Query query2 = entity.createNamedQuery("Cliente.findByNombreCliente", Cliente.class)
                     .setParameter("Nombre", pnombre);
-            System.out.println("nombre: " + pnombre);
+            
             queryCliente = (Cliente) query2.getSingleResult();
             
             Integer idCliente = queryCliente.getIdcliente();
-            
-            updateCliente = entity.find(Cliente.class, idCliente);        
-            System.out.println("ID: " + idCliente);
-            updateCliente.setTelefonoCliente(ptelefono);
+            System.out.println("nombre del cliente" + pnombre);
+            System.out.println("Telefono" + ptelefono);
+            System.out.println("Email" + pemail);
+            System.out.println("Nit" + pnit);
+            System.out.println("Direccion" + pdireccion);
+            System.out.println("DPI" + pdpi);
+            System.out.println("Cuenta" + idCuentacont);
+            updateCliente.setIdcliente(idCliente);
+            updateCliente.setNombreCliente(pnombre);
+            updateCliente.setTelefonoCliente(ptelefono); 
             updateCliente.setEmailCliente(pemail);
+            updateCliente.setNit(pnit);                       
             updateCliente.setDireccionCliente(pdireccion);
-            
+            updateCliente.setDpi(pdpi);
+            updateCliente.setIdcuentacontable(idCuentacont);
             entity.getTransaction().begin();
-            entity.persist(updateCliente);
+            entity.merge(updateCliente);
             entity.getTransaction().commit();
-            System.out.println("cliente actualizado");
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+            System.out.println("Cliente actualizado");
       }
   
       public void getCliente() {

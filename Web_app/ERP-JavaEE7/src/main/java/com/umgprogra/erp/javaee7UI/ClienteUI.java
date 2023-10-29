@@ -269,6 +269,12 @@ public class ClienteUI implements Serializable {
             System.out.println(e + "Error en save ClienteUI");
         }
     }
+    
+    public void actualizarCliente() {
+            ClienteServicio actualizar = new ClienteServicio();
+            actualizar.actualizarCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente, getCuentac());
+ 
+    }
 
     @PostConstruct
     public void init() {
@@ -351,11 +357,6 @@ public class ClienteUI implements Serializable {
             System.out.println("ENTRE AL AJAX");
             e.getMessage();
         }
-    }
-    
-    public void actualizarCliente() {
-        ClienteServicio actualizar = new ClienteServicio();
-        actualizar.actualizarCliente(this.nombreCliente, this.telefonoCliente, this.emailCliente, this.nitCliente, this.direccionCliente, this.dpiCliente, this.idCuentaContable);
     }
     
 //    public void getnombreNit(Nit nitCliente){

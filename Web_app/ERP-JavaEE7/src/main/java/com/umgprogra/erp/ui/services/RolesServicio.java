@@ -45,8 +45,7 @@ public class RolesServicio {
     }
     
         public String updateRole(String pnombrerole, String pdescripcion, String paccesos) {
-        try {
-            
+        try {            
             Roles roleQuery = new Roles();
             Roles role = new Roles();
              Query query2 = entity.createNamedQuery("Roles.findByNombreRole", Roles.class)

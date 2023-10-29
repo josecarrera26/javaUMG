@@ -188,7 +188,7 @@ public class RolesUI implements  Serializable{
         newRole.updateRole(this.nombreRole, this.descripcion, this.accesos);
         
         } catch (Exception e) {
-            System.out.println(e + "Error en updateRole ClienteUI");
+            System.out.println(e + "Error en updateRole RolesUI");
         }
     }   
             
