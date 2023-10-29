@@ -60,8 +60,10 @@
         <p:menubar>              
             <p:menuitem value="Nueva Linea" icon="pi pi-fw pi-plus" actionListener="#{inventarioUI.viewLineaModal()}"/>
             <p:menuitem value="Nueva marca" icon="pi pi-fw pi-plus" actionListener="#{inventarioUI.viewMarcaModal()}"/>  
-            <p:menuitem value="Reporte Producto" icon="pi pi-fw pi-plus" ajax="false" actionListener="#{reporteProductos.generarReporte(pActionEvent)}"/>  
         </p:menubar>
+        <h:form>
+            <p:commandButton value="Reporte Producto" icon="pi pi-fw pi-plus" ajax="false" actionListener="#{reporteProductos.generarReporte}" rendered="#{sessionU.flag}"/>
+        </h:form>
 
         <h:form id="idFormInventario">
             <p:tabView dynamic="false" >
