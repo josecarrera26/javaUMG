@@ -104,6 +104,48 @@ public class FacturasServicio {
         }
         return idFactura;
     }
+    
+      public int insertarFacturacabCompra(Integer pPlazoPagos, Integer pTipoCliente, double pTotal, Integer pTipoPago, int tipoFac, Integer idCliente, String nit) {
+        int idFactura = 0;
+
+        try {
+
+            //preparacion de ingreso de fecha
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime ahora = LocalDateTime.now();
+            String fechaString = dtf.format(ahora);
+            Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
+            
+            Cliente cliente = entity.find(Cliente.class, idCliente);
+
+            //Empleado empleado = entity.find(Empleado.class, pIDEmpleado);
+            Facturacab facturacabecera = new Facturacab();
+
+            facturacabecera.setFechaRegistro(fecha);
+            facturacabecera.setPlazosPago(pPlazoPagos);
+            facturacabecera.setIdempleado(sessionUser.getUser().getIdempleado());
+            facturacabecera.setIdtipocliente(pTipoCliente);
+            facturacabecera.setEstadofac(1);
+            facturacabecera.setTotal(pTotal);
+            facturacabecera.setIdtipopago(pTipoPago);
+            facturacabecera.setNit(nit);
+            facturacabecera.setIdtipofactura(tipoFac);
+
+            entity.getTransaction().begin();
+            entity.persist(facturacabecera);
+            idFactura = facturacabecera.getIdfactura();
+            System.out.println("IDULTIMAFACTURA EN CONSULTA" + facturacabecera.getIdfactura());
+            entity.getTransaction().commit();
+
+            // return "FacturaCab Guardada Numero de factura";
+        } catch (Exception e) {
+            idFactura = 0;
+            entity.getTransaction().rollback();
+            // return "Error Mensaje: " + e.toString();
+
+        }
+        return idFactura;
+    }
 
     public boolean registroFacturaDet(int idFactura, List<FacturasCVUI> producto) throws ParseException {
         //preparacion de ingreso de fecha

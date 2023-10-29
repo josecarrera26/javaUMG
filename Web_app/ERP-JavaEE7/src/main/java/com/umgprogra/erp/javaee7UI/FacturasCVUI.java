@@ -652,7 +652,7 @@ public class FacturasCVUI implements Serializable {
                 } else {
                     this.tipoFactura = 2;
                 }
-                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idProveedor, this.totalFac, this.tipo_pago, this.tipoFactura, this.idCliente);
+                idFacturaCab = nuevaFactura.insertarFacturacabCompra(this.plazos_pago, this.idProveedor, this.totalFac, this.tipo_pago, this.tipoFactura, this.idCliente,this.nit);
                 if (idFacturaCab != 0) {
                     //registradetalle
                     if (nuevaFactura.registroDBDetalleCompra(idFacturaCab, listaActualizada)) {
