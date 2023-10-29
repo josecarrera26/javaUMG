@@ -127,10 +127,10 @@
                                 <div class="ui-fluid">
                                     <div class="field">
                                         <div class="field">
-                                             <h:outputLabel id="lblnitc" value="NIT" />
-                                            <div style="display: flex; flex-direction: column;">
-                                                <p:inputText id="nit" style="width: 250px;" value="#{facturasCVUI.nit}"   required="true" requiredMessage="nit Requerido" />
-                                            </div>
+                                              <h:outputLabel id="lblCant" value="Cantidad de Producto" />
+                                        <br/>
+                                            <p:inputText id="cantProd" value="#{facturasCVUI.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 250px;" /> 
+
                                         </div>
                                     </div>
                                     
@@ -160,9 +160,7 @@
                                 </div>
                                 <div class="ui-fluid">
                                     <div class="field">
-                                        <h:outputLabel id="lblCant" value="Cantidad de Producto" />
-                                        <br/>
-                                            <p:inputText id="cantProd" value="#{facturasCVUI.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 250px;" /> 
+                                      
                                     </div>
                                 </div>
                             </div>

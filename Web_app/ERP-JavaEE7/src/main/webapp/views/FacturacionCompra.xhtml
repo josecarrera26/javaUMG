@@ -13,15 +13,15 @@
 
     <h:body>
 
-                <h:form>
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -88,22 +88,22 @@
                                 <div class="ui-fluid">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                             <p:outputLabel id="lblTipoCliente" value="Nombre Proveedor"  for="@next"/>
-                                             <br/>
-                                             <p:selectOneMenu id="proveedor" class="combo" value="#{facturasCVUI.idProveedor}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
-                                                              >
-                                                 <f:selectItem itemLabel="Select One" itemValue=""/>
-                                                 <f:selectItems value="#{facturasCVUI.proveedorItems}"/>
-                                             </p:selectOneMenu>
-
-                                             <!-- comment
-                                            <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturasCVUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
-                                                             style="width: 13rem;" panelStyle="width: 15rem">
-                                                <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
-                                                <f:selectItems value="#{facturasCVUI.clienteItems}" />
+                                            <p:outputLabel id="lblTipoCliente" value="Nombre Proveedor"  for="@next"/>
+                                            <br/>
+                                            <p:selectOneMenu id="proveedor" class="combo" value="#{facturasCVUI.idProveedor}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
+                                                             >
+                                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                                <f:selectItems value="#{facturasCVUI.proveedorItems}"/>
                                             </p:selectOneMenu>
-                                                 -->
-                                            
+
+                                            <!-- comment
+                                           <p:selectOneMenu id="nombrecliente"  class="combo" label="Selecione uno" dynamic="true"  filter="true" filterMatchMode="startsWith"  value="#{facturasCVUI.idCliente}" required="true" requiredMessage ="El campo no puede estar vacio"
+                                                            style="width: 13rem;" panelStyle="width: 15rem">
+                                               <f:selectItem  itemLabel="Seleccione una" itemValue="0" />
+                                               <f:selectItems value="#{facturasCVUI.clienteItems}" />
+                                           </p:selectOneMenu>
+                                            -->
+
                                         </div>
                                     </div>
                                 </div>
@@ -113,22 +113,22 @@
 
                         <div class="card">
                             <div class="grid">
-                               <div class="col-5 flex align-items-center justify-content-center">
+                                <div class="col-5 flex align-items-center justify-content-center">
                                     <div class="ui-fluid">
                                         <div class="field">
-                                           <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
-                                        <br/>
-                                        <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
-                                                         style="width: 14rem;" panelStyle="width: 15rem" 
-                                                         value="#{facturasCVUI.tipo_pago}">
-                                            <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                                            <f:selectItems value="#{facturasCVUI.tipoPago}"/>
-                                        </p:selectOneMenu>
+                                            <p:outputLabel id="idLabelTipoPago" value="Tipo Pago"  for="@next"/>
+                                            <br/>
+                                            <p:selectOneMenu id="tipopago" class="combo" label="Seleccione uno"
+                                                             style="width: 14rem;" panelStyle="width: 15rem" 
+                                                             value="#{facturasCVUI.tipo_pago}">
+                                                <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                                                <f:selectItems value="#{facturasCVUI.tipoPago}"/>
+                                            </p:selectOneMenu>
 
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-2">
                                     <p:divider layout="vertical"> </p:divider>
                                 </div>
@@ -165,20 +165,23 @@
                                     </div>
 
                                 </div>
-                                
-                                 
+
+
                                 <div class="col-2">
                                     <p:divider layout="vertical"> </p:divider>
                                 </div>
-                                  
+
 
                                 <div class="ui-fluid">
-                         
-                                    </div>
-                                </div>
+                                    <h:outputLabel id="lblCant" value="Cantidad de Producto" />
+                                    <br/>
+                                    <p:inputText id="cantProd" value="#{facturasCVUI.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 250px;" /> 
 
+                                </div>
                             </div>
-                       
+
+                        </div>
+
 
                         <div class="card">
 
@@ -189,10 +192,10 @@
                                             <h:outputLabel id="lblIdProd" value="Nombre del Producto" for="@next"/>
                                             <br/>
                                             <p:selectOneMenu id="producto" class="combo" value="#{facturasCVUI.idProducto}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno"
-                                                              >
-                                                 <f:selectItem itemLabel="Select One" itemValue=""/>
-                                                 <f:selectItems value="#{facturasCVUI.productosItems}"/>
-                                             </p:selectOneMenu>
+                                                             >
+                                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                                <f:selectItems value="#{facturasCVUI.productosItems}"/>
+                                            </p:selectOneMenu>
                                             <p:linkButton outcome="Inventario" icon="pi pi-plus"  target="_blank">
                                             </p:linkButton>
                                         </div>
@@ -203,9 +206,7 @@
                                 </div>
                                 <div class="ui-fluid">
                                     <div class="field">
-                                        <h:outputLabel id="lblCant" value="Cantidad de Producto" />
-                                        <br/>
-                                            <p:inputText id="cantProd" value="#{facturasCVUI.cantidad}" required="true" requiredMessage ="El campo no puede estar vacio" style="width: 250px;" /> 
+
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +241,7 @@
                     <p:panel id="pnlFacturaDet" header="Detalle de factura" >
                         <p:growl id="msg"/>
                         <h:outputLabel id="lbltotalfac" value="Total de la factura: " for="@next"/>
-                        
+
                         <p:inputText id="totalFac" value= " Q #{facturasCVUI.totalFac}" style="width: 250px;" disabled="true">Total</p:inputText>
 
 
