@@ -149,7 +149,7 @@
                                 <h:outputText value="#{empleado.emailEmpleado}" />
                             </p:column>
 
-                            <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado}" filterBy="#{empleado.idcargoEmpleado}" filterMatchMode="contains">
+                            <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado.nombreCargo}" filterBy="#{empleado.idcargoEmpleado.nombreCargo}" filterMatchMode="contains">
                                 <h:outputText value="#{empleado.idcargoEmpleado.nombreCargo}" />    
                             </p:column> 
 

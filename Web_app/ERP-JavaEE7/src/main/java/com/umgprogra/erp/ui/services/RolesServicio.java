@@ -57,6 +57,7 @@ public class RolesServicio {
             Integer idRole = roleQuery.getIdrole();                      
             
             role.setIdrole(idRole);
+            role.setNombreRole(pnombrerole);
             role.setDescripcion(pdescripcion);
             role.setAccesos(paccesos);
 
