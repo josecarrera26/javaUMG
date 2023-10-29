@@ -3,6 +3,8 @@ import com.umgprogra.erp.DAO.Inventario;
 import com.umgprogra.erp.ui.services.KardexServicio;
 import com.umgprogra.erp.util.JpaUtil;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
@@ -57,6 +59,23 @@ public class kardex implements Serializable{
     public void setResultadosCompra(Long resultadosCompra) {
         this.resultadosCompra = resultadosCompra;
     }
+
+    public BarChartModel getBarModelKardexVentaFecha() {
+        return barModelKardexVentaFecha;
+    }
+
+    public void setBarModelKardexVentaFecha(BarChartModel barModelKardexVentaFecha) {
+        this.barModelKardexVentaFecha = barModelKardexVentaFecha;
+    }
+
+    public BarChartModel getBarModelKardexCompraFecha() {
+        return barModelKardexCompraFecha;
+    }
+
+    public void setBarModelKardexCompraFecha(BarChartModel barModelKardexCompraFecha) {
+        this.barModelKardexCompraFecha = barModelKardexCompraFecha;
+    }
+  
     
     
 
@@ -71,6 +90,9 @@ public class kardex implements Serializable{
     //para el grafico de barras 
     private BarChartModel barModelKardexVenta;
     private BarChartModel barModelKardexCompra;
+    
+      private BarChartModel barModelKardexVentaFecha;
+    private BarChartModel barModelKardexCompraFecha;
 
     //para el gradico circultar
     private PieChartModel modeloCircular;
@@ -83,7 +105,11 @@ public class kardex implements Serializable{
 
         barModelKardexCompra = new BarChartModel();
         barModelKardexVenta = new BarChartModel();
+        barModelKardexVentaFecha = new BarChartModel();
+        barModelKardexCompraFecha = new BarChartModel();
         modeloCircular = new PieChartModel();
+       
+        createBarModelKardexFecha();
         createBarModelKardex();
         cargarDatosGraficoCircular();
     }
@@ -161,6 +187,61 @@ public class kardex implements Serializable{
         xAxisCompra.setTickAngle(-30);
 
     }
+    
+    // GRAFICA POR FECHA
+    private void createBarModelKardexFecha() {
 
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+
+        // Lógica para obtener datos de compra y venta
+        KardexServicio compra = new KardexServicio();
+        List<Object[]> compraResultList = compra.sumUnidadesCompradasPorfecha();
+
+        KardexServicio venta = new KardexServicio();
+        List<Object[]> ventaResultList = venta.sumUnidadesVendidasPorfecha();
+
+        // Inicializar el modelo del gráfico de barras
+        barModelKardexCompraFecha = new BarChartModel();
+
+        // Crear una serie para compras y ventas
+        ChartSeries registrosCompra = new ChartSeries();
+        registrosCompra.setLabel("Compras");
+
+        ChartSeries registrosVenta = new ChartSeries();
+        registrosVenta.setLabel("Ventas");
+
+        for (Object[] result : compraResultList) {
+            Date fecha = (Date) result[0];
+            Long unidadesCompradas = (Long) result[1];
+
+            String fechaLegible = formatoFecha.format(fecha);
+
+            registrosCompra.set(fechaLegible, unidadesCompradas);
+        }
+
+        for (Object[] result : ventaResultList) {
+            Date fecha = (Date) result[0];
+            Long unidadesVendidas = (Long) result[1];
+
+            String fechaLegible = formatoFecha.format(fecha);
+
+            registrosVenta.set(fechaLegible, unidadesVendidas);
+        }
+
+        // Agregar series al modelo del gráfico
+        barModelKardexCompraFecha.addSeries(registrosCompra);
+        barModelKardexCompraFecha.addSeries(registrosVenta);
+
+        // Configurar el título y posición de la leyenda de compra
+        barModelKardexCompraFecha.setTitle("Ventas y compras por fecha");
+        barModelKardexCompraFecha.setLegendPosition("ne");
+
+        // Configurar etiquetas en el eje X
+        Axis xAxis = barModelKardexCompraFecha.getAxis(AxisType.X);
+        xAxis.setLabel("Registro de entradas y salidas");
+        xAxis.setTickAngle(-30);
+
+    }
 
 }

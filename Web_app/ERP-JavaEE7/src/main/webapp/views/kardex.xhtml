@@ -11,15 +11,15 @@
     </h:head>
 
     <h:body>
-               <h:form>
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -57,14 +57,17 @@
                 <h:form>
                     <p:chart type="bar" model="#{kardex.barModelKardexCompra}" style="height:300px">
                     </p:chart>
-
+                    <br></br><br></br>
                     <p:chart type="bar" model="#{kardex.barModelKardexVenta}" style="height:300px">
+                    </p:chart>
+                    <br></br><br></br>
+                    <p:chart type="bar" model="#{kardex.barModelKardexCompraFecha}" style="height:300px">
                     </p:chart>
                 </h:form>
 
                 <h:form>
-                    <h:outputLabel id="lblDirecProv" value="Total de unidades vendidas y compradas" style="text-align: center; line-height: 2;" />
-                    <br></br>
+                    <br></br><br></br>
+                    <h:outputLabel id="lblDirecProv" value="Total de unidades vendidas y compradas   " style="text-align: center; line-height: 2;" />
                     <br></br>
                     <p:chart type="pie" model="#{kardex.modeloCircular}" style="height:300px">
                         <p:inputText id="totalcompra" value= " #{kardex.resultadosCompra}" style="width: 250px;" disabled="true">Compras  </p:inputText>

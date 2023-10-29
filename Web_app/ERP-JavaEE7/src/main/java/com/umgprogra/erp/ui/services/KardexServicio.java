@@ -71,4 +71,33 @@ public class KardexServicio {
         return totalUnidadesVendidas != null ? totalUnidadesVendidas : 0;
     }
 
+    public List<Object[]> sumUnidadesVendidasPorfecha() {
+        TypedQuery<Object[]> query = entityManager.createQuery(
+                "SELECT k.fecha, SUM(k.unidadesVendidas) "
+                + "FROM Kardex k "
+                + "WHERE k.intOut = 'venta' "
+                + "GROUP BY k.fecha",
+                Object[].class
+        );
+
+        List<Object[]> resultados = query.getResultList();
+
+        return resultados;
+    }
+    
+        public List<Object[]> sumUnidadesCompradasPorfecha() {
+        TypedQuery<Object[]> query = entityManager.createQuery(
+                "SELECT k.fecha, SUM(k.unidadesVendidas) "
+                + "FROM Kardex k "
+                + "WHERE k.intOut = 'compra' "
+                + "GROUP BY k.fecha",
+                Object[].class
+        );
+
+        List<Object[]> resultados = query.getResultList();
+
+        return resultados;
+    }
+
+
 }
