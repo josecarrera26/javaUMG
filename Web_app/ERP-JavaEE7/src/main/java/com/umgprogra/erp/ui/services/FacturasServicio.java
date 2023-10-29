@@ -63,7 +63,7 @@ public class FacturasServicio {
         return idFac;
     }
 
-    public int insertarFacturacab(Integer pPlazoPagos, Integer pTipoCliente, double pTotal, Integer pTipoPago, String nit, int tipoFac) {
+    public int insertarFacturacab(Integer pPlazoPagos, Integer pTipoCliente, double pTotal, Integer pTipoPago, int tipoFac, Integer idCliente) {
         int idFactura = 0;
 
         try {
@@ -73,6 +73,8 @@ public class FacturasServicio {
             LocalDateTime ahora = LocalDateTime.now();
             String fechaString = dtf.format(ahora);
             Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
+            
+            Cliente cliente = entity.find(Cliente.class, idCliente);
 
             //Empleado empleado = entity.find(Empleado.class, pIDEmpleado);
             Facturacab facturacabecera = new Facturacab();
@@ -84,7 +86,7 @@ public class FacturasServicio {
             facturacabecera.setEstadofac(1);
             facturacabecera.setTotal(pTotal);
             facturacabecera.setIdtipopago(pTipoPago);
-            facturacabecera.setNit(nit);
+            facturacabecera.setNit(cliente.getNit());
             facturacabecera.setIdtipofactura(tipoFac);
 
             entity.getTransaction().begin();
