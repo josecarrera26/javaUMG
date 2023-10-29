@@ -128,7 +128,8 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.17.0</version>
+            <version>6.20.6</version>
+            <type>jar</type>
         </dependency>
         <!-- JasperReports Font Extensions (Optional) -->
         <dependency>
