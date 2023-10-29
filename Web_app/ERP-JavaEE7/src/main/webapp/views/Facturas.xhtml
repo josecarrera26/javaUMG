@@ -61,9 +61,11 @@
             <p:tabView dynamic="false">
                 <p:tab title="Facturacion">
                     <p:panel id="pnlFacturaCab" header="Registro de nueva factura" style="width: 100%" > 
-                        
-                        
-                        
+
+                        <p:commandButton id="btnGeneraReporteFacturas"  value="Generar reporte Facturas" actionListener ="#{reporteFactura.generarReporte(pActionEvent)}"
+                                         icon="pi pi-check" styleClass="rounded-button" ajax="false" />
+
+
                         <div class="card">
                             <div class="ui-fluid">
                                 <div class="field">

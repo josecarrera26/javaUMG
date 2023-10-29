@@ -69,7 +69,7 @@ public class ReporteCuentas implements Serializable {
             System.out.println("si llena el reporte con los parametros");
 
             HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteFactura.pdf");
+            httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteCuenta.pdf");
             httpServletResponse.setContentType("application/pdf");
 
             ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
