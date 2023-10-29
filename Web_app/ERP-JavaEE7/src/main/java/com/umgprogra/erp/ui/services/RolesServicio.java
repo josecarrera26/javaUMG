@@ -54,10 +54,9 @@ public class RolesServicio {
 
             roleQuery = (Roles) query2.getSingleResult();
             
-            Integer idRole = roleQuery.getIdrole();
-                        
-            role = entity.find(Roles.class, idRole);
+            Integer idRole = roleQuery.getIdrole();                      
             
+            role.setIdrole(idRole);
             role.setDescripcion(pdescripcion);
             role.setAccesos(paccesos);
 
