@@ -14,9 +14,12 @@
               rel="stylesheet" />
     </h:head>
     <style>
-body {
-  background-image: url('./../resources/images/fondoApp.jpg');
-}
+        body {
+            background-image: url('./../resources/images/fondoApp.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
     </style>
     <h:body>
         <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;" rendered="false"/>
@@ -60,14 +63,14 @@ body {
                         </p:panelGrid >
 
 
-                            <p:panelGrid id ="pnlGridBtn" layout="grid" columns="3" class="centerPnlGrid" style="width: 60%" >
-                                <p:commandButton id="btnRegProv" value="Registrar" actionListener ="#{proveedoresUI.registroProveedor()}"
-                                                 update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
-                                <p:commandButton id="btnUpdateProv" value="Actualizar" actionListener ="#{proveedoresUI.updateProveedor()}"
-                                                 update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
-                                <p:commandButton id="btnSiguientev" value="Siguiente" actionListener ="#{menuPrincipalUI.FacturasCompra_Flujo()}"
-                                                 update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
-                            </p:panelGrid>
+                        <p:panelGrid id ="pnlGridBtn" layout="grid" columns="3" class="centerPnlGrid" style="width: 60%" >
+                            <p:commandButton id="btnRegProv" value="Registrar" actionListener ="#{proveedoresUI.registroProveedor()}"
+                                             update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnUpdateProv" value="Actualizar" actionListener ="#{proveedoresUI.updateProveedor()}"
+                                             update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
+                            <p:commandButton id="btnSiguientev" value="Siguiente" actionListener ="#{menuPrincipalUI.FacturasCompra_Flujo()}"
+                                             update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
+                        </p:panelGrid>
                     </p:panel > 
 
 

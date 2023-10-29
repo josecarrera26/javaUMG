@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>Role</title>
@@ -11,18 +11,25 @@
         <h:outputStylesheet library="css" name="style.css"/>
         <link rel="icon" href="../../resources/images/Logo.png"/>
     </h:head>
-
+    <style>
+        body {
+            background-image: url('./../resources/images/fondoApp.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
     <h:body>
-        
-                       <h:form>
+
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -42,7 +49,7 @@
                 </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
-                        <i class="pi pi-fw pi-user"/>
+                        <i class="pi pi-fw pi-user" style="color: white;"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;"/>
                         <p:outputLabel value="      "/>
@@ -53,49 +60,49 @@
             </p:menubar>
         </h:form>
         <h:form>
-        <p:tabView dynamic="true">            
-            <p:growl id="msg"/>
+            <p:tabView dynamic="true">            
+                <p:growl id="msg"/>
                 <!-- seccion de registro de Role -->
                 <p:tab  title="Nuevo Role">
                     <p:panel id="pnlRegistroRole" header="Registro de Role" class="centerPnl" style="width: 50%" >
-                    <div class="card" style="width: 100%">
-                        <div class="grid ui-fluid mt-3 floatlabel-demo">
-                            <h:outputLabel value="Ingrese los valores requeridos para registrar un nuevo Role: " />
-                            <div class="grid ui-fluid mt-3 floatlabel-demo">                                                   
-                               <p:splitter style="height: 195px" layout="vertical">
-                                   <p:splitterPanel styleClass="flex align-items-center justify-content-center">                            
-                                <h5></h5>
-                                <div class="col-12 md:col-6">                                   
-                                    <h5></h5>
-                                    <div class="field">
-                                        <span class="ui-float-label ui-input-icon-left">                                            
-                                            <p:inputText id="nomRole" value="#{rolesUI.nombreRole}" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                                            <p:outputLabel for="@previous" value="Nombre del role" styleClass="ml-4" />
-                                        </span>
-                                    </div>
-                                </div>                                  
-                                <h5></h5>
-                                <div class="col-12 md:col-6"> 
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                            <p:inputText id="descRole" value="#{rolesUI.descripcion}" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                                           <p:outputLabel for="@previous" value="Descripción" />
-                                        </span>
-                                    </div>                                    
+                        <div class="card" style="width: 100%">
+                            <div class="grid ui-fluid mt-3 floatlabel-demo">
+                                <h:outputLabel value="Ingrese los valores requeridos para registrar un nuevo Role: " />
+                                <div class="grid ui-fluid mt-3 floatlabel-demo">                                                   
+                                    <p:splitter style="height: 195px" layout="vertical">
+                                        <p:splitterPanel styleClass="flex align-items-center justify-content-center">                            
+                                            <h5></h5>
+                                            <div class="col-12 md:col-6">                                   
+                                                <h5></h5>
+                                                <div class="field">
+                                                    <span class="ui-float-label ui-input-icon-left">                                            
+                                                        <p:inputText id="nomRole" value="#{rolesUI.nombreRole}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                        <p:outputLabel for="@previous" value="Nombre del role" styleClass="ml-4" />
+                                                    </span>
+                                                </div>
+                                            </div>                                  
+                                            <h5></h5>
+                                            <div class="col-12 md:col-6"> 
+                                                <div class="field">
+                                                    <span class="ui-float-label">
+                                                        <p:inputText id="descRole" value="#{rolesUI.descripcion}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                        <p:outputLabel for="@previous" value="Descripción" />
+                                                    </span>
+                                                </div>                                    
+                                            </div>
+                                            <h5></h5>
+                                            <div class="col-12 md:col-6"> 
+                                                <div class="field">
+                                                    <span class="ui-float-label">
+                                                        <p:inputText id="accesoRole" value="#{rolesUI.accesos}" required="true" requiredMessage ="El campo no puede estar vacio"/>
+                                                        <p:outputLabel for="@previous" value="Accesos" />
+                                                    </span>
+                                                </div>                                    
+                                            </div>
+
+                                        </p:splitterPanel>                                   
+                                    </p:splitter>
                                 </div>
-                                <h5></h5>
-                                <div class="col-12 md:col-6"> 
-                                    <div class="field">
-                                        <span class="ui-float-label">
-                                            <p:inputText id="accesoRole" value="#{rolesUI.accesos}" required="true" requiredMessage ="El campo no puede estar vacio"/>
-                                           <p:outputLabel for="@previous" value="Accesos" />
-                                        </span>
-                                    </div>                                    
-                                </div>
-                                  
-                                </p:splitterPanel>                                   
-                                  </p:splitter>
-                            </div>
                             </div>
                             <p:commandButton id="RegisterRole" action="#{rolesUI.saveRole}"
                                              value="Registrar" update="pnlRegistroRole, msg, tablaRoles" ajax="true"  style=" margin-left: 0px" >
@@ -104,9 +111,9 @@
                             <p:commandButton id="ActualizarRole" action="#{rolesUI.updateRole()}"
                                              value="Actualizar" update="pnlRegistroRole, msg, tablaRoles" ajax="true" style=" margin-left: 0px" >
                             </p:commandButton>                          
-                    </div>    
+                        </div>    
                     </p:panel>
-            </p:tab>
+                </p:tab>
                 <p:tab  title="Consultar Role">  
                     <style>
                         .ui-filter-column .ui-column-customfilter .custom-filter {
@@ -148,7 +155,7 @@
                         </p:dataTable>-
                     </div> 
                 </p:tab>                
-        </p:tabView>
+            </p:tabView>
         </h:form>
         <h:form>
             <p:panel>

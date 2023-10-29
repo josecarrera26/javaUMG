@@ -15,7 +15,14 @@
             href="${facesContext.externalContext.requestContextPath}/resources/css/styleFernando.css"
             rel="stylesheet" />
     </h:head>
-
+    <style>
+        body {
+            background-image: url('./../resources/images/fondoApp.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
     <h:body>
         <h:form id="formRegistroUsuario">
             <p:growl id="msgReg"   />

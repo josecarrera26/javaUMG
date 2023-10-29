@@ -9,7 +9,14 @@
         <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
         <link rel="icon" href="../../resources/images/Logo.png"/>
     </h:head>
-
+    <style>
+        body {
+            background-image: url('./../resources/images/fondoApp.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
     <h:body id="inventario">
         <h:form>
             <p:growl id="messages" showDetail="true" life="3000" />
@@ -25,7 +32,7 @@
             <div>
                 <p:commandButton value="Registrar" action="#{grupoProductoUI.saveGrupo()}" styleClass="mr-2"/>
             </div>
-           
+
         </h:form>
     </h:body>
 

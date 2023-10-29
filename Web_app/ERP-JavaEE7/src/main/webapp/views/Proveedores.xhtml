@@ -13,18 +13,25 @@
               href="${facesContext.externalContext.requestContextPath}/resources/css/styleFernando.css"
               rel="stylesheet" />
     </h:head>
-
+    <style>
+        body {
+            background-image: url('./../resources/images/fondoApp.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
     <h:body>
 
-                <h:form>
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -44,7 +51,7 @@
                 </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
-                        <i class="pi pi-fw pi-user"/>
+                        <i class="pi pi-fw pi-user" style="color: white;"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;"/>
                         <p:outputLabel value="      "/>
@@ -84,7 +91,7 @@
 
                             <h:outputLabel id="lblEmailProv" value="Correo Electronico" />
                             <p:inputText id="emainProveedor" value="#{proveedoresUI.emailProveedor}" required="true" requiredMessage ="El campo no puede estar vacio" size ="35" />     
-                            
+
                             <h:outputLabel id="lblEstado" value="Estado" style="width: 100%"/>
                             <p:selectOneMenu id="estado" class="combo" value="#{proveedoresUI.estado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 53%">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
@@ -100,7 +107,7 @@
                             <p:commandButton id="btnUpdateProv" value="Actualizar" actionListener ="#{proveedoresUI.updateProveedor()}"
                                              update="pnlRegistroProveedor ,msg" icon="pi pi-check" styleClass="rounded-button" />
                         </p:panelGrid>
-                        
+
                     </p:panel > 
 
                 </p:tab>   
@@ -109,50 +116,50 @@
                     <div class="card">
                         <p:dataTable id="tablaCliente" var="proveedor" widgetVar="Proveedor" filteredValue="#{proveedoresUI.filteredProveedor}" value="#{proveedoresUI.proveedor}" sortBy="#{proveedor.idproveedor}">
 
-                                <f:facet name="header">
-                                    <div class="flex align-items-center justify-content-between">
-                                        <span>Lista Proveedores</span>
-                                        <div>
+                            <f:facet name="header">
+                                <div class="flex align-items-center justify-content-between">
+                                    <span>Lista Proveedores</span>
+                                    <div>
                                         <p:inputText id="globalFilter" onkeyup="PF('Proveedor').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
-                                        </div>
                                     </div>
+                                </div>
 
-                                </f:facet>
+                            </f:facet>
 
                             <p:column headerText="ID" sortBy="#{proveedor.idproveedor}" filterBy="#{proveedor.idproveedor}" filterMatchMode="exact">
-                                    <h:outputText value="#{proveedor.idproveedor}" />
-                                </p:column>
+                                <h:outputText value="#{proveedor.idproveedor}" />
+                            </p:column>
 
                             <p:column headerText="Nombre" sortBy="#{proveedor.nombreProveedor}" filterBy="#{proveedor.nombreProveedor}" filterMatchMode="contains">
-                                    <h:outputText value="#{proveedor.nombreProveedor}" />
-                                </p:column>
+                                <h:outputText value="#{proveedor.nombreProveedor}" />
+                            </p:column>
 
                             <p:column headerText="Direccion" sortBy="#{proveedor.idproveedor}" filterBy="#{proveedor.idproveedor}" filterMatchMode="contains">
-                                    <h:outputText value="#{proveedor.idproveedor}" />
-                                </p:column>
+                                <h:outputText value="#{proveedor.idproveedor}" />
+                            </p:column>
 
                             <p:column headerText="Telefono" sortBy="#{proveedor.telefono}" filterBy="#{proveedor.telefono}" filterMatchMode="contains">
-                                    <h:outputText value="#{proveedor.telefono}" />
-                                </p:column>
+                                <h:outputText value="#{proveedor.telefono}" />
+                            </p:column>
 
                             <p:column headerText="Regimen" sortBy="#{proveedor.regimenProveedor}" filterBy="#{proveedor.regimenProveedor}" filterMatchMode="contains">
-                                    <h:outputText value="#{proveedor.regimenProveedor}" />
-                                </p:column>
+                                <h:outputText value="#{proveedor.regimenProveedor}" />
+                            </p:column>
 
                             <p:column headerText="Email" sortBy="#{proveedor.emailProveedor}" filterBy="#{proveedor.emailProveedor}" filterMatchMode="contains">
-                                    <h:outputText value="#{proveedor.emailProveedor}" />
-                                </p:column>
-                                
-                            <p:column headerText="Cuenta Contable" sortBy="#{proveedor.idcuentacontable.nombrecuenta}" filterBy="#{proveedor.idcuentacontable.nombrecuenta}" filterMatchMode="contains">
-                                    <h:outputText value="#{proveedor.idcuentacontable.nombrecuenta}" />
-                                </p:column>  
-                            <p:column headerText="Estado" sortBy="#{proveedor.estado}" filterBy="#{proveedor.estado}" filterMatchMode="contains">
-                                    <h:outputText value="#{proveedor.estado}" />
-                                </p:column>  
-                               
+                                <h:outputText value="#{proveedor.emailProveedor}" />
+                            </p:column>
 
-                            </p:dataTable>
+                            <p:column headerText="Cuenta Contable" sortBy="#{proveedor.idcuentacontable.nombrecuenta}" filterBy="#{proveedor.idcuentacontable.nombrecuenta}" filterMatchMode="contains">
+                                <h:outputText value="#{proveedor.idcuentacontable.nombrecuenta}" />
+                            </p:column>  
+                            <p:column headerText="Estado" sortBy="#{proveedor.estado}" filterBy="#{proveedor.estado}" filterMatchMode="contains">
+                                <h:outputText value="#{proveedor.estado}" />
+                            </p:column>  
+
+
+                        </p:dataTable>
                     </div> 
 
                 </p:tab>

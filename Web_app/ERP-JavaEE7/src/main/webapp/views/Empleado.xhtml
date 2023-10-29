@@ -9,17 +9,24 @@
         <h:outputStylesheet library="css" name="style.css"/>
         <link rel="icon" href="/ERP/javax.faces.resource/Logo.png.xhtml?ln=images"/>
     </h:head>
-
+    <style>
+        body {
+            background-image: url('./../resources/images/fondoApp.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
     <h:body>
-                <h:form>
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -39,7 +46,7 @@
                 </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
-                        <i class="pi pi-fw pi-user"/>
+                        <i class="pi pi-fw pi-user" style="color: white;"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;"/>
                         <p:outputLabel value="      "/>
@@ -87,14 +94,14 @@
 
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " />    
-                            
+
                             <h:outputLabel id="lblEstadoEmp" value="Estado" style="width: 100%"/>
                             <p:selectOneMenu id="estadoEplead" class="combo" value="#{empleadoUI.estadoempleado}"  dynamic="true" filter="true" filterMatchMode="startsWith" label="Seleccione uno" style="width: 13.3rem;">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItem itemLabel="Activo" itemValue="Activo"/>
                                 <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
                             </p:selectOneMenu>
-                            
+
                             <h:outputLabel value=" " />
                             <h:outputLabel value=" " /> 
 
@@ -162,7 +169,7 @@
                             <p:column headerText="ID del Cargo" sortBy="#{empleado.idcargoEmpleado.nombreCargo}" filterBy="#{empleado.idcargoEmpleado.nombreCargo}" filterMatchMode="contains">
                                 <h:outputText value="#{empleado.idcargoEmpleado.nombreCargo}" />    
                             </p:column> 
-                            
+
                             <p:column headerText="Estado" sortBy="#{empleado.estado}" filterBy="#{empleado.estado}" filterMatchMode="contains">
                                 <h:outputText value="#{empleado.estado}" />    
                             </p:column> 

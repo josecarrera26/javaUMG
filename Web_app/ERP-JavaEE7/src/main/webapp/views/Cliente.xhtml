@@ -11,17 +11,24 @@
         <h:outputStylesheet library="css" name="styleCliente.css"/>
         <link rel="icon" href="../../resources/images/Logo.png"/>
     </h:head>
-
+    <style>
+        body {
+            background-image: url('./../resources/images/fondoApp.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
     <h:body>
-                <h:form>
+        <h:form>
             <p:menubar>
-                    <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
-                    <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
+                <p:menuitem value="Home" icon="pi pi-fw pi-home" url="./MenuPrincipal.xhtml"/>
+                <p:menuitem value="Contabilidad" icon="pi pi-fw pi-wallet" actionListener="#{menuPrincipalUI.cuentaContable()}"/>
 
                 <p:submenu label="Recursos Humanos" icon="pi pi-fw pi-user-minus">
-                        <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
-                        <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
-                        <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
+                    <p:menuitem value="Empleados" icon="pi pi-fw pi-users" actionListener="#{menuPrincipalUI.empleados()}"/>
+                    <p:menuitem value="Cargo" icon="pi pi-fw pi-sitemap" actionListener="#{menuPrincipalUI.cargo()}"/>
+                    <p:menuitem value="Role" icon="pi pi-fw pi-star" actionListener="#{menuPrincipalUI.roles()}"/>
                 </p:submenu>
 
                 <p:submenu label="Facturas" icon="pi pi-fw pi-envelope">
@@ -41,7 +48,7 @@
                 </p:submenu>
                 <f:facet name="options">
                     <div class="mr-2">
-                        <i class="pi pi-fw pi-user"/>
+                        <i class="pi pi-fw pi-user" style="color: white;"/>
                         <p:outputLabel value="      "/>
                         <p:outputLabel value="#{menuPrincipalUI.username}" style="color: white;"/>
                         <p:outputLabel value="      "/>
@@ -127,51 +134,51 @@
                     </style>
 
                     <div class="card">
-                            <p:dataTable id="tablaCliente" var="cliente" widgetVar="Cliente" filteredValue="#{clienteUI.filteredCliente}" value="#{clienteUI.clientes}">
+                        <p:dataTable id="tablaCliente" var="cliente" widgetVar="Cliente" filteredValue="#{clienteUI.filteredCliente}" value="#{clienteUI.clientes}">
 
-                                <f:facet name="header">
-                                    <div class="flex align-items-center justify-content-between">
-                                        <span>Lista Clientes</span>
-                                        <div>
+                            <f:facet name="header">
+                                <div class="flex align-items-center justify-content-between">
+                                    <span>Lista Clientes</span>
+                                    <div>
                                         <p:inputText id="globalFilter" onkeyup="PF('Cliente').filter()" style="width:10rem"
                                                      placeholder="Enter keyword" />
-                                        </div>
                                     </div>
-                                </f:facet>
+                                </div>
+                            </f:facet>
 
-                                <p:column headerText="ID" sortBy="#{cliente.idcliente}" filterBy="#{cliente.idcliente}" filterMatchMode="exact">
-                                    <h:outputText value="#{cliente.idcliente}" />
-                                </p:column>
+                            <p:column headerText="ID" sortBy="#{cliente.idcliente}" filterBy="#{cliente.idcliente}" filterMatchMode="exact">
+                                <h:outputText value="#{cliente.idcliente}" />
+                            </p:column>
 
-                                <p:column headerText="Nombre" sortBy="#{cliente.nombreCliente}" filterBy="#{cliente.nombreCliente}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.nombreCliente}" />
-                                </p:column>
+                            <p:column headerText="Nombre" sortBy="#{cliente.nombreCliente}" filterBy="#{cliente.nombreCliente}" filterMatchMode="contains">
+                                <h:outputText value="#{cliente.nombreCliente}" />
+                            </p:column>
 
-                                <p:column headerText="Telefono" sortBy="#{cliente.telefonoCliente}" filterBy="#{cliente.telefonoCliente}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.telefonoCliente}" />
-                                </p:column>
+                            <p:column headerText="Telefono" sortBy="#{cliente.telefonoCliente}" filterBy="#{cliente.telefonoCliente}" filterMatchMode="contains">
+                                <h:outputText value="#{cliente.telefonoCliente}" />
+                            </p:column>
 
-                                <p:column headerText="Email" sortBy="#{cliente.emailCliente}" filterBy="#{cliente.emailCliente}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.emailCliente}" />
-                                </p:column>
+                            <p:column headerText="Email" sortBy="#{cliente.emailCliente}" filterBy="#{cliente.emailCliente}" filterMatchMode="contains">
+                                <h:outputText value="#{cliente.emailCliente}" />
+                            </p:column>
 
-                                <p:column headerText="Nit" sortBy="#{cliente.nit}" filterBy="#{cliente.nit}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.nit}" />
-                                </p:column>
+                            <p:column headerText="Nit" sortBy="#{cliente.nit}" filterBy="#{cliente.nit}" filterMatchMode="contains">
+                                <h:outputText value="#{cliente.nit}" />
+                            </p:column>
 
-                                <p:column headerText="Direccion" sortBy="#{cliente.direccionCliente}" filterBy="#{cliente.direccionCliente}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.direccionCliente}" />
-                                </p:column>
-                                
-                                <p:column headerText="DPI" sortBy="#{cliente.dpi}" filterBy="#{cliente.dpi}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.dpi}" />
-                                </p:column>  
-                                
-                                <p:column headerText="Cuenta Contable" sortBy="#{cliente.idcuentacontable}" filterBy="#{cliente.idcuentacontable}" filterMatchMode="contains">
-                                    <h:outputText value="#{cliente.idcuentacontable.nombrecuenta}" />
-                                </p:column> 
+                            <p:column headerText="Direccion" sortBy="#{cliente.direccionCliente}" filterBy="#{cliente.direccionCliente}" filterMatchMode="contains">
+                                <h:outputText value="#{cliente.direccionCliente}" />
+                            </p:column>
 
-                            </p:dataTable>
+                            <p:column headerText="DPI" sortBy="#{cliente.dpi}" filterBy="#{cliente.dpi}" filterMatchMode="contains">
+                                <h:outputText value="#{cliente.dpi}" />
+                            </p:column>  
+
+                            <p:column headerText="Cuenta Contable" sortBy="#{cliente.idcuentacontable}" filterBy="#{cliente.idcuentacontable}" filterMatchMode="contains">
+                                <h:outputText value="#{cliente.idcuentacontable.nombrecuenta}" />
+                            </p:column> 
+
+                        </p:dataTable>
                     </div> 
                 </p:tab>                   
 
@@ -236,7 +243,7 @@
                     
                 </p:tab>-->
             </p:tabView>
-            </h:form>
+        </h:form>
         <h:form>
             <p:panel>
                 <div class="layout-footer">
