@@ -532,7 +532,7 @@ public class FacturasCVUI implements Serializable {
             clientes = clienteL.findAllCliente();
             clienteItems = new ArrayList<>();
             for (Cliente cliente : clientes) {
-                clienteItems.add(new SelectItem(cliente.getIdcliente(), cliente.getNombreCliente()));
+                clienteItems.add(new SelectItem(cliente.getIdcliente(), cliente.getNombreCliente() + " - " + cliente.getNit()));
 
             }
         } catch (Exception e) {
@@ -610,7 +610,7 @@ public class FacturasCVUI implements Serializable {
             System.out.println("valor total " + subTotal);
             FacturasServicio nuevaFactura = new FacturasServicio();
             if (!listaActualizada.isEmpty()) {
-                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, this.totalFac, this.tipo_pago, this.nit, this.tipoFactura);
+                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idCliente, this.totalFac, this.tipo_pago, this.tipoFactura, this.idCliente);
                 if (idFacturaCab != 0) {
                     //registradetalle
                     if (nuevaFactura.registroFacturaDet(idFacturaCab, listaActualizada)) {
@@ -652,7 +652,7 @@ public class FacturasCVUI implements Serializable {
                 } else {
                     this.tipoFactura = 2;
                 }
-                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idProveedor, this.totalFac, this.tipo_pago, this.nit, this.tipoFactura);
+                idFacturaCab = nuevaFactura.insertarFacturacab(this.plazos_pago, this.idProveedor, this.totalFac, this.tipo_pago, this.tipoFactura, this.idCliente);
                 if (idFacturaCab != 0) {
                     //registradetalle
                     if (nuevaFactura.registroDBDetalleCompra(idFacturaCab, listaActualizada)) {
