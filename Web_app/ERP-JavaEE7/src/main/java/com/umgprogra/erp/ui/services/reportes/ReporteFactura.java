@@ -39,16 +39,28 @@ import net.sf.jasperreports.engine.util.JRLoader;
 @ViewScoped
 public class ReporteFactura implements Serializable{
     
+    
+    private Integer idfactura;
 
+    public Integer getIdfactura() {
+        return idfactura;
+    }
+
+    public void setIdfactura(Integer idfactura) {
+        this.idfactura = idfactura;
+    }
+    
+ 
     EntityManager entity = JpaUtil.getEntityManagerFactory().createEntityManager();
 
     public void generarReporte(ActionEvent pActionEvent) {
         System.out.println("Ingresa generarReporte");
         try {
-
+                
             List<Facturadet> resultados = null;
 
-            Query query2 = entity.createNamedQuery("Facturadet.findAll", Facturadet.class);
+            Query query2 = entity.createNamedQuery("Facturadet.findByIdtransaccion", Facturadet.class)
+                    .setParameter("idtransaccion", this.idfactura);
 
             resultados = query2.getResultList();
 
